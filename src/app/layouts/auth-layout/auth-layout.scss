@@ -1,0 +1,23 @@
+@use '../../styles/base/padding' as *;
+@use '../../styles/base/fonts' as *;
+@use '../../styles/base/border' as * ;
+
+.auth-layout{
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100vh;
+}
+.auth-layout__header{
+  background-color: #292323;
+  padding: $padding-md;
+  }
+ .auth-layout__main{
+  padding: $padding-md;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ }
+ .auth-layout__footer{
+  background-color: #211e1e;
+  padding: $padding-md;
+  text-align: center; }

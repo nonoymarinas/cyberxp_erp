@@ -1,0 +1,23 @@
+/* ==========================================
+   SPACING SCALE
+========================================== */
+
+$space-0: 0;
+$space-xxs: 2px;
+$space-xs: 4px;
+$space-sm: 8px;
+$space-md: 12px;
+$space-lg: 16px;
+$space-xl: 20px;
+$space-2xl: 24px;
+$space-3xl: 32px;
+$space-4xl: 40px;
+$space-5xl: 48px;
+$space-6xl: 64px;
+
+$padding-xxs: $space-xxs $space-sm;
+$padding-xs: $space-xs $space-md;
+$padding-sm: $space-sm $space-lg;
+$padding-md: 10px  $space-lg;
+$padding-lg: 12px  $space-xl;
+$padding-xl: 14px  $space-2xl;
