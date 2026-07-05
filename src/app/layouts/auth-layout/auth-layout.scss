@@ -1,6 +1,4 @@
-@use '../../styles/base/padding' as *;
-@use '../../styles/base/fonts' as *;
-@use '../../styles/base/border' as * ;
+@use 'base' as *;
 
 .auth-layout{
   display: grid;
