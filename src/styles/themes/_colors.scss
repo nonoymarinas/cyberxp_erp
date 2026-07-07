@@ -1,0 +1,61 @@
+:root {
+   /*dark neutral scale with litle tint blue*/
+   --grey-010: #F5F5F5;
+   --dark-100: #F6F7F9;
+   --dark-200: #E6E8EC;
+   --dark-300: #D1D5DB;
+   --dark-400: #A2A6AD;
+   --dark-500: #717680;
+   --dark-600: #4B515C;
+   --dark-700: #323843;
+   --dark-800: #1C2026;
+   --dark-900: #080a0e;
+   --dark-000: #000000;
+
+   /*semantic colors*/
+
+   --color-background: var(--dark-900);
+   --color-surface: var(--dark-800);
+   --color-card: var(--dark-700);
+   --color-elevated: var(--dark-600);
+
+   --color-border: var(--dark-600);
+   --color-border-hover: var(--dark-500);
+
+   --color-text-primary: var(--dark-100);
+   --color-text-secondary: var(--dark-300);
+   --color-text-muted: var(--dark-400);
+   --color-text-disabled: var(--dark-500);
+
+   /* Borders */
+   --color-border-subtle: #252C35;
+   --color-border: #323843;
+   --color-border-strong: #4B515C;
+   --color-border-focus: #6B7280;
+
+   /* Optional */
+   --color-divider: rgba(255, 255, 255, 0.08);
+
+   /* Inputs */
+   --input-background: var(--dark-800);
+   --input-border: var(--dark-600);
+   --input-border-focus: var(--dark-400);
+
+   /* Buttons */
+   --button-primary-background: var(--dark-100);
+   --button-primary-color: var(--dark-900);
+
+   --button-secondary-background: transparent;
+   --button-secondary-border: var(--dark-500);
+   --button-secondary-color: var(--dark-100);
+
+   /* States */
+   --hover: rgba(255, 255, 255, 0.05);
+   --active: rgba(255, 255, 255, 0.08);
+   --focus: rgba(255, 255, 255, 0.12);
+
+   /* Shadows */
+   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.45);
+   --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.55);
+}

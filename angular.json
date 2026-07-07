@@ -24,7 +24,7 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "stylePreprocessorOptions": {
-              "includePaths": ["src/app/styles"]
+              "includePaths": ["src/styles"]
             },
             "assets": [
               {

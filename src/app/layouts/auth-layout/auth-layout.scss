@@ -1,21 +1,29 @@
 @use 'base' as *;
+@use 'icons' as *;
+// @use 'themes' as *;
 
-.auth-layout{
+.auth-layout {
   display: grid;
   grid-template-rows: auto 1fr auto;
   height: 100vh;
 }
-.auth-layout__header{
-  background-color: #292323;
+
+.auth-layout__header {
+  background-color: var(--color-background);
   padding: $padding-md;
-  }
- .auth-layout__main{
+  height: 60px;
+}
+
+.auth-layout__body {
+  background-color: var(--color-background);
   padding: $padding-md;
-  display: flex;
   justify-content: center;
   align-items: center;
- }
- .auth-layout__footer{
-  background-color: #211e1e;
+}
+
+.auth-layout__footer {
+  background-color: var(--color-background);
   padding: $padding-md;
-  text-align: center; }
+  text-align: center;
+  height: 60px;
+}

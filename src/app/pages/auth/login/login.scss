@@ -1,0 +1,34 @@
+.login-box {
+    display: grid;
+    margin:10vh auto 0 auto;
+    grid-template-rows: auto auto auto auto;
+    max-width: 500px;
+    width: 100%;
+    background-color: none;
+    border: 1px solid var(--color-border-subtle);
+}
+
+.login-box__logo__box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.login-box__username__box {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-box__password__box {
+    min-height: 100px;
+}
+
+.login-box__button__box {
+    min-height: 100px;
+}
+.label-username,.label-password {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--dark-100);
+}

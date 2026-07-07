@@ -1,0 +1,39 @@
+:root {
+    --icon-fill-active: rgba(255, 255, 255, 0.7);
+    --icon-fill-hover: rgba(43, 43, 43, 0.616);
+    --icon-fill-focus: rgba(255, 255, 255, 0.5);
+    --icon-fill-disabled: rgba(255, 255, 255, 0.1);
+    --icon-stroke-active:  rgba(255,255,255, 0.7);
+    --icon-stroke-hover:  rgba(255,255,255, 0.3);
+    --icon-stroke-focus:  rgba(255,255,255, 0.3);
+     --icon-stroke-disabled: rgba(255, 255, 255, 0.1);
+    --icon-background:  rgba(255,255,255, 0.05);
+}
+
+.icon-active {
+    color: var(--dark-100);
+}
+
+.icon-primary {
+    color: var(--dark-200);
+}
+
+.icon-secondary {
+    color: var(--dark-300);
+}
+
+.icon-muted {
+    color: var(--dark-400);
+}
+
+.icon-disabled {
+    color: var(--dark-500);
+}
+
+.icon-border {
+    color: var(--dark-600);
+}
+
+.icon-inverse {
+    color: var(--dark-800);
+}
