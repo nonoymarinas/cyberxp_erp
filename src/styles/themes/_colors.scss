@@ -24,6 +24,7 @@
 
    --color-text-primary: var(--dark-100);
    --color-text-secondary: var(--dark-300);
+   --color-text-tertiary: var(--dark-400);
    --color-text-muted: var(--dark-400);
    --color-text-disabled: var(--dark-500);
 
@@ -42,7 +43,9 @@
    --input-border-focus: var(--dark-400);
 
    /* Buttons */
-   --button-primary-background: var(--dark-100);
+   --button-primary-background: var(--dark-300);
+   --button-primary-background-hover: var(--dark-400);
+   --button-primary-background-active: var(--dark-500);
    --button-primary-color: var(--dark-900);
 
    --button-secondary-background: transparent;
