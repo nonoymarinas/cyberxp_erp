@@ -1,0 +1,21 @@
+:root{
+  --height-icon-sm:16px;
+  --height-icon-md:24px;
+  --height-icon-lg:32px;
+  --height-icon-xl:48px;
+
+  --width-icon-sm:16px;
+  --width-icon-md:24px;
+  --width-icon-lg:32px;
+  --width-icon-xl:48px;
+
+  --stroke-color-icon-default:var(--grey-200);
+  --stroke-color-icon-disabled:var(--grey-600);
+  --stroke-color-icon-hover:var(--grey-100);
+
+  --stroke-width-hairline:.25px;
+  --stroke-width-thin:.5px;
+  --stroke-width-medium:1px;
+  --stroke-width-thick:3px;
+  --stroke-width-heavy:4px;
+}

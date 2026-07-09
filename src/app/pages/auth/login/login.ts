@@ -1,13 +1,11 @@
-import { Component } from '@angular/core';
-import{IconCyberxp} from '../../../shared/components/icons/icon-cyberxp/icon-cyberxp';
-import { InputLogin } from "../../../shared/components/inputs/input-login/input-login";
+import { Component, Input } from '@angular/core';
 import { ButtonLogin } from "../../../shared/components/buttons/button-login/button-login";
-
+import{  IconCyberxpXl } from 'cyberxp-ui'
 
 @Component({
   selector: 'app-login',
-  imports: [IconCyberxp, InputLogin, ButtonLogin],
+  imports: [ButtonLogin, IconCyberxpXl],
   templateUrl: './login.html',
-  styleUrl: './login.scss',
+  styleUrl: './login.css',
 })
 export class Login {}

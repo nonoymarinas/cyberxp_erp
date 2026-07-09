@@ -1,0 +1,28 @@
+:root {
+   --font-family: "Inter", sans-serif;
+
+   /* Font Sizes */
+   --font-size-3xs: 6px;
+   --font-size-2xs: 8px;
+   --font-size-1xs: 10px;
+   --font-size-xs: 12px;
+   --font-size-sm: 14px;
+   --font-size-md: 16px;
+   --font-size-lg: 18px;
+   --font-size-xl: 20px;
+   --font-size-2xl: 24px;
+   --font-size-3xl: 30px;
+   --font-size-4xl: 36px;
+   --font-size-5xl: 48px;
+   --font-size-6xl: 60px;
+   --font-size-7xl: 72px;
+   --font-size-8xl: 96px;
+
+
+   --font-weight-regular: 400;
+   --font-weight-medium: 500;
+   --font-weight-semibold: 600;
+   --font-weight-bold: 700;
+
+   --line-height: 1.5;
+}

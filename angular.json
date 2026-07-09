@@ -2,7 +2,8 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "npm",
+    "analytics": false
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -10,7 +11,7 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "css"
         }
       },
       "root": "",
@@ -22,7 +23,7 @@
           "options": {
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
+            "inlineStyleLanguage": "css",
             "stylePreprocessorOptions": {
               "includePaths": ["src/styles"]
             },
@@ -32,7 +33,7 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss"]
+            "styles": ["src/styles.css"]
           },
           "configurations": {
             "production": {
@@ -72,6 +73,58 @@
         },
         "test": {
           "builder": "@angular/build:unit-test"
+        }
+      }
+    },
+    "cyberxp-ui": {
+      "projectType": "library",
+      "root": "projects/cyberxp-ui",
+      "sourceRoot": "projects/cyberxp-ui/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/cyberxp-ui/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/cyberxp-ui/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/cyberxp-ui/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "cyberxp-styles": {
+      "projectType": "library",
+      "root": "projects/cyberxp-styles",
+      "sourceRoot": "projects/cyberxp-styles/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/cyberxp-styles/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/cyberxp-styles/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/cyberxp-styles/tsconfig.spec.json"
+          }
         }
       }
     }

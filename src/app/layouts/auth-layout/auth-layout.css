@@ -1,0 +1,27 @@
+
+
+.auth-layout {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100vh;
+}
+
+.auth-layout__header {
+  background-color: black;
+  padding: 12px;
+  height: 60px;
+}
+
+.auth-layout__body {
+  background-color: black;
+  padding: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-layout__footer {
+  background-color: black;
+  padding: 12px;
+  text-align: center;
+  height: 60px;
+}

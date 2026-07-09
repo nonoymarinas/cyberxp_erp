@@ -1,0 +1,14 @@
+:root {
+    /* app */
+    --color-background: var(--grey-900);
+    --color-surface: var(--grey-800);
+    --color-card: var(--grey-700);
+    --color-elevated: var(--grey-600);
+
+    /* text */
+    --color-text-primary: var(--grey-000);
+    --color-text-secondary: var(--grey-300);
+    --color-text-muted: var(--grey-500);
+    --color-text-disabled: var(--grey-600);
+    --color-text-inverse: var(--grey-900);
+}

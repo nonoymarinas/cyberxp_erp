@@ -1,0 +1,11 @@
+.icon-svg polygon, 
+.icon-svg path {
+    fill: none;
+    stroke: var(--stroke-color-icon-default);
+    stroke-width: var(--stroke-width-hairline);
+}
+
+.icon-svg {
+  width: var(--width-icon-sm);
+  height: var(--height-icon-sm);
+}

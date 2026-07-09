@@ -1,0 +1,80 @@
+:root {
+
+
+  /* Cool Neutral (Very Slight Blue Tint) */
+
+  --grey-000: #FFFFFF;
+  --grey-050: #FAFBFC;
+  --grey-100: #F5F7F9;
+  --grey-200: #E8EBEF;
+  --grey-300: #D7DCE3;
+  --grey-400: #B3BCC7;
+  --grey-500: #8A94A3;
+  --grey-600: #667180;
+  --grey-700: #47515F;
+  --grey-800: #2B333E;
+  --grey-900: #141A21;
+  --grey-1000: #080A0E;
+
+  /* app */
+  --color-background: var(--grey-900);
+  --color-surface: var(--grey-800);
+  --color-card: var(--grey-700);
+  --color-elevated: var(--grey-600);
+
+  /* text */
+  --color-text-primary: var(--grey-000);
+  --color-text-secondary: var(--grey-300);
+  --color-text-muted: var(--grey-500);
+  --color-text-disabled: var(--grey-600);
+  --color-text-inverse: var(--grey-900);
+
+  /* input */
+  --color-input-background: var(--grey-800);
+  --color-input-border: var(--grey-700);
+  --color-input-border-hover: var(--grey-600);
+  --color-input-border-focus: var(--grey-300);
+  --color-input-placeholder: var(--grey-500);
+  --color-input-disabled: var(--grey-700);
+
+  /* button */
+  --color-button-primary: var(--grey-000);
+  --color-button-primary-hover: var(--grey-100);
+  --color-button-primary-active: var(--grey-200);
+  --color-button-primary-text: var(--grey-900);
+
+  --color-button-secondary: transparent;
+  --color-button-secondary-hover: var(--grey-800);
+  --color-button-secondary-active: var(--grey-700);
+  --color-button-secondary-text: var(--grey-000);
+
+  /* icon */
+  --color-icon: var(--grey-200);
+  --color-icon-muted: var(--grey-500);
+  --color-icon-disabled: var(--grey-600);
+
+  /* table */
+  --color-table-header: var(--grey-800);
+  --color-table-row: transparent;
+  --color-table-row-hover: var(--grey-800);
+  --color-table-row-selected: var(--grey-700);
+  --color-table-border: var(--grey-700);
+
+  /* navigation */
+  --color-sidebar: var(--grey-900);
+  --color-sidebar-hover: var(--grey-800);
+  --color-sidebar-active: var(--grey-700);
+
+  /* feedback */
+  --color-success: #22C55E;
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
+  --color-info: #3B82F6;
+
+  /* overlay */
+  --color-overlay: rgba(0, 0, 0, 0.55);
+  --color-shadow: rgba(0, 0, 0, 0.30);
+
+  /* focus */
+  --color-focus-ring: rgba(255, 255, 255, 0.18);
+}

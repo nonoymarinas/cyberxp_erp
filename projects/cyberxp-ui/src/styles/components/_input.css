@@ -1,0 +1,45 @@
+:root {
+    /* Background */
+    --background-input-default: transparent;
+    --background-input-hover: var(--grey-900);
+    --background-input-focus: var(--grey-800);
+    --background-input-disabled: var(--grey-900);
+
+    /* Text */
+    --color-input-default: var(--grey-000);
+    --color-input-placeholder: var(--grey-500);
+    --color-input-disabled: var(--grey-600);
+
+    /* Border */
+    --border-input-thin-default: var(--border-width-thin) solid var(--grey-500);
+    --border-input-thin-hover: var(--border-width-thin) solid var(--grey-600);
+    --border-input-thin-focus: var(--border-width-thin) solid var(--grey-400);
+    --border-input-thin-disabled: var(--border-width-thin) solid var(--grey-800);
+
+    --border-input-medium-default: var(--border-width-medium) solid var(--grey-700);
+    --border-input-medium-hover: var(--border-width-medium) solid var(--grey-600);
+    --border-input-medium-focus: var(--border-width-medium) solid var(--grey-400);
+    --border-input-medium-disabled: var(--border-width-medium) solid var(--grey-800);
+
+    --border-input-thick-default: var(--border-width-thick) solid var(--grey-700);
+    --border-input-thick-hover: var(--border-width-thick) solid var(--grey-600);
+    --border-input-thick-focus: var(--border-width-thick) solid var(--grey-400);
+    --border-input-thick-disabled: var(--border-width-thick) solid var(--grey-800);
+
+    --border-input-heavy-default: var(--border-width-heavy) solid var(--grey-700);
+    --border-input-heavy-hover: var(--border-width-heavy) solid var(--grey-600);
+    --border-input-heavy-focus: var(--border-width-heavy) solid var(--grey-400);
+    --border-input-heavy-disabled: var(--border-width-heavy) solid var(--grey-800);
+
+    /* Fonts */
+    --font-input-family: var(--font-family);
+    --font-input-size-sm: var(--font-size-sm);
+    --font-input-size-lg: var(--font-size-lg);
+    --font-input-size-xl: var(--font-size-xl);
+    --font-input-size-2xl: var(--font-size-2xl);
+
+    --font-input-weight-regular: var(--font-weight-regular);
+    --font-input-weight-medium: var(--font-weight-medium);
+    --font-input-weight-semibold: var(--font-weight-semibold);
+    --font-input-weight-bold: var(--font-weight-bold);
+}

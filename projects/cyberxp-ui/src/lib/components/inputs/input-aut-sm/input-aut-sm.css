@@ -1,0 +1,29 @@
+.input-aut-sm {
+    font-size: var(--font-input-size-sm);
+    font-weight: var(--font-input-weight-regular);
+    color: var(--color-input-default);
+    background-color: var(--background-input-default);
+    border: var(--border-input-thin-default);
+    padding: var(--spacing-2) var(--spacing-3);
+}
+.input-aut-sm:hover {
+    border: var(--border-input-thin-hover);
+    background-color: var(--background-input-hover);
+}
+.input-aut-sm:focus {
+    font-weight: var(--font-input-weight-semibold);
+    border: var(--border-input-thin-focus);
+    background-color: var(--background-input-focus);
+}
+.input-aut-sm::placeholder{
+    color: var(--color-input-placeholder);
+    font-style: italic;
+    font-size: var(--font-input-size-sm);
+}
+
+@media (max-width: 768px) {
+    .input-aut-sm {
+        padding: var(--spacing-2) var(--spacing-3);
+        font-size: var(--font-input-size-sm);
+    }
+}

@@ -3,6 +3,10 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "cyberxp-styles": ["./dist/cyberxp-styles"],
+      "cyberxp-ui": ["./dist/cyberxp-ui"]
+    },
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
@@ -26,6 +30,18 @@
     },
     {
       "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/cyberxp-ui/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/cyberxp-ui/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/cyberxp-styles/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/cyberxp-styles/tsconfig.spec.json"
     }
   ]
 }
