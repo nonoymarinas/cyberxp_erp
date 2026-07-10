@@ -6,7 +6,7 @@
 
 .main-layout__header {
   display: grid;
-  grid-template-columns: auto auto 1fr;
+  grid-template-columns: auto auto 1fr auto;
   background-color: black;
   padding: .5rem 1rem;
   height: 60px;

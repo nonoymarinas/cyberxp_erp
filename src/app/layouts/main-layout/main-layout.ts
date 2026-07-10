@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { IconBurgerMenu } from 'cyberxp-ui';
+import { IconBurgerMenu, IconAppMenu } from 'cyberxp-ui';
 
 
 @Component({
   selector: 'app-main-layout',
   standalone:true,
-  imports: [RouterOutlet,IconBurgerMenu],
+  imports: [RouterOutlet,IconBurgerMenu,IconAppMenu],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.css',
 })

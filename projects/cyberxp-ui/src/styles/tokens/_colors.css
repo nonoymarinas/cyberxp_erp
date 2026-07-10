@@ -47,6 +47,8 @@
 
   --color-stroke-default: var(--grey-200);
 
+  --color-fill-default: var(--grey-200);
+
   /* input */
   --color-input-background: var(--grey-800);
   --color-input-border: var(--grey-700);
