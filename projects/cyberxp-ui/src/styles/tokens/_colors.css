@@ -29,6 +29,12 @@
   --color-text-disabled: var(--grey-600);
   --color-text-inverse: var(--grey-900);
 
+  /* border */
+  --color-border-default: var(--grey-700);
+  --color-border-hover: var(--grey-600);
+  --color-border-focus: var(--grey-300);
+  --color-border-disabled: var(--grey-600);
+
   /* input */
   --color-input-background: var(--grey-800);
   --color-input-border: var(--grey-700);

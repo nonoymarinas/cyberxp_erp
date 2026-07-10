@@ -10,6 +10,7 @@
   --width-icon-xl:48px;
 
   --stroke-color-icon-default:var(--grey-200);
+  --stroke-color-icon-muted:var(--grey-400);
   --stroke-color-icon-disabled:var(--grey-600);
   --stroke-color-icon-hover:var(--grey-100);
 

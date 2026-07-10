@@ -1,12 +1,11 @@
-
 .login-box {
     display: grid;
     margin: 10vh auto 0 auto;
-    grid-template-rows: auto auto auto auto;
+    grid-template-rows: max-content max-content max-content auto;
     max-width: 400px;
     width: 100%;
     background-color: none;
-    border: 1px solid var(--color-dark-200);
+    border: var(--border-width-thin) solid var(--color-border-default);
     padding: 2rem;
 }
 
@@ -15,6 +14,7 @@
     justify-content: center;
     align-items: center;
     padding-bottom: 2rem;
+    max-height: max-content;
 }
 
 .login-box__username__box {
@@ -22,6 +22,7 @@
     flex-direction: column;
     width: 100%;
     padding: 1rem 0;
+    max-height: max-content;
 }
 
 .login-box__password__box {
@@ -29,6 +30,7 @@
     flex-direction: column;
     width: 100%;
     padding: 1rem 0;
+    max-height: max-content;
 }
 
 .login-box__button__box {
@@ -39,23 +41,23 @@
 .label-username {
     font-family: var(--font-family);
     font-size: var(--font-size-md);
-    color: var(--dark-400);
+    color: var(--color-text-muted);
     padding-bottom: .5rem;
 }
 
 .label-password {
     font-family: var(--font-family);
     font-size: var(--font-size-md);
-    color: var(--dark-400);
+    color: var(--color-text-muted);
     padding-bottom: .5rem;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 768px) {
     .login-box {
-        margin: 5vh auto 0 auto;
-        padding: 1rem;
-         max-width: 100%;
-         height: 100vh;
+        margin: 0;
+        padding: 2rem;
+        max-width: 100%;
+        /* height: 100vh; */
+        border: none;
     }
 }
-

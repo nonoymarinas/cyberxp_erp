@@ -1,10 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { ButtonLogin } from "../../../shared/components/buttons/button-login/button-login";
-import{  IconCyberxpXl } from 'cyberxp-ui'
+import{  IconCyberxpXl,InputAutLg,InputAutMd,InputAutSm, ButtonAutMd} from 'cyberxp-ui'
 
 @Component({
   selector: 'app-login',
-  imports: [ButtonLogin, IconCyberxpXl],
+  imports: [IconCyberxpXl, InputAutLg, InputAutSm, InputAutMd, ButtonAutMd],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })

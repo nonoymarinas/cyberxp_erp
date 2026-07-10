@@ -11,10 +11,10 @@
     --color-input-disabled: var(--grey-600);
 
     /* Border */
-    --border-input-thin-default: var(--border-width-thin) solid var(--grey-500);
-    --border-input-thin-hover: var(--border-width-thin) solid var(--grey-600);
-    --border-input-thin-focus: var(--border-width-thin) solid var(--grey-400);
-    --border-input-thin-disabled: var(--border-width-thin) solid var(--grey-800);
+    --border-input-thin-default: var(--border-width-thin) solid var(--color-border-default);
+    --border-input-thin-hover: var(--border-width-thin) solid var(--color-border-hover);
+    --border-input-thin-focus: var(--border-width-thin) solid var(--color-border-focus);
+    --border-input-thin-disabled: var(--border-width-thin) solid var(--color-border-disabled);
 
     --border-input-medium-default: var(--border-width-medium) solid var(--grey-700);
     --border-input-medium-hover: var(--border-width-medium) solid var(--grey-600);
@@ -34,6 +34,7 @@
     /* Fonts */
     --font-input-family: var(--font-family);
     --font-input-size-sm: var(--font-size-sm);
+    --font-input-size-md: var(--font-size-md);
     --font-input-size-lg: var(--font-size-lg);
     --font-input-size-xl: var(--font-size-xl);
     --font-input-size-2xl: var(--font-size-2xl);

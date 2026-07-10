@@ -4,14 +4,14 @@
     color: var(--color-input-default);
     background-color: var(--background-input-default);
     border: var(--border-input-thin-default);
-    padding: var(--spacing-2) var(--spacing-3);
+    padding: var(--space-2) var(--space-3);
+    width: 100%;
 }
 .input-aut-md:hover {
     border: var(--border-input-thin-hover);
     background-color: var(--background-input-hover);
 }
 .input-aut-md:focus {
-    font-weight: var(--font-input-weight-semibold);
     border: var(--border-input-thin-focus);
     background-color: var(--background-input-focus);
 }
@@ -23,7 +23,7 @@
 
 @media (max-width: 768px) {
     .input-aut-md {
-        padding: var(--spacing-2) var(--spacing-3);
+        padding: var(--space-2) var(--space-3);
         font-size: var(--font-input-size-md);
     }
 }

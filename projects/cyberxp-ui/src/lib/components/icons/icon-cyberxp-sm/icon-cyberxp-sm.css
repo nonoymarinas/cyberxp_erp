@@ -1,7 +1,7 @@
 .icon-svg polygon, 
 .icon-svg path {
     fill: none;
-    stroke: var(--stroke-color-icon-default);
+    stroke: var(--stroke-color-icon-muted);
     stroke-width: var(--stroke-width-hairline);
 }
 

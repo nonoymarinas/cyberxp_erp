@@ -1,8 +1,8 @@
 .icon-svg polygon, 
 .icon-svg path {
     fill: none;
-    stroke: var(--stroke-color-icon-default);
-    stroke-width: var(--stroke-width-thick);
+    stroke: var(--stroke-color-icon-muted);
+    stroke-width: var(--stroke-width-thin);
 }
 
 .icon-svg {

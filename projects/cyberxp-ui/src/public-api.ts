@@ -10,3 +10,4 @@ export * from './lib/components/icons/icon-cyberxp-sm/icon-cyberxp-sm';
 export * from './lib/components/icons/icon-cyberxp-md/icon-cyberxp-md';
 export * from './lib/components/icons/icon-cyberxp-lg/icon-cyberxp-lg';
 export * from './lib/components/icons/icon-cyberxp-xl/icon-cyberxp-xl';
+export * from './lib/components/buttons/button-aut-md/button-aut-md';
