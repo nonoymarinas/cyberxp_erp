@@ -3,11 +3,11 @@
     --icon-fill-hover: rgba(43, 43, 43, 0.616);
     --icon-fill-focus: rgba(255, 255, 255, 0.5);
     --icon-fill-disabled: rgba(255, 255, 255, 0.1);
-    --icon-stroke-active:  rgba(255,255,255, 0.7);
-    --icon-stroke-hover:  rgba(255,255,255, 0.3);
-    --icon-stroke-focus:  rgba(255,255,255, 0.3);
-     --icon-stroke-disabled: rgba(255, 255, 255, 0.1);
-    --icon-background:  rgba(255,255,255, 0.05);
+    --icon-stroke-active: rgba(255, 255, 255, 0.7);
+    --icon-stroke-hover: rgba(255, 255, 255, 0.3);
+    --icon-stroke-focus: rgba(255, 255, 255, 0.3);
+    --icon-stroke-disabled: rgba(255, 255, 255, 0.1);
+    --icon-background: rgba(255, 255, 255, 0.05);
 }
 
 .icon-active {

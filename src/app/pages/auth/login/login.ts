@@ -1,10 +1,19 @@
-import { Component, Input } from '@angular/core';
-import{  IconCyberxpXl,InputAutLg,InputAutMd,InputAutSm, ButtonAutMd} from 'cyberxp-ui'
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import{  IconCyberxpXl,InputAutMd, ButtonAutMd} from 'cyberxp-ui'
 
 @Component({
   selector: 'app-login',
-  imports: [IconCyberxpXl, InputAutLg, InputAutSm, InputAutMd, ButtonAutMd],
+  imports: [IconCyberxpXl, InputAutMd, ButtonAutMd],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-export class Login {}
+export class Login {
+  constructor(private router: Router) {}
+
+  login(): void {
+    // TODO: Validate credentials first
+
+    this.router.navigate(['/app']);
+  }
+}

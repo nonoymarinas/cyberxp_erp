@@ -16,6 +16,16 @@
   --grey-900: #141A21;
   --grey-1000: #080A0E;
 
+  --blue-100: #EAF4FF;
+  --blue-200: #CFE7FF;
+  --blue-300: #A8D2FF;
+  --blue-400: #73B6FF;
+  --blue-500: #3B82F6;
+  --blue-600: #2563EB;
+  --blue-700: #1D4ED8;
+  --blue-800: #1E40AF;
+  --blue-900: #172554;
+
   /* app */
   --color-background: var(--grey-900);
   --color-surface: var(--grey-800);
@@ -28,12 +38,14 @@
   --color-text-muted: var(--grey-500);
   --color-text-disabled: var(--grey-600);
   --color-text-inverse: var(--grey-900);
-
+  --color-text-link: var(--blue-800);
   /* border */
   --color-border-default: var(--grey-700);
   --color-border-hover: var(--grey-600);
   --color-border-focus: var(--grey-300);
   --color-border-disabled: var(--grey-600);
+
+  --color-stroke-default: var(--grey-200);
 
   /* input */
   --color-input-background: var(--grey-800);
@@ -57,7 +69,7 @@
   /* icon */
   --color-icon: var(--grey-200);
   --color-icon-muted: var(--grey-500);
-  --color-icon-disabled: var(--grey-600);
+  --color-icon-disabled: var(--grey-800);
 
   /* table */
   --color-table-header: var(--grey-800);

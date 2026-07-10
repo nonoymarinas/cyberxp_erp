@@ -12,6 +12,18 @@
     <input-aut-md></input-aut-md>
   </div>
   <div class="login-box__button__box">
-    <button-aut-md></button-aut-md>
+    <button-aut-md (clicked)="login()"></button-aut-md>
+  </div>
+  <div class="login-box__create-forget__box">
+    <a href="#" class="create-account-label">Create account?</a>
+    <a href="#" class="forget-password-label">Forget password?</a>
+  </div>
+  <div class="login-box__agreement__box">
+    <p class="agreement-notes-label">
+      By signing in, you agree to our
+      <a href="#" class="terms-policy-label" routerLink="/terms">Terms of Service</a>
+      and
+      <a href="#" class="terms-policy-label" routerLink="/privacy">Privacy Policy</a>.
+    </p>
   </div>
 </div>

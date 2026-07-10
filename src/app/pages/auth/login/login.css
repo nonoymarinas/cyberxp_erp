@@ -1,10 +1,10 @@
 .login-box {
     display: grid;
     margin: 10vh auto 0 auto;
-    grid-template-rows: max-content max-content max-content auto;
+    grid-template-rows: max-content max-content max-content max-content max-content auto;
     max-width: 400px;
     width: 100%;
-    background-color: none;
+    background: none;
     border: var(--border-width-thin) solid var(--color-border-default);
     padding: 2rem;
 }
@@ -21,7 +21,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 1rem 0;
+    padding-bottom: 1.5rem;
     max-height: max-content;
 }
 
@@ -29,7 +29,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 1rem 0;
+    padding-bottom: 1.5rem;
     max-height: max-content;
 }
 
@@ -38,19 +38,62 @@
     padding: 1rem 0;
 }
 
+.login-box__create-forget__box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    padding: 1rem 0;
+}
+
 .label-username {
     font-family: var(--font-family);
     font-size: var(--font-size-md);
     color: var(--color-text-muted);
-    padding-bottom: .5rem;
+    padding-bottom: .2rem;
+    letter-spacing: 1px;
 }
 
 .label-password {
     font-family: var(--font-family);
     font-size: var(--font-size-md);
     color: var(--color-text-muted);
-    padding-bottom: .5rem;
+    padding-bottom: .2rem;
+    letter-spacing: 1px;
 }
+
+.forget-password-label {
+    font-family: var(--font-family);
+    color: var(--color-text-muted);
+    justify-self: self-end;
+}
+
+.create-account-label {
+    font-family: var(--font-family);
+    color: var(--color-text-muted);
+}
+
+.forget-password-label:hover {
+    color: var(--color-text-link);
+}
+
+.create-account-label:hover {
+    color: var(--color-text-link);
+}
+
+.agreement-notes-label {
+    font-size: var(--font-size-sm);
+    font-family: var(--font-family);
+    color: var(--color-text-muted);
+    letter-spacing: .5px;
+    font-weight: 100;
+    text-align: justify;
+    margin:1rem 0;
+}
+
+.terms-policy-label:hover {
+    color: var(--color-text-link);
+}
+
 
 @media (max-width: 768px) {
     .login-box {
