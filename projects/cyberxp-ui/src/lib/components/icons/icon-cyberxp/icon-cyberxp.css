@@ -1,0 +1,88 @@
+/* ========================================
+   Icon
+   ======================================== */
+
+.icon {
+    display: block;
+    flex-shrink: 0;
+
+    transition:
+        fill .15s ease,
+        stroke .15s ease,
+        color .15s ease;
+}
+
+/* ========================================
+   Size
+   ======================================== */
+
+.icon--xs {
+    width: 24px;
+    height: 24px;
+}
+
+.icon--sm {
+    width: 48px;
+    height: 48px;
+}
+
+.icon--md {
+    width: 72px;
+    height: 72px;
+}
+
+.icon--lg {
+    width: 96px;
+    height: 96px;
+}
+
+.icon--xl {
+    width: 120px;
+    height: 120px;
+}
+
+/* ========================================
+   Theme
+   ======================================== */
+
+.icon--dark {
+    color:var(--color-icon-dark)
+}
+
+.icon--light {
+    color:var(--color-icon-light)
+}
+
+/* ========================================
+   Fill
+   ======================================== */
+
+.icon--filled polygon,
+.icon--filled path,
+.icon--filled rect,
+.icon--filled circle,
+.icon--filled ellipse,
+.icon--filled line,
+.icon--filled polyline {
+    fill: currentColor;
+    stroke: none;
+}
+
+/* ========================================
+   Outline
+   ======================================== */
+
+.icon--outline polygon,
+.icon--outline path,
+.icon--outline rect,
+.icon--outline circle,
+.icon--outline ellipse,
+.icon--outline line,
+.icon--outline polyline {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: var(--width-line-02);
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}

@@ -1,0 +1,11 @@
+<button
+  [type]="type"
+  [disabled]="disabled"
+  class="button-login"
+  [class.button-login--dark]="theme === 'dark'"
+  [class.button-login--light]="theme === 'light'"
+  (click)="onClick($event)">
+
+  <ng-content></ng-content>
+
+</button>

@@ -1,9 +1,10 @@
 :root {
    
     /* text */
-    --color-text-primary: var(--grey-000);
-    --color-text-secondary: var(--grey-300);
-    --color-text-muted: var(--grey-500);
-    --color-text-disabled: var(--grey-600);
-    --color-text-inverse: var(--grey-900);
+    --color-text-primary: var(--color-text-000);
+    --color-text-secondary: var(--color-text-030);
+    --color-text-tertiary:var(--color-text-050);
+    --color-text-muted: var(--color-text-060);
+    --color-text-disabled: var(--color-text-080);
+    --color-text-inverse: var(--color-text-090);
 }

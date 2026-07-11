@@ -5,7 +5,7 @@
     max-width: 400px;
     width: 100%;
     background: none;
-    border: var(--border-width-thin) solid var(--color-border-default);
+    border: var(--width-line-02) solid var(--color-border-dark-default);
     padding: 2rem;
 }
 
@@ -48,28 +48,30 @@
 .label-username {
     font-family: var(--font-family);
     font-size: var(--font-size-md);
-    color: var(--color-text-muted);
+    color: var(--color-text-04);
     padding-bottom: .2rem;
     letter-spacing: 1px;
+    display: none;
 }
 
 .label-password {
     font-family: var(--font-family);
     font-size: var(--font-size-md);
-    color: var(--color-text-muted);
+     color: var(--color-text-04);
     padding-bottom: .2rem;
     letter-spacing: 1px;
+    display: none;
 }
 
 .forget-password-label {
     font-family: var(--font-family);
-    color: var(--color-text-muted);
+     color: var(--color-text-03);
     justify-self: self-end;
 }
 
 .create-account-label {
     font-family: var(--font-family);
-    color: var(--color-text-muted);
+     color: var(--color-text-03);
 }
 
 .forget-password-label:hover {
@@ -81,9 +83,9 @@
 }
 
 .agreement-notes-label {
-    font-size: var(--font-size-sm);
+    font-size: var(--text-size-05);
     font-family: var(--font-family);
-    color: var(--color-text-muted);
+    color: var(--color-text-05);
     letter-spacing: .5px;
     font-weight: 100;
     text-align: justify;

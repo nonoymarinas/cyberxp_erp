@@ -1,19 +1,42 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import{  IconCyberxpXl,InputAutMd, ButtonAutMd} from 'cyberxp-ui'
+import { RouterLink } from '@angular/router';
+
+import {
+  ButtonLogin,
+  CxpInput,
+  IconCyberxp,
+  IconEye,
+  IconPassword,
+  IconUser,
+} from 'cyberxp-ui';
 
 @Component({
   selector: 'app-login',
-  imports: [IconCyberxpXl, InputAutMd, ButtonAutMd],
+  standalone: true,
+  imports: [
+    RouterLink,
+    ButtonLogin,
+    CxpInput,
+    IconCyberxp,
+    IconUser,
+    IconPassword,
+    IconEye,
+  ],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
 export class Login {
-  constructor(private router: Router) {}
+  passwordVisible = false;
+
+  get passwordHidden(): boolean {
+    return !this.passwordVisible;
+  }
+
+  togglePasswordVisibility(): void {
+    this.passwordVisible = !this.passwordVisible;
+  }
 
   login(): void {
-    // TODO: Validate credentials first
-
-    this.router.navigate(['/app']);
+    console.log('Login clicked');
   }
 }

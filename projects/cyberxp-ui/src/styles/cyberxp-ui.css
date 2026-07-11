@@ -2,8 +2,8 @@
 @import "./tokens/_borders.css";
 @import "./tokens/_reset.css";
 @import "./tokens/_spacing.css";
-@import "./tokens/_stroke.css";
 @import "./tokens/_typography.css";
+@import "./tokens/_width.css";
 
 @import "./components/_input.css";
 @import "./components/_base.css";

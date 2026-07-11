@@ -2,27 +2,59 @@
    --font-family: "Inter", sans-serif;
 
    /* Font Sizes */
-   --font-size-3xs: 6px;
-   --font-size-2xs: 8px;
-   --font-size-1xs: 10px;
-   --font-size-xs: 12px;
-   --font-size-sm: 14px;
-   --font-size-md: 16px;
-   --font-size-lg: 18px;
-   --font-size-xl: 20px;
-   --font-size-2xl: 24px;
-   --font-size-3xl: 30px;
-   --font-size-4xl: 36px;
-   --font-size-5xl: 48px;
-   --font-size-6xl: 60px;
-   --font-size-7xl: 72px;
-   --font-size-8xl: 96px;
+   /* Text Size */
 
+   --text-size-01: 6px;
+   --text-size-02: 8px;
+   --text-size-03: 10px;
+   --text-size-04: 12px;
+   --text-size-05: 14px;
+   --text-size-06: 16px;
+   --text-size-07: 18px;
+   --text-size-08: 20px;
+   --text-size-09: 22px;
+   --text-size-10: 24px;
+   --text-size-11: 26px;
+   --text-size-12: 28px;
+   --text-size-13: 30px;
+   --text-size-14: 32px;
+   --text-size-15: 34px;
+   --text-size-16: 36px;
+   --text-size-17: 38px;
+   --text-size-18: 40px;
+   --text-size-19: 42px;
+   --text-size-20: 44px;
+   --text-size-21: 46px;
+   --text-size-22: 48px;
+   --text-size-23: 50px;
+   --text-size-24: 52px;
+   --text-size-25: 54px;
+   --text-size-26: 56px;
+   --text-size-27: 58px;
+   --text-size-28: 60px;
+   --text-size-29: 62px;
+   --text-size-30: 64px;
+   --text-size-31: 66px;
+   --text-size-32: 68px;
+   --text-size-33: 70px;
+   --text-size-34: 72px;
+   --text-size-35: 74px;
+   --text-size-36: 76px;
+   --text-size-37: 78px;
+   --text-size-38: 80px;
+   --text-size-39: 82px;
+   --text-size-40: 84px;
+   --text-size-41: 86px;
+   --text-size-42: 88px;
+   --text-size-43: 90px;
+   --text-size-44: 92px;
+   --text-size-45: 94px;
+   --text-size-46: 96px;
+   --text-size-47: 98px;
+   --text-size-48: 100px;
 
-   --font-weight-regular: 400;
-   --font-weight-medium: 500;
-   --font-weight-semibold: 600;
-   --font-weight-bold: 700;
-
-   --line-height: 1.5;
+   --text-weight-regular: 400;
+   --text-weight-medium: 500;
+   --text-weight-semibold: 600;
+   --text-weight-bold: 700;
 }

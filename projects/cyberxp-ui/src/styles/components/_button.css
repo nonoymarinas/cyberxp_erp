@@ -1,17 +1,46 @@
-:root{
-     /* Background */
-    --background-button-default: var(--grey-300);
-    --background-button-hover: var(--grey-200);
-    --background-button-focus: var(--grey-200);
-    --background-button-disabled: var(--grey-700);
+:root {
+     /* Button Login Dark */
 
-    /* Text */
-    --color-button-default: var(--grey-000);
-    --color-button-disabled: var(--grey-600);
+  --button-dark-background-default: var(--color-background-10);
+  --button-dark-background-hover: var(--color-background-06);
+  --button-dark-background-focus: var(--color-background-06);
+  --button-dark-background-active: var(--color-background-07);
+  --button-dark-background-disabled: var(--color-background-09);
 
-    /* Border */
-    --border-button-thin-default: var(--border-width-thin) solid var(--color-border-default);
-    --border-button-thin-hover: var(--border-width-thin) solid var(--color-border-hover);
-    --border-button-thin-focus: var(--border-width-thin) solid var(--color-border-focus);
-    --border-button-thin-disabled: var(--border-width-thin) solid var(--color-border-disabled);
+  --button-dark-border-color-default: var(--color-border-07);
+  --button-dark-border-color-hover: var(--color-border-06);
+  --button-dark-border-color-focus: var(--color-border-06);
+  --button-dark-border-color-active: var(--color-border-06);
+  --button-dark-border-color-disabled: var(--color-border-09);
+
+  --button-dark-text-color-default: var(--color-text-03);
+  --button-dark-text-color-hover: var(--color-text-02);
+  --button-dark-text-color-focus: var(--color-text-02);
+  --button-dark-text-color-active: var(--color-text-02);
+  --button-dark-text-color-disabled: var(--color-text-06);
+
+  --button-dark-border-width: var(--width-line-04);
+
+  /* Button Login Light */
+
+  --button-light-background-default: var(--color-background-03);
+  --button-light-background-hover: var(--color-background-02);
+  --button-light-background-focus: var(--color-background-02);
+  --button-light-background-active: var(--color-background-04);
+  --button-light-background-disabled: var(--color-background-07);
+
+  --button-light-border-color-default: var(--color-border-03);
+  --button-light-border-color-hover: var(--color-border-02);
+  --button-light-border-color-focus: var(--color-border-02);
+  --button-light-border-color-active: var(--color-border-04);
+  --button-light-border-color-disabled: var(--color-border-07);
+
+  --button-light-text-color-default: var(--color-text-09);
+  --button-light-text-color-hover: var(--color-text-09);
+  --button-light-text-color-focus: var(--color-text-09);
+  --button-light-text-color-active: var(--color-text-09);
+  --button-light-text-color-disabled: var(--color-text-06);
+
+  --button-light-border-width: var(--width-line-04);
+
 }
