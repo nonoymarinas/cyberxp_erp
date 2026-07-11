@@ -1,20 +1,16 @@
 :root {
-
-
   /* Cool Neutral (Very Slight Blue Tint) */
-
+  --grey-1000: #0A0A0A;
+  --grey-900: #1A1A1A;
+  --grey-800: #2B2B2B;
+  --grey-700: #404040;
+  --grey-600: #595959;
+  --grey-500: #737373;
+  --grey-400: #999999;
+  --grey-300: #C2C2C2;
+  --grey-200: #E0E0E0;
+  --grey-100: #F5F5F5;
   --grey-000: #FFFFFF;
-  --grey-050: #FAFBFC;
-  --grey-100: #F5F7F9;
-  --grey-200: #E8EBEF;
-  --grey-300: #D7DCE3;
-  --grey-400: #B3BCC7;
-  --grey-500: #8A94A3;
-  --grey-600: #667180;
-  --grey-700: #47515F;
-  --grey-800: #2B333E;
-  --grey-900: #141A21;
-  --grey-1000: #080A0E;
 
   --blue-100: #EAF4FF;
   --blue-200: #CFE7FF;
@@ -27,7 +23,8 @@
   --blue-900: #172554;
 
   /* app */
-  --color-background: var(--grey-900);
+  --color-background: var(--grey-1000);
+  --color-background-header: var(--grey-900);
   --color-surface: var(--grey-800);
   --color-card: var(--grey-700);
   --color-elevated: var(--grey-600);
@@ -43,7 +40,8 @@
   --color-border-default: var(--grey-700);
   --color-border-hover: var(--grey-600);
   --color-border-focus: var(--grey-300);
-  --color-border-disabled: var(--grey-600);
+  --color-border-muted: var(--grey-800);
+  --color-border-disabled: var(--grey-900);
 
   --color-stroke-default: var(--grey-200);
 
