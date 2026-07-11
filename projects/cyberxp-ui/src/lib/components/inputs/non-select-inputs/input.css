@@ -56,7 +56,7 @@
 }
 
 .input--lg .input__field {
-    font-size: var(--text-size-06);
+    font-size: var(--text-size-05);
 }
 
 /* ---------------------------- */
@@ -68,7 +68,7 @@
 }
 
 .input--xl .input__field {
-    font-size: var(--text-size-07);
+    font-size: var(--text-size-06);
 }
 /* Prefix */
 
