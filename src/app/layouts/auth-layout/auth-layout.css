@@ -50,4 +50,8 @@
   .auth-layout__body {
     padding: 0;
   }
+
+  .cyberxp-label {
+    font-size: var(--text-size-06);
+  }
 }

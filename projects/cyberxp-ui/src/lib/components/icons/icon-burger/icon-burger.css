@@ -1,0 +1,116 @@
+/* ========================================
+   Icon
+   ======================================== */
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  line-height: 0;
+  cursor: pointer;
+}
+
+/* ========================================
+   SVG
+   ======================================== */
+
+.icon__svg {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: visible;
+
+  color: inherit;
+}
+
+/* ========================================
+   Size
+   ======================================== */
+
+.icon--xxs {
+  width: 12px;
+  height: 12px;
+}
+
+.icon--xs {
+  width: 18px;
+  height: 18px;
+}
+
+.icon--sm {
+  width: 24px;
+  height: 24px;
+}
+
+.icon--md {
+  width: 36px;
+  height: 36px;
+}
+
+.icon--lg {
+  width: 48px;
+  height: 48px;
+}
+
+.icon--xl {
+  width: 60px;
+  height: 60px;
+}
+
+/* ========================================
+   Theme
+   ======================================== */
+
+/* Icon displayed on a light background */
+.icon--dark {
+  color: var(--color-icon-dark);
+}
+
+/* Icon displayed on a dark background */
+.icon--light {
+  color: var(--color-icon-light);
+}
+
+/* ========================================
+   Circle Background
+   ======================================== */
+
+.icon__background {
+  fill: transparent;
+  stroke: none;
+
+  pointer-events: none;
+
+  transition: fill 0.2s ease;
+}
+
+/* Dark icon on a light background */
+.icon--dark:hover .icon__background {
+  fill: rgba(255, 255, 255, 0.2);
+}
+
+/* Light icon on a dark background */
+.icon--light:hover .icon__background {
+  fill: rgba(0, 0, 0, 0.2);
+}
+
+/* ========================================
+   Burger Lines
+   ======================================== */
+
+.icon line {
+  fill: none;
+
+  stroke: currentColor;
+  stroke-width: var(--width-line-04, 1.5);
+
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  pointer-events: none;
+}

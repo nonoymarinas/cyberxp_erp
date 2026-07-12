@@ -13,7 +13,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-bottom: 2rem;
+    padding-bottom: 2.5rem;
     max-height: max-content;
 }
 
@@ -50,8 +50,9 @@
     font-size: var(--font-size-md);
     color: var(--color-text-04);
     padding-bottom: .2rem;
+    padding-left: .1rem;
     letter-spacing: 1px;
-    display: none;
+    /* display: none; */
 }
 
 .label-password {
@@ -60,7 +61,8 @@
      color: var(--color-text-04);
     padding-bottom: .2rem;
     letter-spacing: 1px;
-    display: none;
+    padding-left: .1rem;
+    /* display: none; */
 }
 
 .forget-password-label {

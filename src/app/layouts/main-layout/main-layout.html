@@ -1,13 +1,60 @@
 <div class="main-layout">
   <header class="main-layout__header">
-    <icon-burger-menu class="burger-menu"></icon-burger-menu>
-    <label class="cyberxp-label">Cyber XP</label>
+    <icon-burger class="burger-menu" theme="dark" fill="outline"></icon-burger>
+    <img src="assets/images/icons/speedx-logo.png" alt="Speedx logo" class="company-logo-img" />
+    <label class="cyberxp-label" class="company-name">Speed-x Development Corp</label>
     <div></div>
-    <icon-app-menu class="app-menu"></icon-app-menu>
+    <icon-app class="icon-app-menu" size="xs"></icon-app>
   </header>
   <div class="main-layout__body">
     <aside class="main-layout__body__sidebar">
-      <div class="main-layout__body__resize-handle" ></div>
+      <!-- Logo -->
+      <div class="sidebar__header">
+        <icon-user-circle class="icon-cyberxp icon--lg" size="lg" fill="filled"></icon-user-circle>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="sidebar__menu">
+        <a
+          class="sidebar__item"
+          routerLink="/app/home"
+          routerLinkActive="sidebar__item--active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <icon-home class="icon icon--sm" size="sm" fill="outline"></icon-home>
+          <span class="sidebar__label">Home</span>
+        </a>
+
+        <a
+          class="sidebar__item"
+          routerLink="/app/accounts"
+          routerLinkActive="sidebar__item--active"
+        >
+          <icon-accounts class="icon icon--sm" size="sm" fill="outline"></icon-accounts>
+          <span class="sidebar__label">Accounts</span>
+        </a>
+
+        <a
+          class="sidebar__item"
+          routerLink="/app/settings"
+          routerLinkActive="sidebar__item--active"
+        >
+          <icon-settings class="icon icon--sm" size="sm" fill="outline"></icon-settings>
+          <span class="sidebar__label">Settings</span>
+        </a>
+      </nav>
+
+      <!-- Bottom Section -->
+      <div class="sidebar__footer">
+        <!-- <a
+      class="sidebar__item"
+      routerLink="/logout">
+
+      <icon-logout class="icon icon--sm"></icon-logout>
+      <span class="sidebar__label">Sign Out</span>
+
+    </a> -->
+      </div>
     </aside>
     <main class="main-layout__body__content">
       <router-outlet></router-outlet>

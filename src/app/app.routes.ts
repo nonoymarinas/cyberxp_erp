@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { AuthLayout } from './layouts/auth-layout/auth-layout';
 import { MainLayout } from './layouts/main-layout/main-layout';
 import { Login } from './pages/auth/login/login';
-import { MainDashboard } from './pages/dashboard/main-dashboard/main-dashboard';
+import { Home } from './pages/home/home/home';
 
 export const routes: Routes = [
   {
@@ -21,7 +21,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        component: MainDashboard
+        component: Home
       }
     ]
   }

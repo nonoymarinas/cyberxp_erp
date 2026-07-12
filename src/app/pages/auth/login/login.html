@@ -6,7 +6,7 @@
   <div class="login-box__username__box">
     <label class="label-username" for="username">Username</label>
     <cxp-input theme="dark" size="xl" placeholder="username">
-      <icon-user prefix theme="dark" fill="filled" size="xs"> </icon-user>
+      <!-- <icon-user prefix theme="dark" fill="filled" size="xs"> </icon-user> -->
     </cxp-input>
   </div>
   <div class="login-box__password__box">
@@ -18,7 +18,7 @@
       placeholder="Password"
       [type]="passwordVisible ? 'text' : 'password'"
     >
-      <icon-password prefix theme="dark" fill="filled" size="xs"></icon-password>
+      <!-- <icon-password prefix theme="dark" fill="filled" size="xs"></icon-password> -->
 
       <icon-eye
         suffix
@@ -31,7 +31,7 @@
     </cxp-input>
   </div>
   <div class="login-box__button__box">
-    <button-login (clicked)="login()" theme="light" [disabled]="false">Sign-in</button-login>
+    <button-login (clicked)="signIn()" theme="light" [disabled]="false">Sign-in</button-login>
   </div>
   <div class="login-box__create-forget__box">
     <a href="#" class="create-account-label">Create account?</a>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { ButtonLogin, CxpInput, IconCyberxp, IconEye, IconPassword, IconUser } from 'cyberxp-ui';
 
@@ -21,7 +22,12 @@ export class Login {
     this.passwordVisible = !this.passwordVisible;
   }
 
-  login(): void {
-    console.log('Login clicked');
+ constructor(private router: Router) {}
+
+  signIn() {
+
+    // Later you will validate the username/password.
+
+    this.router.navigate(['/app']);
   }
 }

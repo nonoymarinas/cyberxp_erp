@@ -1,0 +1,143 @@
+/* ========================================
+   Icon
+   ======================================== */
+
+.icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    line-height: 0;
+    color: currentColor;
+
+    --icon-human-fill: currentColor;
+    --icon-human-stroke: currentColor;
+    --icon-border-stroke: currentColor;
+    --icon-stroke-width: var(--width-line-03, 0.75);
+}
+
+/* ========================================
+   SVG
+   ======================================== */
+
+.icon__svg {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: visible;
+}
+
+/* ========================================
+   Outer Circle
+   Always outline
+   ======================================== */
+
+.icon__border {
+    fill: none;
+    stroke: var(--icon-border-stroke);
+    stroke-width: var(--icon-stroke-width);
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    vector-effect: non-scaling-stroke;
+}
+
+/* ========================================
+   Human Shape
+   ======================================== */
+
+.icon__human {
+    fill: var(--icon-human-fill);
+    stroke: var(--icon-human-stroke);
+    stroke-width: var(--icon-stroke-width);
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    vector-effect: non-scaling-stroke;
+
+    transition:
+        fill 160ms ease,
+        stroke 160ms ease;
+}
+
+/* ========================================
+   Size
+   ======================================== */
+
+.icon--xxs {
+    width: 12px;
+    height: 12px;
+}
+
+.icon--xs {
+    width: 18px;
+    height: 18px;
+}
+
+.icon--sm {
+    width: 24px;
+    height: 24px;
+}
+
+.icon--md {
+    width: 36px;
+    height: 36px;
+}
+
+.icon--lg {
+    width: 48px;
+    height: 48px;
+}
+
+.icon--xl {
+    width: 60px;
+    height: 60px;
+}
+
+/* ========================================
+   Theme
+   ======================================== */
+
+.icon--dark {
+    color: var(--color-icon-dark, #141414);
+}
+
+.icon--light {
+    color: var(--color-icon-light, #ffffff);
+}
+
+/* ========================================
+   Filled
+   Only the human is filled
+   ======================================== */
+
+.icon--filled {
+    --icon-human-fill: currentColor;
+    --icon-human-stroke: none;
+}
+
+/* ========================================
+   Outline
+   Human and border are outlined
+   ======================================== */
+
+.icon--outline {
+    --icon-human-fill: none;
+    --icon-human-stroke: currentColor;
+}
+
+/* ========================================
+   Interaction
+   ======================================== */
+
+.icon {
+    transition:
+        color 160ms ease,
+        transform 160ms ease;
+}

@@ -76,7 +76,8 @@
   --color-fill-01: var(--grey-100);
   --color-fill-00: var(--grey-000);
 
-  --color-icon-dark: var(--grey-500);
+  --color-icon-dark: var(--grey-400);
+  --color-icon-dark-icon-burger: var(--grey-100);
   --color-icon-light: var(--grey-800);
 
   /* Text */
