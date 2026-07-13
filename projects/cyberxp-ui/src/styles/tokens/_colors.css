@@ -24,6 +24,11 @@
   --blue-800: #1E40AF;
   --blue-900: #172554;
 
+  /* theme */
+  --color-icon-dark: var(--grey-300);
+  --color-icon-dark-icon-burger: var(--grey-100);
+  --color-icon-light: var(--grey-800);
+
   /* Background */
   --color-background-10: var(--grey-1000);
   --color-background-09: var(--grey-900);
@@ -63,7 +68,7 @@
   --color-stroke-01: var(--grey-100);
   --color-stroke-00: var(--grey-000);
 
-   /* fill */
+  /* fill */
   --color-fill-10: var(--grey-1000);
   --color-fill-09: var(--grey-900);
   --color-fill-08: var(--grey-800);
@@ -76,9 +81,7 @@
   --color-fill-01: var(--grey-100);
   --color-fill-00: var(--grey-000);
 
-  --color-icon-dark: var(--grey-400);
-  --color-icon-dark-icon-burger: var(--grey-100);
-  --color-icon-light: var(--grey-800);
+
 
   /* Text */
 
@@ -94,6 +97,5 @@
   --color-text-01: var(--grey-100);
   --color-text-00: var(--grey-000);
 
-  --color-text-link:var(--blue-700)
-
+  --color-text-link: var(--blue-700)
 }

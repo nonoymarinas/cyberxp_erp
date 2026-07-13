@@ -1,17 +1,17 @@
 <div class="login-box">
   <div class="login-box__logo__box">
-    <icon-cyberxp theme="dark" size="lg" fill="outline"></icon-cyberxp>
+    <cxp-icon-cyberxp-app theme="dark" size="lg" fill="outline"></cxp-icon-cyberxp-app>
   </div>
 
   <div class="login-box__username__box">
     <label class="label-username" for="username">Username</label>
-    <cxp-input theme="dark" size="xl" placeholder="username">
+    <cxp-input-text theme="dark" size="xl" placeholder="username">
       <!-- <icon-user prefix theme="dark" fill="filled" size="xs"> </icon-user> -->
-    </cxp-input>
+    </cxp-input-text>
   </div>
   <div class="login-box__password__box">
     <label class="label-password" for="password">Password</label>
-    <cxp-input
+    <cxp-input-text
       id="password"
       theme="dark"
       size="xl"
@@ -20,18 +20,18 @@
     >
       <!-- <icon-password prefix theme="dark" fill="filled" size="xs"></icon-password> -->
 
-      <icon-eye
+      <cxp-icon-eye-password
         suffix
         theme="dark"
         fill="outline"
         size="sm"
         [slashed]="passwordHidden"
         (click)="togglePasswordVisibility()"
-      ></icon-eye>
-    </cxp-input>
+      ></cxp-icon-eye-password>
+    </cxp-input-text>
   </div>
   <div class="login-box__button__box">
-    <button-login (clicked)="signIn()" theme="light" [disabled]="false">Sign-in</button-login>
+    <cxp-button-login (clicked)="signIn()" theme="light" [disabled]="false">Sign-in</cxp-button-login>
   </div>
   <div class="login-box__create-forget__box">
     <a href="#" class="create-account-label">Create account?</a>

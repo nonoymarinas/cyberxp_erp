@@ -7,8 +7,8 @@
   --input-dark-background-readonly: var(--color-background-09);
   --input-dark-background-disabled: var(--color-background-10);
 
-  --input-dark-border-default: var(--color-border-07);
-  --input-dark-border-hover: var(--color-border-06);
+  --input-dark-border-default: var(--color-border-06);
+  --input-dark-border-hover: var(--color-border-05);
   --input-dark-border-focus: var(--color-border-04);
   --input-dark-border-readonly: var(--color-border-08);
   --input-dark-border-disabled: var(--color-border-09);

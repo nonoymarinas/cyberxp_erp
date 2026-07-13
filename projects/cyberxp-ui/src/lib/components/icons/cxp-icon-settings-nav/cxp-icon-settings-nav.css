@@ -1,0 +1,91 @@
+/* Icon */
+
+.icon {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    line-height: 0;
+}
+
+/* SVG */
+
+.icon__svg {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+}
+
+/* Size */
+.icon--xxs {
+    width: 12px;
+    height: 12px;
+}
+.icon--xs {
+    width: 18px;
+    height: 18px;
+}
+
+.icon--sm {
+    width: 24px;
+    height: 24px;
+}
+
+.icon--md {
+    width: 36px;
+    height: 36px;
+}
+
+.icon--lg {
+    width: 48px;
+    height: 48px;
+}
+
+.icon--xl {
+    width: 60px;
+    height: 60px;
+}
+
+/* Theme */
+
+.icon--dark {
+    color:var(--color-icon-dark)
+}
+
+.icon--light {
+    color:var(--color-icon-light)
+}
+
+/* Fill */
+
+.icon--filled polygon,
+.icon--filled path,
+.icon--filled rect,
+.icon--filled circle,
+.icon--filled ellipse,
+.icon--filled line,
+.icon--filled polyline {
+    fill: currentColor;
+    stroke: none;
+}
+
+/* Outline */
+
+.icon--outline polygon,
+.icon--outline path,
+.icon--outline rect,
+.icon--outline circle,
+.icon--outline ellipse,
+.icon--outline line,
+.icon--outline polyline {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: var(--width-line-03);
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
