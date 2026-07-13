@@ -6,7 +6,7 @@
 
 .main-layout__header {
   display: grid;
-  grid-template-columns: auto 1fr auto  auto;
+  grid-template-columns: auto 1fr auto auto;
   column-gap: .5rem;
   background-color: var(--color-background-10);
   padding: 0 1rem;
@@ -19,15 +19,22 @@
   align-self: center;
   padding-inline: 1rem;
 }
-.sidebar__header{
+
+.sidebar__header {
   display: flex;
   justify-content: center;
-  padding:1rem;
+  padding: 1rem;
   background-color: var(--color-background-09);
 }
-.sidebar__label{
+
+.sidebar__label {
   font-size: large;
 }
+
+.sidebar__label__footer {
+  font-size: medium;
+}
+
 .module-name {
   font-family: var(--font-family);
   color: var(--color-text-04);
@@ -37,10 +44,12 @@
   font-weight: 600;
   user-select: none;
 }
-.icon-user-nav{
+
+.icon-user-nav {
   display: flex;
   align-items: center;
 }
+
 .main-layout__body {
   display: grid;
   grid-template-columns: minmax(240px, 320px) 1fr;
@@ -90,7 +99,8 @@
   gap: 1rem;
   ;
 }
-.sidebar__menu  a:hover  {
+
+.sidebar__menu a:hover {
   background-color: var(--color-background-09);
   color: var(--color-text-01);
 }
@@ -113,7 +123,8 @@
   gap: 1rem;
   font-size: medium;
 }
-.sidebar__footer > a:hover > span {
+
+.sidebar__footer>a:hover>span {
   color: var(--color-text-01);
 }
 
@@ -173,15 +184,16 @@
 
 
 @media (max-width: 768px) {
-.module-name {
-  font-family: var(--font-family);
-  color: var(--color-text-04);
-  align-self: center;
-  font-size: var(--text-size-06);
-  padding-left: 1rem;
-  font-weight: 600;
-  user-select: none;
-}
+  .module-name {
+    font-family: var(--font-family);
+    color: var(--color-text-04);
+    align-self: center;
+    font-size: var(--text-size-06);
+    padding-left: 1rem;
+    font-weight: 600;
+    user-select: none;
+  }
+
   .main-layout__footer__notes {
     font-size: var(--font-size-1xs);
   }
