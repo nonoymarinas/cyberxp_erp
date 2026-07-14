@@ -69,3 +69,10 @@ For more information on using the Angular CLI, including detailed command refere
   }
 --locate to dist/cyberxp-ui folder using "cd dist/cyberxp-ui"
 --run "npm publish"
+
+## Install in Projects
+1. Add the Azure Artifacts registry to the project's local .npmrc: 
+   @cyberxp:registry=https://pkgs.dev.azure.com/CyberXP/82c2bf5d-ad46-436a-b7df-1c8228de4e9b/_packaging/cyberxp-ui/npm/registry/
+2. Add/update the Azure Artifacts registry in the user's .npmrc file:
+   
+3. Update project dependencies: run npm update
