@@ -1,12 +1,19 @@
 <div class="main-layout">
   <header class="main-layout__header">
-    <cxp-icon-burger-nav class="burger-menu" theme="dark" fill="outline"></cxp-icon-burger-nav>
+    <cxp-icon-burger-nav
+      class="burger-menu"
+      theme="dark"
+      fill="outline"
+      (click)="toggleSidebar()"
+    ></cxp-icon-burger-nav>
     <label class="module-name">Account Management System version 10.1.0</label>
     <cxp-icon-app-nav class="icon-app-menu" size="md" theme="dark" fill="filled"></cxp-icon-app-nav>
     <cxp-icon-user-circle class="icon-user-nav" size="sm"></cxp-icon-user-circle>
   </header>
   <div class="main-layout__body">
-    <aside class="main-layout__body__sidebar">
+    <div class="sidebar-overlay" [class.sidebar-overlay--show]="sidebarOpen"
+    (click)="closeSidebar()"></div>
+    <aside class="main-layout__body__sidebar"  [class.main-layout__body__sidebar--open]="sidebarOpen">
       <!-- Logo -->
       <div class="sidebar__header">
         <img class="company-logo-img" src="assets/images/icons/spx-logo.png" alt="SPX Logo" />
@@ -29,16 +36,19 @@
           routerLink="/app/accounts"
           routerLinkActive="sidebar__item--active"
         >
-          <cxp-icon-user-nav class="icon icon--sm" size="sm" fill="outline" theme="dark"></cxp-icon-user-nav>
+          <cxp-icon-user-nav
+            class="icon icon--sm"
+            size="xs"
+            fill="outline"
+            theme="dark"
+          ></cxp-icon-user-nav>
           <span class="sidebar__label">Accounts</span>
         </a>
-
-       
       </nav>
 
       <!-- Bottom Section -->
       <div class="sidebar__footer">
-         <a
+        <a
           class="sidebar__item"
           routerLink="/app/settings"
           routerLinkActive="sidebar__item--active"
