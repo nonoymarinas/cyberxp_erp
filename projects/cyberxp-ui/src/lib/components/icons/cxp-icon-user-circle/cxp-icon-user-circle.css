@@ -3,19 +3,19 @@
    ======================================== */
 
 .icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-    flex-shrink: 0;
+  flex-shrink: 0;
 
-    line-height: 0;
-    color: currentColor;
+  line-height: 0;
+  color: currentColor;
 
-    --icon-human-fill: currentColor;
-    --icon-human-stroke: currentColor;
-    --icon-border-stroke: currentColor;
-    --icon-stroke-width: var(--width-line-03, 0.75);
+  --icon-human-fill: currentColor;
+  --icon-human-stroke: currentColor;
+  --icon-border-stroke: currentColor;
+  --icon-stroke-width: var(--width-line-03, 0.75);
 }
 
 /* ========================================
@@ -23,12 +23,12 @@
    ======================================== */
 
 .icon__svg {
-    display: block;
+  display: block;
 
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 
-    overflow: visible;
+  overflow: visible;
 }
 
 /* ========================================
@@ -37,14 +37,14 @@
    ======================================== */
 
 .icon__border {
-    fill: none;
-    stroke: var(--icon-border-stroke);
-    stroke-width: var(--icon-stroke-width);
+  fill: none;
+  stroke: var(--icon-border-stroke);
+  stroke-width: var(--icon-stroke-width);
 
-    stroke-linecap: round;
-    stroke-linejoin: round;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 
-    vector-effect: non-scaling-stroke;
+  vector-effect: non-scaling-stroke;
 }
 
 /* ========================================
@@ -52,18 +52,18 @@
    ======================================== */
 
 .icon__human {
-    fill: var(--icon-human-fill);
-    stroke: var(--icon-human-stroke);
-    stroke-width: var(--icon-stroke-width);
+  fill: var(--icon-human-fill);
+  stroke: var(--icon-human-stroke);
+  stroke-width: var(--icon-stroke-width);
 
-    stroke-linecap: round;
-    stroke-linejoin: round;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 
-    vector-effect: non-scaling-stroke;
+  vector-effect: non-scaling-stroke;
 
-    transition:
-        fill 160ms ease,
-        stroke 160ms ease;
+  transition:
+    fill 160ms ease,
+    stroke 160ms ease;
 }
 
 /* ========================================
@@ -71,33 +71,33 @@
    ======================================== */
 
 .icon--xxs {
-    width: 12px;
-    height: 12px;
+  width: 12px;
+  height: 12px;
 }
 
 .icon--xs {
-    width: 18px;
-    height: 18px;
+  width: 18px;
+  height: 18px;
 }
 
 .icon--sm {
-    width: 24px;
-    height: 24px;
+  width: 24px;
+  height: 24px;
 }
 
 .icon--md {
-    width: 36px;
-    height: 36px;
+  width: 36px;
+  height: 36px;
 }
 
 .icon--lg {
-    width: 48px;
-    height: 48px;
+  width: 48px;
+  height: 48px;
 }
 
 .icon--xl {
-    width: 60px;
-    height: 60px;
+  width: 60px;
+  height: 60px;
 }
 
 /* ========================================
@@ -105,11 +105,11 @@
    ======================================== */
 
 .icon--dark {
-    color: var(--color-icon-dark, #141414);
+  color: var(--color-icon-dark, #141414);
 }
 
 .icon--light {
-    color: var(--color-icon-light, #ffffff);
+  color: var(--color-icon-light, #ffffff);
 }
 
 /* ========================================
@@ -118,8 +118,8 @@
    ======================================== */
 
 .icon--filled {
-    --icon-human-fill: currentColor;
-    --icon-human-stroke: none;
+  --icon-human-fill: currentColor;
+  --icon-human-stroke: none;
 }
 
 /* ========================================
@@ -128,8 +128,8 @@
    ======================================== */
 
 .icon--outline {
-    --icon-human-fill: none;
-    --icon-human-stroke: currentColor;
+  --icon-human-fill: none;
+  --icon-human-stroke: currentColor;
 }
 
 /* ========================================
@@ -137,7 +137,15 @@
    ======================================== */
 
 .icon {
-    transition:
-        color 160ms ease,
-        transform 160ms ease;
+  transition:
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+/* ========================================
+   Image
+   ======================================== */
+
+img {
+  border-radius: 50%;
 }
