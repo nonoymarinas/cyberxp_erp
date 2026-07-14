@@ -12,4 +12,5 @@ export class IconUserCircle {
   @Input() theme: 'dark' | 'light' = 'dark';
   @Input() fill: 'filled' | 'outline' = 'filled';
   @Input() size: 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' = 'sm';
+  @Input() image?: string;
 }
