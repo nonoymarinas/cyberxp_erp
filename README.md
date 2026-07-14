@@ -57,3 +57,15 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+
+
+## Publish to AZURE ARTIFACTS
+--run the command "ng build cyberxp-ui"
+-- update the package.json in dist/cyberxp-ui folder -> from "name: cyberxp-ui" to "name: @cyberxp/ui"
+-- add publishConfig in dist/cyberxp-ui folder package.json
+"publishConfig": {
+    "registry": "https://pkgs.dev.azure.com/CyberXP/82c2bf5d-ad46-436a-b7df-1c8228de4e9b/_packaging/cyberxp-ui/npm/registry/"
+  }
+--locate to dist/cyberxp-ui folder using "cd dist/cyberxp-ui"
+--run "npm publish"
