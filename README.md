@@ -61,14 +61,14 @@ For more information on using the Angular CLI, including detailed command refere
 
 
 ## Publish to AZURE ARTIFACTS
---run the command "ng build cyberxp-ui"
--- update the package.json in dist/cyberxp-ui folder -> from "name: cyberxp-ui" to "name: @cyberxp/ui"
--- add publishConfig in dist/cyberxp-ui folder package.json
+1. run the command "ng build cyberxp-ui"
+2. update the package.json in dist/cyberxp-ui folder -> from "name: cyberxp-ui" to "name: @cyberxp/ui"
+3. add publishConfig in dist/cyberxp-ui folder package.json
 "publishConfig": {
     "registry": "https://pkgs.dev.azure.com/CyberXP/82c2bf5d-ad46-436a-b7df-1c8228de4e9b/_packaging/cyberxp-ui/npm/registry/"
   }
---locate to dist/cyberxp-ui folder using "cd dist/cyberxp-ui"
---run "npm publish"
+4. locate to dist/cyberxp-ui folder using "cd dist/cyberxp-ui"
+5. run "npm publish"
 
 ## Install in Projects
 1. Add the Azure Artifacts registry to the project's local .npmrc: 
