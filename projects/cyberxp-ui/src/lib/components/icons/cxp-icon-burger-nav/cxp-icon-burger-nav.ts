@@ -15,4 +15,7 @@ export class CxpIconBurgerNav {
 
   @Input()
   size: 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' = 'md';
+
+  @Input() IsIconActive = false;
+
 }

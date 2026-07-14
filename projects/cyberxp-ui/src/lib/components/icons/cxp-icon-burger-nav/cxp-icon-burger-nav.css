@@ -89,6 +89,21 @@
   transition: fill 0.2s ease;
 }
 
+/* ========================================
+   Active
+   Same background as hover
+   ======================================== */
+
+/* Dark icon on a light background */
+.icon--dark.icon--active .icon__background {
+  fill: rgba(255, 255, 255, 0.2);
+}
+
+/* Light icon on a dark background */
+.icon--light.icon--active .icon__background {
+  fill: rgba(0, 0, 0, 0.2);
+}
+
 /* Dark icon on a light background */
 .icon--dark:hover .icon__background {
   fill: rgba(255, 255, 255, 0.2);
