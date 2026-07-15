@@ -1,110 +1,129 @@
 .login-box {
-    display: grid;
-    margin: 10vh auto 0 auto;
-    grid-template-rows: max-content max-content max-content max-content max-content auto;
-    max-width: 400px;
-    width: 100%;
-    background: none;
-    border: var(--width-line-02) solid var(--color-border-dark-default);
-    padding: 2rem;
+  display: grid;
+  margin: 10vh auto 0 auto;
+  grid-template-rows: max-content max-content max-content max-content max-content auto;
+  max-width: 400px;
+  width: 100%;
+  background: none;
+  border: var(--width-line-02) solid var(--color-border-dark-default);
+  padding: 2rem;
 }
 
 .login-box__logo__box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 2.5rem;
-    max-height: max-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 2.5rem;
+  max-height: max-content;
 }
 
 .login-box__username__box {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding-bottom: 1.5rem;
-    max-height: max-content;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-bottom: 1.5rem;
+  max-height: max-content;
 }
 
 .login-box__password__box {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding-bottom: 1.5rem;
-    max-height: max-content;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-bottom: 1.5rem;
+  max-height: max-content;
 }
 
 .login-box__button__box {
-    width: 100%;
-    padding: 1rem 0;
+  width: 100%;
+  padding: 1rem 0;
 }
 
 .login-box__create-forget__box {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    width: 100%;
-    padding: 1rem 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  padding: 1rem 0;
 }
 
 .label-username {
-    font-family: var(--font-family);
-    font-size: var(--font-size-md);
-    color: var(--color-text-04);
-    padding-bottom: .2rem;
-    padding-left: .1rem;
-    letter-spacing: 1px;
-    /* display: none; */
+  font-family: var(--font-family);
+  font-size: var(--font-size-md);
+  color: var(--color-text-04);
+  padding-bottom: .2rem;
+  padding-left: .1rem;
+  letter-spacing: 1px;
+  /* display: none; */
 }
 
 .label-password {
-    font-family: var(--font-family);
-    font-size: var(--font-size-md);
-     color: var(--color-text-04);
-    padding-bottom: .2rem;
-    letter-spacing: 1px;
-    padding-left: .1rem;
-    /* display: none; */
+  font-family: var(--font-family);
+  font-size: var(--font-size-md);
+  color: var(--color-text-04);
+  padding-bottom: .2rem;
+  letter-spacing: 1px;
+  padding-left: .1rem;
+  /* display: none; */
 }
 
 .forget-password-label {
-    font-family: var(--font-family);
-     color: var(--color-text-03);
-    justify-self: self-end;
+  font-family: var(--font-family);
+  color: var(--color-text-03);
+  justify-self: self-end;
 }
 
 .create-account-label {
-    font-family: var(--font-family);
-     color: var(--color-text-03);
+  font-family: var(--font-family);
+  color: var(--color-text-03);
 }
 
 .forget-password-label:hover {
-    color: var(--color-text-link);
+  color: var(--color-text-link);
 }
 
 .create-account-label:hover {
-    color: var(--color-text-link);
+  color: var(--color-text-link);
 }
 
 .agreement-notes-label {
-    font-size: var(--text-size-05);
-    font-family: var(--font-family);
-    color: var(--color-text-05);
-    letter-spacing: .5px;
-    font-weight: 100;
-    text-align: justify;
-    margin:1rem 0;
+  font-size: var(--text-size-05);
+  font-family: var(--font-family);
+  color: var(--color-text-05);
+  letter-spacing: .5px;
+  font-weight: 100;
+  text-align: justify;
+  margin: 1rem 0;
 }
 
 .terms-policy-label:hover {
-    color: var(--color-text-link);
+  color: var(--color-text-link);
+}
+
+.loader-spinner {
+  width: 25px;
+  height: 25px;
+  border-radius: 999px;
+  border: 4px solid rgba(255, 255, 255, 0.25);
+  border-top-color: black;
+  animation: spin-fast 0.8s linear infinite;
+}
+
+@keyframes spin-fast {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 
 @media (max-width: 768px) {
-    .login-box {
-        margin: 0;
-        padding: 2rem;
-        max-width: 100%;
-        /* height: 100vh; */
-        border: none;
-    }
+  .login-box {
+    margin: 0;
+    padding: 2rem;
+    max-width: 100%;
+    /* height: 100vh; */
+    border: none;
+  }
 }
