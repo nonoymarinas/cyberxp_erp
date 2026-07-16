@@ -184,7 +184,10 @@
   display: none;
 
 }
-
+.cxp-sidebar__label{
+  font-weight: 600;
+  font-size: large;
+}
 @media (max-width: 768px) {
   .main-layout__body {
     position: relative;

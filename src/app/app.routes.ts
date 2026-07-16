@@ -8,11 +8,11 @@ import { AccountPage } from './pages/accounts/account-page/account-page';
 export const routes: Routes = [
   {
     path: '',
-    component: AuthLayout,
+    component: MainLayout,
     children: [
       {
         path: '',
-        component: Login
+        component: AccountPage
       }
     ]
   },
