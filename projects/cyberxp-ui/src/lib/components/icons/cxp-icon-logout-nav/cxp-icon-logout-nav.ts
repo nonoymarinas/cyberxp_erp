@@ -1,15 +1,24 @@
-import { NgClass } from '@angular/common';
 import { Component, Input } from '@angular/core';
+
+type IconFill = 'filled' | 'outline';
+
+type IconSize =
+  | 'xxs'
+  | 'xs'
+  | 'sm'
+  | 'md'
+  | 'lg'
+  | 'xl';
 
 @Component({
   selector: 'cxp-icon-logout-nav',
   standalone: true,
-  imports: [NgClass],
+  imports: [],
   templateUrl: './cxp-icon-logout-nav.html',
   styleUrl: './cxp-icon-logout-nav.css',
 })
 export class CxpIconLogoutNav {
-  @Input() theme: 'dark' | 'light' = 'dark';
-  @Input() fill: 'filled' | 'outline' = 'filled';
-  @Input() size: 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' = 'sm';
+  @Input() fill: IconFill = 'outline';
+
+  @Input() size: IconSize = 'sm';
 }

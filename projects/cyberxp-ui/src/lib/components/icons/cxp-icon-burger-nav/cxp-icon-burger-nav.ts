@@ -1,6 +1,12 @@
-// src/app/shared/components/icons/icon-burger/icon-burger.ts
-
 import { Component, Input } from '@angular/core';
+
+type IconSize =
+  | 'xxs'
+  | 'xs'
+  | 'sm'
+  | 'md'
+  | 'lg'
+  | 'xl';
 
 @Component({
   selector: 'cxp-icon-burger-nav',
@@ -10,12 +16,7 @@ import { Component, Input } from '@angular/core';
   styleUrl: './cxp-icon-burger-nav.css',
 })
 export class CxpIconBurgerNav {
-  @Input()
-  theme: 'dark' | 'light' = 'dark';
+  @Input() size: IconSize = 'md';
 
-  @Input()
-  size: 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' = 'md';
-
-  @Input() IsIconActive = false;
-
+  @Input() isIconActive = false;
 }

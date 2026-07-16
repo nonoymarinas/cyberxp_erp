@@ -1,0 +1,112 @@
+/* Icon */
+
+.icon {
+    display: block;
+    flex-shrink: 0;
+
+    transition:
+        fill .15s ease,
+        stroke .15s ease,
+        color .15s ease;
+}
+
+/* Size */
+
+
+.icon--sm {
+    width: 48px;
+    height: 48px;
+}
+
+.icon--md {
+    width: 60px;
+    height: 60px;
+}
+
+.icon--lg {
+    width: 72px;
+    height: 72px;
+}
+
+.icon--xl {
+    width: 84px;
+    height: 84px;
+}
+
+.icon--size {
+    width: 100%;
+    height: 100%;
+}
+
+/* Theme */
+
+.icon--dark {
+    color: var(--color-icon-dark)
+}
+
+.icon--light {
+    color: var(--color-icon-light)
+}
+
+.secondary-human {
+    fill: var(--color-icon-light);;
+    stroke: var(--color-icon-dark);
+    stroke-width: .25px;
+}
+
+
+/* Fill */
+.icon--filled polygon,
+.icon--filled path:not(.secondary-human),
+.icon--filled rect:not(.icon-background),
+.icon--filled circle:not(.secondary-human),
+.icon--filled ellipse,
+.icon--filled line,
+.icon--filled polyline {
+    fill: currentColor;
+    stroke: none;
+}
+
+/* Outline */
+.icon--outline polygon,
+.icon--outline path:not(.secondary-human),
+.icon--outline rect:not(.icon-background),
+.icon--outline circle:not(.secondary-human),
+.icon--outline ellipse,
+.icon--outline line,
+.icon--outline polyline {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: var(--width-line-03);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Hover */
+.icon .icon-background {
+    fill: transparent;
+    stroke: var(--grey-700);
+    stroke-width: var(--width-line-07);
+}
+
+.icon--dark:hover .icon-background {
+    fill: rgba(255, 255, 255, .20);
+}
+
+.icon--light:hover .icon-background {
+    fill: rgba(0, 0, 0, .08);
+}
+
+/* Transition */
+.icon polygon,
+.icon path,
+.icon rect,
+.icon circle,
+.icon ellipse,
+.icon line,
+.icon polyline {
+    transition:
+        fill .2s ease,
+        stroke .2s ease,
+        transform .2s ease;
+}

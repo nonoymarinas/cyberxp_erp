@@ -3,6 +3,7 @@ import { AuthLayout } from './layouts/auth-layout/auth-layout';
 import { MainLayout } from './layouts/main-layout/main-layout';
 import { Login } from './pages/auth/login/login';
 import { Home } from './pages/home/home/home';
+import { AccountPage } from './pages/accounts/account-page/account-page';
 
 export const routes: Routes = [
   {
@@ -21,7 +22,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        component: Home
+        component: AccountPage
       }
     ]
   }

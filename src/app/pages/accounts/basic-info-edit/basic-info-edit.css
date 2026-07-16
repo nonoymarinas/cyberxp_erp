@@ -1,0 +1,25 @@
+.accounts__main__box {
+    width: 100%;
+    height: calc(100vh - var(--header-height) - var(--footer-height));
+    background-color: var(--color-background-10);
+    padding: 1rem 2rem;
+}
+.input-box{
+display: flex;
+flex-direction: column;
+max-width: 10
+00px;
+}
+.input-box__label{
+    font-size: medium;
+    font-weight: 500;
+    color: var(--color-text-05);
+}
+.input-field-box{
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 768px) {
+    
+}

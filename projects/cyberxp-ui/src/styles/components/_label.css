@@ -1,0 +1,131 @@
+/* ========================================
+   Label
+   ======================================== */
+
+:root {
+    --label-font-family: "Inter", sans-serif;
+
+    --label-font-weight-regular: 400;
+    --label-font-weight-medium: 500;
+    --label-font-weight-semibold: 600;
+
+    --label-size-xs: 10px;
+    --label-size-sm: 12px;
+    --label-size-md: 14px;
+    --label-size-lg: 16px;
+    --label-size-xl: 18px;
+}
+
+/* Base */
+
+.cxp-label {
+    display: inline-block;
+
+    margin: 0;
+    padding: 0;
+
+    font-family: var(--label-font-family);
+    font-weight: var(--label-font-weight-medium);
+    line-height: 1.4;
+
+    color: var(--color-text-secondary);
+
+    user-select: none;
+}
+
+/* Sizes */
+
+.cxp-label-xs {
+    font-size: var(--label-size-xs);
+}
+
+.cxp-label-sm {
+    font-size: var(--label-size-sm);
+}
+
+.cxp-label-md {
+    font-size: var(--label-size-md);
+}
+
+.cxp-label-lg {
+    font-size: var(--label-size-lg);
+}
+
+.cxp-label-xl {
+    font-size: var(--label-size-xl);
+}
+
+/* Variants */
+
+.cxp-label-secondary {
+    color: var(--color-text-secondary);
+}
+
+.cxp-label-disabled {
+    color: var(--color-text-disabled);
+
+    cursor: not-allowed;
+}
+
+.cxp-label-inverse {
+    color: var(--color-text-inverse);
+}
+
+.cxp-label-required::after {
+    content: " *";
+    color: var(--color-text-required);
+}
+
+
+/* ========================================
+   Title
+   ======================================== */
+
+.cxp-title {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-family);
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--color-text-primary);
+}
+
+/* ========================================
+   Size
+   ======================================== */
+
+.cxp-title-xs {
+    font-size: 14px;
+}
+
+.cxp-title-sm {
+    font-size: 16px;
+}
+
+.cxp-title-md {
+    font-size: 20px;
+}
+
+.cxp-title-lg {
+    font-size: 24px;
+}
+
+.cxp-title-xl {
+    font-size: 32px;
+}
+
+/* ========================================
+   Variant
+   ======================================== */
+
+.cxp-title-secondary {
+    color: var(--color-text-secondary);
+}
+
+.cxp-title-disabled {
+    color: var(--color-text-disabled);
+}
+
+.cxp-title-inverse {
+    color: var(--color-text-inverse);
+}

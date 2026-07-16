@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import {
   CxpIconBurgerNav,
+  CxpIconCyberxpApp,
   CxpIconAppNav,
   CxpIconSettingsNav,
   CxpIconHomeNav,
@@ -18,6 +19,7 @@ import {
     RouterLink,
     RouterLinkActive,
     CxpIconBurgerNav,
+    CxpIconCyberxpApp,
     CxpIconAppNav,
     CxpIconSettingsNav,
     CxpIconHomeNav,

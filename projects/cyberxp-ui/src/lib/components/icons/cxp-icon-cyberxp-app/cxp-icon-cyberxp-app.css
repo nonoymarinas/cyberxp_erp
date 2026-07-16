@@ -6,10 +6,12 @@
     display: block;
     flex-shrink: 0;
 
+    color: var(--color-icon-primary);
+
     transition:
-        fill .15s ease,
-        stroke .15s ease,
-        color .15s ease;
+        color 0.15s ease,
+        fill 0.15s ease,
+        stroke 0.15s ease;
 }
 
 /* ========================================
@@ -42,19 +44,7 @@
 }
 
 /* ========================================
-   Theme
-   ======================================== */
-
-.icon--dark {
-    color:var(--color-icon-dark)
-}
-
-.icon--light {
-    color:var(--color-icon-light)
-}
-
-/* ========================================
-   Fill
+   Filled
    ======================================== */
 
 .icon--filled polygon,
@@ -82,7 +72,6 @@
     fill: none;
     stroke: currentColor;
     stroke-width: var(--width-line-02);
-
     stroke-linecap: round;
     stroke-linejoin: round;
 }

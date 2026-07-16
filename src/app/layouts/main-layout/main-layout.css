@@ -12,10 +12,18 @@
   display: grid;
   grid-template-columns: auto 1fr auto auto;
   column-gap: .5rem;
-  background-color: var(--color-background-10);
   padding: 0 1rem;
   height: var(--header-height);
   border-bottom: 1px groove var(--color-border-08);
+}
+
+.burger-menu {
+  display: none;
+}
+
+.cyberxp-logo {
+  display: flex;
+  align-items: center;
 }
 
 .company-logo-img {
@@ -28,7 +36,6 @@
   display: flex;
   justify-content: center;
   padding: 1rem;
-  background-color: var(--color-background-09);
 }
 
 .sidebar__label {
@@ -40,10 +47,7 @@
 }
 
 .module-name {
-  font-family: var(--font-family);
-  color: var(--color-text-04);
   align-self: center;
-  font-size: var(--text-size-08);
   padding-left: 1rem;
   font-weight: 600;
   user-select: none;
@@ -59,7 +63,6 @@
   isolation: isolate;
   display: grid;
   grid-template-columns: minmax(240px, 280px) 1fr;
-  background-color: var(--color-background-10);
   padding: 0;
   justify-content: center;
   align-items: center;
@@ -72,7 +75,6 @@
   min-width: 72px;
   border-right: 1px groove var(--color-border-09);
   height: 100%;
-  background-color: var(--color-background-10);
 }
 
 .icon-cyberxp {
@@ -81,9 +83,7 @@
   padding: 1rem;
   background-color: var(--color-background-09);
   margin-top: .5rem;
-  /* border-bottom: 1px groove var(--color-border-09); */
   margin-inline: .5rem;
-  /* height: 3rem; */
 }
 
 .sidebar__menu {
@@ -105,10 +105,6 @@
   ;
 }
 
-.sidebar__menu a:hover {
-  background-color: var(--color-background-09);
-  color: var(--color-text-01);
-}
 
 .sidebar__footer {
   display: flex;
@@ -129,9 +125,6 @@
   font-size: medium;
 }
 
-.sidebar__footer>a:hover>span {
-  color: var(--color-text-01);
-}
 
 .main-layout__body__resize-handle {
   position: absolute;
@@ -158,7 +151,6 @@
 
 .main-layout__footer {
   display: grid;
-  background-color: var(--color-background-10);
   padding: .5rem 1rem;
   text-align: center;
   height: var(--footer-height);
@@ -172,10 +164,6 @@
   align-self: center;
 }
 
-.burger-menu {
-  display: flex;
-  align-items: center;
-}
 
 .icon-app-menu {
   display: flex;
@@ -204,6 +192,16 @@
     grid-template-columns: 1fr;
   }
 
+  .main-layout__header {
+    display: grid;
+    grid-template-columns: auto auto 1fr auto auto;
+  }
+
+  .burger-menu {
+    display: flex;
+    align-items: center;
+  }
+
   .main-layout__body__sidebar {
     position: absolute;
     top: 0;
@@ -225,15 +223,15 @@
   }
 
   .module-name {
-    font-family: var(--font-family);
-    color: var(--color-text-04);
     align-self: center;
     font-size: var(--text-size-06);
     padding-left: 1rem;
     font-weight: 600;
     user-select: none;
   }
-
+.module-name-span{
+  display: none;
+}
   .main-layout__footer__notes {
     font-size: var(--font-size-1xs);
   }

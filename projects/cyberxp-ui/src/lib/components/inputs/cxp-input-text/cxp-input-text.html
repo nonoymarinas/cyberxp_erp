@@ -4,10 +4,9 @@
   [class.input--md]="size === 'md'"
   [class.input--lg]="size === 'lg'"
   [class.input--xl]="size === 'xl'"
-  [class.input--dark]="colorScheme === 'dark'"
-  [class.input--light]="colorScheme === 'light'"
   [class.input--disabled]="disabled"
   [class.input--readonly]="readonly"
+  [class.input--invalid]="invalid"
 >
   <span class="input__prefix">
     <ng-content select="[prefix]"></ng-content>
@@ -15,13 +14,18 @@
 
   <input
     class="input__field"
-    [type]="inputType"
+    [type]="type"
     [value]="value"
+    [name]="name"
     [placeholder]="placeholder"
     [disabled]="disabled"
-    [readonly]="readonly"
+    [readOnly]="readonly"
     [required]="required"
+    [attr.autocomplete]="autocomplete"
+    [attr.aria-invalid]="invalid ? 'true' : 'false'"
     (input)="onInput($event)"
+    (focus)="onFocus()"
+    (blur)="onBlur()"
   />
 
   <span class="input__suffix">

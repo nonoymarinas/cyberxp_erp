@@ -1,7 +1,5 @@
 <span
   class="icon"
-  [class.icon--dark]="theme === 'dark'"
-  [class.icon--light]="theme === 'light'"
   [class.icon--filled]="fill === 'filled'"
   [class.icon--outline]="fill === 'outline'"
   [class.icon--xxs]="size === 'xxs'"
@@ -16,9 +14,24 @@
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 18 20"
     aria-hidden="true"
+    focusable="false"
   >
-  <path  d="M9.12,.5H2s-1.43,.1-1.5,1.9v15.32s-.02,1.57,1.55,1.78h7.06" />
-            <path d="M12.8,3.38l4.37,5.71c.43,.41,.43,1.08,0,1.49l-4.37,6.04" />
-            <line  x1="17.41" y1="9.92" x2="6.77" y2="10.08" />
-</svg>
+    <path
+      class="icon__shape icon__door"
+      d="M9.12,.5H2s-1.43,.1-1.5,1.9v15.32s-.02,1.57,1.55,1.78h7.06"
+    />
+
+    <path
+      class="icon__shape icon__arrow-head"
+      d="M12.8,3.38l4.37,5.71c.43,.41.43,1.08,0,1.49l-4.37,6.04"
+    />
+
+    <line
+      class="icon__shape icon__arrow-line"
+      x1="17.41"
+      y1="9.92"
+      x2="6.77"
+      y2="10.08"
+    />
+  </svg>
 </span>

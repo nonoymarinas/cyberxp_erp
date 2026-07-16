@@ -9,8 +9,14 @@
 
   flex-shrink: 0;
 
+  color: var(--color-icon-primary);
+
   line-height: 0;
   cursor: pointer;
+
+  transition:
+    color 160ms ease,
+    transform 160ms ease;
 }
 
 /* ========================================
@@ -24,8 +30,6 @@
   height: 100%;
 
   overflow: visible;
-
-  color: inherit;
 }
 
 /* ========================================
@@ -63,21 +67,7 @@
 }
 
 /* ========================================
-   Theme
-   ======================================== */
-
-/* Icon displayed on a light background */
-.icon--dark {
-  color: var(--color-icon-dark);
-}
-
-/* Icon displayed on a dark background */
-.icon--light {
-  color: var(--color-icon-light);
-}
-
-/* ========================================
-   Circle Background
+   Background
    ======================================== */
 
 .icon__background {
@@ -86,46 +76,106 @@
 
   pointer-events: none;
 
-  transition: fill 0.2s ease;
-}
-
-/* ========================================
-   Active
-   Same background as hover
-   ======================================== */
-
-/* Dark icon on a light background */
-.icon--dark.icon--active .icon__background {
-  fill: rgba(255, 255, 255, 0.2);
-}
-
-/* Light icon on a dark background */
-.icon--light.icon--active .icon__background {
-  fill: rgba(0, 0, 0, 0.2);
-}
-
-/* Dark icon on a light background */
-.icon--dark:hover .icon__background {
-  fill: rgba(255, 255, 255, 0.2);
-}
-
-/* Light icon on a dark background */
-.icon--light:hover .icon__background {
-  fill: rgba(0, 0, 0, 0.2);
+  transition: fill 160ms ease;
 }
 
 /* ========================================
    Burger Lines
    ======================================== */
 
-.icon line {
+.icon__line {
   fill: none;
 
   stroke: currentColor;
-  stroke-width: var(--width-line-04, 1.5);
+  stroke-width: var(--width-line-04, 1px);
 
   stroke-linecap: round;
   stroke-linejoin: round;
 
   pointer-events: none;
+
+  transform-box: fill-box;
+  transform-origin: center;
+
+  transition:
+    stroke 160ms ease,
+    transform 160ms ease,
+    opacity 160ms ease;
+}
+
+/* ========================================
+   Hover
+   ======================================== */
+
+.icon:hover {
+  color: var(--color-hover-icon);
+}
+
+.icon:hover .icon__background {
+  fill: var(--color-hover-background);
+}
+
+/* ========================================
+   Active / Open
+   ======================================== */
+
+.icon--active {
+  color: var(--color-active-icon);
+}
+
+.icon--active .icon__background {
+  fill: var(--color-active-background);
+}
+
+/* Convert burger into close icon */
+
+.icon--active .icon__line--top {
+  transform: translateY(3.75px) rotate(45deg);
+}
+
+.icon--active .icon__line--middle {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.icon--active .icon__line--bottom {
+  transform: translateY(-3.75px) rotate(-45deg);
+}
+
+/* ========================================
+   Pressed
+   ======================================== */
+
+.icon:active {
+  color: var(--color-active-icon);
+  transform: scale(0.96);
+}
+
+.icon:active .icon__background {
+  fill: var(--color-active-background);
+}
+
+/* ========================================
+   Focus
+   ======================================== */
+
+.icon:focus-visible {
+  color: var(--color-focus-icon);
+  outline: none;
+}
+
+.icon:focus-visible .icon__background {
+  fill: var(--color-focus-ring);
+}
+
+/* ========================================
+   Reduced Motion
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .icon,
+  .icon__background,
+  .icon__line {
+    transition: none;
+  }
 }

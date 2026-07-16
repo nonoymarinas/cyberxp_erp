@@ -1,81 +1,48 @@
-import { booleanAttribute, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+export type CxpInputSize = 'sm' | 'md' | 'lg' | 'xl';
+
+export type CxpInputType =
+  | 'text'
+  | 'password'
+  | 'email'
+  | 'number'
+  | 'search'
+  | 'tel'
+  | 'url';
 
 @Component({
   selector: 'cxp-input-text',
   standalone: true,
-  imports: [],
   templateUrl: './cxp-input-text.html',
   styleUrl: './cxp-input-text.css',
 })
 export class CxpInputText {
-  /* Appearance */
+  @Input() value = '';
 
-  @Input()
-  colorScheme: 'dark' | 'light' = 'dark';
+  @Input() type: CxpInputType = 'text';
 
-  /* Input Properties */
-  @Input()
-  size: 'sm' | 'md' | 'lg' | 'xl' = 'md';
+  @Input() size: CxpInputSize = 'md';
 
-  @Input()
-  type: 'text' | 'password' | 'email' | 'number' | 'search' | 'tel' | 'url' = 'text';
+  @Input() name = '';
 
-  @Input()
-  value = '';
+  @Input() placeholder = '';
 
-  @Input()
-  placeholder = '';
+  @Input() autocomplete = 'off';
 
-  @Input()
-  name = '';
+  @Input() disabled = false;
 
-  @Input()
-  id = '';
+  @Input() readonly = false;
 
-  @Input()
-  autocomplete = 'off';
+  @Input() required = false;
 
-  @Input()
-  minlength?: number;
+  @Input() invalid = false;
 
-  @Input()
-  maxlength?: number;
+  @Output() valueChange = new EventEmitter<string>();
 
-  @Input()
-  pattern = '';
+  @Output() focused = new EventEmitter<void>();
 
-  /* Boolean Properties */
-
-  @Input({ transform: booleanAttribute })
-  disabled = false;
-
-  @Input({ transform: booleanAttribute })
-  readonly = false;
-
-  @Input({ transform: booleanAttribute })
-  required = false;
-
-  @Input({ transform: booleanAttribute })
-  autofocus = false;
-
-  @Input({ transform: booleanAttribute })
-  invalid = false;
-
-  /* Events */
-
-  @Output()
-  valueChange = new EventEmitter<string>();
-
-  @Output()
-  focused = new EventEmitter<FocusEvent>();
-
-  @Output()
-  blurred = new EventEmitter<FocusEvent>();
-
-  @Output()
-  enterPressed = new EventEmitter<KeyboardEvent>();
-
-  /* Event Handlers */
+  @Output() blurred = new EventEmitter<void>();
 
   onInput(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -84,39 +51,11 @@ export class CxpInputText {
     this.valueChange.emit(this.value);
   }
 
-  onFocus(event: FocusEvent): void {
-    this.focused.emit(event);
+  onFocus(): void {
+    this.focused.emit();
   }
 
-  onBlur(event: FocusEvent): void {
-    this.blurred.emit(event);
-  }
-
-  onEnter(event: KeyboardEvent): void {
-    this.enterPressed.emit(event);
-  }
-
-  /* Password Visibility */
-
-  passwordVisible = false;
-
-  get inputType(): string {
-    if (this.type !== 'password') {
-      return this.type;
-    }
-
-    return this.passwordVisible ? 'text' : 'password';
-  }
-
-  get passwordHidden(): boolean {
-    return !this.passwordVisible;
-  }
-
-  togglePasswordVisibility(): void {
-    if (this.disabled || this.type !== 'password') {
-      return;
-    }
-
-    this.passwordVisible = !this.passwordVisible;
+  onBlur(): void {
+    this.blurred.emit();
   }
 }

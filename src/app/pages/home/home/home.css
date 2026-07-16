@@ -1,5 +1,64 @@
-.home-page__main__box{
+.home-page__main__box {
     width: 100%;
     height: calc(100vh - var(--header-height) - var(--footer-height));
-    background-color: #fff;
+    background-color: var(--color-background-10);
+    padding: 1rem 2rem;
+}
+
+.icon--xl {
+    width: 100%;
+    height: 100%;
+}
+
+.home-page__title__box {
+    display: flex;
+    padding: .05rem 0;
+    align-items: center;
+    background-color: var(--color-background-09);
+    margin-bottom: 1rem;
+}
+
+.home-page__content__box {
+    display: flex;
+    padding: 1rem 0;
+    align-items: center;
+}
+
+.home-page__app__box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,
+            minmax(64px, 100px));
+}
+
+.home-page__label {
+    color: var(--color-text-03);
+    padding-left: 1rem;
+    font-weight: 500;
+}
+
+.icon {
+    width: 100%;
+    height: 100%;
+}
+
+@media (max-width: 768px) {
+    .home-page__app__box {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1rem 0.5rem;
+        width: 100%;
+    }
+
+    .apps-grid__item {
+        width: 100%;
+        aspect-ratio: 1;
+    }
+
+    .icon {
+        width: 100%;
+        height: 100%;
+    }
+    .home-page__label{
+        font-size: 16px;
+    }
 }

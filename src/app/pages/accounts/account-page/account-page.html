@@ -1,0 +1,21 @@
+<button (click)="toggleTheme()">
+    Toggle Theme
+</button>
+
+<section class="account-page__section">
+
+    @if (!isEditingBasicInfo) {
+
+        <ams-basic-info-view
+            (edit)="editBasicInfo()">
+        </ams-basic-info-view>
+
+    } @else {
+
+        <ams-basic-info-edit
+            (save)="saveBasicInfo()"
+            (cancel)="cancelBasicInfo()">
+        </ams-basic-info-edit>
+    }
+
+</section>

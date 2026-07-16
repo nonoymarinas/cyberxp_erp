@@ -3,99 +3,145 @@
    ======================================== */
 
 .icon {
-    display: inline-flex;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-    align-items: center;
-    justify-content: center;
+  flex-shrink: 0;
 
-    flex-shrink: 0;
+  color: var(--color-icon-primary);
 
-    line-height: 0;
+  line-height: 0;
+
+  transition:
+    color 160ms ease,
+    transform 160ms ease;
 }
 
-/* SVG */
+/* ========================================
+   SVG
+   ======================================== */
 
 .icon__svg {
-    display: block;
+  display: block;
 
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
+
+  overflow: visible;
 }
 
 /* ========================================
    Size
    ======================================== */
+
 .icon--xxs {
-    width: 12px;
-    height: 12px;
+  width: 12px;
+  height: 12px;
 }
+
 .icon--xs {
-    width: 18px;
-    height: 18px;
+  width: 18px;
+  height: 18px;
 }
 
 .icon--sm {
-    width: 24px;
-    height: 24px;
+  width: 24px;
+  height: 24px;
 }
 
 .icon--md {
-    width: 36px;
-    height: 36px;
+  width: 36px;
+  height: 36px;
 }
 
 .icon--lg {
-    width: 48px;
-    height: 48px;
+  width: 48px;
+  height: 48px;
 }
 
 .icon--xl {
-    width: 60px;
-    height: 60px;
+  width: 60px;
+  height: 60px;
 }
 
 /* ========================================
-   Theme
+   Shape
    ======================================== */
 
-.icon--dark {
-    color:var(--color-icon-dark)
-}
+.icon__shape {
+  fill: none;
 
-.icon--light {
-    color:var(--color-icon-light)
-}
+  stroke: currentColor;
+  stroke-width: var(--icon-stroke-width);
 
-/* ========================================
-   Fill
-   ======================================== */
+  stroke-linecap: round;
+  stroke-linejoin: round;
 
-.icon--filled polygon,
-.icon--filled path,
-.icon--filled rect,
-.icon--filled circle,
-.icon--filled ellipse,
-.icon--filled line,
-.icon--filled polyline {
-    fill: currentColor;
-    stroke: none;
+  vector-effect: non-scaling-stroke;
+
+  transition:
+    stroke 160ms ease,
+    transform 160ms ease;
 }
 
 /* ========================================
    Outline
    ======================================== */
 
-.icon--outline polygon,
-.icon--outline path,
-.icon--outline rect,
-.icon--outline circle,
-.icon--outline ellipse,
-.icon--outline line,
-.icon--outline polyline {
-    fill: none;
-    stroke: currentColor;
-    stroke-width: var(--width-line-05);
+.icon--outline {
+  --icon-stroke-width: var(--width-line-05, 1.25px);
+}
 
-    stroke-linecap: round;
-    stroke-linejoin: round;
+/* ========================================
+   Filled
+   Line-based icon with stronger stroke
+   ======================================== */
+
+.icon--filled {
+  --icon-stroke-width: var(--width-line-07, 1.75px);
+}
+
+/* ========================================
+   Interaction
+   ======================================== */
+
+.icon:hover {
+  color: var(--color-hover-icon);
+}
+
+.icon:hover .icon__arrow-head,
+.icon:hover .icon__arrow-line {
+  transform: translateX(0.6px);
+}
+
+.icon:active {
+  color: var(--color-active-icon);
+  transform: scale(0.96);
+}
+
+/* ========================================
+   Transform Setup
+   ======================================== */
+
+.icon__arrow-head,
+.icon__arrow-line {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* ========================================
+   Reduced Motion
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .icon,
+  .icon__shape {
+    transition: none;
+  }
+
+  .icon:hover .icon__arrow-head,
+  .icon:hover .icon__arrow-line {
+    transform: none;
+  }
 }
