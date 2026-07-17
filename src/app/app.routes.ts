@@ -4,6 +4,7 @@ import { MainLayout } from './layouts/main-layout/main-layout';
 import { Login } from './pages/auth/login/login';
 import { Home } from './pages/home/home/home';
 import { AccountPage } from './pages/accounts/account-page/account-page';
+import { AmsSettingsPage } from './pages/settings/settings-page/settings-page';
 
 export const routes: Routes = [
   {

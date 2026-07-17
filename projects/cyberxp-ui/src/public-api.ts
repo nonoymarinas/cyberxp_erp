@@ -6,6 +6,7 @@ export * from './lib/cyberxp-ui';
 export * from './lib/components/inputs/cxp-input-text/cxp-input-text';
 export * from './lib/components/icons/cxp-icon-cyberxp-app/cxp-icon-cyberxp-app';
 export * from './lib/components/icons/cxp-icon-eye-password/cxp-icon-eye-password';
+export * from './lib/components/buttons/cxp-button/cxp-button';
 export * from './lib/components/buttons/cxp-button-login/cxp-button-login';
 export * from './lib/components/icons/cxp-icon-burger-nav/cxp-icon-burger-nav';
 export * from './lib/components/icons/cxp-icon-app-nav/cxp-icon-app-nav';

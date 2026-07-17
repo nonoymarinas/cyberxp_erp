@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { CxpIconUserCircle } from "cyberxp-ui";
+import { CxpIconUserCircle,CxpButton } from "cyberxp-ui";
 
 @Component({
   selector: 'ams-basic-info-view',
   standalone: true,
-  imports: [CxpIconUserCircle],
+  imports: [CxpIconUserCircle,CxpButton],
   templateUrl: './basic-info-view.html',
   styleUrl: './basic-info-view.css',
 })

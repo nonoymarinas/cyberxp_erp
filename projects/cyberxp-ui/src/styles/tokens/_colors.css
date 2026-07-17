@@ -14,15 +14,23 @@
   --grey-900: #1A1A1A;
   --grey-1000: #0A0A0A;
 
-  --blue-100: #EAF4FF;
-  --blue-200: #CFE7FF;
-  --blue-300: #A8D2FF;
-  --blue-400: #73B6FF;
-  --blue-500: #3B82F6;
-  --blue-600: #2563EB;
-  --blue-700: #1D4ED8;
-  --blue-800: #1E40AF;
-  --blue-900: #172554;
+  /* Blue Scale */
+
+  /* ========================================
+   CyberXP Navy
+   ======================================== */
+
+  --blue-000: #FFFFFF;
+  --blue-100: #E7F0FF;
+  --blue-200: #C7DAFF;
+  --blue-300: #94B7FF;
+  --blue-400: #5C8EFF;
+  --blue-500: #2F6BFF;
+  --blue-600: #1E4FCC;
+  --blue-700: #173C99;
+  --blue-800: #102962;
+  --blue-900: #121820;
+  --blue-1000: #020811;
 
   /* theme */
   --color-icon-dark: var(--grey-300);
@@ -99,4 +107,3 @@
 
   --color-text-link: var(--blue-700)
 }
-

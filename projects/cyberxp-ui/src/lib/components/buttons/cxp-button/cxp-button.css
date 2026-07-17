@@ -1,0 +1,311 @@
+/* ========================================
+   Host
+   ======================================== */
+
+:host {
+  display: inline-block;
+}
+
+/* ========================================
+   Button
+   ======================================== */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 0.5rem;
+
+  min-width: 0;
+
+  margin: 0;
+
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1;
+
+  border-style: solid;
+  border-width: var(--width-line-04, 1px);
+  border-radius: 4px;
+
+  cursor: pointer;
+
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  transition:
+    background-color 0.2s,
+    border-color 0.2s,
+    color 0.2s,
+    box-shadow 0.2s,
+    transform 0.1s;
+}
+
+/* ========================================
+   Label
+   ======================================== */
+
+.button__label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 0;
+
+  white-space: nowrap;
+}
+
+/* ========================================
+   Prefix and suffix
+   ======================================== */
+
+.button__prefix,
+.button__suffix {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+}
+
+.button__prefix:empty,
+.button__suffix:empty {
+  display: none;
+}
+
+/* ========================================
+   Primary
+   ======================================== */
+
+.button--primary {
+  color: var(--color-button-primary-text);
+
+  background-color:
+    var(--color-button-primary-background);
+
+  border-color:
+    var(--color-button-primary-border);
+}
+
+.button--primary .button__prefix,
+.button--primary .button__suffix {
+  color: var(--color-button-primary-icon);
+}
+
+.button--primary:not(:disabled):hover {
+  color:
+    var(--color-button-primary-hover-text);
+
+  background-color:
+    var(--color-button-primary-hover-background);
+
+  border-color:
+    var(--color-button-primary-hover-border);
+}
+
+.button--primary:not(:disabled):active {
+  background-color:
+    var(--color-button-primary-active-background);
+
+  border-color:
+    var(--color-button-primary-active-border);
+}
+
+/* ========================================
+   Secondary
+   ======================================== */
+
+.button--secondary {
+  color: var(--color-button-secondary-text);
+
+  background-color:
+    var(--color-button-secondary-background);
+
+  border-color:
+    var(--color-button-secondary-border);
+}
+
+.button--secondary .button__prefix,
+.button--secondary .button__suffix {
+  color: var(--color-button-secondary-icon);
+}
+
+.button--secondary:not(:disabled):hover {
+  background-color:
+    var(--color-button-secondary-hover-background);
+
+  border-color:
+    var(--color-button-secondary-hover-border);
+}
+
+.button--secondary:not(:disabled):active {
+  background-color:
+    var(--color-button-secondary-active-background);
+
+  border-color:
+    var(--color-button-secondary-active-border);
+}
+
+/* ========================================
+   Ghost
+   ======================================== */
+
+.button--ghost {
+  color: var(--color-button-ghost-text);
+
+  background-color:
+    var(--color-button-ghost-background);
+
+  border-color:
+    var(--color-button-ghost-border);
+}
+
+.button--ghost .button__prefix,
+.button--ghost .button__suffix {
+  color: var(--color-button-ghost-icon);
+}
+
+.button--ghost:not(:disabled):hover {
+  color:
+    var(--color-button-ghost-hover-text);
+
+  background-color:
+    var(--color-button-ghost-hover-background);
+}
+
+.button--ghost:not(:disabled):hover .button__prefix,
+.button--ghost:not(:disabled):hover .button__suffix {
+  color:
+    var(--color-button-ghost-hover-icon);
+}
+
+/* ========================================
+   Focus
+   ======================================== */
+
+.button:focus-visible {
+  outline: none;
+
+  box-shadow:
+    0 0 0 3px var(--color-focus-ring);
+}
+
+/* ========================================
+   Active
+   ======================================== */
+
+.button:not(:disabled):active {
+  transform: translateY(1px);
+}
+
+/* ========================================
+   Disabled
+   ======================================== */
+
+.button:disabled {
+  color: var(--color-button-disabled-text);
+
+  background-color:
+    var(--color-button-disabled-background);
+
+  border-color:
+    var(--color-button-disabled-border);
+
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.button:disabled .button__prefix,
+.button:disabled .button__suffix {
+  color: var(--color-button-disabled-icon);
+}
+
+/* ========================================
+   Sizes
+   ======================================== */
+
+.button--sm {
+  min-height: 32px;
+  padding-inline: 12px;
+
+  gap: 6px;
+
+  font-size: 16px;
+}
+
+.button--md {
+  min-height: 40px;
+  padding-inline: 16px;
+
+  gap: 8px;
+
+  font-size: 17px;
+}
+
+.button--lg {
+  min-height: 48px;
+  padding-inline: 20px;
+
+  gap: 10px;
+
+  font-size: 18px;
+}
+
+.button--xl {
+  min-height: 56px;
+  padding-inline: 24px;
+
+  gap: 12px;
+
+  font-size: 20px;
+}
+
+/* ========================================
+   Full width
+   ======================================== */
+
+.button--full-width {
+  width: 100%;
+}
+
+/* ========================================
+   Loading
+   ======================================== */
+
+.button--loading {
+  cursor: wait;
+}
+
+.button__spinner {
+  width: 1em;
+  height: 1em;
+
+  flex: 0 0 auto;
+
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+
+  animation: button-spin 0.7s linear infinite;
+}
+
+@keyframes button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ========================================
+   Reduced motion
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
+
+  .button__spinner {
+    animation-duration: 1.4s;
+  }
+}

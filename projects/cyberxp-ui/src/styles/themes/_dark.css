@@ -260,7 +260,7 @@
        Header
        ======================================== */
 
-    --color-header-background: var(--color-background-secondary);
+    --color-header-background: var(--color-background-primary);
     --color-header-border: var(--color-border-primary);
     --color-header-text: var(--color-text-primary);
     --color-header-icon: var(--color-icon-primary);
@@ -294,7 +294,7 @@
        Footer
        ======================================== */
 
-    --color-footer-background: var(--color-background-secondary);
+    --color-footer-background: var(--color-background-primary);
     --color-footer-border: var(--color-border-primary);
     --color-footer-text: var(--color-text-secondary);
     --color-footer-icon: var(--color-icon-secondary);
