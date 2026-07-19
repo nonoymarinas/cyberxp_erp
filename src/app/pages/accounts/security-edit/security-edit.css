@@ -1,0 +1,16 @@
+.section-box {
+  display: grid;
+  gap: 10px;
+}
+
+.section-box-content {
+  display: grid;
+  gap: 10px;
+}
+
+.section-box-item {
+  display: grid;
+  align-self: center;
+  grid-template-columns: 140px 1fr;
+  gap: 10px; /* border-bottom: 1px solid var(--color-border-secondary); */
+}

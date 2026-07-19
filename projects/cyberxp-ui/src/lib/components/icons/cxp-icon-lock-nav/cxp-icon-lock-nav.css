@@ -1,0 +1,116 @@
+/* ========================================
+   Icon
+   ======================================== */
+
+.icon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  line-height: 0;
+  color: var(--color-icon-primary);
+  transition:
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+/* ========================================
+   SVG
+   ======================================== */
+
+.icon__svg {
+  display: block;
+  overflow: visible;
+  width: 100%;
+  height: 100%;
+}
+
+/* ========================================
+   Size
+   ======================================== */
+
+.icon--xxs {
+  width: 12px;
+  height: 12px;
+}
+
+.icon--xs {
+  width: 18px;
+  height: 18px;
+}
+
+.icon--sm {
+  width: 24px;
+  height: 24px;
+}
+
+.icon--md {
+  width: 36px;
+  height: 36px;
+}
+
+.icon--lg {
+  width: 48px;
+  height: 48px;
+}
+
+.icon--xl {
+  width: 60px;
+  height: 60px;
+}
+
+/* ========================================
+   Filled
+   ======================================== */
+
+.icon--filled .icon__path {
+  fill: currentColor;
+  stroke: none;
+}
+
+/* ========================================
+   Outline
+   ======================================== */
+
+.icon--outline .icon__path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: var(--width-line-02, 1px);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+/* ========================================
+   Interaction
+   ======================================== */
+
+.icon:hover {
+  color: var(--color-hover-icon);
+}
+
+.icon:active {
+  color: var(--color-active-icon);
+  transform: scale(0.96);
+}
+
+/* ========================================
+   Transition
+   ======================================== */
+
+.icon__path {
+  transition:
+    fill 160ms ease,
+    stroke 160ms ease;
+}
+
+/* ========================================
+   Reduced Motion
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .icon,
+  .icon__path {
+    transition: none;
+  }
+}

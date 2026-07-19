@@ -1,510 +1,530 @@
 /* #########################################################
    LAYOUT COLORS
    ######################################################### */
-
-
 /* ========================================
    Application
    ======================================== */
 
 .cxp-app-layout {
-    color: var(--color-app-text);
-    background-color: var(--color-app-background);
+  color: var(--color-app-text);
+  background-color: var(--color-app-background);
 }
-
 
 /* ========================================
    Header
    ======================================== */
 
 .cxp-header {
-    color: var(--color-header-text);
-    background-color: var(--color-header-background);
-    border-color: var(--color-header-border);
+  border-color: var(--color-header-border);
+  color: var(--color-header-text);
+  background-color: var(--color-header-background);
 }
 
 .cxp-header__title,
 .cxp-header__text {
-    color: var(--color-header-text);
+  color: var(--color-header-text);
 }
 
 .cxp-header__icon {
-    color: var(--color-header-icon);
+  color: var(--color-header-icon);
 }
 
 .cxp-header__action {
-    color: var(--color-header-icon);
-    background-color: transparent;
-    border-color: transparent;
+  border-color: transparent;
+  color: var(--color-header-icon);
+  background-color: transparent;
 }
 
 .cxp-header__action:hover {
-    color: var(--color-hover-icon);
-    background-color: var(--color-header-action-hover);
+  color: var(--color-hover-icon);
+  background-color: var(--color-header-action-hover);
 }
 
 .cxp-header__action:active {
-    color: var(--color-active-icon);
-    background-color: var(--color-header-action-active);
+  color: var(--color-active-icon);
+  background-color: var(--color-header-action-active);
 }
 
 .cxp-header__action:focus-visible {
-    outline-color: var(--color-focus-border);
-    box-shadow: 0 0 0 3px var(--color-focus-ring);
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
+  outline-color: var(--color-focus-border);
 }
 
 .cxp-header__action:disabled,
 .cxp-header__action--disabled {
-    color: var(--color-disabled-icon);
-    background-color: transparent;
+  color: var(--color-disabled-icon);
+  background-color: transparent;
 }
-
 
 /* ========================================
    Application Body
    ======================================== */
 
 .cxp-app-layout__body {
-    color: var(--color-text-primary);
-    background-color: var(--color-background-primary);
+  color: var(--color-text-primary);
+  background-color: var(--color-background-primary);
 }
-
 
 /* ========================================
    Sidebar
    ======================================== */
 
 .cxp-sidebar {
-    color: var(--color-sidebar-text);
-    background-color: var(--color-sidebar-background);
-    border-color: var(--color-sidebar-border);
+  border-color: var(--color-sidebar-border);
+  color: var(--color-sidebar-text);
+  background-color: var(--color-sidebar-background);
 }
 
 .cxp-sidebar__header {
-    color: var(--color-text-primary);
-    background-color: var(--color-sidebar-background);
-    border-color: var(--color-divider-primary);
+  border-color: var(--color-divider-primary);
+  color: var(--color-text-primary);
+  background-color: var(--color-sidebar-background);
 }
 
 .cxp-sidebar__body {
-    color: var(--color-sidebar-text);
-    background-color: var(--color-sidebar-background);
+  color: var(--color-sidebar-text);
+  background-color: var(--color-sidebar-background);
 }
 
 .cxp-sidebar__footer {
-    color: var(--color-text-secondary);
-    background-color: var(--color-sidebar-background);
-    border-color: var(--color-divider-primary);
+  border-color: var(--color-divider-primary);
+  color: var(--color-text-secondary);
+  background-color: var(--color-sidebar-background);
 }
 
 .cxp-sidebar__title {
-    color: var(--color-text-primary);
+  color: var(--color-text-primary);
 }
 
 .cxp-sidebar__text {
-    color: var(--color-sidebar-text);
+  color: var(--color-sidebar-text);
 }
 
 .cxp-sidebar__icon {
-    color: var(--color-sidebar-icon);
+  color: var(--color-sidebar-icon);
 }
-
 
 /* ========================================
    Sidebar Item
    ======================================== */
+
 .cxp-sidebar__header {
-    background-color: var(--color-background-elevated);
+  background-color: var(--color-background-elevated);
 }
+
 .cxp-sidebar__item {
-    color: var(--color-sidebar-text);
-    background-color: transparent;
-    border-color: transparent;
+  border-color: transparent;
+  color: var(--color-sidebar-text);
+  background-color: transparent;
 }
 
 .cxp-sidebar__item:hover {
-    color: var(--color-sidebar-text-hover);
-    background-color: var(--color-sidebar-item-hover);
+  color: var(--color-sidebar-text-hover);
+  background-color: var(--color-sidebar-item-hover);
 }
 
 .cxp-sidebar__item:hover .cxp-sidebar__icon {
-    color: var(--color-sidebar-icon-hover);
+  color: var(--color-sidebar-icon-hover);
 }
 
 .cxp-sidebar__item:active {
-    color: var(--color-active-text);
-    background-color: var(--color-active-background);
+  color: var(--color-active-text);
+  background-color: var(--color-active-background);
 }
 
 .cxp-sidebar__item--active,
-.cxp-sidebar__item[aria-current="page"] {
-    color: var(--color-sidebar-text-active);
-    background-color: var(--color-sidebar-item-active);
-    border-color: var(--color-selected-border);
+.cxp-sidebar__item[aria-current='page'] {
+  border-color: var(--color-selected-border);
+  color: var(--color-sidebar-text-active);
+  background-color: var(--color-sidebar-item-active);
 }
 
 .cxp-sidebar__item--active .cxp-sidebar__icon,
-.cxp-sidebar__item[aria-current="page"] .cxp-sidebar__icon {
-    color: var(--color-sidebar-icon-active);
+.cxp-sidebar__item[aria-current='page'] .cxp-sidebar__icon {
+  color: var(--color-sidebar-icon-active);
 }
 
 .cxp-sidebar__item:focus-visible {
-    color: var(--color-focus-text);
-    background-color: var(--color-sidebar-item-focus);
-    outline-color: var(--color-focus-border);
-    box-shadow: 0 0 0 3px var(--color-focus-ring);
+  color: var(--color-focus-text);
+  background-color: var(--color-sidebar-item-focus);
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
+  outline-color: var(--color-focus-border);
 }
 
 .cxp-sidebar__item:disabled,
 .cxp-sidebar__item--disabled {
-    color: var(--color-disabled-text);
-    background-color: var(--color-disabled-background);
-    border-color: var(--color-disabled-border);
+  border-color: var(--color-disabled-border);
+  color: var(--color-disabled-text);
+  background-color: var(--color-disabled-background);
 }
 
 .cxp-sidebar__item:disabled .cxp-sidebar__icon,
 .cxp-sidebar__item--disabled .cxp-sidebar__icon {
-    color: var(--color-disabled-icon);
+  color: var(--color-disabled-icon);
 }
-
 
 /* ========================================
    Sidebar Resize Handle
    ======================================== */
 
 .cxp-sidebar__resize-handle {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .cxp-sidebar__resize-handle::after {
-    background-color: var(--color-sidebar-resize-handle);
+  background-color: var(--color-sidebar-resize-handle);
 }
 
 .cxp-sidebar__resize-handle:hover::after {
-    background-color: var(--color-sidebar-resize-handle-hover);
+  background-color: var(--color-sidebar-resize-handle-hover);
 }
 
 .cxp-sidebar__resize-handle:active::after {
-    background-color: var(--color-active-border);
+  background-color: var(--color-active-border);
 }
-
 
 /* ========================================
    Mobile Sidebar Overlay
    ======================================== */
 
 .cxp-sidebar-overlay {
-    background-color: var(--color-overlay-medium);
+  background-color: var(--color-overlay-medium);
 }
-
 
 /* ========================================
    Main Content
    ======================================== */
 
 .cxp-main-content {
-    color: var(--color-text-primary);
-    background-color: var(--color-background-primary);
+  color: var(--color-text-primary);
+  background-color: var(--color-background-primary);
 }
 
 .cxp-main-content__inner,
 .cxp-main-content__body {
-    color: inherit;
-    background-color: transparent;
+  color: inherit;
+  background-color: transparent;
 }
 
 .cxp-main-content__header {
-    color: var(--color-text-primary);
-    background-color: transparent;
-    border-color: var(--color-divider-primary);
+  border-color: var(--color-divider-primary);
+  color: var(--color-text-primary);
+  background-color: transparent;
 }
 
 .cxp-main-content__title {
-    color: var(--color-text-primary);
+  color: var(--color-text-primary);
 }
 
 .cxp-main-content__subtitle,
 .cxp-main-content__description {
-    color: var(--color-text-secondary);
+  color: var(--color-text-secondary);
 }
-
 
 /* ========================================
    Page
    ======================================== */
 
 .cxp-page {
-    color: var(--color-text-primary);
-    background-color: var(--color-background-primary);
+  padding: 1rem;
+  color: var(--color-text-primary);
+  background-color: var(--color-background-primary);
 }
 
 .cxp-page__header {
-    color: var(--color-text-primary);
-    background-color: transparent;
-    border-color: var(--color-divider-primary);
+  border-color: var(--color-divider-primary);
+  color: var(--color-text-primary);
+  background-color: transparent;
 }
 
 .cxp-page__title {
-    color: var(--color-text-primary);
+  color: var(--color-text-primary);
 }
 
 .cxp-page__subtitle,
 .cxp-page__description {
-    color: var(--color-text-secondary);
+  color: var(--color-text-secondary);
 }
 
 .cxp-page__body {
-    color: var(--color-text-primary);
-    background-color: transparent;
+  color: var(--color-text-primary);
+  background-color: transparent;
 }
 
 .cxp-page__footer {
-    color: var(--color-text-secondary);
-    background-color: transparent;
-    border-color: var(--color-divider-primary);
+  border-color: var(--color-divider-primary);
+  color: var(--color-text-secondary);
+  background-color: transparent;
 }
-
 
 /* ========================================
    Content Section
    ======================================== */
+/* ========================================
+   Section
+   ======================================== */
 
 .cxp-section {
-    color: var(--color-text-primary);
-    background-color: var(--color-background-secondary);
-    border-color: var(--color-border-primary);
-    min-height: 50px;
+  display: flex;
+  flex-direction: column;
+  min-height: 50px;
+  padding: 0.75rem;
+  border: 1px solid var(--color-section-border);
+  border-radius: var(--radius-md);
+  color: var(--color-section-text);
+  background-color: var(--color-section-background);
 }
 
+/* ========================================
+   Header
+   ======================================== */
+
 .cxp-section__header {
-    color: var(--color-text-primary);
-    background-color: transparent;
-    border-color: var(--color-divider-primary);
+  display: grid; /* justify-content: space-between; */ /* align-items: center; */
+  grid-template-columns: auto 1fr auto;
+  gap: 1rem;
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--color-section-header-border);
+  margin-bottom: 0.75rem;
+  color: var(--color-section-text);
+  background-color: var(--color-section-header-background);
 }
 
 .cxp-section__title {
-    color: var(--color-text-primary);
+  align-self: center;
+  margin: 0;
+  color: var(--color-section-title);
 }
 
 .cxp-section__description {
-    color: var(--color-text-secondary);
+  margin-top: 0.25rem;
+  color: var(--color-section-text);
 }
+
+/* ========================================
+   Body
+   ======================================== */
 
 .cxp-section__body {
-    color: var(--color-text-primary);
-    background-color: transparent;
+  flex: 1;
+  color: var(--color-section-text);
+  background-color: transparent;
 }
+
+/* ========================================
+   Footer
+   ======================================== */
 
 .cxp-section__footer {
-    color: var(--color-text-secondary);
-    background-color: transparent;
-    border-color: var(--color-divider-primary);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--color-section-footer-border);
+  margin-top: 0.75rem;
+  color: var(--color-section-text);
+  background-color: transparent;
 }
-
 
 /* ========================================
    Footer
    ======================================== */
 
 .cxp-footer {
-    color: var(--color-footer-text);
-    background-color: var(--color-footer-background);
-    border-color: var(--color-footer-border);
+  border-color: var(--color-footer-border);
+  color: var(--color-footer-text);
+  background-color: var(--color-footer-background);
 }
 
 .cxp-footer__text {
-    color: var(--color-footer-text);
+  color: var(--color-footer-text);
 }
 
 .cxp-footer__icon {
-    color: var(--color-footer-icon);
+  color: var(--color-footer-icon);
 }
 
 .cxp-footer__link {
-    color: var(--color-footer-text);
+  color: var(--color-footer-text);
 }
 
 .cxp-footer__link:hover {
-    color: var(--color-hover-text);
+  color: var(--color-hover-text);
 }
 
 .cxp-footer__link:focus-visible {
-    color: var(--color-focus-text);
-    outline-color: var(--color-focus-border);
+  color: var(--color-focus-text);
+  outline-color: var(--color-focus-border);
 }
-
 
 /* ========================================
    Toolbar
    ======================================== */
 
 .cxp-toolbar {
-    color: var(--color-toolbar-text);
-    background-color: var(--color-toolbar-background);
-    border-color: var(--color-toolbar-border);
+  border-color: var(--color-toolbar-border);
+  color: var(--color-toolbar-text);
+  background-color: var(--color-toolbar-background);
 }
 
 .cxp-toolbar__title,
 .cxp-toolbar__text {
-    color: var(--color-toolbar-text);
+  color: var(--color-toolbar-text);
 }
 
 .cxp-toolbar__icon {
-    color: var(--color-toolbar-icon);
+  color: var(--color-toolbar-icon);
 }
 
 .cxp-toolbar__action {
-    color: var(--color-toolbar-icon);
-    background-color: transparent;
-    border-color: transparent;
+  border-color: transparent;
+  color: var(--color-toolbar-icon);
+  background-color: transparent;
 }
 
 .cxp-toolbar__action:hover {
-    color: var(--color-hover-icon);
-    background-color: var(--color-toolbar-action-hover);
+  color: var(--color-hover-icon);
+  background-color: var(--color-toolbar-action-hover);
 }
 
 .cxp-toolbar__action:active {
-    color: var(--color-active-icon);
-    background-color: var(--color-active-background);
+  color: var(--color-active-icon);
+  background-color: var(--color-active-background);
 }
 
 .cxp-toolbar__action:focus-visible {
-    outline-color: var(--color-focus-border);
-    box-shadow: 0 0 0 3px var(--color-focus-ring);
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
+  outline-color: var(--color-focus-border);
 }
 
 .cxp-toolbar__action:disabled {
-    color: var(--color-disabled-icon);
-    background-color: transparent;
+  color: var(--color-disabled-icon);
+  background-color: transparent;
 }
-
 
 /* ========================================
    Navigation
    ======================================== */
 
 .cxp-nav {
-    color: var(--color-nav-text);
-    background-color: var(--color-nav-background);
-    border-color: var(--color-nav-border);
+  border-color: var(--color-nav-border);
+  color: var(--color-nav-text);
+  background-color: var(--color-nav-background);
 }
 
 .cxp-nav__item {
-    color: var(--color-nav-text);
-    background-color: transparent;
-    border-color: transparent;
+  border-color: transparent;
+  color: var(--color-nav-text);
+  background-color: transparent;
 }
 
 .cxp-nav__icon {
-    color: var(--color-nav-icon);
+  color: var(--color-nav-icon);
 }
 
 .cxp-nav__item:hover {
-    color: var(--color-nav-hover-text);
-    background-color: var(--color-nav-hover-background);
+  color: var(--color-nav-hover-text);
+  background-color: var(--color-nav-hover-background);
 }
 
 .cxp-nav__item:hover .cxp-nav__icon {
-    color: var(--color-nav-hover-icon);
+  color: var(--color-nav-hover-icon);
 }
 
 .cxp-nav__item:active {
-    color: var(--color-active-text);
-    background-color: var(--color-active-background);
+  color: var(--color-active-text);
+  background-color: var(--color-active-background);
 }
 
 .cxp-nav__item--active,
-.cxp-nav__item[aria-current="page"] {
-    color: var(--color-nav-active-text);
-    background-color: var(--color-nav-active-background);
-    border-color: var(--color-selected-border);
+.cxp-nav__item[aria-current='page'] {
+  border-color: var(--color-selected-border);
+  color: var(--color-nav-active-text);
+  background-color: var(--color-nav-active-background);
 }
 
 .cxp-nav__item--active .cxp-nav__icon,
-.cxp-nav__item[aria-current="page"] .cxp-nav__icon {
-    color: var(--color-nav-active-icon);
+.cxp-nav__item[aria-current='page'] .cxp-nav__icon {
+  color: var(--color-nav-active-icon);
 }
 
 .cxp-nav__item:focus-visible {
-    color: var(--color-focus-text);
-    outline-color: var(--color-focus-border);
-    box-shadow: 0 0 0 3px var(--color-focus-ring);
+  color: var(--color-focus-text);
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
+  outline-color: var(--color-focus-border);
 }
 
 .cxp-nav__item--disabled {
-    color: var(--color-disabled-text);
-    background-color: transparent;
+  color: var(--color-disabled-text);
+  background-color: transparent;
 }
 
 .cxp-nav__item--disabled .cxp-nav__icon {
-    color: var(--color-disabled-icon);
+  color: var(--color-disabled-icon);
 }
-
 
 /* ========================================
    Breadcrumb
    ======================================== */
 
 .cxp-breadcrumb {
-    color: var(--color-breadcrumb-text);
-    background-color: transparent;
+  color: var(--color-breadcrumb-text);
+  background-color: transparent;
 }
 
 .cxp-breadcrumb__item,
 .cxp-breadcrumb__link {
-    color: var(--color-breadcrumb-text);
+  color: var(--color-breadcrumb-text);
 }
 
 .cxp-breadcrumb__link:hover {
-    color: var(--color-breadcrumb-hover);
+  color: var(--color-breadcrumb-hover);
 }
 
 .cxp-breadcrumb__link:focus-visible {
-    color: var(--color-focus-text);
-    outline-color: var(--color-focus-border);
+  color: var(--color-focus-text);
+  outline-color: var(--color-focus-border);
 }
 
 .cxp-breadcrumb__current {
-    color: var(--color-breadcrumb-text-current);
+  color: var(--color-breadcrumb-text-current);
 }
 
 .cxp-breadcrumb__divider {
-    color: var(--color-breadcrumb-divider);
+  color: var(--color-breadcrumb-divider);
 }
-
 
 /* ========================================
    Layout Panel
    ======================================== */
 
 .cxp-layout-panel {
-    color: var(--color-panel-text);
-    background-color: var(--color-panel-background);
-    border-color: var(--color-panel-border);
+  border-color: var(--color-panel-border);
+  color: var(--color-panel-text);
+  background-color: var(--color-panel-background);
 }
 
 .cxp-layout-panel__header {
-    color: var(--color-panel-title);
-    background-color: var(--color-panel-header-background);
-    border-color: var(--color-divider-primary);
+  border-color: var(--color-divider-primary);
+  color: var(--color-panel-title);
+  background-color: var(--color-panel-header-background);
 }
 
 .cxp-layout-panel__title {
-    color: var(--color-panel-title);
+  color: var(--color-panel-title);
 }
 
 .cxp-layout-panel__body {
-    color: var(--color-panel-text);
-    background-color: var(--color-panel-background);
+  color: var(--color-panel-text);
+  background-color: var(--color-panel-background);
 }
 
 .cxp-layout-panel__footer {
-    color: var(--color-text-secondary);
-    background-color: var(--color-panel-background);
-    border-color: var(--color-divider-primary);
+  border-color: var(--color-divider-primary);
+  color: var(--color-text-secondary);
+  background-color: var(--color-panel-background);
 }
-
 
 /* ========================================
    Divider
@@ -512,17 +532,16 @@
 
 .cxp-layout-divider,
 .cxp-divider {
-    border-color: var(--color-divider-primary);
+  border-color: var(--color-divider-primary);
 }
 
 .cxp-divider--secondary {
-    border-color: var(--color-divider-secondary);
+  border-color: var(--color-divider-secondary);
 }
 
 .cxp-divider--strong {
-    border-color: var(--color-divider-strong);
+  border-color: var(--color-divider-strong);
 }
-
 
 /* ========================================
    Scrollbar
@@ -532,45 +551,42 @@
 .cxp-main-content,
 .cxp-page,
 .cxp-layout-panel__body {
-    scrollbar-color:
-        var(--color-scrollbar-thumb)
-        var(--color-scrollbar-track);
+  scrollbar-color: var(--color-scrollbar-thumb) var(--color-scrollbar-track);
 }
 
 .cxp-sidebar::-webkit-scrollbar-track,
 .cxp-main-content::-webkit-scrollbar-track,
 .cxp-page::-webkit-scrollbar-track,
 .cxp-layout-panel__body::-webkit-scrollbar-track {
-    background-color: var(--color-scrollbar-track);
+  background-color: var(--color-scrollbar-track);
 }
 
 .cxp-sidebar::-webkit-scrollbar-thumb,
 .cxp-main-content::-webkit-scrollbar-thumb,
 .cxp-page::-webkit-scrollbar-thumb,
 .cxp-layout-panel__body::-webkit-scrollbar-thumb {
-    background-color: var(--color-scrollbar-thumb);
+  background-color: var(--color-scrollbar-thumb);
 }
 
 .cxp-sidebar::-webkit-scrollbar-thumb:hover,
 .cxp-main-content::-webkit-scrollbar-thumb:hover,
 .cxp-page::-webkit-scrollbar-thumb:hover,
 .cxp-layout-panel__body::-webkit-scrollbar-thumb:hover {
-    background-color: var(--color-scrollbar-thumb-hover);
+  background-color: var(--color-scrollbar-thumb-hover);
 }
 
 .cxp-sidebar::-webkit-scrollbar-thumb:active,
 .cxp-main-content::-webkit-scrollbar-thumb:active,
 .cxp-page::-webkit-scrollbar-thumb:active,
 .cxp-layout-panel__body::-webkit-scrollbar-thumb:active {
-    background-color: var(--color-scrollbar-thumb-active);
+  background-color: var(--color-scrollbar-thumb-active);
 }
-
 
 /* ========================================
    Text Selection
    ======================================== */
 
 .cxp-app-layout ::selection {
-    color: var(--color-text-selection-text);
-    background-color: var(--color-text-selection-background);
+  color: var(--color-text-selection-text);
+  background-color: var(--color-text-selection-background);
 }

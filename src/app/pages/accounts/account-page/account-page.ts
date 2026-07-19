@@ -1,50 +1,47 @@
 import { Component } from '@angular/core';
-import { AmsBasicInfoView } from '../basic-info-view/basic-info-view';
-import { AmsBasicInfoEdit } from '../basic-info-edit/basic-info-edit';
+import { AmsBasicInfoView as BasicInfoView } from '../basic-info-view/basic-info-view';
+import { AmsSecurityView as SecurityView } from '../security-view/security-view';
+import { AmsSecurityEdit as SecurityEdit } from '../security-edit/security-edit';
+import { CxpIconUserCircle, CxpButton, CxpIconUserNav, CxpIconLockNav } from 'cyberxp-ui';
+
+type AccountEditingSection = 'basic-info' | 'security' | null;
 
 @Component({
   selector: 'ams-account-page',
   standalone: true,
   imports: [
-    AmsBasicInfoView,
-    AmsBasicInfoEdit
+    BasicInfoView,
+    SecurityView,
+    SecurityEdit,
+    CxpIconUserCircle,
+    CxpButton,
+    CxpIconUserNav,
+    CxpIconLockNav,
   ],
   templateUrl: './account-page.html',
   styleUrl: './account-page.css',
 })
 export class AccountPage {
+  editingSection: AccountEditingSection = null;
 
-  isEditingBasicInfo = false;
-
-  editBasicInfo(): void {
-    this.isEditingBasicInfo = true;
+  editSecurity(): void {
+    this.editingSection = 'security';
   }
 
-  saveBasicInfo(): void {
+  saveSecurity(): void {
+    // TODO: Validate and save security information
 
-    // TODO: Save changes
-
-    this.isEditingBasicInfo = false;
+    this.editingSection = null;
   }
 
-  cancelBasicInfo(): void {
-    this.isEditingBasicInfo = false;
+  cancelSecurity(): void {
+    this.editingSection = null;
   }
 
-  toggleTheme(): void {
+  // toggleTheme(): void {
+  //   const isDarkTheme = document.body.classList.contains('theme-dark');
 
-    if (document.body.classList.contains('theme-dark')) {
-
-      document.body.classList.remove('theme-dark');
-      document.body.classList.add('theme-light');
-
-    } else {
-
-      document.body.classList.remove('theme-light');
-      document.body.classList.add('theme-dark');
-
-    }
-
-  }
-
+  //   document.body.classList.toggle('theme-dark', !isDarkTheme);
+  //   document.body.classList.toggle('theme-light', isDarkTheme);
+  // }
 }

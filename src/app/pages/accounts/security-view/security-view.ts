@@ -2,10 +2,12 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { CxpIconUserCircle, CxpButton } from 'cyberxp-ui';
 
 @Component({
-  selector: 'ams-basic-info-view',
+  selector: 'ams-security-view',
   standalone: true,
   imports: [CxpIconUserCircle, CxpButton],
-  templateUrl: './basic-info-view.html',
-  styleUrl: './basic-info-view.css',
+  templateUrl: './security-view.html',
+  styleUrl: './security-view.css',
 })
-export class AmsBasicInfoView {}
+export class AmsSecurityView {
+  @Output() edit = new EventEmitter<void>();
+}

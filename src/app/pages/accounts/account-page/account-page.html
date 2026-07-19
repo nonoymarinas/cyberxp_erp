@@ -1,21 +1,58 @@
-<button (click)="toggleTheme()" class="theme-toogle">
-    Toggle Theme
-</button>
+<main class="cxp-page">
+  <section class="cxp-section">
+    <header class="cxp-section__header">
+      <cxp-icon-user-nav size="md"></cxp-icon-user-nav>
+      <h2 class="cxp-section__title">Accounts</h2>
+    </header>
+    <section class="basic-info-box">
+      <div>
+        <div class="section-title-box_basic_info">
+          <div class="title-icon-box">
+            <cxp-icon-user-circle
+              class="icon-pers-info"
+              size="sm"
+              fill="outline"
+            ></cxp-icon-user-circle>
+            <h2 class="cxp-title cxp-title-lg">Personal Information</h2>
+          </div>
+          <label class="cxp-label cxp-label-md">View your personal details</label>
+        </div>
+      </div>
 
-<section class="account-page__section">
+      <section>
+        <ams-basic-info-view></ams-basic-info-view>
+      </section>
+    </section>
+    <section>
+      <div class="section-title-box__security">
+        <div class="section-title-item-box">
+          <div class="title-icon-box">
+            <cxp-icon-lock-nav class="icon-pers-info" size="sm" fill="outline"></cxp-icon-lock-nav>
+            <h2 class="cxp-title cxp-title-lg">Security</h2>
+          </div>
+          <label class="cxp-label cxp-label-md">Update you login details</label>
+        </div>
 
-    @if (!isEditingBasicInfo) {
+        @if (editingSection === 'security') {
+          <cxp-button variant="ghost" size="sm" (clicked)="cancelSecurity()"> Cancel </cxp-button>
+        }
 
-        <ams-basic-info-view
-            (edit)="editBasicInfo()">
-        </ams-basic-info-view>
+        <cxp-button
+          variant="ghost"
+          size="sm"
+          (clicked)="editingSection === 'security' ? saveSecurity() : editSecurity()"
+        >
+          {{ editingSection === 'security' ? 'Save' : 'Edit' }}
+        </cxp-button>
+      </div>
 
-    } @else {
-
-        <ams-basic-info-edit
-            (save)="saveBasicInfo()"
-            (cancel)="cancelBasicInfo()">
-        </ams-basic-info-edit>
-    }
-
-</section>
+      <section>
+        @if (editingSection === 'security') {
+          <ams-security-edit></ams-security-edit>
+        } @else {
+          <ams-security-view></ams-security-view>
+        }
+      </section>
+    </section>
+  </section>
+</main>
