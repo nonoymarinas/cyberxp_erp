@@ -10,6 +10,7 @@ export * from './lib/components/buttons/cxp-button/cxp-button';
 export * from './lib/components/buttons/cxp-button-login/cxp-button-login';
 export * from './lib/components/icons/cxp-icon-burger-nav/cxp-icon-burger-nav';
 export * from './lib/components/icons/cxp-icon-app-nav/cxp-icon-app-nav';
+export * from './lib/components/icons/cxp-icon-app-static/cxp-icon-app-static';
 export * from './lib/components/icons/cxp-icon-home-nav/cxp-icon-home-nav';
 export * from './lib/components/icons/cxp-icon-user-nav/cxp-icon-user-nav';
 export * from './lib/components/icons/cxp-icon-settings-nav/cxp-icon-settings-nav';
@@ -17,3 +18,4 @@ export * from './lib/components/icons/cxp-icon-user-circle/cxp-icon-user-circle'
 export * from './lib/components/icons/cxp-icon-logout-nav/cxp-icon-logout-nav';
 export * from './lib/components/icons/cxp-icon-hrms-app/cxp-icon-hrms-app';
 export * from './lib/components/icons/cxp-icon-lock-nav/cxp-icon-lock-nav';
+export * from './lib/components/icons/cxp-icon-theme-nav/cxp-icon-theme-nav';

@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { CxpIconUserCircle, CxpButton } from 'cyberxp-ui';
+import { CxpIconUserCircle, CxpButton, CxpIconSettingsNav, CxpIconThemeNav } from 'cyberxp-ui';
 
 @Component({
   selector: 'ams-settings-page',
   standalone: true,
-  imports: [CxpIconUserCircle, CxpButton],
+  imports: [CxpIconUserCircle, CxpButton, CxpIconSettingsNav, CxpIconThemeNav],
   templateUrl: './settings-page.html',
   styleUrl: './settings-page.css',
 })

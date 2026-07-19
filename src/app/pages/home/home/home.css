@@ -39,7 +39,12 @@
   height: 100%;
 }
 
-.icon-app {
+.icon-home {
+  display: flex;
+  align-items: center;
+}
+
+.icon-apps {
   display: flex;
   align-items: center;
 }

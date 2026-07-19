@@ -1,0 +1,176 @@
+/* ========================================
+   Icon
+   ======================================== */
+
+.icon {
+  --icon-border-color: currentColor;
+  --icon-human-fill: currentColor;
+  --icon-human-stroke: currentColor;
+  --icon-stroke-width: var(--width-line-03, 0.75px);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  color: var(--color-icon-primary);
+
+  line-height: 0;
+
+  transition:
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+/* ========================================
+   SVG
+   ======================================== */
+
+.icon__svg {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: visible;
+}
+
+/* ========================================
+   Outer Circle
+   ======================================== */
+
+.icon__border {
+  fill: none;
+  stroke: var(--icon-border-color);
+  stroke-width: var(--icon-stroke-width);
+
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  vector-effect: non-scaling-stroke;
+
+  transition: stroke 160ms ease;
+}
+
+/* ========================================
+   Human
+   ======================================== */
+
+.icon__human {
+  fill: var(--icon-human-fill);
+  stroke: var(--icon-human-stroke);
+  stroke-width: var(--icon-stroke-width);
+
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  vector-effect: non-scaling-stroke;
+
+  transition:
+    fill 160ms ease,
+    stroke 160ms ease;
+}
+
+/* ========================================
+   Filled
+   Only the human is filled
+   ======================================== */
+
+.icon--filled {
+  --icon-human-fill: currentColor;
+  --icon-human-stroke: none;
+}
+
+/* ========================================
+   Outline
+   Human and border are outlined
+   ======================================== */
+
+.icon--outline {
+  --icon-human-fill: none;
+  --icon-human-stroke: currentColor;
+}
+
+/* ========================================
+   Size
+   ======================================== */
+
+.icon--xxs {
+  width: 12px;
+  height: 12px;
+}
+
+.icon--xs {
+  width: 18px;
+  height: 18px;
+}
+
+.icon--sm {
+  width: 24px;
+  height: 24px;
+}
+
+.icon--md {
+  width: 36px;
+  height: 36px;
+}
+
+.icon--lg {
+  width: 48px;
+  height: 48px;
+}
+
+.icon--xl {
+  width: 60px;
+  height: 60px;
+}
+
+.icon--2xl {
+  width: 72px;
+  height: 72px;
+}
+.icon--3xl {
+  width: 84px;
+  height: 84px;
+}
+.icon--4xl {
+  width: 96px;
+  height: 96px;
+}
+.icon--5xl {
+  width: 108px;
+  height: 108px;
+}
+.icon--6xl {
+  width: 120px;
+  height: 120px;
+}
+
+/* ========================================
+   Image
+   ======================================== */
+
+.icon__img {
+  display: block;
+
+  height: 24px;
+  width: 39px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+  object-position: center;
+}
+
+/* ========================================
+   Interaction
+   ======================================== */
+
+.icon:hover {
+  color: var(--color-hover-icon);
+}
+
+.icon:active {
+  color: var(--color-active-icon);
+}

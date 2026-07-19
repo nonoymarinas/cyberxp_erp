@@ -283,7 +283,6 @@
   display: grid; /* justify-content: space-between; */ /* align-items: center; */
   grid-template-columns: auto 1fr auto;
   gap: 1rem;
-  padding: 0.75rem;
   border-bottom: 1px solid var(--color-section-header-border);
   margin-bottom: 0.75rem;
   color: var(--color-section-text);
