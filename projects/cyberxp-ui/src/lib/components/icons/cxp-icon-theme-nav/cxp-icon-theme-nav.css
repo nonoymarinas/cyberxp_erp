@@ -3,10 +3,6 @@
    ======================================== */
 
 .icon {
-  --icon-border-color: currentColor;
-  --icon-human-fill: currentColor;
-  --icon-human-stroke: currentColor;
-  --icon-stroke-width: var(--width-line-03, 0.75px);
 
   display: inline-flex;
   align-items: center;
@@ -36,62 +32,35 @@
   overflow: visible;
 }
 
-/* ========================================
-   Outer Circle
-   ======================================== */
 
-.icon__border {
+/* Fill */
+
+.icon--filled polygon,
+.icon--filled path:not(.secondary-human),
+.icon--filled rect:not(.icon-background),
+.icon--filled circle:not(.secondary-human),
+.icon--filled ellipse,
+.icon--filled line,
+.icon--filled polyline {
+  fill: currentColor;
+  stroke: none;
+}
+
+/* Outline */
+
+.icon--outline polygon,
+.icon--outline path:not(.secondary-human),
+.icon--outline rect:not(.icon-background),
+.icon--outline circle:not(.secondary-human),
+.icon--outline ellipse,
+.icon--outline line,
+.icon--outline polyline {
   fill: none;
-  stroke: var(--icon-border-color);
-  stroke-width: var(--icon-stroke-width);
-
+  stroke: currentColor;
+  stroke-width: var(--width-line-02);
   stroke-linecap: round;
   stroke-linejoin: round;
-
-  vector-effect: non-scaling-stroke;
-
-  transition: stroke 160ms ease;
 }
-
-/* ========================================
-   Human
-   ======================================== */
-
-.icon__human {
-  fill: var(--icon-human-fill);
-  stroke: var(--icon-human-stroke);
-  stroke-width: var(--icon-stroke-width);
-
-  stroke-linecap: round;
-  stroke-linejoin: round;
-
-  vector-effect: non-scaling-stroke;
-
-  transition:
-    fill 160ms ease,
-    stroke 160ms ease;
-}
-
-/* ========================================
-   Filled
-   Only the human is filled
-   ======================================== */
-
-.icon--filled {
-  --icon-human-fill: currentColor;
-  --icon-human-stroke: none;
-}
-
-/* ========================================
-   Outline
-   Human and border are outlined
-   ======================================== */
-
-.icon--outline {
-  --icon-human-fill: none;
-  --icon-human-stroke: currentColor;
-}
-
 /* ========================================
    Size
    ======================================== */
@@ -147,30 +116,5 @@
   height: 120px;
 }
 
-/* ========================================
-   Image
-   ======================================== */
 
-.icon__img {
-  display: block;
 
-  height: 24px;
-  width: 39px;
-
-  border-radius: 50%;
-
-  object-fit: cover;
-  object-position: center;
-}
-
-/* ========================================
-   Interaction
-   ======================================== */
-
-.icon:hover {
-  color: var(--color-hover-icon);
-}
-
-.icon:active {
-  color: var(--color-active-icon);
-}

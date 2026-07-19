@@ -1,0 +1,299 @@
+/* ========================================
+   Select
+======================================== */
+
+.select {
+    position: relative;
+    width: 100%;
+}
+
+/* ========================================
+   Control
+======================================== */
+
+.select__control {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+
+    border: 1px solid var(--color-border-primary);
+    border-radius: var(--radius-md);
+
+    background: var(--color-background-primary);
+
+    transition:
+        border-color .15s,
+        box-shadow .15s;
+}
+
+/* ========================================
+   Prefix / Suffix
+======================================== */
+
+.select__prefix,
+.select__suffix,
+.select__indicator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+}
+
+/* ========================================
+   Input
+======================================== */
+
+.select__field {
+    flex: 1;
+
+    width: 100%;
+    min-width: 0;
+
+    border: 0;
+    outline: none;
+
+    background: transparent;
+
+    color: var(--color-text-primary);
+
+    font: inherit;
+}
+
+.select__field::placeholder {
+    color: var(--color-text-secondary);
+}
+
+/* ========================================
+   Indicator
+======================================== */
+
+.select__indicator {
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    color: inherit;
+
+    transition: transform .2s ease;
+}
+
+.select__indicator-svg {
+    width: 18px;
+    height: 18px;
+
+    display: block;
+}
+
+.select--open .select__indicator {
+    transform: rotate(180deg);
+}
+
+/* ========================================
+   Dropdown
+======================================== */
+
+.select__panel {
+    position: absolute;
+
+    top: calc(100% + 4px);
+    left: 0;
+
+    width: 100%;
+
+    max-height: 280px;
+
+    overflow-y: auto;
+
+    z-index: 1000;
+
+    border: 1px solid var(--color-border-primary);
+    border-radius: var(--radius-md);
+
+    background: var(--color-background-primary);
+
+    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+}
+
+/* ========================================
+   List
+======================================== */
+
+.select__list {
+    list-style: none;
+
+    margin: 0;
+    padding: .25rem;
+}
+
+/* ========================================
+   Option
+======================================== */
+
+.select__option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    cursor: pointer;
+
+    user-select: none;
+
+    border-radius: var(--radius-sm);
+
+    transition:
+        background .15s,
+        color .15s;
+}
+
+.select__option:hover {
+    background: var(--color-background-secondary);
+}
+
+.select__option--active {
+    background: var(--color-background-secondary);
+}
+
+.select__option--selected {
+    font-weight: 600;
+}
+
+.select__option--disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+.select__empty {
+    padding: .75rem 1rem;
+
+    color: var(--color-text-secondary);
+}
+
+/* ========================================
+   States
+======================================== */
+
+.select__control:focus-within {
+    border-color: var(--color-border-focus);
+}
+
+.select--invalid .select__control {
+    border-color: var(--color-border-invalid);
+}
+
+.select--disabled {
+    opacity: .55;
+}
+
+.select--disabled .select__control {
+    cursor: not-allowed;
+}
+
+.select--disabled .select__field {
+    cursor: not-allowed;
+}
+
+.select--readonly .select__field {
+    cursor: default;
+}
+
+.select--readonly .select__indicator {
+    pointer-events: none;
+}
+
+/* ========================================
+   Sizes
+======================================== */
+
+/* SMALL */
+
+.select--sm .select__control {
+    min-height: 32px;
+
+    padding-inline: .5rem;
+
+    gap: .5rem;
+}
+
+.select--sm .select__field {
+    font-size: .875rem;
+}
+
+.select--sm .select__option {
+    padding: .5rem .75rem;
+}
+
+/* MEDIUM */
+
+.select--md .select__control {
+    min-height: 40px;
+
+    padding-inline: .75rem;
+
+    gap: .625rem;
+}
+
+.select--md .select__field {
+    font-size: .95rem;
+}
+
+.select--md .select__option {
+    padding: .625rem .875rem;
+}
+
+/* LARGE */
+
+.select--lg .select__control {
+    min-height: 48px;
+
+    padding-inline: .875rem;
+
+    gap: .75rem;
+}
+
+.select--lg .select__field {
+    font-size: 1rem;
+}
+
+.select--lg .select__option {
+    padding: .75rem 1rem;
+}
+
+/* XL */
+
+.select--xl .select__control {
+    min-height: 56px;
+
+    padding-inline: 1rem;
+
+    gap: .875rem;
+}
+
+.select--xl .select__field {
+    font-size: 1.1rem;
+}
+
+.select--xl .select__option {
+    padding: .875rem 1.125rem;
+}
+
+/* ========================================
+   Scrollbar
+======================================== */
+
+.select__panel::-webkit-scrollbar {
+    width: 8px;
+}
+
+.select__panel::-webkit-scrollbar-thumb {
+    background: var(--color-border-primary);
+    border-radius: 999px;
+}
+
+.select__panel::-webkit-scrollbar-track {
+    background: transparent;
+}

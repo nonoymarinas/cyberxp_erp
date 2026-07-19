@@ -1,0 +1,96 @@
+<div
+  class="select"
+  [class.select--sm]="size === 'sm'"
+  [class.select--md]="size === 'md'"
+  [class.select--lg]="size === 'lg'"
+  [class.select--xl]="size === 'xl'"
+  [class.select--open]="isOpen"
+  [class.select--disabled]="disabled"
+  [class.select--readonly]="readonly"
+  [class.select--invalid]="invalid"
+>
+  <div class="select__control">
+    <span class="select__prefix">
+      <ng-content select="[prefix]"></ng-content>
+    </span>
+
+    <input
+      class="select__field"
+      type="text"
+      [value]="searchText"
+      [name]="name"
+      [placeholder]="placeholder"
+      [disabled]="disabled"
+      [readOnly]="readonly"
+      [required]="required"
+      [attr.autocomplete]="'off'"
+      [attr.aria-expanded]="isOpen"
+      [attr.aria-controls]="listboxId"
+      [attr.aria-invalid]="invalid ? 'true' : 'false'"
+      role="combobox"
+      aria-autocomplete="list"
+      (input)="onSearchInput($event)"
+      (focus)="openDropdown()"
+      (blur)="onBlur()"
+      (keydown)="onKeydown($event)"
+    />
+
+    <button
+      class="select__indicator"
+      type="button"
+      tabindex="-1"
+      [disabled]="disabled || readonly"
+      aria-label="Toggle options"
+      (mousedown)="$event.preventDefault()"
+      (click)="toggleDropdown()"
+    >
+      <svg
+        class="select__indicator-svg"
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+        <path
+          d="M6 9L12 15L18 9"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
+
+    <span class="select__suffix">
+      <ng-content select="[suffix]"></ng-content>
+    </span>
+  </div>
+
+  @if (isOpen) {
+    <div class="select__panel">
+      <ul
+        class="select__list"
+        [id]="listboxId"
+        role="listbox"
+      >
+        @for (option of filteredOptions; track option.value; let index = $index) {
+          <li
+            class="select__option"
+            role="option"
+            [class.select__option--active]="index === activeIndex"
+            [class.select__option--selected]="option.value === value"
+            [class.select__option--disabled]="option.disabled"
+            [attr.aria-selected]="option.value === value"
+            [attr.aria-disabled]="option.disabled"
+            (mousedown)="selectOption(option, $event)"
+          >
+            {{ option.label }}
+          </li>
+        } @empty {
+          <li class="select__empty">
+            No matching results
+          </li>
+        }
+      </ul>
+    </div>
+  }
+</div>

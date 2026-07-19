@@ -1,17 +1,37 @@
 <main class="cxp-page">
-  <div class="section-box__secondary">
+  <section class="cxp-section">
     <header class="cxp-section__header">
-      <cxp-icon-settings-nav size="sm"></cxp-icon-settings-nav>
+      <cxp-icon-settings-nav class="icon-position" size="sm" fill="outline"></cxp-icon-settings-nav>
+
       <h2 class="cxp-section__title">Settings</h2>
     </header>
+
     <div>
       <div class="section-title-box_basic_info">
         <div class="title-icon-box">
-          <cxp-icon-theme-nav class="icon-pers-info" size="xs" fill="outline"></cxp-icon-theme-nav>
-          <h2 class="cxp-title cxp-title-lg">Themes</h2>
+          <cxp-icon-theme-nav class="icon-position" size="xs" fill="outline"></cxp-icon-theme-nav>
+
+          <h2 class="cxp-title cxp-title-md">Themes</h2>
         </div>
-        <label class="cxp-label cxp-label-md">Select your themes her...</label>
+
+        <label class="cxp-label cxp-label-md"> Select your theme here. </label>
+      </div>
+
+      <div class="section-box-item">
+        <label class="section-label cxp-label cxp-label-lg" for="theme-select"> Select Theme</label>
+
+        <cxp-input-select
+          id="theme-select"
+          name="theme"
+          size="sm"
+          placeholder="Select a theme"
+          [options]="themeOptions"
+          [value]="selectedTheme"
+          (valueChange)="onThemeChange($event)"
+        ></cxp-input-select>
+
+        <cxp-button variant="ghost" size="sm" (clicked)="applyTheme()"> Apply </cxp-button>
       </div>
     </div>
-  </div>
+  </section>
 </main>
