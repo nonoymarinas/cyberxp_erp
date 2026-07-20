@@ -1,7 +1,7 @@
 <main class="cxp-page">
   <section class="cxp-section">
     <header class="cxp-section__header">
-      <cxp-icon-user-nav class="icon-accounts" size="sm" fill="outline"></cxp-icon-user-nav>
+      <!-- <cxp-icon-user-nav class="icon-accounts" size="sm" fill="outline"></cxp-icon-user-nav> -->
       <h2 class="cxp-section__title">Accounts</h2>
     </header>
     <section class="basic-info-box">
@@ -28,17 +28,17 @@
         <div class="section-title-item-box">
           <div class="title-icon-box">
             <cxp-icon-lock-nav class="icon-pers-info" size="xs" fill="outline"></cxp-icon-lock-nav>
-            <h2 class="cxp-title cxp-title-lg">Security</h2>
+            <h2 class="cxp-title cxp-title-md">Security</h2>
           </div>
           <label class="cxp-label cxp-label-md">Update you login details</label>
         </div>
 
         @if (editingSection === 'security') {
-          <cxp-button variant="ghost" size="sm" (clicked)="cancelSecurity()"> Cancel </cxp-button>
+          <cxp-button variant="secondary" size="sm" (clicked)="cancelSecurity()"> Cancel </cxp-button>
         }
 
         <cxp-button
-          variant="ghost"
+          variant="secondary"
           size="sm"
           (clicked)="editingSection === 'security' ? saveSecurity() : editSecurity()"
         >

@@ -1,0 +1,266 @@
+/* ========================================
+   Determine the height of modal because it
+   is the variable used to define inside and
+   define in theme
+   ======================================== */
+
+.modal-section {
+  --cxp-modal-max-height: 40vh;
+}
+
+/* ========================================
+   Privacy Policy
+   ======================================== */
+
+.privacy-policy {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  color: var(--color-text-primary);
+}
+
+/* ========================================
+   Header
+   ======================================== */
+
+.privacy-policy__header {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.privacy-policy__eyebrow {
+  margin: 0;
+
+  color: var(--color-text-secondary);
+
+  font-size: .875rem;
+  font-weight: 600;
+}
+
+.privacy-policy__title {
+  margin: 0;
+
+  color: var(--color-text-primary);
+
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* ========================================
+   Effective and Updated Dates
+   ======================================== */
+
+.privacy-policy__dates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1.5rem;
+}
+
+.privacy-policy__dates p {
+  margin: 0;
+
+  color: var(--color-text-secondary);
+
+  font-size: .875rem;
+  font-style: italic;
+}
+
+/* ========================================
+   Sections
+   ======================================== */
+
+.privacy-policy__document {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.privacy-policy__document section {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+.privacy-policy__document h2 {
+  margin: 0;
+
+  color: var(--color-text-primary);
+
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.privacy-policy__document h3 {
+  margin: .5rem 0 0;
+
+  color: var(--color-text-primary);
+
+  font-size: .9375rem;
+  font-weight: 600;
+}
+
+.privacy-policy__document p {
+  margin: 0;
+
+  color: var(--color-text-primary);
+
+  line-height: 1.7;
+  text-align: justify;
+}
+
+.privacy-policy__document ul,
+.privacy-policy__document ol {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.privacy-policy__document li {
+  margin-bottom: .5rem;
+
+  color: var(--color-text-primary);
+
+  line-height: 1.6;
+}
+
+.privacy-policy__document li:last-child {
+  margin-bottom: 0;
+}
+
+/* ========================================
+   Links
+   ======================================== */
+
+.privacy-policy__document a {
+  color: var(--color-text-primary);
+
+  text-decoration: underline;
+  text-underline-offset: .2rem;
+}
+
+.privacy-policy__document a:hover {
+  color: var(--color-text-secondary);
+}
+
+/* ========================================
+   Tables
+   ======================================== */
+
+.privacy-policy__table {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+.privacy-policy__table th,
+.privacy-policy__table td {
+  padding: .75rem;
+
+  border: var(--width-line-04) solid var(--color-border-primary);
+
+  color: var(--color-text-primary);
+
+  line-height: 1.5;
+  text-align: left;
+  vertical-align: top;
+}
+
+.privacy-policy__table th {
+  width: 35%;
+
+  font-weight: 600;
+}
+
+/* ========================================
+   Footer
+   ======================================== */
+
+.privacy-policy__footer {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+
+  margin-top: 1rem;
+  padding-top: 1rem;
+
+  border-top: var(--width-line-04) solid var(--color-border-primary);
+}
+
+.privacy-policy__footer p {
+  margin: 0;
+
+  color: var(--color-text-secondary);
+
+  font-size: .875rem;
+  text-align: left;
+}
+
+/* ========================================
+   Footer Actions
+   ======================================== */
+
+.privacy-policy__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: .75rem;
+}
+
+.modal-accept-decline-box {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+/* ========================================
+   Mobile
+   ======================================== */
+
+@media (max-width: 768px) {
+  .modal-section {
+    --cxp-modal-max-height: 100vh;
+  }
+
+  .privacy-policy {
+    gap: 1.25rem;
+  }
+
+  .privacy-policy__dates {
+    flex-direction: column;
+    gap: .25rem;
+  }
+
+  .privacy-policy__title {
+    font-size: 1.25rem;
+  }
+
+  .privacy-policy__document p {
+    text-align: left;
+  }
+
+  .privacy-policy__table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .privacy-policy__table th {
+    min-width: 10rem;
+  }
+
+  .privacy-policy__actions {
+    flex-direction: column-reverse;
+  }
+
+  .privacy-policy__actions > * {
+    width: 100%;
+  }
+
+  .cxp-modal {
+    max-width: none;
+    max-height: calc(100dvh - 1.5rem);
+  }
+
+  .cxp-modal--full {
+    width: 100%;
+    height: calc(100dvh - 1.5rem);
+  }
+}

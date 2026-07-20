@@ -2,6 +2,7 @@
   display: grid;
   grid-template-rows: auto 1fr auto;
   height: 100vh;
+  background-color: var(--color-background-primary);
 }
 
 .auth-layout__header {

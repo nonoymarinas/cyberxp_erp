@@ -1,0 +1,63 @@
+@if (isOpen) {
+  <div
+    class="cxp-modal-overlay"
+    role="presentation"
+    (mousedown)="onOverlayMouseDown($event)"
+  >
+    <section
+      class="cxp-modal"
+      [ngClass]="[
+        'cxp-modal--' + size,
+        scrollable ? 'cxp-modal--scrollable' : ''
+      ]"
+      role="dialog"
+      aria-modal="true"
+      [attr.aria-labelledby]="showHeader && title ? titleId : null"
+      [attr.aria-describedby]="descriptionId"
+      tabindex="-1"
+      #dialog
+      (mousedown)="$event.stopPropagation()"
+    >
+      @if (showHeader) {
+        <header class="cxp-modal__header">
+          <div class="cxp-modal__heading">
+            @if (title) {
+              <h2
+                class="cxp-modal__title"
+                [id]="titleId"
+              >
+                {{ title }}
+              </h2>
+            }
+
+            <ng-content select="[cxpModalHeader]"></ng-content>
+          </div>
+
+          @if (showCloseButton) {
+            <button
+              class="cxp-modal__close"
+              type="button"
+              aria-label="Close modal"
+              (click)="requestClose('close-button')"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          }
+        </header>
+      }
+
+      <div
+        class="cxp-modal__body"
+        [id]="descriptionId"
+      >
+        <ng-content></ng-content>
+      </div>
+
+      @if (showFooter) {
+        <footer class="cxp-modal__footer">
+          <ng-content select="[cxpModalFooter]"></ng-content>
+        </footer>
+      }
+    </section>
+  </div>
+}

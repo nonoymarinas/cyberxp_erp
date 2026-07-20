@@ -1,5 +1,10 @@
-import { NgClass } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { NgClass } from '@angular/common';
+import {
+  CxpIconFill,
+  CxpIconSize,
+  CxpIconState,
+} from '../cxp-icon.types';
 
 @Component({
   selector: 'cxp-icon-hrms-app',
@@ -9,7 +14,9 @@ import { Component, Input } from '@angular/core';
   styleUrl: './cxp-icon-hrms-app.css',
 })
 export class CxpIconHrmsApp {
-  @Input() theme: 'dark' | 'light' = 'dark';
-  @Input() fill: 'filled' | 'outline' = 'filled';
-  // @Input() size:'sm' | 'md' | 'lg' | 'xl' = 'md';
+  @Input() fill: CxpIconFill = 'filled';
+
+  @Input() size: CxpIconSize = 'md';
+
+  @Input() state: CxpIconState = 'default';
 }

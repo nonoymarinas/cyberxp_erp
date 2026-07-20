@@ -18,5 +18,8 @@ export * from './lib/components/icons/cxp-icon-settings-nav/cxp-icon-settings-na
 export * from './lib/components/icons/cxp-icon-user-circle/cxp-icon-user-circle';
 export * from './lib/components/icons/cxp-icon-logout-nav/cxp-icon-logout-nav';
 export * from './lib/components/icons/cxp-icon-hrms-app/cxp-icon-hrms-app';
+export * from './lib/components/icons/cxp-icon-tnms-app/cxp-icon-tnms-app';
 export * from './lib/components/icons/cxp-icon-lock-nav/cxp-icon-lock-nav';
 export * from './lib/components/icons/cxp-icon-theme-nav/cxp-icon-theme-nav';
+export * from './lib/components/modals/cxp-modal/cxp-modal';
+export * from './lib/components/icons/cxp-icon.types';

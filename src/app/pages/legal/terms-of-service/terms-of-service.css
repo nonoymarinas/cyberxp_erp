@@ -1,0 +1,145 @@
+/* ========================================
+   determine the height of modal because it
+   is the variable used to define inside and
+   define in theme
+   ======================================== */
+.modal-section {
+  --cxp-modal-max-height: 40vh;
+}
+
+/* ========================================
+   Terms of Service
+   ======================================== */
+
+.terms-of-service {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  color: var(--color-text-primary);
+}
+
+/* ========================================
+   Last Updated
+   ======================================== */
+
+.terms-of-service__updated {
+  margin: 0;
+
+  color: var(--color-text-secondary);
+
+  font-size: .875rem;
+  font-style: italic;
+}
+
+/* ========================================
+   Sections
+   ======================================== */
+
+.terms-of-service__section {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+.terms-of-service__section h3 {
+  margin: 0;
+
+  color: var(--color-text-primary);
+
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.terms-of-service__section p {
+  margin: 0;
+
+  color: var(--color-text-primary);
+
+  line-height: 1.7;
+  text-align: justify;
+}
+
+.terms-of-service__section ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.terms-of-service__section li {
+  margin-bottom: .5rem;
+
+  line-height: 1.6;
+}
+
+/* ========================================
+   Agreement
+   ======================================== */
+
+.terms-of-service__agreement {
+  display: flex;
+  align-items: flex-start;
+  gap: .75rem;
+
+  margin-top: 1rem;
+  padding-top: 1rem;
+
+  border-top: var(--width-line-04) solid var(--color-border-primary);
+
+  cursor: pointer;
+}
+
+.terms-of-service__agreement input {
+  margin-top: .2rem;
+}
+
+.terms-of-service__agreement span {
+  line-height: 1.5;
+}
+
+/* ========================================
+   Footer Actions
+   ======================================== */
+
+.terms-of-service__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: .75rem;
+}
+
+.modal-accept-decline-box {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+/* ========================================
+   Mobile
+   ======================================== */
+
+@media (max-width: 768px) {
+  .modal-section {
+    --cxp-modal-max-height: 100vh;
+  }
+
+  .terms-of-service {
+    gap: 1.25rem;
+  }
+
+  .terms-of-service__actions {
+    flex-direction: column-reverse;
+  }
+
+  .terms-of-service__actions>* {
+    width: 100%;
+  }
+
+  .cxp-modal {
+    max-width: none;
+    max-height: calc(100dvh - 1.5rem);
+  }
+
+  .cxp-modal--full {
+    width: 100%;
+    height: calc(100dvh - 1.5rem);
+  }
+
+}

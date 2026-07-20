@@ -87,6 +87,12 @@
 }
 
 @media (max-width: 768px) {
+  .cxp-section__title{
+    font-size: larger;
+  }
+  .cxp-title-md{
+    font-size: large;
+  }
   .section-box_basic_info {
     display: grid;
     grid-template-columns: 1fr;

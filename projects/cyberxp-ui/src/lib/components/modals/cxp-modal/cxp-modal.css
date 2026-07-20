@@ -1,0 +1,237 @@
+/* ========================================
+   Host
+   ======================================== */
+
+:host {
+    display: contents;
+}
+
+/* ========================================
+   Overlay
+   ======================================== */
+
+.cxp-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-modal-overlay);
+    overflow: auto;
+    animation: cxp-modal-overlay-enter 160ms ease-out;
+}
+
+/* ========================================
+   Modal
+   ======================================== */
+
+.cxp-modal {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-height: var(--cxp-modal-max-height);
+    color: var(--color-modal-text);
+    background-color: var(--color-modal-background);
+    border: var(--width-line-04, 1px) solid var(--color-modal-border);
+    box-shadow: 0 1.25rem 3rem var(--color-shadow-strong);
+    box-sizing: border-box;
+    overflow: hidden;
+    outline: none;
+    animation: cxp-modal-enter 160ms ease-out;
+}
+
+/* ========================================
+   Sizes
+   ======================================== */
+
+.cxp-modal--sm {
+    max-width: 25rem;
+}
+
+.cxp-modal--md {
+    max-width: 37.5rem;
+}
+
+.cxp-modal--lg {
+    max-width: 50rem;
+}
+
+.cxp-modal--xl {
+    max-width: 68.75rem;
+}
+
+.cxp-modal--full {
+    max-width: 100vw;
+}
+
+/* ========================================
+   Header
+   ======================================== */
+
+.cxp-modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex: 0 0 auto;
+    padding: 0.5rem 1rem;
+    background-color:
+        var(--color-background-secondary);
+    border-bottom:
+        var(--width-line-04, 1px) solid var(--color-modal-header-border);
+}
+
+.cxp-modal__heading {
+    min-width: 0;
+}
+
+.cxp-modal__title {
+    margin: 0;
+    color: var(--color-modal-title);
+    font: inherit;
+    font-size: 1.125rem;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* ========================================
+   Close Button
+   ======================================== */
+
+.cxp-modal__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    color: var(--color-icon-secondary);
+    background-color: transparent;
+    border:
+        var(--width-line-04, 1px) solid transparent;
+    font: inherit;
+    font-size: 1.75rem;
+    line-height: 1;
+    cursor: pointer;
+    transition:
+        color 120ms ease,
+        background-color 120ms ease,
+        border-color 120ms ease;
+}
+
+.cxp-modal__close:hover {
+    color: var(--color-hover-icon);
+    background-color:
+        var(--color-hover-background);
+    border-color:
+        var(--color-hover-border);
+}
+
+.cxp-modal__close:active {
+    color: var(--color-active-icon);
+    background-color:
+        var(--color-active-background);
+    border-color:
+        var(--color-active-border);
+}
+
+.cxp-modal__close:focus-visible {
+    color: var(--color-focus-icon);
+    background-color:
+        var(--color-focus-background);
+    border-color:
+        var(--color-focus-border);
+
+    outline:
+        var(--width-line-08, 2px) solid var(--color-focus-ring);
+
+    outline-offset: 2px;
+}
+
+/* ========================================
+   Body
+   ======================================== */
+
+.cxp-modal__body {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+    padding: 1.25rem;
+    color: var(--color-modal-text);
+    background-color:
+        var(--color-background-primary);
+}
+
+.cxp-modal--scrollable .cxp-modal__body {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+/* ========================================
+   Footer
+   ======================================== */
+
+.cxp-modal__footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    flex: 0 0 auto;
+    padding: 0.5rem 1rem;
+    background-color:
+        var(--color-background-secondary);
+    border-top:
+        var(--width-line-04, 1px) solid var(--color-modal-footer-border);
+}
+
+/* ========================================
+   Animations
+   ======================================== */
+
+@keyframes cxp-modal-overlay-enter {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes cxp-modal-enter {
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(-0.5rem) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0) scale(1);
+    }
+}
+
+/* ========================================
+   Mobile
+   ======================================== */
+
+@media (max-width: 768px) {
+   
+    .cxp-modal-overlay {
+        align-items: flex-end;
+    }
+
+    .cxp-modal--full {
+        width: 100%;
+        height: 100dvh;
+        max-height: 100dvh;
+        border-radius: 0;
+    }
+
+}
+
