@@ -11,11 +11,11 @@ import { PrivacyPolicy } from './pages/legal/privacy-policy/privacy-policy';
 export const routes: Routes = [
   {
     path: '',
-    component: AuthLayout,
+    component: MainLayout,
     children: [
       {
         path: '',
-        component: Login,
+        component: HomePage,
       },
        {
         path: 'atms-terms-of-service',

@@ -8,6 +8,7 @@ import {
   CxpIconHomeNav,
   CxpIconAppStatic,
   CxpIconTnmsApp,
+  CxpIconAtmsApp,
 } from 'cyberxp-ui';
 
 @Component({
@@ -22,6 +23,7 @@ import {
     CxpIconHomeNav,
     CxpIconAppStatic,
     CxpIconTnmsApp,
+    CxpIconAtmsApp,
   ],
 })
 export class HomePage {}

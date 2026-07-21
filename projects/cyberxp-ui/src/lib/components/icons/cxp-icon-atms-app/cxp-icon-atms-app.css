@@ -1,0 +1,400 @@
+/* ========================================
+   Icon
+   ======================================== */
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+  position: relative;
+
+  line-height: 0;
+  color: var(--color-default-icon);
+
+  transition:
+    color 150ms ease,
+    opacity 150ms ease;
+}
+
+/* ========================================
+   SVG
+   ======================================== */
+
+.icon svg {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: visible;
+}
+
+/* ========================================
+   Size
+   ======================================== */
+
+.icon--3xs {
+  width: 12px;
+  height: 12px;
+}
+
+.icon--2xs {
+  width: 24px;
+  height: 24px;
+}
+
+.icon--xs {
+  width: 36px;
+  height: 36px;
+}
+
+.icon--sm {
+  width: 48px;
+  height: 48px;
+}
+
+.icon--md {
+  width: 60px;
+  height: 60px;
+}
+
+.icon--lg {
+  width: 72px;
+  height: 72px;
+}
+
+.icon--xl {
+  width: 84px;
+  height: 84px;
+}
+
+.icon--2xl {
+  width: 96px;
+  height: 96px;
+}
+
+.icon--3xl {
+  width: 108px;
+  height: 108px;
+}
+
+.icon--4xl {
+  width: 120px;
+  height: 120px;
+}
+
+.icon--5xl {
+  width: 132px;
+  height: 132px;
+}
+
+.icon--6xl {
+  width: 144px;
+  height: 144px;
+}
+
+.icon--7xl {
+  width: 156px;
+  height: 156px;
+}
+
+.icon--8xl {
+  width: 168px;
+  height: 168px;
+}
+
+.icon--9xl {
+  width: 180px;
+  height: 180px;
+}
+
+.icon--responsive {
+  width: 100%;
+  height: 100%;
+}
+
+/* ========================================
+   Default State
+   ======================================== */
+
+.icon--default {
+  color: var(--color-default-icon);
+}
+
+/* Only default is interactive */
+
+.icon--default:hover {
+  color: var(--color-hover-icon);
+}
+
+.icon--default:active {
+  color: var(--color-active-icon);
+}
+
+.icon--default:focus-visible {
+  color: var(--color-focus-icon);
+
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* ========================================
+   Active State
+   Persistent current navigation/page
+   Icon only, no hover behavior
+   ======================================== */
+
+.icon--active {
+  color: var(--color-selected-icon);
+}
+
+/* ========================================
+   Selected State
+   ======================================== */
+
+.icon--selected {
+  color: var(--color-selected-icon);
+}
+
+/* ========================================
+   Readonly State
+   ======================================== */
+
+.icon--readonly {
+  color: var(--color-readonly-icon);
+
+  cursor: default;
+}
+
+/* ========================================
+   Muted State
+   ======================================== */
+
+.icon--muted {
+  color: var(--color-muted-icon);
+}
+
+/* ========================================
+   Disabled State
+   ======================================== */
+
+.icon--disabled {
+  color: var(--color-disabled-icon);
+
+  opacity: 0.55;
+
+  pointer-events: none;
+  cursor: default;
+}
+
+/* ========================================
+   Status States
+   ======================================== */
+
+.icon--info {
+  color: var(--color-info-icon);
+}
+
+.icon--success {
+  color: var(--color-success-icon);
+}
+
+.icon--warning {
+  color: var(--color-warning-icon);
+}
+
+.icon--danger {
+  color: var(--color-error-icon);
+}
+
+/* ========================================
+   Icon Background Rectangle
+   ======================================== */
+
+.icon-background {
+  fill: transparent;
+
+  stroke: var(--color-border-primary);
+  stroke-width: var(--width-line-03);
+
+  transform-box: fill-box;
+  transform-origin: center;
+
+  transition:
+    fill 150ms ease,
+    stroke 150ms ease,
+    opacity 150ms ease;
+}
+
+/* ========================================
+   Default Background Interaction
+   Only default responds
+   ======================================== */
+
+.icon--default:hover .icon-background {
+  fill: var(--color-hover-background);
+  stroke: var(--color-hover-border);
+}
+
+.icon--default:active .icon-background {
+  fill: var(--color-active-background);
+  stroke: var(--color-active-border);
+}
+
+.icon--default:focus-visible .icon-background {
+  fill: var(--color-focus-background);
+  stroke: var(--color-focus-border);
+}
+
+/* ========================================
+   Active Background
+   Border visible, no fill
+   ======================================== */
+
+.icon--active .icon-background {
+  fill: transparent;
+  stroke: var(--color-border-primary);
+}
+
+/* ========================================
+   Selected Background
+   ======================================== */
+
+.icon--selected .icon-background {
+  fill: var(--color-selected-background);
+  stroke: var(--color-selected-border);
+}
+
+/* ========================================
+   Readonly Background
+   ======================================== */
+
+.icon--readonly .icon-background {
+  fill: transparent;
+  stroke: var(--color-border-primary);
+}
+
+/* ========================================
+   Muted Background
+   ======================================== */
+
+.icon--muted .icon-background {
+  fill: var(--color-muted-background);
+  stroke: var(--color-muted-border);
+}
+
+/* ========================================
+   Disabled Background
+   ======================================== */
+
+.icon--disabled .icon-background {
+  fill: var(--color-disabled-background);
+  stroke: var(--color-disabled-border);
+}
+
+/* ========================================
+   Status Backgrounds
+   Keep transparent unless you add
+   dedicated status background tokens
+   ======================================== */
+
+.icon--info .icon-background,
+.icon--success .icon-background,
+.icon--warning .icon-background,
+.icon--danger .icon-background {
+  fill: transparent;
+  stroke: var(--color-border-primary);
+}
+
+/* ========================================
+   Filled Variant
+   ======================================== */
+
+.icon--filled .primary-human,
+.icon--filled .secondary-human,
+.icon--filled .hrms-text {
+  fill: currentColor;
+  stroke: none;
+}
+
+/* ========================================
+   Outline Variant
+   ======================================== */
+
+.icon--outline .primary-human,
+.icon--outline .secondary-human,
+.icon--outline .hrms-text {
+  fill: none;
+
+  stroke: currentColor;
+  stroke-width: var(--width-line-03);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ========================================
+   Primary Human
+   ======================================== */
+
+.primary-human-group {
+  color: currentColor;
+}
+
+.primary-human {
+  color: currentColor;
+}
+
+/* ========================================
+   Secondary Humans
+   ======================================== */
+
+.secondary-human-group {
+  color: currentColor;
+  opacity: 0.55;
+}
+
+.secondary-human {
+  color: currentColor;
+}
+
+/* ========================================
+   HRMS Text
+   ======================================== */
+
+.hrms-text-group {
+  color: currentColor;
+  opacity: 1;
+}
+
+.hrms-text {
+  color: currentColor;
+}
+
+/* ========================================
+   SVG Element Transitions
+   ======================================== */
+
+.primary-human,
+.secondary-human,
+.hrms-text {
+  transition:
+    fill 150ms ease,
+    stroke 150ms ease,
+    opacity 150ms ease;
+}
+
+/* ========================================
+   Reduced Motion
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .icon,
+  .icon-background,
+  .primary-human,
+  .secondary-human,
+  .hrms-text {
+    transition: none;
+  }
+}

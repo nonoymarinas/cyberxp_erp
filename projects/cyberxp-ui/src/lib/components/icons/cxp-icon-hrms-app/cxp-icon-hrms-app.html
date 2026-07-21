@@ -1,10 +1,6 @@
 <span
   class="icon"
-  [ngClass]="[
-    'icon--' + fill,
-    'icon--' + size,
-    'icon--' + state
-  ]"
+  [ngClass]="['icon--' + fill, 'icon--' + size, 'icon--' + state]"
   [attr.aria-disabled]="state === 'disabled' ? true : null"
 >
   <svg
@@ -15,15 +11,7 @@
     aria-hidden="true"
     focusable="false"
   >
-    <rect
-      class="icon-background"
-      x=".25"
-      y=".25"
-      width="95.55"
-      height="95.55"
-      rx="0"
-      ry="0"
-    />
+    <rect class="icon-background" x=".25" y=".25" width="95.55" height="95.55" rx="0" ry="0" />
 
     <!-- Secondary Humans -->
     <g class="secondary-human-group">

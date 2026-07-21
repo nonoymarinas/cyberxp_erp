@@ -1,19 +1,14 @@
 import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive, RouterOutlet, Router } from '@angular/router';
 import {
-  RouterLink,
-  RouterLinkActive,
-  RouterOutlet,
-} from '@angular/router';
-
-import {
-  CxpIconAppNav,
   CxpIconBurgerNav,
   CxpIconCyberxpApp,
-  CxpIconHomeNav,
-  CxpIconLogoutNav,
+  CxpIconAppNav,
   CxpIconSettingsNav,
-  CxpIconUserCircle,
+  CxpIconHomeNav,
   CxpIconUserNav,
+  CxpIconUserCircle,
+  CxpIconLogoutNav,
 } from 'cyberxp-ui';
 
 @Component({
@@ -23,19 +18,20 @@ import {
     RouterOutlet,
     RouterLink,
     RouterLinkActive,
-    CxpIconAppNav,
     CxpIconBurgerNav,
     CxpIconCyberxpApp,
-    CxpIconHomeNav,
-    CxpIconLogoutNav,
+    CxpIconAppNav,
     CxpIconSettingsNav,
-    CxpIconUserCircle,
+    CxpIconHomeNav,
     CxpIconUserNav,
+    CxpIconUserCircle,
+    CxpIconLogoutNav,
   ],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.css',
 })
 export class MainLayout {
+  constructor(private router: Router) {}
   sidebarOpen = false;
 
   toggleSidebar(): void {
@@ -46,12 +42,13 @@ export class MainLayout {
     this.sidebarOpen = false;
   }
 
-  logout(): void {
-    this.closeSidebar();
-
-    // Add your logout logic here.
-    // Example:
-    // this.authService.logout();
-    // this.router.navigate(['/']);
+  openHome(): void {
+    this.router.navigate(['/app/home']);
+  }
+  openAccounts(): void {
+    this.router.navigate(['/app/accounts']);
+  }
+  openSettings(): void {
+    this.router.navigate(['/app/settings']);
   }
 }
