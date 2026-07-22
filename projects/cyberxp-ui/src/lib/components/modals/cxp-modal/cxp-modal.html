@@ -21,6 +21,15 @@
       @if (showHeader) {
         <header class="cxp-modal__header">
           <div class="cxp-modal__heading">
+            @if (showIcon) {
+              <div
+                class="cxp-modal__icon"
+                aria-hidden="true"
+              >
+                <ng-content select="[cxpModalIcon]"></ng-content>
+              </div>
+            }
+
             @if (title) {
               <h2
                 class="cxp-modal__title"

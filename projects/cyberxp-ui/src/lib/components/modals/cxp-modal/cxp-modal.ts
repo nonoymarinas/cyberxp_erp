@@ -1,5 +1,23 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, HostListener } from '@angular/core';
 import { NgClass } from '@angular/common';
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
+
+export type CxpModalSize = 'full' | 'sm' | 'md' | 'lg' | 'xl';
+
+export type CxpModalCloseSource =
+  | 'overlay'
+  | 'close-button'
+  | 'escape';
 
 @Component({
   selector: 'cxp-modal',
@@ -8,29 +26,74 @@ import { NgClass } from '@angular/common';
   templateUrl: './cxp-modal.html',
   styleUrl: './cxp-modal.css',
 })
-export class CxpModal {
-  @Input() isOpen = false;
+export class CxpModal implements OnChanges, AfterViewChecked {
+  /* ========================================
+     State
+     ======================================== */
 
-  @Input() title = '';
+  @Input()
+  isOpen = false;
 
-  @Input() size: 'full' | 'sm' | 'md' | 'lg' | 'xl' = 'md';
+  /* ========================================
+     Content
+     ======================================== */
 
-  @Input() scrollable = true;
+  @Input()
+  title = '';
 
-  @Input() showHeader = true;
+  /* ========================================
+     Appearance
+     ======================================== */
 
-  @Input() showFooter = true;
+  @Input()
+  size: CxpModalSize = 'md';
 
-  @Input() showCloseButton = true;
-  @Input() closeOnOverlayClick = true;
+  @Input()
+  scrollable = true;
 
-  @Input() closeOnEscape = true;
+  /* ========================================
+     Sections
+     ======================================== */
 
+  @Input()
+  showHeader = true;
 
-  @Output() closed = new EventEmitter<'overlay' | 'close-button' | 'escape'>();
+  @Input()
+  showIcon = false;
+
+  @Input()
+  showFooter = true;
+
+  @Input()
+  showCloseButton = true;
+
+  /* ========================================
+     Closing Behavior
+     ======================================== */
+
+  @Input()
+  closeOnOverlayClick = true;
+
+  @Input()
+  closeOnEscape = true;
+
+  /* ========================================
+     Events
+     ======================================== */
+
+  @Output()
+  readonly closed = new EventEmitter<CxpModalCloseSource>();
+
+  /* ========================================
+     Element References
+     ======================================== */
 
   @ViewChild('dialog')
-  dialog?: ElementRef<HTMLElement>;
+  private dialog?: ElementRef<HTMLElement>;
+
+  /* ========================================
+     Accessibility IDs
+     ======================================== */
 
   private static nextId = 0;
 
@@ -40,18 +103,89 @@ export class CxpModal {
 
   readonly descriptionId = `cxp-modal-description-${this.modalId}`;
 
-  requestClose(source: 'overlay' | 'close-button' | 'escape'): void {
+  /* ========================================
+     Internal State
+     ======================================== */
+
+  private shouldFocusDialog = false;
+
+  private previouslyFocusedElement: HTMLElement | null = null;
+
+  /* ========================================
+     Lifecycle
+     ======================================== */
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const isOpenChange = changes['isOpen'];
+
+    if (!isOpenChange) {
+      return;
+    }
+
+    if (this.isOpen) {
+      this.previouslyFocusedElement =
+        document.activeElement instanceof HTMLElement
+          ? document.activeElement
+          : null;
+
+      this.shouldFocusDialog = true;
+
+      return;
+    }
+
+    this.restorePreviousFocus();
+  }
+
+  ngAfterViewChecked(): void {
+    if (!this.shouldFocusDialog || !this.dialog) {
+      return;
+    }
+
+    this.shouldFocusDialog = false;
+
+    const firstFocusableElement = this.getFocusableElements()[0];
+
+    if (firstFocusableElement) {
+      firstFocusableElement.focus();
+      return;
+    }
+
+    this.dialog.nativeElement.focus();
+  }
+
+  /* ========================================
+     Close Actions
+     ======================================== */
+
+  requestClose(source: CxpModalCloseSource): void {
     this.closed.emit(source);
   }
+
+  onOverlayMouseDown(event: MouseEvent): void {
+    if (!this.closeOnOverlayClick) {
+      return;
+    }
+
+    if (event.target !== event.currentTarget) {
+      return;
+    }
+
+    this.requestClose('overlay');
+  }
+
+  /* ========================================
+     Keyboard Handling
+     ======================================== */
+
   @HostListener('document:keydown', ['$event'])
   onDocumentKeyDown(event: KeyboardEvent): void {
     if (!this.isOpen) {
       return;
     }
 
-    if (event.key === 'Escape' && this.closeOnEscape) {
-      event.preventDefault();
-      this.requestClose('escape');
+    if (event.key === 'Escape') {
+      this.handleEscapeKey(event);
+      return;
     }
 
     if (event.key === 'Tab') {
@@ -59,14 +193,74 @@ export class CxpModal {
     }
   }
 
-  private trapFocus(event: KeyboardEvent): void {
-    // Your existing focus trap code
+  private handleEscapeKey(event: KeyboardEvent): void {
+    if (!this.closeOnEscape) {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.requestClose('escape');
   }
-  onOverlayMouseDown(event: MouseEvent): void {
-    if (this.closeOnOverlayClick && event.target === event.currentTarget) {
-      this.requestClose('overlay');
+
+  private trapFocus(event: KeyboardEvent): void {
+    const focusableElements = this.getFocusableElements();
+
+    if (focusableElements.length === 0) {
+      event.preventDefault();
+      this.dialog?.nativeElement.focus();
+      return;
+    }
+
+    const firstElement = focusableElements[0];
+    const lastElement =
+      focusableElements[focusableElements.length - 1];
+
+    const activeElement = document.activeElement;
+
+    if (event.shiftKey && activeElement === firstElement) {
+      event.preventDefault();
+      lastElement.focus();
+      return;
+    }
+
+    if (!event.shiftKey && activeElement === lastElement) {
+      event.preventDefault();
+      firstElement.focus();
     }
   }
 
-  
+  private getFocusableElements(): HTMLElement[] {
+    const dialogElement = this.dialog?.nativeElement;
+
+    if (!dialogElement) {
+      return [];
+    }
+
+    const selector = [
+      'a[href]',
+      'button:not([disabled])',
+      'input:not([disabled])',
+      'select:not([disabled])',
+      'textarea:not([disabled])',
+      '[tabindex]:not([tabindex="-1"])',
+      '[contenteditable="true"]',
+    ].join(',');
+
+    return Array.from(
+      dialogElement.querySelectorAll<HTMLElement>(selector),
+    ).filter((element) => {
+      return (
+        !element.hasAttribute('disabled') &&
+        element.getAttribute('aria-hidden') !== 'true' &&
+        element.offsetParent !== null
+      );
+    });
+  }
+
+  private restorePreviousFocus(): void {
+    this.previouslyFocusedElement?.focus();
+    this.previouslyFocusedElement = null;
+  }
 }
