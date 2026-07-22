@@ -1,0 +1,29 @@
+.app-menu {
+  position: absolute;
+  top: calc(100% + .5rem);
+  right: 0;
+
+  width: 20rem;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-.5rem);
+
+  pointer-events: none;
+
+  transition:
+    opacity .2s ease,
+    transform .2s ease,
+    visibility .2s ease;
+width: 200px;
+height: 300px;
+background-color: #fff;
+}
+
+.app-menu--open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+
+  pointer-events: auto;
+}

@@ -7,7 +7,7 @@
   },
   "include": [
     "src/**/*.ts"
-  ],
+, "src/app/pages/header/header-apps-icon/apps-icon.ccs"  ],
   "exclude": [
     "src/**/*.spec.ts"
   ]

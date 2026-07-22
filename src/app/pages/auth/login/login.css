@@ -1,3 +1,4 @@
+
 .login-box {
   display: grid;
   margin: 10vh auto 0 auto;
@@ -8,7 +9,13 @@
   border: var(--width-line-02) solid var(--color-border-dark-default);
   padding: 2rem;
 }
-
+.button-login{
+  display: block;
+ --cxp-button-width:100%;
+}
+.button-label-signin{
+font-weight: 600;
+}
 .login-box__logo__box {
   display: flex;
   justify-content: center;
@@ -94,7 +101,14 @@
   margin: 1rem 0;
 }
 
-.terms-policy-label:hover {
+.privacy-policy-a,
+.terms-of-service-a {
+  text-decoration:underline ;
+}
+.privacy-policy-a:hover {
+  color: var(--color-text-link);
+}
+.terms-of-service-a:hover {
   color: var(--color-text-link);
 }
 

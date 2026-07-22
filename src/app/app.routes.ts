@@ -12,11 +12,11 @@ import { ForgotPassword as ForgotPassword } from './pages/auth/forgot-password/f
 export const routes: Routes = [
   {
     path: '',
-    component: AuthLayout,
+    component: MainLayout,
     children: [
       {
         path: '',
-        component: Login,
+        component: HomePage,
       },
       {
         path: 'forgot-password',

@@ -4,7 +4,8 @@
    define in theme
    ======================================== */
 .modal-section {
-  --cxp-modal-max-height: 40vh;
+  --cxp-modal-max-height: 50vh;
+  --cxp-modal-offset-y: -30%;
 }
 
 /* ========================================

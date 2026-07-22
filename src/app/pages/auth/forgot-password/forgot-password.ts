@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { CxpModal, CxpButton, CxpInputText, CxpButtonLogin, CxpIconLockNav } from 'cyberxp-ui';
+import { CxpModal, CxpButton, CxpInputText, CxpIconLockNav } from 'cyberxp-ui';
 
 @Component({
   selector: 'forgot-password',
   standalone: true,
-  imports: [CxpModal, CxpButton, CxpInputText, CxpButtonLogin,CxpIconLockNav],
+  imports: [CxpModal, CxpButton, CxpInputText,CxpIconLockNav],
   templateUrl: './forgot-password.html',
   styleUrl: './forgot-password.css',
 })

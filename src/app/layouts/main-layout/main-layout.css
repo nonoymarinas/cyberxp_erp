@@ -18,7 +18,10 @@
 .burger-menu {
   display: none;
 }
-
+.header-apps-icon{
+  display: flex;
+  align-items: center;
+}
 .cyberxp-logo {
   display: flex;
   align-items: center;

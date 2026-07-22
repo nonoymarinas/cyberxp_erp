@@ -505,6 +505,8 @@
 
      --cxp-modal-height: auto;
     --cxp-modal-max-height: calc(100dvh - 3rem);
+    --cxp-modal-min-height: 0;
+    --cxp-modal-offset-y:0
 
      /* ========================================
        Drawer
