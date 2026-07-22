@@ -217,7 +217,7 @@
   fill: transparent;
 
   stroke: var(--color-border-primary);
-  stroke-width: var(--width-line-03);
+  stroke-width: var(--width-line-01);
 
   transform-box: fill-box;
   transform-origin: center;
@@ -308,77 +308,38 @@
   stroke: var(--color-border-primary);
 }
 
+
 /* ========================================
    Filled Variant
    ======================================== */
-
-.icon--filled .primary-human,
-.icon--filled .secondary-human,
-.icon--filled .hrms-text {
-  fill: currentColor;
-  stroke: none;
+.primary-clock{
+  stroke:currentColor;
+  fill: none;
+  stroke-width: var(--width-line-02);
 }
 
-/* ========================================
-   Outline Variant
-   ======================================== */
-
-.icon--outline .primary-human,
-.icon--outline .secondary-human,
-.icon--outline .hrms-text {
-  fill: none;
-
-  stroke: currentColor;
-  stroke-width: var(--width-line-03);
+.secondary-human {
+  fill: currentColor;
+  stroke: var(--color-border-primary);
+  stroke-width: var(--width-line-01);
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
-/* ========================================
-   Primary Human
-   ======================================== */
-
-.primary-human-group {
-  color: currentColor;
+.atms-text {
+  fill: currentColor;
+  stroke: none;
 }
 
-.primary-human {
-  color: currentColor;
-}
 
-/* ========================================
-   Secondary Humans
-   ======================================== */
-
-.secondary-human-group {
-  color: currentColor;
-  opacity: 0.55;
-}
-
-.secondary-human {
-  color: currentColor;
-}
-
-/* ========================================
-   HRMS Text
-   ======================================== */
-
-.hrms-text-group {
-  color: currentColor;
-  opacity: 1;
-}
-
-.hrms-text {
-  color: currentColor;
-}
 
 /* ========================================
    SVG Element Transitions
    ======================================== */
 
-.primary-human,
+.primary-clock,
 .secondary-human,
-.hrms-text {
+.atms-text {
   transition:
     fill 150ms ease,
     stroke 150ms ease,
@@ -390,11 +351,12 @@
    ======================================== */
 
 @media (prefers-reduced-motion: reduce) {
+
   .icon,
   .icon-background,
-  .primary-human,
+  .primary-clock,
   .secondary-human,
-  .hrms-text {
+  .atms-text {
     transition: none;
   }
 }

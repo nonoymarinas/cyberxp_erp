@@ -309,12 +309,21 @@
 }
 
 /* ========================================
+   Permanent no variant
+   ======================================== */
+
+.hrms-text {
+  fill: currentColor;
+  stroke: none;
+}
+
+/* ========================================
    Filled Variant
    ======================================== */
 
 .icon--filled .primary-human,
-.icon--filled .secondary-human,
-.icon--filled .hrms-text {
+.icon--filled .secondary-human
+ {
   fill: currentColor;
   stroke: none;
 }
@@ -324,8 +333,8 @@
    ======================================== */
 
 .icon--outline .primary-human,
-.icon--outline .secondary-human,
-.icon--outline .hrms-text {
+.icon--outline .secondary-human
+ {
   fill: none;
 
   stroke: currentColor;

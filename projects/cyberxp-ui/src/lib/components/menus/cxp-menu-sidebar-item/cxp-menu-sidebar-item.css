@@ -1,0 +1,137 @@
+/* ========================================
+   Menu Sidebar Item
+   ======================================== */
+
+.cxp-menu-sidebar__item {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+
+  width: 100%;
+  min-height: 2.75rem;
+
+  padding: .625rem .875rem;
+
+  background-color: var(--color-nav-background);
+  border: 1px solid var(--color-nav-border);
+
+  color: var(--color-nav-text);
+
+  text-decoration: none;
+  cursor: pointer;
+
+  transition:
+    background-color .2s ease,
+    border-color .2s ease,
+    color .2s ease;
+}
+
+/* ========================================
+   Icon
+   ======================================== */
+
+.cxp-menu-sidebar__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  color: var(--color-nav-icon);
+}
+
+/* ========================================
+   Content / Label
+   ======================================== */
+
+.cxp-menu-sidebar__content {
+  display: flex;
+  align-items: center;
+
+  flex: 1 1 auto;
+  min-width: 0;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ========================================
+   End Content
+   ======================================== */
+
+.cxp-menu-sidebar__end {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+}
+
+/* ========================================
+   Hover
+   ======================================== */
+
+.cxp-menu-sidebar__item:hover:not(
+    .cxp-menu-sidebar__item--disabled
+  ) {
+  background-color: var(--color-nav-hover-background);
+  color: var(--color-nav-hover-text);
+}
+
+.cxp-menu-sidebar__item:hover:not(
+    .cxp-menu-sidebar__item--disabled
+  )
+  .cxp-menu-sidebar__icon {
+  color: var(--color-nav-hover-icon);
+}
+
+/* ========================================
+   Active Route
+   ======================================== */
+
+.cxp-menu-sidebar__item--active {
+  background-color: var(--color-nav-active-background);
+  color: var(--color-nav-active-text);
+
+  font-weight: 600;
+}
+
+.cxp-menu-sidebar__item--active .cxp-menu-sidebar__icon {
+  color: var(--color-nav-active-icon);
+}
+
+/* ========================================
+   Keyboard Focus
+   ======================================== */
+
+.cxp-menu-sidebar__item:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* ========================================
+   Disabled
+   ======================================== */
+
+.cxp-menu-sidebar__item--disabled {
+  background-color: var(--color-disabled-background);
+  border-color: var(--color-disabled-border);
+  color: var(--color-disabled-text);
+
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.cxp-menu-sidebar__item--disabled .cxp-menu-sidebar__icon {
+  color: var(--color-disabled-icon);
+}
+
+/* ========================================
+   Empty Slots
+   ======================================== */
+
+.cxp-menu-sidebar__icon:empty,
+.cxp-menu-sidebar__end:empty {
+  display: none;
+}

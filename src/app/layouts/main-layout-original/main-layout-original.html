@@ -1,19 +1,25 @@
-<cxp-layout-main
-  [(sidebarOpen)]="sidebarOpen"
-  [(sidebarWidth)]="sidebarWidth"
->
-  <!-- Header -->
-  <div layout-header class="main-layout__header">
-     <cxp-icon-cyberxp-app class="cyberxp-logo" size="xs" fill="filled"></cxp-icon-cyberxp-app>
+<div class="main-layout cxp-app-layout">
+  <header class="main-layout__header cxp-header">
+    <cxp-icon-burger-nav
+      class="burger-menu"
+      theme="dark"
+      fill="outline"
+      (click)="toggleSidebar()"
+    ></cxp-icon-burger-nav>
+    <cxp-icon-cyberxp-app class="cyberxp-logo" size="xs" fill="filled"></cxp-icon-cyberxp-app>
     <label class="module-name cxp-title cxp-title-md"
       >CXP-ATMS <span class="module-name-span"> - Account Management System</span> v.10.1.0</label
     >
     <cxp-icon-app-nav class="icon-app-menu" size="md" fill="filled"></cxp-icon-app-nav>
     <cxp-icon-user-circle class="icon-user-nav" size="sm"></cxp-icon-user-circle>
-  </div>
-
-  <!-- Sidebar -->
-  <aside layout-sidebar
+  </header>
+  <div class="main-layout__body">
+    <div
+      class="sidebar-overlay"
+      [class.sidebar-overlay--show]="sidebarOpen"
+      (click)="closeSidebar()"
+    ></div>
+    <aside
       class="main-layout__body__sidebar cxp-sidebar"
       [class.main-layout__body__sidebar--open]="sidebarOpen"
     >
@@ -48,9 +54,11 @@
         </cxp-menu-sidebar-item>
       </div>
     </aside>
-
-  <!-- Footer -->
-  <div layout-footer>
-    <label  class="main-layout__footer__notes">© 2026 CyberXP ERP. All rights reserved.</label>
+    <main class="main-layout__body__content">
+      <router-outlet></router-outlet>
+    </main>
   </div>
-</cxp-layout-main>
+  <footer class="main-layout__footer cxp-footer">
+    <label class="main-layout__footer__notes">© 2026 CyberXP ERP. All rights reserved.</label>
+  </footer>
+</div>

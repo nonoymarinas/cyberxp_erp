@@ -1,0 +1,86 @@
+<div
+  class="cxp-main-layout"
+  [style.--header-height.px]="headerHeight"
+  [style.--footer-height.px]="footerHeight"
+  [style.--sidebar-width.px]="currentSidebarWidth"
+  [style.--sidebar-min-width.px]="sidebarMinWidth"
+  [style.--sidebar-max-width.px]="sidebarMaxWidth"
+  [style.--sidebar-width-mobile.px]="sidebarWidthMobile"
+>
+  <!-- ========================================
+       Header
+       ======================================== -->
+
+  <header class="cxp-main-layout__header">
+    <cxp-icon-burger-nav
+      class="cxp-main-layout__burger"
+      theme="dark"
+      fill="outline"
+      (click)="toggleSidebar()"
+    ></cxp-icon-burger-nav>
+
+    <div class="cxp-main-layout__header-content">
+      <ng-content select="[layout-header]"></ng-content>
+    </div>
+  </header>
+
+  <!-- ========================================
+       Body
+       ======================================== -->
+
+  <div class="cxp-main-layout__body">
+    <!-- Mobile sidebar overlay -->
+
+    <div
+      class="cxp-main-layout__overlay"
+      [class.cxp-main-layout__overlay--show]="sidebarOpen"
+      aria-hidden="true"
+      (click)="closeSidebar()"
+    ></div>
+
+    <!-- Sidebar -->
+
+    <aside
+      id="cxp-main-layout-sidebar"
+      class="cxp-main-layout__sidebar"
+      [class.cxp-main-layout__sidebar--open]="sidebarOpen"
+    >
+      <nav
+        class="cxp-main-layout__navigation"
+        aria-label="Main navigation"
+      >
+        <ng-content select="[layout-sidebar]"></ng-content>
+      </nav>
+
+      @if (sidebarResizable) {
+        <div
+          class="cxp-main-layout__sidebar-resizer"
+          role="separator"
+          tabindex="0"
+          aria-label="Resize sidebar"
+          aria-orientation="vertical"
+          [attr.aria-valuemin]="sidebarMinWidth"
+          [attr.aria-valuemax]="sidebarMaxWidth"
+          [attr.aria-valuenow]="currentSidebarWidth"
+          [attr.aria-disabled]="!sidebarResizable"
+          (pointerdown)="startSidebarResize($event)"
+          (keydown)="resizeSidebarWithKeyboard($event)"
+        ></div>
+      }
+    </aside>
+
+    <!-- Routed page content -->
+
+    <main class="cxp-main-layout__content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+
+  <!-- ========================================
+       Footer
+       ======================================== -->
+
+  <footer class="cxp-main-layout__footer">
+    <ng-content select="[layout-footer]"></ng-content>
+  </footer>
+</div>

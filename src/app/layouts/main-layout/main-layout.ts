@@ -1,57 +1,37 @@
 import { Component } from '@angular/core';
-import {
-  RouterLink,
-  RouterLinkActive,
-  RouterOutlet,
-} from '@angular/router';
 
 import {
-  CxpIconAppNav,
-  CxpIconBurgerNav,
+  CxpLayoutMain,
   CxpIconCyberxpApp,
+  CxpIconAppNav,
+  CxpIconUserCircle,
+  CxpIconBurgerNav,
   CxpIconHomeNav,
   CxpIconLogoutNav,
   CxpIconSettingsNav,
-  CxpIconUserCircle,
   CxpIconUserNav,
+  CxpMenuSidebarItem
 } from 'cyberxp-ui';
 
 @Component({
-  selector: 'app-main-layout',
+  selector: 'main-layout',
   standalone: true,
   imports: [
-    RouterOutlet,
-    RouterLink,
-    RouterLinkActive,
-    CxpIconAppNav,
-    CxpIconBurgerNav,
-    CxpIconCyberxpApp,
-    CxpIconHomeNav,
-    CxpIconLogoutNav,
-    CxpIconSettingsNav,
-    CxpIconUserCircle,
-    CxpIconUserNav,
+    CxpLayoutMain,
+  CxpIconCyberxpApp,
+  CxpIconAppNav,
+  CxpIconUserCircle,
+  CxpIconBurgerNav,
+  CxpIconHomeNav,
+  CxpIconLogoutNav,
+  CxpIconSettingsNav,
+  CxpIconUserNav,
+  CxpMenuSidebarItem
   ],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.css',
 })
 export class MainLayout {
   sidebarOpen = false;
-
-  toggleSidebar(): void {
-    this.sidebarOpen = !this.sidebarOpen;
-  }
-
-  closeSidebar(): void {
-    this.sidebarOpen = false;
-  }
-
-  logout(): void {
-    this.closeSidebar();
-
-    // Add your logout logic here.
-    // Example:
-    // this.authService.logout();
-    // this.router.navigate(['/']);
-  }
+  sidebarWidth = 260;
 }

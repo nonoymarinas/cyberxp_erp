@@ -4,7 +4,7 @@ import {
   CxpIconFill,
   CxpIconSize,
   CxpIconState,
-} from '../cxp-icon.types';
+} from '../../../exports/cxp-export.types';
 
 @Component({
   selector: 'cxp-icon-hrms-app',
