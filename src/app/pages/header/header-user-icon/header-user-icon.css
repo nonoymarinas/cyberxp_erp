@@ -1,0 +1,31 @@
+.header-apps-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.app-icon {
+    display: flex;
+    align-items: center;
+}
+
+.modal-menu-body {
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+    height: 280px;
+
+    gap: 1rem;
+
+    padding: 1rem 0;
+
+    overflow-y: auto;
+}
+.modal-menu-item{
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    padding: .5rem 1rem;
+}
+.modal-menu-item:hover{
+    background-color: var(--color-nav-hover-background);
+}

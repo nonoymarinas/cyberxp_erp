@@ -13,6 +13,7 @@ import {
   CxpMenuSidebarItem
 } from 'cyberxp-ui';
 import { HeaderAppsIcon } from "../../pages/header/header-apps-icon/header-apps-icon";
+import { HeaderUserIcon } from "../../pages/header/header-user-icon/header-user-icon";
 
 @Component({
   selector: 'main-layout',
@@ -28,7 +29,8 @@ import { HeaderAppsIcon } from "../../pages/header/header-apps-icon/header-apps-
     CxpIconSettingsNav,
     CxpIconUserNav,
     CxpMenuSidebarItem,
-    HeaderAppsIcon
+    HeaderAppsIcon,
+    HeaderUserIcon,
 ],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.css',

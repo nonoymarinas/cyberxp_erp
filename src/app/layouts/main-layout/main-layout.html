@@ -1,57 +1,56 @@
-<cxp-layout-main
-  [(sidebarOpen)]="sidebarOpen"
-  [(sidebarWidth)]="sidebarWidth"
->
+<cxp-layout-main [(sidebarOpen)]="sidebarOpen" [(sidebarWidth)]="sidebarWidth">
   <!-- Header -->
   <div layout-header class="main-layout__header">
-     <cxp-icon-cyberxp-app class="cyberxp-logo" size="xs" fill="filled"></cxp-icon-cyberxp-app>
+    <cxp-icon-cyberxp-app class="cyberxp-logo" size="xs" fill="filled"></cxp-icon-cyberxp-app>
     <label class="module-name cxp-title cxp-title-md"
       >CXP-ATMS <span class="module-name-span"> - Account Management System</span> v.10.1.0</label
     >
     <header-apps-icon class="header-apps-icon"></header-apps-icon>
     <!-- <cxp-icon-app-nav class="icon-app-menu" size="md" fill="filled"></cxp-icon-app-nav> -->
-    <cxp-icon-user-circle class="icon-user-nav" size="sm"></cxp-icon-user-circle>
+    <!-- <cxp-icon-user-circle class="icon-user-nav" size="sm"></cxp-icon-user-circle> -->
+    <header-user-icon class="header-apps-icon"></header-user-icon>
   </div>
 
   <!-- Sidebar -->
-  <aside layout-sidebar
-      class="main-layout__body__sidebar cxp-sidebar"
-      [class.main-layout__body__sidebar--open]="sidebarOpen"
-    >
-      <!-- Logo -->
-      <div class="sidebar__header cxp-sidebar__header">
-        <img class="company-logo-img" src="assets/images/icons/spx-logo.png" alt="SPX Logo" />
-      </div>
+  <aside
+    layout-sidebar
+    class="main-layout__body__sidebar cxp-sidebar"
+    [class.main-layout__body__sidebar--open]="sidebarOpen"
+  >
+    <!-- Logo -->
+    <div class="sidebar__header cxp-sidebar__header">
+      <img class="company-logo-img" src="assets/images/icons/spx-logo.png" alt="SPX Logo" />
+    </div>
 
-      <!-- Navigation -->
-      <nav class="sidebar__menu">
-        <cxp-menu-sidebar-item route="/app/home">
-          <cxp-icon-home-nav start size="xs" fill="outline"></cxp-icon-home-nav>
-          <span label>Home</span>
-        </cxp-menu-sidebar-item>
+    <!-- Navigation -->
+    <nav class="sidebar__menu">
+      <cxp-menu-sidebar-item route="/app/home">
+        <cxp-icon-home-nav start size="xs" fill="outline"></cxp-icon-home-nav>
+        <span label>Home</span>
+      </cxp-menu-sidebar-item>
 
-        <cxp-menu-sidebar-item route="/app/accounts">
-          <cxp-icon-user-nav start size="xs" fill="outline"></cxp-icon-user-nav>
-          <span label>Account</span>
-        </cxp-menu-sidebar-item>
-      </nav>
+      <cxp-menu-sidebar-item route="/app/accounts">
+        <cxp-icon-user-nav start size="xs" fill="outline"></cxp-icon-user-nav>
+        <span label>Account</span>
+      </cxp-menu-sidebar-item>
+    </nav>
 
-      <!-- Bottom Section -->
-      <div class="sidebar__footer">
-        <cxp-menu-sidebar-item route="/app/settings">
-          <cxp-icon-settings-nav start size="xs" fill="outline"></cxp-icon-settings-nav>
-          <span label>Settings</span>
-        </cxp-menu-sidebar-item>
+    <!-- Bottom Section -->
+    <div class="sidebar__footer">
+      <cxp-menu-sidebar-item route="/app/settings">
+        <cxp-icon-settings-nav start size="xs" fill="outline"></cxp-icon-settings-nav>
+        <span label>Settings</span>
+      </cxp-menu-sidebar-item>
 
-        <cxp-menu-sidebar-item route="/app/logouts">
-          <cxp-icon-logout-nav start size="xs" fill="outline"></cxp-icon-logout-nav>
-          <span label>Logout</span>
-        </cxp-menu-sidebar-item>
-      </div>
-    </aside>
+      <cxp-menu-sidebar-item route="/app/logouts">
+        <cxp-icon-logout-nav start size="xs" fill="outline"></cxp-icon-logout-nav>
+        <span label>Logout</span>
+      </cxp-menu-sidebar-item>
+    </div>
+  </aside>
 
   <!-- Footer -->
   <div layout-footer>
-    <label  class="main-layout__footer__notes">© 2026 CyberXP ERP. All rights reserved.</label>
+    <label class="main-layout__footer__notes">© 2026 CyberXP ERP. All rights reserved.</label>
   </div>
 </cxp-layout-main>

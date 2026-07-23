@@ -65,6 +65,24 @@
   background-color: var(--color-background-primary);
 }
 
+
+/* ========================================
+   Pop-up menu
+   ======================================== */
+.cxp-popup-menu {
+  border:1px solid var(--color-border-07);
+  color: var(--color-sidebar-text);
+  background-color: var(--color-background-secondary);
+}
+
+.cxp-popup-menu__header {
+  color: var(--color-sidebar-text);
+  background-color: var(--color-background-secondary);
+}
+.cxp-popup-menu__footer {
+  color: var(--color-sidebar-text);
+  background-color: var(--color-background-secondary);
+}
 /* ========================================
    Sidebar
    ======================================== */

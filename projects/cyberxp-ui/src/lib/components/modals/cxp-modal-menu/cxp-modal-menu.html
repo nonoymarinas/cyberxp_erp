@@ -1,0 +1,46 @@
+@if (isOpen()) {
+  <div class="cxp-app-menu">
+    <div
+      class="cxp-app-menu__overlay"
+      role="presentation"
+      (click)="onOverlayClick()"
+    ></div>
+
+    <section
+      class="cxp-app-menu__modal cxp-popup-menu"
+      role="dialog"
+      aria-modal="true"
+      [attr.aria-label]="title()"
+      (click)="onMenuClick($event)"
+    >
+      <header
+        class="cxp-app-menu__header cxp-popup-menu__header"
+      >
+        <h2 class="cxp-app-menu__title">
+          {{ title() }}
+        </h2>
+
+        <button
+          class="cxp-app-menu__close"
+          type="button"
+          aria-label="Close application menu"
+          (click)="close()"
+        >
+          <span aria-hidden="true">
+            &times;
+          </span>
+        </button>
+      </header>
+
+      <ng-content></ng-content>
+
+      <footer
+        class="cxp-app-menu__footer cxp-popup-menu__footer"
+      >
+        <ng-content select="[cxpAppMenuFooter]">
+        </ng-content>
+
+      </footer>
+    </section>
+  </div>
+}

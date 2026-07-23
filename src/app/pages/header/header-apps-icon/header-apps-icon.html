@@ -1,4 +1,17 @@
-<div class="header-apps-icon">
-    <cxp-icon-app-nav class="app-icon" (click)= toggleAppMenu() size="md"></cxp-icon-app-nav>
-    <header-apps-menu [isOpen]="isAppMenuOpen"></header-apps-menu>
+<div class="header-apps-icon" (click)="toggleAppMenu($event)">
+  <cxp-icon-app-nav class="app-icon" size="md"></cxp-icon-app-nav>
+  <cxp-modal-menu
+    title="Your Application"
+    [isOpen]="isAppMenuOpen"
+    (closeRequested)="closeAppMenu()"
+  >
+    <div class="modal-menu-body">
+      <cxp-icon-hrms-app class="app-icon"></cxp-icon-hrms-app>
+      <cxp-icon-tnms-app class="app-icon"></cxp-icon-tnms-app>
+      <cxp-icon-atms-app class="app-icon"></cxp-icon-atms-app>
+    </div>
+    <div cxpAppMenuFooter>
+      <cxp-button  (click)="closeAppMenu()" variant="secondary" size="sm">Close</cxp-button>
+    </div>
+  </cxp-modal-menu>
 </div>

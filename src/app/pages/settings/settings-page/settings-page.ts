@@ -17,7 +17,8 @@ import {
 type ThemeClass =
   | 'theme-dark'
   | 'theme-light'
-  | 'theme-dark-blue';
+  | 'theme-dark-blue'
+  |'theme-neutral-red';
 
 @Component({
   selector: 'ams-settings-page',
@@ -48,6 +49,10 @@ export class SettingsPage implements OnInit {
       label: 'Dark Blue',
       value: 'theme-dark-blue',
     },
+    {
+      label: 'Neutral Red',
+      value: 'theme-neutral-red',
+    },
   ];
 
   selectedTheme: ThemeClass = 'theme-dark';
@@ -56,6 +61,7 @@ export class SettingsPage implements OnInit {
     'theme-dark',
     'theme-light',
     'theme-dark-blue',
+    'theme-neutral-red',
   ];
 
   ngOnInit(): void {

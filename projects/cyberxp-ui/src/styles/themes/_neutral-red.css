@@ -1,78 +1,130 @@
-.theme-light {
+/* #########################################################
+   FOUNDATION PALETTES
+   ######################################################### */
+
+:root {
+  /* ========================================
+     Neutral Palette
+     ======================================== */
+  --neutral-000: #FFFFFF;
+  --neutral-100: #F5F5F5;
+  --neutral-200: #E0E0E0;
+  --neutral-300: #C2C2C2;
+  --neutral-400: #999999;
+  --neutral-500: #737373;
+  --neutral-600: #595959;
+  --neutral-700: #404040;
+  --neutral-800: #2B2B2B;
+  --neutral-900: #1A1A1A;
+  --neutral-1000: #0A0A0A;
+
+  /* ========================================
+     Brand Red Palette
+     ======================================== */
+  --brand-red-000: #FFF8F8;
+  --brand-red-100: #FDECEC;
+  --brand-red-200: #F8D4D4;
+  --brand-red-300: #F2B1B1;
+  --brand-red-400: #E47676;
+  --brand-red-500: #C73E3E;
+  --brand-red-600: #A92B2B;
+  --brand-red-700: #831F1F;
+  --brand-red-800: #611515;
+  --brand-red-900: #3D0D0D;
+  --brand-red-1000: #170505;
+}
+
+.theme-neutral-red {
   /* #########################################################
        LAYER 1 — GLOBAL SEMANTIC TOKENS
        ######################################################### */
   /* ========================================
        Text
        ======================================== */
-  --color-text-primary: var(--grey-900);
-  --color-text-secondary: var(--grey-600);
-  --color-text-tertiary: var(--grey-500);
-  --color-text-muted: var(--grey-400);
-  --color-text-disabled: var(--grey-300);
-  --color-text-inverse: var(--grey-000);
+  --color-text-primary: var(--neutral-200);
+  --color-text-secondary: var(--neutral-400);
+  --color-text-tertiary: var(--neutral-500);
+  --color-text-muted: var(--neutral-600);
+  --color-text-disabled: var(--neutral-700);
+  --color-text-inverse: var(--neutral-1000);
 
   /* ========================================
        Background
        ======================================== */
-  --color-background-primary: var(--grey-000);
-  --color-background-secondary: var(--grey-100);
-  --color-background-tertiary: var(--grey-300);
-  --color-background-elevated: var(--grey-000);
-  --color-background-inverse: var(--grey-900);
+  --color-background-primary: var(--neutral-1000);
+  --color-background-secondary: var(--neutral-900);
+  --color-background-tertiary: var(--neutral-800);
+  --color-background-elevated: var(--neutral-800);
+  --color-background-inverse: var(--neutral-100);
 
   /* ========================================
        Surface
        ======================================== */
-  --color-surface-primary: var(--grey-100);
-  --color-surface-secondary: var(--grey-200);
-  --color-surface-tertiary: var(--grey-300);
-  --color-surface-raised: var(--grey-000);
-  --color-surface-sunken: var(--grey-100);
+  --color-surface-primary: var(--neutral-900);
+  --color-surface-secondary: var(--neutral-800);
+  --color-surface-tertiary: var(--neutral-700);
+  --color-surface-raised: var(--neutral-800);
+  --color-surface-sunken: var(--neutral-1000);
 
   /* ========================================
        Border
        ======================================== */
-  --color-border-primary: var(--grey-300);
-  --color-border-secondary: var(--grey-200);
-  --color-border-subtle: var(--grey-100);
-  --color-border-strong: var(--grey-500);
-  --color-border-inverse: var(--grey-700);
+  --color-border-primary: var(--neutral-700);
+  --color-border-secondary: var(--neutral-800);
+  --color-border-subtle: var(--neutral-900);
+  --color-border-strong: var(--neutral-500);
+  --color-border-inverse: var(--neutral-300);
 
   /* ========================================
        Icon
        ======================================== */
-  --color-icon-primary: var(--grey-800);
-  --color-icon-secondary: var(--grey-600);
-  --color-icon-tertiary: var(--grey-500);
-  --color-icon-muted: var(--grey-400);
-  --color-icon-disabled: var(--grey-300);
-  --color-icon-inverse: var(--grey-000);
+  --color-icon-primary: var(--neutral-200);
+  --color-icon-secondary: var(--neutral-400);
+  --color-icon-tertiary: var(--neutral-500);
+  --color-icon-muted: var(--neutral-600);
+  --color-icon-disabled: var(--neutral-700);
+  --color-icon-inverse: var(--neutral-1000);
 
-  --color-muted-icon: var(--grey-500);
+  --color-muted-icon: var(--neutral-600);
   --color-muted-background: transparent;
   --color-muted-border: var(--color-border-primary);
 
   /* ========================================
        Divider
        ======================================== */
-  --color-divider-primary: var(--grey-200);
-  --color-divider-secondary: var(--grey-100);
-  --color-divider-strong: var(--grey-300);
+  --color-divider-primary: var(--neutral-800);
+  --color-divider-secondary: var(--neutral-900);
+  --color-divider-strong: var(--neutral-700);
 
   /* ========================================
        Overlay
        ======================================== */
-  --color-overlay-light: rgba(0, 0, 0, 0.15);
-  --color-overlay-medium: rgba(0, 0, 0, 0.4);
-  --color-overlay-strong: rgba(0, 0, 0, 0.65);
+  --color-overlay-light: rgba(0, 0, 0, 0.25);
+  --color-overlay-medium: rgba(0, 0, 0, 0.5);
+  --color-overlay-strong: rgba(0, 0, 0, 0.75);
 
   /* ========================================
        Shadow
        ======================================== */
-  --color-shadow-light: rgba(0, 0, 0, 0.08);
-  --color-shadow-medium: rgba(0, 0, 0, 0.16);
-  --color-shadow-strong: rgba(0, 0, 0, 0.28);
+  --color-shadow-light: rgba(0, 0, 0, 0.2);
+  --color-shadow-medium: rgba(0, 0, 0, 0.4);
+  --color-shadow-strong: rgba(0, 0, 0, 0.65);
+
+  /* ========================================
+       Brand
+       ======================================== */
+  --color-brand-primary: var(--brand-red-600);
+  --color-brand-secondary: var(--brand-red-500);
+  --color-brand-tertiary: var(--brand-red-400);
+  --color-brand-hover: var(--brand-red-500);
+  --color-brand-active: var(--brand-red-700);
+  --color-brand-focus: var(--brand-red-400);
+  --color-brand-subtle: rgba(199, 62, 62, 0.14);
+  --color-brand-muted: rgba(199, 62, 62, 0.22);
+  --color-brand-border: var(--brand-red-600);
+  --color-brand-text: var(--brand-red-300);
+  --color-brand-icon: var(--brand-red-300);
+  --color-on-brand: var(--neutral-000);
 
   /* #########################################################
        LAYER 2 — FUNCTIONAL STATE TOKENS
@@ -80,7 +132,7 @@
   /* ========================================
        Default
        ======================================== */
-  --color-default-background: var(--color-background-primary);
+  --color-default-background: var(--color-background-secondary);
   --color-default-border: var(--color-border-primary);
   --color-default-text: var(--color-text-primary);
   --color-default-icon: var(--color-icon-primary);
@@ -88,87 +140,87 @@
   /* ========================================
        Hover
        ======================================== */
-  --color-hover-background: rgba(0, 0, 0, 0.04);
-  --color-hover-border: var(--grey-500);
-  --color-hover-text: var(--grey-1000);
-  --color-hover-icon: var(--grey-1000);
+  --color-hover-background: rgba(255, 255, 255, 0.05);
+  --color-hover-border: var(--neutral-500);
+  --color-hover-text: var(--neutral-100);
+  --color-hover-icon: var(--neutral-100);
 
   /* ========================================
        Active / Pressed
        ======================================== */
-  --color-active-background: rgba(0, 0, 0, 0.08);
-  --color-active-border: var(--grey-600);
-  --color-active-text: var(--grey-1000);
-  --color-active-icon: var(--grey-1000);
+  --color-active-background: rgba(255, 255, 255, 0.1);
+  --color-active-border: var(--neutral-400);
+  --color-active-text: var(--neutral-000);
+  --color-active-icon: var(--neutral-000);
 
   /* ========================================
        Focus
        ======================================== */
-  --color-focus-background: var(--color-background-primary);
-  --color-focus-border: var(--grey-700);
+  --color-focus-background: var(--color-background-secondary);
+  --color-focus-border: var(--color-brand-focus);
   --color-focus-text: var(--color-text-primary);
   --color-focus-icon: var(--color-icon-primary);
-  --color-focus-ring: rgba(0, 0, 0, 0.18);
+  --color-focus-ring: rgba(228, 118, 118, 0.32);
 
   /* ========================================
        Selected
        ======================================== */
-  --color-selected-background: rgba(0, 0, 0, 0.1);
-  --color-selected-border: var(--grey-600);
-  --color-selected-text: var(--grey-1000);
-  --color-selected-icon: var(--grey-1000);
+  --color-selected-background: var(--color-brand-subtle);
+  --color-selected-border: var(--color-brand-primary);
+  --color-selected-text: var(--neutral-000);
+  --color-selected-icon: var(--neutral-000);
 
   /* ========================================
        Disabled
        ======================================== */
-  --color-disabled-background: var(--grey-100);
-  --color-disabled-border: var(--grey-200);
-  --color-disabled-text: var(--grey-400);
-  --color-disabled-icon: var(--grey-400);
+  --color-disabled-background: var(--neutral-900);
+  --color-disabled-border: var(--neutral-800);
+  --color-disabled-text: var(--neutral-700);
+  --color-disabled-icon: var(--neutral-700);
 
   /* ========================================
        Readonly
        ======================================== */
-  --color-readonly-background: var(--grey-100);
-  --color-readonly-border: var(--grey-200);
-  --color-readonly-text: var(--grey-600);
-  --color-readonly-icon: var(--grey-500);
+  --color-readonly-background: var(--neutral-1000);
+  --color-readonly-border: var(--neutral-800);
+  --color-readonly-text: var(--neutral-500);
+  --color-readonly-icon: var(--neutral-600);
 
   /* ========================================
        Drag
        ======================================== */
-  --color-drag-background: rgba(0, 0, 0, 0.06);
-  --color-drag-border: var(--grey-600);
-  --color-drag-text: var(--grey-900);
-  --color-drag-handle: var(--grey-500);
+  --color-drag-background: rgba(255, 255, 255, 0.08);
+  --color-drag-border: var(--neutral-400);
+  --color-drag-text: var(--neutral-100);
+  --color-drag-handle: var(--neutral-500);
 
   /* ========================================
        Drop Target
        ======================================== */
-  --color-drop-target-background: rgba(0, 0, 0, 0.08);
-  --color-drop-target-border: var(--grey-700);
-  --color-drop-target-text: var(--grey-1000);
+  --color-drop-target-background: var(--color-brand-subtle);
+  --color-drop-target-border: var(--color-brand-focus);
+  --color-drop-target-text: var(--neutral-100);
 
   /* ========================================
        Highlight
        ======================================== */
-  --color-highlight-background: rgba(0, 0, 0, 0.08);
-  --color-highlight-border: var(--grey-500);
-  --color-highlight-text: var(--grey-1000);
+  --color-highlight-background: var(--color-brand-subtle);
+  --color-highlight-border: var(--color-brand-primary);
+  --color-highlight-text: var(--neutral-000);
 
   /* ========================================
        Loading
        ======================================== */
-  --color-loading-background: var(--grey-100);
-  --color-loading-track: var(--grey-200);
-  --color-loading-indicator: var(--grey-600);
+  --color-loading-background: var(--neutral-900);
+  --color-loading-track: var(--neutral-800);
+  --color-loading-indicator: var(--color-brand-secondary);
 
   /* ========================================
        Placeholder
        ======================================== */
-  --color-placeholder-background: var(--grey-100);
-  --color-placeholder-text: var(--grey-400);
-  --color-placeholder-icon: var(--grey-400);
+  --color-placeholder-background: var(--neutral-900);
+  --color-placeholder-text: var(--neutral-600);
+  --color-placeholder-icon: var(--neutral-600);
 
   /* #########################################################
        LAYER 3 — FEEDBACK AND STATUS TOKENS
@@ -180,42 +232,42 @@
   /* ========================================
        Information
        ======================================== */
-  --color-info-background: var(--grey-100);
-  --color-info-border: var(--grey-500);
-  --color-info-text: var(--grey-800);
-  --color-info-icon: var(--grey-700);
+  --color-info-background: var(--neutral-900);
+  --color-info-border: var(--neutral-500);
+  --color-info-text: var(--neutral-200);
+  --color-info-icon: var(--neutral-300);
 
   /* ========================================
        Success
        ======================================== */
-  --color-success-background: var(--grey-100);
-  --color-success-border: var(--grey-700);
-  --color-success-text: var(--grey-900);
-  --color-success-icon: var(--grey-800);
+  --color-success-background: var(--neutral-900);
+  --color-success-border: var(--neutral-300);
+  --color-success-text: var(--neutral-100);
+  --color-success-icon: var(--neutral-200);
 
   /* ========================================
        Warning
        ======================================== */
-  --color-warning-background: var(--grey-200);
-  --color-warning-border: var(--grey-600);
-  --color-warning-text: var(--grey-900);
-  --color-warning-icon: var(--grey-800);
+  --color-warning-background: var(--neutral-800);
+  --color-warning-border: var(--neutral-400);
+  --color-warning-text: var(--neutral-100);
+  --color-warning-icon: var(--neutral-200);
 
   /* ========================================
        Error / Danger
        ======================================== */
-  --color-error-background: var(--grey-200);
-  --color-error-border: var(--grey-900);
-  --color-error-text: var(--grey-1000);
-  --color-error-icon: var(--grey-900);
+  --color-error-background: rgba(199, 62, 62, 0.16);
+  --color-error-border: var(--brand-red-500);
+  --color-error-text: var(--neutral-000);
+  --color-error-icon: var(--brand-red-300);
 
   /* ========================================
        Neutral
        ======================================== */
-  --color-neutral-background: var(--grey-100);
-  --color-neutral-border: var(--grey-300);
-  --color-neutral-text: var(--grey-600);
-  --color-neutral-icon: var(--grey-500);
+  --color-neutral-background: var(--neutral-900);
+  --color-neutral-border: var(--neutral-700);
+  --color-neutral-text: var(--neutral-400);
+  --color-neutral-icon: var(--neutral-500);
 
   /* #########################################################
        LAYER 4 — COMPONENT SEMANTIC TOKENS
@@ -229,7 +281,7 @@
   /* ========================================
        Header
        ======================================== */
-  --color-header-background: var(--color-background-tertiary);
+  --color-header-background: var(--color-background-primary);
   --color-header-border: var(--color-border-primary);
   --color-header-text: var(--color-text-primary);
   --color-header-icon: var(--color-icon-primary);
@@ -249,13 +301,14 @@
   --color-sidebar-border: var(--color-border-primary);
   --color-sidebar-text: var(--color-text-secondary);
   --color-sidebar-text-hover: var(--color-hover-text);
-  --color-sidebar-text-active: var(--color-selected-text);
+  --color-sidebar-text-active: var(--color-brand-text);
   --color-sidebar-icon: var(--color-icon-secondary);
   --color-sidebar-icon-hover: var(--color-hover-icon);
-  --color-sidebar-icon-active: var(--color-selected-icon);
+  --color-sidebar-icon-active: var(--color-brand-icon);
   --color-sidebar-item-hover: var(--color-hover-background);
-  --color-sidebar-item-active: var(--color-selected-background);
+  --color-sidebar-item-active: var(--color-brand-subtle);
   --color-sidebar-item-focus: var(--color-focus-background);
+  --color-sidebar-item-active-border: var(--color-brand-primary);
   --color-sidebar-resize-handle: var(--color-border-primary);
   --color-sidebar-resize-handle-hover: var(--color-border-strong);
 
@@ -274,7 +327,7 @@
   /* ========================================
        Footer
        ======================================== */
-  --color-footer-background: var(--color-background-tertiary);
+  --color-footer-background: var(--color-background-primary);
   --color-footer-border: var(--color-border-primary);
   --color-footer-text: var(--color-text-secondary);
   --color-footer-icon: var(--color-icon-secondary);
@@ -290,8 +343,9 @@
   --color-nav-hover-text: var(--color-hover-text);
   --color-nav-hover-icon: var(--color-hover-icon);
   --color-nav-active-background: var(--color-selected-background);
-  --color-nav-active-text: var(--color-selected-text);
-  --color-nav-active-icon: var(--color-selected-icon);
+  --color-nav-active-text: var(--color-brand-text);
+  --color-nav-active-icon: var(--color-brand-icon);
+  --color-nav-active-border: var(--color-brand-primary);
 
   /* ========================================
        Breadcrumb
@@ -311,7 +365,7 @@
   --color-card-icon: var(--color-icon-secondary);
   --color-card-hover-background: var(--color-surface-secondary);
   --color-card-hover-border: var(--color-hover-border);
-  --color-card-selected-border: var(--color-selected-border);
+  --color-card-selected-border: var(--color-brand-primary);
 
   /* ========================================
        Panel
@@ -341,7 +395,7 @@
   --color-table-header-text: var(--color-text-primary);
   --color-table-header-border: var(--color-border-primary);
   --color-table-row-background: transparent;
-  --color-table-row-alternate: rgba(0, 0, 0, 0.02);
+  --color-table-row-alternate: rgba(255, 255, 255, 0.02);
   --color-table-row-hover: var(--color-hover-background);
   --color-table-row-selected: var(--color-selected-background);
   --color-table-row-disabled: var(--color-disabled-background);
@@ -385,20 +439,20 @@
   /* ========================================
        Button Primary
        ======================================== */
-  --color-button-primary-background: var(--grey-900);
-  --color-button-primary-border: var(--grey-900);
-  --color-button-primary-text: var(--grey-000);
-  --color-button-primary-icon: var(--grey-000);
-  --color-button-primary-hover-background: var(--grey-1000);
-  --color-button-primary-hover-border: var(--grey-1000);
-  --color-button-primary-hover-text: var(--grey-000);
-  --color-button-primary-active-background: var(--grey-700);
-  --color-button-primary-active-border: var(--grey-700);
+  --color-button-primary-background: var(--color-brand-primary);
+  --color-button-primary-border: var(--color-brand-primary);
+  --color-button-primary-text: var(--color-on-brand);
+  --color-button-primary-icon: var(--color-on-brand);
+  --color-button-primary-hover-background: var(--color-brand-hover);
+  --color-button-primary-hover-border: var(--color-brand-hover);
+  --color-button-primary-hover-text: var(--color-on-brand);
+  --color-button-primary-active-background: var(--color-brand-active);
+  --color-button-primary-active-border: var(--color-brand-active);
 
   /* ========================================
        Button Secondary
        ======================================== */
-  --color-button-secondary-background: var(--color-background-secondary);
+  --color-button-secondary-background: var(--color-background-tertiary);
   --color-button-secondary-border: var(--color-border-primary);
   --color-button-secondary-text: var(--color-text-primary);
   --color-button-secondary-icon: var(--color-icon-primary);
@@ -429,30 +483,30 @@
   /* ========================================
        Checkbox and Radio
        ======================================== */
-  --color-control-background: var(--color-background-primary);
+  --color-control-background: var(--color-background-secondary);
   --color-control-border: var(--color-border-primary);
-  --color-control-icon: var(--grey-000);
+  --color-control-icon: var(--color-on-brand);
   --color-control-hover-border: var(--color-hover-border);
   --color-control-focus-ring: var(--color-focus-ring);
-  --color-control-checked-background: var(--grey-900);
-  --color-control-checked-border: var(--grey-900);
+  --color-control-checked-background: var(--color-brand-primary);
+  --color-control-checked-border: var(--color-brand-primary);
   --color-control-disabled-background: var(--color-disabled-background);
   --color-control-disabled-border: var(--color-disabled-border);
 
   /* ========================================
        Switch
        ======================================== */
-  --color-switch-track: var(--grey-300);
-  --color-switch-thumb: var(--grey-000);
-  --color-switch-track-checked: var(--grey-900);
-  --color-switch-thumb-checked: var(--grey-000);
-  --color-switch-track-disabled: var(--grey-200);
-  --color-switch-thumb-disabled: var(--grey-400);
+  --color-switch-track: var(--neutral-700);
+  --color-switch-thumb: var(--neutral-300);
+  --color-switch-track-checked: var(--color-brand-primary);
+  --color-switch-thumb-checked: var(--color-on-brand);
+  --color-switch-track-disabled: var(--neutral-800);
+  --color-switch-thumb-disabled: var(--neutral-600);
 
   /* ========================================
        Dropdown
        ======================================== */
-  --color-dropdown-background: var(--color-surface-raised);
+  --color-dropdown-background: var(--color-surface-primary);
   --color-dropdown-border: var(--color-border-primary);
   --color-dropdown-text: var(--color-text-primary);
   --color-dropdown-icon: var(--color-icon-secondary);
@@ -470,9 +524,9 @@
   --color-tab-hover-background: var(--color-hover-background);
   --color-tab-hover-text: var(--color-hover-text);
   --color-tab-active-background: transparent;
-  --color-tab-active-border: var(--grey-900);
-  --color-tab-active-text: var(--color-text-primary);
-  --color-tab-active-icon: var(--color-icon-primary);
+  --color-tab-active-border: var(--color-brand-primary);
+  --color-tab-active-text: var(--color-brand-text);
+  --color-tab-active-icon: var(--color-brand-icon);
 
   /* ========================================
        Pagination
@@ -482,12 +536,12 @@
   --color-pagination-text: var(--color-text-secondary);
   --color-pagination-hover-background: var(--color-hover-background);
   --color-pagination-active-background: var(--color-selected-background);
-  --color-pagination-active-text: var(--color-selected-text);
+  --color-pagination-active-text: var(--color-brand-text);
 
   /* ========================================
        Modal
        ======================================== */
-  --color-modal-background: var(--color-surface-raised);
+  --color-modal-background: var(--color-surface-primary);
   --color-modal-border: var(--color-border-primary);
   --color-modal-overlay: var(--color-overlay-strong);
   --color-modal-header-border: var(--color-divider-primary);
@@ -498,11 +552,12 @@
   --cxp-modal-height: auto;
   --cxp-modal-max-height: calc(100dvh - 3rem);
   --cxp-modal-min-height: 0;
-  --cxp-modal-offset-y: 0
-    /* ========================================
+  --cxp-modal-offset-y: 0;
+
+  /* ========================================
        Drawer
        ======================================== */
-    --color-drawer-background: var(--color-surface-raised);
+  --color-drawer-background: var(--color-surface-primary);
   --color-drawer-border: var(--color-border-primary);
   --color-drawer-overlay: var(--color-overlay-medium);
   --color-drawer-title: var(--color-text-primary);
@@ -510,9 +565,9 @@
   /* ========================================
        Tooltip
        ======================================== */
-  --color-tooltip-background: var(--grey-900);
-  --color-tooltip-border: var(--grey-900);
-  --color-tooltip-text: var(--grey-000);
+  --color-tooltip-background: var(--neutral-200);
+  --color-tooltip-border: var(--neutral-200);
+  --color-tooltip-text: var(--neutral-1000);
 
   /* ========================================
        Popover
@@ -534,20 +589,20 @@
   /* ========================================
        Badge
        ======================================== */
-  --color-badge-background: var(--grey-200);
-  --color-badge-border: var(--grey-300);
-  --color-badge-text: var(--grey-800);
+  --color-badge-background: var(--neutral-700);
+  --color-badge-border: var(--neutral-600);
+  --color-badge-text: var(--neutral-100);
   --color-badge-outline-background: transparent;
-  --color-badge-outline-border: var(--grey-400);
-  --color-badge-outline-text: var(--grey-700);
+  --color-badge-outline-border: var(--neutral-600);
+  --color-badge-outline-text: var(--neutral-300);
 
   /* ========================================
        Tag / Chip
        ======================================== */
-  --color-chip-background: var(--grey-100);
-  --color-chip-border: var(--grey-300);
-  --color-chip-text: var(--grey-700);
-  --color-chip-icon: var(--grey-600);
+  --color-chip-background: var(--neutral-800);
+  --color-chip-border: var(--neutral-700);
+  --color-chip-text: var(--neutral-300);
+  --color-chip-icon: var(--neutral-400);
   --color-chip-hover-background: var(--color-hover-background);
 
   /* ========================================
@@ -572,16 +627,16 @@
   /* ========================================
        Scrollbar
        ======================================== */
-  --color-scrollbar-track: var(--grey-100);
-  --color-scrollbar-thumb: var(--grey-300);
-  --color-scrollbar-thumb-hover: var(--grey-400);
-  --color-scrollbar-thumb-active: var(--grey-500);
+  --color-scrollbar-track: var(--neutral-1000);
+  --color-scrollbar-thumb: var(--neutral-700);
+  --color-scrollbar-thumb-hover: var(--neutral-600);
+  --color-scrollbar-thumb-active: var(--neutral-500);
 
   /* ========================================
        Skeleton
        ======================================== */
-  --color-skeleton-background: var(--grey-100);
-  --color-skeleton-highlight: var(--grey-200);
+  --color-skeleton-background: var(--neutral-900);
+  --color-skeleton-highlight: var(--neutral-800);
 
   /* ========================================
        Empty State
@@ -594,13 +649,13 @@
   /* ========================================
        Code
        ======================================== */
-  --color-code-background: var(--grey-100);
-  --color-code-border: var(--grey-200);
-  --color-code-text: var(--grey-800);
+  --color-code-background: var(--neutral-1000);
+  --color-code-border: var(--neutral-800);
+  --color-code-text: var(--neutral-300);
 
   /* ========================================
        Selection
        ======================================== */
-  --color-text-selection-background: var(--grey-700);
-  --color-text-selection-text: var(--grey-000);
+  --color-text-selection-background: var(--brand-red-700);
+  --color-text-selection-text: var(--neutral-000);
 }

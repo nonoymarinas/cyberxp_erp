@@ -1,0 +1,22 @@
+<div class="header-apps-icon" (click)="toggleAppMenu($event)">
+  <cxp-icon-user-circle class="app-icon" size="sm"></cxp-icon-user-circle>
+  <cxp-modal-menu
+    title="Your Application"
+    [isOpen]="isAppMenuOpen"
+    (closeRequested)="closeAppMenu()"
+  >
+    <div class="modal-menu-body">
+      <cxp-menu-sidebar-item route="/app/settings">
+        <cxp-icon-settings-nav start size="xs" fill="outline"></cxp-icon-settings-nav>
+        <span label>Settings</span>
+      </cxp-menu-sidebar-item>
+      <cxp-menu-sidebar-item route="/app/settings">
+        <cxp-icon-logout-nav start size="xs" fill="outline"></cxp-icon-logout-nav>
+        <span label>Logout</span>
+      </cxp-menu-sidebar-item>
+    </div>
+    <div cxpAppMenuFooter>
+      <cxp-button (click)="closeAppMenu()" variant="ghost" size="sm">Signout</cxp-button>
+    </div>
+  </cxp-modal-menu>
+</div>

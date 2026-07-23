@@ -1,0 +1,194 @@
+:host {
+  display: contents;
+}
+
+/* ========================================
+   App Menu Container
+   ======================================== */
+
+.cxp-app-menu {
+  position: absolute;
+  inset: 0;
+  z-index: 1000;
+}
+
+/* ========================================
+   Overlay
+   ======================================== */
+
+.cxp-app-menu__overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  inset: 0;
+
+  background: var(--color-overlay-medium);
+
+  animation: cxp-app-menu-fade-in .15s ease-out;
+}
+
+/* ========================================
+   Modal
+   ======================================== */
+
+.cxp-app-menu__modal {
+  position: absolute;
+  top: calc(var(--header-height) + .2rem);
+  right: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  max-width: calc(100vw - 2rem);
+  max-height: calc(100dvh - var(--header-height) - 2rem);
+
+  overflow: hidden;
+
+  background: var(--color-popupmenu-background);
+
+  border: var(--width-line-04) solid
+    var(--color-popupmenu-border);
+
+  border-radius: var(--radius-lg);
+
+  box-shadow: var(--shadow-lg);
+
+  animation: cxp-app-menu-slide-in .18s ease-out;
+}
+
+/* ========================================
+   Header
+   ======================================== */
+
+.cxp-app-menu__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 1rem;
+
+  padding: 0.5rem 1rem;
+
+  border-bottom: var(--width-line-04) solid
+    var(--color-divider-primary);
+}
+
+.cxp-app-menu__title {
+  margin: 0;
+
+  color: var(--color-text-primary);
+
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* ========================================
+   Close Button
+   ======================================== */
+
+.cxp-app-menu__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 2rem;
+  height: 2rem;
+
+  padding: 0;
+
+  color: var(--color-text-secondary);
+
+  background: transparent;
+
+  border: none;
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  transition:
+    background .2s,
+    color .2s;
+}
+
+.cxp-app-menu__close:hover {
+  color: var(--color-text-primary);
+
+  background: var(--color-hover-background);
+}
+
+.cxp-app-menu__close:focus-visible {
+  outline: var(--width-line-08) solid
+    var(--color-focus-border);
+
+  outline-offset: 2px;
+}
+
+.cxp-app-menu__close span {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+/* ========================================
+   Body
+   ======================================== */
+
+
+/* ========================================
+   Projected Icons
+   ======================================== */
+
+.cxp-app-menu__body ::ng-deep .app-icon {
+  display: flex;
+  justify-content: center;
+}
+
+/* ========================================
+   Footer
+   ======================================== */
+
+.cxp-app-menu__footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  gap: .75rem;
+
+  padding: .5rem 1rem;
+
+  border-top: var(--width-line-04) solid
+    var(--color-divider-primary);
+
+  background: var(--color-surface-secondary);
+}
+
+/* ========================================
+   Animations
+   ======================================== */
+
+@keyframes cxp-app-menu-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes cxp-app-menu-slide-in {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(-.5rem)
+      scale(.98);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}

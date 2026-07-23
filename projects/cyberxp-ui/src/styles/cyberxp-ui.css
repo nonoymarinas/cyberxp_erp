@@ -8,6 +8,7 @@
 @import "./themes/_dark.css";
 @import "./themes/_light.css";
 @import "./themes/_dark-blue.css";
+@import "./themes/_neutral-red.css";
 
 @import "./components/_input.css";
 @import "./components/_base.css";
