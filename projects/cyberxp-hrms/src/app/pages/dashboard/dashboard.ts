@@ -41,6 +41,7 @@ export interface AttendanceBarItem {
   ],
 })
 export class DashboardPage {
+  
   employeeSummary: CxpChartDonutItem[] = [
     {
       label: 'Regular',
@@ -73,6 +74,7 @@ export class DashboardPage {
       color: '--color-background-00',
     },
   ];
+
  attendanceData: AttendanceBarItem[] = [
   { day: 'Mon', date: 'Jul 02', present: 84, late: 9, absent: 7 },
   { day: 'Tue', date: 'Jul 03', present: 88, late: 7, absent: 5 },

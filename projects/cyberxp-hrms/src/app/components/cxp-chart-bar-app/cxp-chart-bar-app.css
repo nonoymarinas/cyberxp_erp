@@ -5,12 +5,41 @@
   --color-chart-background: transparent;
   --color-chart-axis: var(--color-border-primary);
 }
+
+/* ========================================
+   Chart and Details Layout
+   ======================================== */
+
+.attendance-chart {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(100px, 140px);
+  gap: .5rem;
+  align-items: stretch;
+
+  width: 100%;
+  min-width: 0;
+
+  box-sizing: border-box;
+}
+
+.attendance-chart__main {
+  min-width: 0;
+}
+
+/* ========================================
+   Bar Chart
+   ======================================== */
+
 .bar-chart {
   position: relative;
+
   display: flex;
 
   width: 100%;
-  /* height: 400px; */
+  height: 100%;
+  min-width: 0;
 
   padding: 0;
   margin: 0;
@@ -21,13 +50,14 @@
 
   overflow: hidden;
 }
+
 /* ========================================
    Chart Navigation Arrows
    ======================================== */
 
 .bar-chart__navigation {
   position: absolute;
-  top: 50%;
+  top: 40%;
   z-index: 2;
 
   display: flex;
@@ -41,14 +71,15 @@
   border: 0;
   border-radius: 0;
 
-  color: var(
-    --color-chart-text-secondary,
-    var(--color-text-secondary)
-  );
+  color:
+    var(
+      --color-chart-text-secondary,
+      var(--color-text-secondary)
+    );
 
   background: transparent;
 
-  font-size: 28px;
+  font-size: 48px;
   font-weight: 300;
   line-height: 1;
 
@@ -64,70 +95,46 @@
 }
 
 .bar-chart__navigation--previous {
-  left: 2px;
+  left: 20px;
 }
 
 .bar-chart__navigation--next {
-  right: 2px;
+  right: 5px;
 }
 
 .bar-chart__navigation:hover:not(:disabled) {
-  color: var(
-    --color-chart-text,
-    var(--color-text-primary)
-  );
+  color:
+    var(
+      --color-chart-text,
+      var(--color-text-primary)
+    );
 
   opacity: 1;
 }
 
 .bar-chart__navigation--previous:hover:not(:disabled) {
-  transform: translateY(-50%) translateX(-2px);
+  transform:
+    translateY(-50%)
+    translateX(-2px);
 }
 
 .bar-chart__navigation--next:hover:not(:disabled) {
-  transform: translateY(-50%) translateX(2px);
-}
-
-.bar-chart__navigation:disabled {
-  opacity: 0.08;
-  pointer-events: none;
-  cursor: default;
-}
-
-.bar-chart__navigation--previous {
-  left: 8px;
-}
-
-.bar-chart__navigation--next {
-  right: 8px;
-}
-
-.bar-chart__navigation:hover:not(:disabled) {
-  color: var(
-    --color-chart-text,
-    var(--color-text-primary)
-  );
-
-  background: transparent;
-  opacity: 1;
-}
-
-.bar-chart__navigation--previous:hover:not(:disabled) {
-  transform: translateY(-50%) translateX(-2px);
-}
-
-.bar-chart__navigation--next:hover:not(:disabled) {
-  transform: translateY(-50%) translateX(2px);
+  transform:
+    translateY(-50%)
+    translateX(2px);
 }
 
 .bar-chart__navigation:focus-visible {
-  color: var(
-    --color-chart-text,
-    var(--color-text-primary)
-  );
+  color:
+    var(
+      --color-chart-text,
+      var(--color-text-primary)
+    );
 
   opacity: 1;
-  outline: 1px solid
+
+  outline:
+    1px solid
     var(
       --color-chart-border,
       var(--color-border-primary)
@@ -139,8 +146,18 @@
 .bar-chart__navigation:disabled {
   opacity: 0.1;
   cursor: default;
+
+  pointer-events: none;
 }
+
+/* ========================================
+   Canvas
+   ======================================== */
+
 .cxp-chart-bar-app__canvas {
+  position: relative;
+  z-index: 1;
+
   display: block;
   flex: 1;
 
@@ -152,5 +169,320 @@
   -webkit-user-select: none;
   -webkit-touch-callout: none;
 
-  cursor: default;
+  cursor: pointer;
+}
+
+/* ========================================
+   Attendance Details Panel
+   ======================================== */
+
+.attendance-details {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  min-width: 0;
+  /* min-height: 200px; */
+  padding: .5rem 1rem .5rem .5rem;
+
+  box-sizing: border-box;
+
+  /* border:
+    1px solid
+    var(
+      --color-chart-border,
+      var(--color-border-primary)
+    );
+
+  border-radius: 0.75rem; */
+
+  /* background:
+    var(
+      --color-chart-details-background,
+      var(--color-background-secondary)
+    ); */
+
+  color:
+    var(
+      --color-chart-text,
+      var(--color-text-primary)
+    );
+}
+
+/* ========================================
+   Details Header
+   ======================================== */
+
+.attendance-details__header {
+  display: flex;
+  flex-direction: column;
+  /* gap: 0.25rem; */
+}
+
+.attendance-details__eyebrow {
+  margin: 0;
+
+  color:
+    var(
+      --color-chart-text-secondary,
+      var(--color-text-secondary)
+    );
+
+  font-size: 0.65rem;
+  font-weight: 600;
+
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.attendance-details__date {
+  /* margin: 0.5rem 0 0; */
+
+  color:
+    var(
+      --color-chart-text,
+      var(--color-text-primary)
+    );
+
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.attendance-details__full-date {
+  margin: 0;
+
+  color:
+    var(
+      --color-chart-text-secondary,
+      var(--color-text-secondary)
+    );
+
+  font-size: 0.875rem;
+}
+
+/* ========================================
+   Details Divider
+   ======================================== */
+
+.attendance-details__divider {
+  width: 100%;
+  height: 1px;
+  margin: 1rem 0;
+
+  background:
+    var(
+      --color-chart-border,
+      var(--color-border-primary)
+    );
+
+  opacity: 0.6;
+}
+
+/* ========================================
+   Details List
+   ======================================== */
+
+.attendance-details__list {
+  display: flex;
+  flex-direction: column;
+
+  margin: 0;
+  padding: 0;
+}
+
+/* ========================================
+   Details Item
+   ======================================== */
+
+.attendance-details__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* gap: 1rem; */
+
+  /* min-height: 54px; */
+  padding: 0.2rem 0;
+
+  box-sizing: border-box;
+
+  border-bottom:
+    1px solid
+    var(
+      --color-chart-border,
+      var(--color-border-primary)
+    );
+}
+
+.attendance-details__item:last-child {
+  border-bottom: 0;
+}
+
+.attendance-details__item-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  min-width: 0;
+  margin: 0;
+
+  color:
+    var(
+      --color-chart-text-secondary,
+      var(--color-text-secondary)
+    );
+
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* ========================================
+   Rectangular Legends
+   ======================================== */
+
+.attendance-details__legend {
+  display: block;
+  flex: 0 0 auto;
+
+  width: 20px;
+  height: 8px;
+
+  border-radius: 2px;
+}
+.attendance-details__legend--present {
+  background: var(
+    --color-chart-present,
+    var(--color-chart-01)
+  );
+}
+
+.attendance-details__legend--late {
+  background: var(
+    --color-chart-late,
+    var(--color-chart-03)
+  );
+}
+
+.attendance-details__legend--absent {
+  background: var(
+    --color-chart-absent,
+    var(--color-chart-04)
+  );
+}
+
+/* ========================================
+   Details Values
+   ======================================== */
+
+.attendance-details__value {
+  margin: 0;
+
+  color:
+    var(
+      --color-chart-text,
+      var(--color-text-primary)
+    );
+
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* ========================================
+   Details Footer
+   ======================================== */
+
+.attendance-details__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  margin-top: auto;
+  /* padding-top: 1.25rem; */
+
+  border-top:
+    1px solid
+    var(
+      --color-chart-border,
+      var(--color-border-primary)
+    );
+}
+
+.attendance-details__total-label {
+  color:
+    var(
+      --color-chart-text-secondary,
+      var(--color-text-secondary)
+    );
+
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.attendance-details__total-value {
+  color:
+    var(
+      --color-chart-text,
+      var(--color-text-primary)
+    );
+
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* ========================================
+   Details Empty State
+   ======================================== */
+
+.attendance-details__empty {
+  margin: 0;
+
+  color:
+    var(
+      --color-chart-text-secondary,
+      var(--color-text-secondary)
+    );
+
+  font-size: 0.875rem;
+}
+
+/* ========================================
+   Tablet
+   ======================================== */
+
+@media (max-width: 900px) {
+  .attendance-chart {
+    grid-template-columns:
+      minmax(0, 1fr)
+      210px;
+
+    gap: 1rem;
+  }
+
+  .attendance-details {
+    padding: 1.25rem;
+  }
+}
+
+/* ========================================
+   Mobile
+   ======================================== */
+
+@media (max-width: 700px) {
+  .attendance-chart {
+    grid-template-columns: 1fr;
+  }
+
+  .bar-chart {
+    height: 340px;
+  }
+
+  .attendance-details {
+    min-height: auto;
+  }
+
+  .attendance-details__footer {
+    margin-top: 1.25rem;
+  }
 }

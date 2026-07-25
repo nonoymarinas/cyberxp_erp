@@ -159,10 +159,30 @@ export class CxpChartBarApp implements AfterViewInit, OnChanges, OnDestroy {
   private animationFrameId: number | null = null;
   private lastSlotWidth = 50;
 
+  private barHitAreas: BarHitArea[] = [];
+
   /* ========================================
      Public Properties
      ======================================== */
+
   isAnimating = false;
+
+  /**
+   * Record displayed by the side details panel.
+   */
+  selectedDay: AttendanceBarItem | null = null;
+
+  get selectedDayTotal(): number {
+    if (!this.selectedDay) {
+      return 0;
+    }
+
+    return (
+      this.toPositiveNumber(this.selectedDay.present) +
+      this.toPositiveNumber(this.selectedDay.late) +
+      this.toPositiveNumber(this.selectedDay.absent)
+    );
+  }
 
   /* ========================================
      Angular Lifecycle
@@ -179,10 +199,17 @@ export class CxpChartBarApp implements AfterViewInit, OnChanges, OnDestroy {
 
     canvas.addEventListener('mouseleave', this.onMouseLeave);
 
+    canvas.addEventListener('click', this.onCanvasClick);
+
+    this.syncSelectedDay(true);
     this.renderChart();
   }
 
-  ngOnChanges(_changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['data']) {
+      this.syncSelectedDay(false);
+    }
+
     if (!this.viewInitialized) {
       return;
     }
@@ -198,9 +225,15 @@ export class CxpChartBarApp implements AfterViewInit, OnChanges, OnDestroy {
 
     canvas.removeEventListener('mouseleave', this.onMouseLeave);
 
+    canvas.removeEventListener('click', this.onCanvasClick);
+
+    if (this.animationFrameId !== null) {
+      cancelAnimationFrame(this.animationFrameId);
+    }
+
     this.resizeObserver?.disconnect();
   }
-
+ 
   private get safeNavigationStep(): number {
     return Math.max(1, Math.floor(this.navigationStep));
   }
@@ -222,6 +255,62 @@ export class CxpChartBarApp implements AfterViewInit, OnChanges, OnDestroy {
 
     this.renderChart();
   };
+
+  onCanvasClick = (event: MouseEvent): void => {
+    if (this.isAnimating) {
+      return;
+    }
+
+    const canvas = this.canvasRef.nativeElement;
+    const rect = canvas.getBoundingClientRect();
+
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+
+    const hitArea = this.barHitAreas.find(
+      (area) =>
+        mouseX >= area.x &&
+        mouseX <= area.x + area.width &&
+        mouseY >= area.y &&
+        mouseY <= area.y + area.height,
+    );
+
+    if (!hitArea) {
+      return;
+    }
+
+    this.selectedDay = hitArea.item;
+
+    this.renderChart();
+  };
+
+  private syncSelectedDay(moveToLatestPage: boolean): void {
+    if (this.data.length === 0) {
+      this.selectedDay = null;
+      this.startIndex = 0;
+
+      return;
+    }
+
+    const currentSelectionStillExists =
+      this.selectedDay !== null && this.data.includes(this.selectedDay);
+
+    if (currentSelectionStillExists) {
+      if (moveToLatestPage) {
+        this.startIndex = this.maximumStartIndex;
+      }
+
+      return;
+    }
+
+    this.selectedDay = this.data[this.data.length - 1];
+
+    if (moveToLatestPage) {
+      this.startIndex = this.maximumStartIndex;
+    } else {
+      this.startIndex = Math.min(this.startIndex, this.maximumStartIndex);
+    }
+  }
 
   /* ========================================
      Next and Previous Arrow
@@ -411,6 +500,8 @@ export class CxpChartBarApp implements AfterViewInit, OnChanges, OnDestroy {
   ): void {
     const colors = this.getChartColors();
 
+    this.barHitAreas = [];
+
     context.clearRect(0, 0, canvasWidth, canvasHeight);
 
     if (colors.background !== 'transparent') {
@@ -419,13 +510,13 @@ export class CxpChartBarApp implements AfterViewInit, OnChanges, OnDestroy {
       context.fillRect(0, 0, canvasWidth, canvasHeight);
     }
 
-    const leftPadding = this.showYAxisLabels ? 76 : 16;
+    const leftPadding = this.showYAxisLabels ? 72 : 16;
 
-    const rightPadding = 60;
+    const rightPadding = 30;
 
-    const topPadding = 20;
+    const topPadding = 10;
 
-    const bottomPadding = this.showXAxisLabels ? 56 : 16;
+    const bottomPadding = this.showXAxisLabels ? 40 : 16;
 
     const chartLeft = leftPadding;
 
@@ -603,6 +694,26 @@ export class CxpChartBarApp implements AfterViewInit, OnChanges, OnDestroy {
           index === this.hoveredIndex,
         );
       });
+
+      if (segments.length > 0) {
+        this.barHitAreas.push({
+          item,
+          x: barX,
+          y: currentY,
+          width: barWidth,
+          height: Math.max(1, chartBottom - currentY),
+        });
+
+        this.drawSelectedOutline(
+          context,
+          item,
+          barX,
+          currentY,
+          barWidth,
+          Math.max(1, chartBottom - currentY),
+          colors.text,
+        );
+      }
     });
 
     context.restore();
@@ -666,6 +777,9 @@ export class CxpChartBarApp implements AfterViewInit, OnChanges, OnDestroy {
         },
       ];
 
+      let categoryTop = chartBottom;
+      let hasVisibleBar = false;
+
       segments.forEach((segment, segmentIndex) => {
         if (segment.value <= 0) {
           return;
@@ -676,6 +790,9 @@ export class CxpChartBarApp implements AfterViewInit, OnChanges, OnDestroy {
         const barX = categoryX + segmentIndex * (barWidth + safeGroupGap) + this.animationOffset;
 
         const barY = chartBottom - barHeight;
+
+        categoryTop = Math.min(categoryTop, barY);
+        hasVisibleBar = true;
 
         const isHovered =
           this.mouseX >= barX &&
@@ -697,6 +814,29 @@ export class CxpChartBarApp implements AfterViewInit, OnChanges, OnDestroy {
           index === this.hoveredIndex,
         );
       });
+
+      if (hasVisibleBar) {
+        const hitX = categoryX + this.animationOffset;
+        const hitHeight = Math.max(1, chartBottom - categoryTop);
+
+        this.barHitAreas.push({
+          item,
+          x: hitX,
+          y: categoryTop,
+          width: categoryWidth,
+          height: hitHeight,
+        });
+
+        this.drawSelectedOutline(
+          context,
+          item,
+          hitX,
+          categoryTop,
+          categoryWidth,
+          hitHeight,
+          colors.text,
+        );
+      }
     });
 
     context.restore();
@@ -741,6 +881,35 @@ export class CxpChartBarApp implements AfterViewInit, OnChanges, OnDestroy {
 
     context.restore();
   }
+  private drawSelectedOutline(
+    context: CanvasRenderingContext2D,
+    item: AttendanceBarItem,
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    color: string,
+  ): void {
+    if (this.selectedDay !== item) {
+      return;
+    }
+
+    context.save();
+
+    context.strokeStyle = color;
+    context.globalAlpha = 0.85;
+    context.lineWidth = 1.5;
+
+    context.strokeRect(
+      Math.round(x) - 2,
+      Math.round(y) - 2,
+      Math.round(width) + 4,
+      Math.round(height) + 4,
+    );
+
+    context.restore();
+  }
+
   /* ========================================
      Draw Grid Lines
      ======================================== */

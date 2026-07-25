@@ -1,6 +1,4 @@
-
-
-<div class="bar-chart">
+<!-- <div class="bar-chart">
   <button
     type="button"
     class="bar-chart__navigation bar-chart__navigation--previous"
@@ -22,4 +20,111 @@
   >
     &#10095;
   </button>
-</div>
+</div> -->
+
+<section class="attendance-chart">
+  <div class="attendance-chart__main">
+    <div class="bar-chart">
+      <button
+        type="button"
+        class="bar-chart__navigation bar-chart__navigation--previous"
+        [disabled]="!canShowPrevious || isAnimating"
+        aria-label="Show previous attendance records"
+        (click)="showPrevious()"
+      >
+        <span aria-hidden="true">‹</span>
+      </button>
+
+      <canvas #canvas class="cxp-chart-bar-app__canvas" (click)="onCanvasClick($event)"></canvas>
+
+      <button
+        type="button"
+        class="bar-chart__navigation bar-chart__navigation--next"
+        [disabled]="!canShowNext || isAnimating"
+        aria-label="Show next attendance records"
+        (click)="showNext()"
+      >
+        <span aria-hidden="true">›</span>
+      </button>
+    </div>
+  </div>
+
+  <aside class="attendance-details" aria-label="Selected attendance date details">
+    <header class="attendance-details__header">
+      <p class="attendance-details__eyebrow">Current Date</p>
+
+      @if (selectedDay) {
+        <h3 class="attendance-details__date">
+          {{ selectedDay.day }}
+        </h3>
+
+        <p class="attendance-details__full-date">
+          {{ selectedDay.date }}
+        </p>
+      } @else {
+        <h3 class="attendance-details__date">No data</h3>
+      }
+    </header>
+
+    <div class="attendance-details__divider"></div>
+
+    @if (selectedDay) {
+      <dl class="attendance-details__list">
+        <div class="attendance-details__item">
+          <dt class="attendance-details__item-label">
+            <span
+              class="attendance-details__legend attendance-details__legend--present"
+              aria-hidden="true"
+            ></span>
+
+            <span>Present</span>
+          </dt>
+
+          <dd class="attendance-details__value">
+            {{ selectedDay.present }}
+          </dd>
+        </div>
+
+        <div class="attendance-details__item">
+          <dt class="attendance-details__item-label">
+            <span
+              class="attendance-details__legend attendance-details__legend--late"
+              aria-hidden="true"
+            ></span>
+
+            <span>Late</span>
+          </dt>
+
+          <dd class="attendance-details__value">
+            {{ selectedDay.late }}
+          </dd>
+        </div>
+
+        <div class="attendance-details__item">
+          <dt class="attendance-details__item-label">
+            <span
+              class="attendance-details__legend attendance-details__legend--absent"
+              aria-hidden="true"
+            ></span>
+
+            <span>Absent</span>
+          </dt>
+
+          <dd class="attendance-details__value">
+            {{ selectedDay.absent }}
+          </dd>
+        </div>
+      </dl>
+
+      <footer class="attendance-details__footer">
+        <span class="attendance-details__total-label"> Total </span>
+
+        <strong class="attendance-details__total-value">
+          {{ selectedDay.present + selectedDay.late + selectedDay.absent }}
+        </strong>
+      </footer>
+    } @else {
+      <p class="attendance-details__empty">No attendance records available.</p>
+    }
+  </aside>
+</section>
