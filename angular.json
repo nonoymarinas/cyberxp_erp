@@ -132,6 +132,131 @@
           }
         }
       }
+    },
+    "cyberxp-atms": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/cyberxp-atms",
+      "sourceRoot": "projects/cyberxp-atms/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/cyberxp-atms/src/main.ts",
+            "tsConfig": "projects/cyberxp-atms/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/cyberxp-atms/public"
+              }
+            ],
+            "styles": [
+              "dist/cyberxp-ui/styles/cyberxp-ui.css",
+              "projects/cyberxp-atms/src/styles.css"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "cyberxp-atms:build:production"
+            },
+            "development": {
+              "buildTarget": "cyberxp-atms:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test"
+        }
+      }
+    },
+    "cyberxp-hrms": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/cyberxp-hrms",
+      "sourceRoot": "projects/cyberxp-hrms/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/cyberxp-hrms/src/main.ts",
+            "tsConfig": "projects/cyberxp-hrms/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/cyberxp-hrms/public"
+              }
+            ],
+            "styles": ["projects/cyberxp-hrms/src/styles.css"]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "cyberxp-hrms:build:production"
+            },
+            "development": {
+              "buildTarget": "cyberxp-hrms:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test"
+        }
+      }
     }
   }
 }

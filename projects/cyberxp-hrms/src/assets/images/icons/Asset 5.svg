@@ -1,0 +1,17 @@
+
+<svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40.4 38.9">
+ 
+  <g  data-name="Layer 1">
+    <line x1="0" y1="38.4" x2="40.4" y2="38.4"/>
+    <g>
+      <rect  x="2.76" y="23.26" width="4" height="12"/>
+      <rect  x="33.64" y="12.8" width="4" height="22.46"/>
+      <rect  x="13.05" y="16.36" width="4" height="18.9"/>
+      <rect  x="23.35" y="21.26" width="4" height="14"/>
+    </g>
+    <g>
+      <polyline  points="1.94 17.52 16.01 6.66 26.58 15.85 37 .5"/>
+      <polyline  points="29.99 .5 37.09 .5 38.46 6.96"/>
+    </g>
+  </g>
+</svg>

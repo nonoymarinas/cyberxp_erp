@@ -1,0 +1,25 @@
+
+
+<div class="bar-chart">
+  <button
+    type="button"
+    class="bar-chart__navigation bar-chart__navigation--previous"
+    aria-label="Show previous days"
+    [disabled]="!canShowPrevious"
+    (click)="showPrevious()"
+  >
+    &#10094;
+  </button>
+
+  <canvas #canvas class="cxp-chart-bar-app__canvas"></canvas>
+
+  <button
+    type="button"
+    class="bar-chart__navigation bar-chart__navigation--next"
+    aria-label="Show next days"
+    [disabled]="!canShowNext"
+    (click)="showNext()"
+  >
+    &#10095;
+  </button>
+</div>

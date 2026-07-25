@@ -1,0 +1,41 @@
+<div class="cxp-chart-donut-app">
+  <div class="cxp-chart-donut-app__chart">
+    <canvas
+      #canvas
+      class="cxp-chart-donut-app__canvas"
+      role="img"
+      [attr.aria-label]="centerLabel + ' donut chart'"
+      (mousemove)="onMouseMove($event)"
+      (mouseleave)="onMouseLeave()"
+    ></canvas>
+  </div>
+
+  <div
+    class="cxp-chart-donut-app__legend"
+    aria-label="Chart legend"
+  >
+    @for (item of items; track item.label; let index = $index) {
+      <button
+        type="button"
+        class="cxp-chart-donut-app__legend-item"
+        [class.cxp-chart-donut-app__legend-item--active]="hoveredIndex === index"
+        (mouseenter)="setHoveredIndex(index)"
+        (mouseleave)="setHoveredIndex(null)"
+      >
+        <span
+          class="cxp-chart-donut-app__legend-color"
+          [style.background-color]="getThemeColor(item.color)"
+          aria-hidden="true"
+        ></span>
+
+        <span class="cxp-chart-donut-app__legend-label">
+          {{ item.label }}
+        </span>
+
+        <span class="cxp-chart-donut-app__legend-value">
+          {{ item.value | number }}
+        </span>
+      </button>
+    }
+  </div>
+</div>

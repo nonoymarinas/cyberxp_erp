@@ -21,6 +21,8 @@ export * from './lib/components/icons/cxp-icon-tnms-app/cxp-icon-tnms-app';
 export * from './lib/components/icons/cxp-icon-atms-app/cxp-icon-atms-app';
 export * from './lib/components/icons/cxp-icon-lock-nav/cxp-icon-lock-nav';
 export * from './lib/components/icons/cxp-icon-theme-nav/cxp-icon-theme-nav';
+export * from './lib/components/icons/cxp-icon-chart-nav/cxp-icon-chart-nav';
+export * from './lib/components/charts/cxp-chart-donut-app/cxp-chart-donut-app';
 export * from './lib/components/menus/cxp-menu-sidebar-item/cxp-menu-sidebar-item';
 export * from './lib/components/modals/cxp-modal/cxp-modal';
 export * from './lib/components/modals/cxp-modal-menu/cxp-modal-menu';

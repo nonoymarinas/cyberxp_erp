@@ -1,0 +1,30 @@
+<main class="cxp-page">
+  <section class="cxp-section">
+    <header class="cxp-section__header">
+      <h2 class="cxp-section__title">Dashboard Overview</h2>
+    </header>
+    <div class="dashboard-item-group">
+      <div class="dashboard-item-chart">
+        <h3 class="chart-title">Employee Summary</h3>
+        <cxp-chart-donut-app
+          [items]="employeeSummary"
+          centerLabel="Employees"
+          [centerValueFontSize]="30"
+          [centerLabelFontSize]="14"
+        ></cxp-chart-donut-app>
+      </div>
+      <div class="dashboard-item-chart">
+        <h3 class="chart-title">Payroll</h3>
+        <cxp-chart-bar-app
+          [data]="attendanceData"
+          [stacked]="true"
+          [visibleBars]="10"
+          [barSpacing]="0.2"
+          [maximumBarWidth]="10"
+          [stackGap]="2"
+          [navigationStep]="7"
+        ></cxp-chart-bar-app>
+      </div>
+    </div>
+  </section>
+</main>

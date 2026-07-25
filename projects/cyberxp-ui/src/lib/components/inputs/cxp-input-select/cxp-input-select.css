@@ -214,7 +214,7 @@
 .select--sm .select__control {
     min-height: 32px;
 
-    padding-inline: .5rem;
+    /* padding-inline: .5rem; */
 
     gap: .5rem;
 }
@@ -250,7 +250,7 @@
 .select--lg .select__control {
     min-height: 48px;
 
-    padding-inline: .875rem;
+    /* padding-inline: .875rem; */
 
     gap: .75rem;
 }
@@ -268,7 +268,7 @@
 .select--xl .select__control {
     min-height: 56px;
 
-    padding-inline: 1rem;
+    /* padding-inline: 1rem; */
 
     gap: .875rem;
 }

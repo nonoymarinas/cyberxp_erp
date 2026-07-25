@@ -29,3 +29,10 @@ export type CxpIconState =
   | 'warning'
   | 'danger'
   | 'info';
+
+  export interface CxpChartDonutItem {
+  label: string;
+  alias:string;
+  value: number;
+  color: string;
+}

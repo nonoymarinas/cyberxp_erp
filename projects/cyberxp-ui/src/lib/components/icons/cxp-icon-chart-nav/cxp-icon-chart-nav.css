@@ -1,0 +1,121 @@
+/* ========================================
+   Icon
+   ======================================== */
+
+.icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+    line-height: 0;
+
+    color: var(--color-icon-primary);
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+
+/* ========================================
+   SVG
+   ======================================== */
+
+.icon__svg {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: visible;
+}
+
+
+/* ========================================
+   Size
+   ======================================== */
+
+.icon--xxs {
+    width: 12px;
+    height: 12px;
+}
+
+.icon--xs {
+    width: 18px;
+    height: 18px;
+}
+
+.icon--sm {
+    width: 24px;
+    height: 24px;
+}
+
+.icon--md {
+    width: 36px;
+    height: 36px;
+}
+
+.icon--lg {
+    width: 48px;
+    height: 48px;
+}
+
+.icon--xl {
+    width: 60px;
+    height: 60px;
+}
+
+.arrow-line{
+    stroke: var(--color-icon-primary);
+    stroke-width: var(--width-line-06);
+}
+
+/* ========================================
+   Filled
+   ======================================== */
+
+.icon--filled rect {
+    fill: currentColor;
+    stroke: none;
+}
+
+
+/* ========================================
+   Outline
+   ======================================== */
+
+.icon--outline rect {
+    fill: none;
+    stroke: currentColor;
+
+    stroke-width: var(--width-line-06);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+
+/* ========================================
+   States
+   ======================================== */
+
+.icon:hover {
+    color: var(--color-hover-icon);
+}
+
+.icon:active {
+    color: var(--color-active-icon);
+}
+
+.icon:focus-visible {
+    color: var(--color-focus-icon);
+
+    outline: none;
+}
+
+.icon:focus-visible .icon__background {
+    fill: var(--color-focus-ring);
+}
+

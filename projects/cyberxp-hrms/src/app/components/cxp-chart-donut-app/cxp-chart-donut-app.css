@@ -1,0 +1,150 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+/* ========================================
+   Layout
+======================================== */
+
+.cxp-chart-donut-app {
+  display: grid;
+  grid-template-columns: minmax(200px, 1fr) 14rem;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  padding: 1rem;
+}
+
+.cxp-chart-donut-app__chart {
+  position: relative;
+
+  width: 100%;
+  max-width: 26rem;
+  aspect-ratio: 1;
+
+  justify-self: center;
+}
+
+.cxp-chart-donut-app__canvas {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: block;
+}
+
+/* ========================================
+   Legend
+======================================== */
+
+.cxp-chart-donut-app__legend {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+
+  width: 100%;
+}
+
+/* ========================================
+   Legend Item
+======================================== */
+
+.cxp-chart-donut-app__legend-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  column-gap: .75rem;
+
+  width: 100%;
+  padding: .2rem .625rem;
+
+  background: transparent;
+  border: none;
+  border-radius: .375rem;
+
+  color: var(--color-text-primary);
+
+  font: inherit;
+  text-align: left;
+
+  cursor: pointer;
+
+  transition: background-color .15s ease;
+}
+
+/* .cxp-chart-donut-app__legend-item:hover,
+.cxp-chart-donut-app__legend-item--active {
+  background: var(--color-background-02);
+} */
+
+/* ========================================
+   Color Box
+======================================== */
+
+.cxp-chart-donut-app__legend-color {
+  width: 1.6rem;
+  height: .9rem;
+
+  border: 1px solid var(--color-border-primary);
+  /* border-radius: .1875rem; */
+
+  flex-shrink: 0;
+}
+
+/* ========================================
+   Label
+======================================== */
+
+.cxp-chart-donut-app__legend-label {
+  overflow: hidden;
+
+  color: var(--color-text-secondary);
+
+  font-size: 1rem;
+  font-weight: 400;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ========================================
+   Value
+======================================== */
+
+.cxp-chart-donut-app__legend-value {
+  color: var(--color-text-secondary);
+
+  font-size: 1rem;
+  font-weight: 600;
+
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* .cxp-chart-donut-app__legend-item--active
+.cxp-chart-donut-app__legend-label,
+.cxp-chart-donut-app__legend-item--active
+.cxp-chart-donut-app__legend-value {
+  color: var(--color-text-primary);
+} */
+
+/* ========================================
+   Responsive
+======================================== */
+
+@media (max-width: 48rem) {
+  .cxp-chart-donut-app {
+    grid-template-columns: 1fr;
+  }
+
+  .cxp-chart-donut-app__chart {
+    max-width: 24rem;
+  }
+
+  .cxp-chart-donut-app__legend {
+    margin-top: .5rem;
+  }
+}

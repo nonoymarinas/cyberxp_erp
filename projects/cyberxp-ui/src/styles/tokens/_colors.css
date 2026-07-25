@@ -2,17 +2,64 @@
   /* color pallete */
   /* Grey */
 
-  --grey-000: #FFFFFF;
-  --grey-100: #F5F5F5;
-  --grey-200: #E0E0E0;
-  --grey-300: #C2C2C2;
-  --grey-400: #999999;
-  --grey-500: #737373;
-  --grey-600: #595959;
-  --grey-700: #404040;
-  --grey-800: #2B2B2B;
-  --grey-900: #1A1A1A;
-  --grey-1000: #0A0A0A;
+  /* ========================================
+   Neutral Grey Palette
+======================================== */
+
+--grey-000: #FFFFFF;
+--grey-000-20t: #FFFFFFCC;
+--grey-000-50t: #FFFFFF80;
+--grey-000-70t: #FFFFFF4D;
+
+--grey-100: #F5F5F5;
+--grey-100-20t: #F5F5F5CC;
+--grey-100-50t: #F5F5F580;
+--grey-100-70t: #F5F5F54D;
+
+--grey-200: #E0E0E0;
+--grey-200-20t: #E0E0E0CC;
+--grey-200-50t: #E0E0E080;
+--grey-200-70t: #E0E0E04D;
+
+--grey-300: #C2C2C2;
+--grey-300-20t: #C2C2C2CC;
+--grey-300-50t: #C2C2C280;
+--grey-300-70t: #C2C2C24D;
+
+--grey-400: #999999;
+--grey-400-20t: #999999CC;
+--grey-400-50t: #99999980;
+--grey-400-70t: #9999994D;
+
+--grey-500: #737373;
+--grey-500-20t: #737373CC;
+--grey-500-50t: #73737380;
+--grey-500-70t: #7373734D;
+
+--grey-600: #595959;
+--grey-600-20t: #595959CC;
+--grey-600-50t: #59595980;
+--grey-600-70t: #5959594D;
+
+--grey-700: #404040;
+--grey-700-20t: #404040CC;
+--grey-700-50t: #40404080;
+--grey-700-70t: #4040404D;
+
+--grey-800: #2B2B2B;
+--grey-800-20t: #2B2B2BCC;
+--grey-800-50t: #2B2B2B80;
+--grey-800-70t: #2B2B2B4D;
+
+--grey-900: #1A1A1A;
+--grey-900-20t: #1A1A1ACC;
+--grey-900-50t: #1A1A1A80;
+--grey-900-70t: #1A1A1A4D;
+
+--grey-1000: #0A0A0A;
+--grey-1000-20t: #0A0A0ACC;
+--grey-1000-50t: #0A0A0A80;
+--grey-1000-70t: #0A0A0A4D;
 
   /* Blue Scale */
 
@@ -20,17 +67,64 @@
    CyberXP Navy
    ======================================== */
 
-  --blue-000: #FFFFFF;
-  --blue-100: #E7F0FF;
-  --blue-200: #C7DAFF;
-  --blue-300: #94B7FF;
-  --blue-400: #5C8EFF;
-  --blue-500: #2F6BFF;
-  --blue-600: #1E4FCC;
-  --blue-700: #173C99;
-  --blue-800: #102962;
-  --blue-900: #121820;
-  --blue-1000: #020811;
+  /* ========================================
+   Blue Palette
+======================================== */
+
+--blue-000: #FFFFFF;
+--blue-000-20t: #FFFFFFCC;
+--blue-000-50t: #FFFFFF80;
+--blue-000-70t: #FFFFFF4D;
+
+--blue-100: #E7F0FF;
+--blue-100-20t: #E7F0FFCC;
+--blue-100-50t: #E7F0FF80;
+--blue-100-70t: #E7F0FF4D;
+
+--blue-200: #C7DAFF;
+--blue-200-20t: #C7DAFFCC;
+--blue-200-50t: #C7DAFF80;
+--blue-200-70t: #C7DAFF4D;
+
+--blue-300: #94B7FF;
+--blue-300-20t: #94B7FFCC;
+--blue-300-50t: #94B7FF80;
+--blue-300-70t: #94B7FF4D;
+
+--blue-400: #5C8EFF;
+--blue-400-20t: #5C8EFFCC;
+--blue-400-50t: #5C8EFF80;
+--blue-400-70t: #5C8EFF4D;
+
+--blue-500: #2F6BFF;
+--blue-500-20t: #2F6BFFCC;
+--blue-500-50t: #2F6BFF80;
+--blue-500-70t: #2F6BFF4D;
+
+--blue-600: #1E4FCC;
+--blue-600-20t: #1E4FCCCC;
+--blue-600-50t: #1E4FCC80;
+--blue-600-70t: #1E4FCC4D;
+
+--blue-700: #173C99;
+--blue-700-20t: #173C99CC;
+--blue-700-50t: #173C9980;
+--blue-700-70t: #173C994D;
+
+--blue-800: #102962;
+--blue-800-20t: #102962CC;
+--blue-800-50t: #10296280;
+--blue-800-70t: #1029624D;
+
+--blue-900: #121820;
+--blue-900-20t: #121820CC;
+--blue-900-50t: #12182080;
+--blue-900-70t: #1218204D;
+
+--blue-1000: #020811;
+--blue-1000-20t: #020811CC;
+--blue-1000-50t: #02081180;
+--blue-1000-70t: #0208114D;
 
 
   /* theme */

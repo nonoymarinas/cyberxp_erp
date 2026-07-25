@@ -16,6 +16,70 @@
   /* #########################################################
        LAYER 1 — GLOBAL SEMANTIC TOKENS
        ######################################################### */
+
+  /* ========================================
+   Background Colors (Blue Theme)
+   ======================================== */
+
+  /* ========================================
+   Background Colors
+======================================== */
+
+  --color-background-10: var(--blue-1000);
+  --color-background-10-20t: var(--blue-1000-20t);
+  --color-background-10-50t: var(--blue-1000-50t);
+  --color-background-10-70t: var(--blue-1000-70t);
+
+  --color-background-09: var(--blue-900);
+  --color-background-09-20t: var(--blue-900-20t);
+  --color-background-09-50t: var(--blue-900-50t);
+  --color-background-09-70t: var(--blue-900-70t);
+
+  --color-background-08: var(--blue-800);
+  --color-background-08-20t: var(--blue-800-20t);
+  --color-background-08-50t: var(--blue-800-50t);
+  --color-background-08-70t: var(--blue-800-70t);
+
+  --color-background-07: var(--blue-700);
+  --color-background-07-20t: var(--blue-700-20t);
+  --color-background-07-50t: var(--blue-700-50t);
+  --color-background-07-70t: var(--blue-700-70t);
+
+  --color-background-06: var(--blue-600);
+  --color-background-06-20t: var(--blue-600-20t);
+  --color-background-06-50t: var(--blue-600-50t);
+  --color-background-06-70t: var(--blue-600-70t);
+
+  --color-background-05: var(--blue-500);
+  --color-background-05-20t: var(--blue-500-20t);
+  --color-background-05-50t: var(--blue-500-50t);
+  --color-background-05-70t: var(--blue-500-70t);
+
+  --color-background-04: var(--blue-400);
+  --color-background-04-20t: var(--blue-400-20t);
+  --color-background-04-50t: var(--blue-400-50t);
+  --color-background-04-70t: var(--blue-400-70t);
+
+  --color-background-03: var(--blue-300);
+  --color-background-03-20t: var(--blue-300-20t);
+  --color-background-03-50t: var(--blue-300-50t);
+  --color-background-03-70t: var(--blue-300-70t);
+
+  --color-background-02: var(--blue-200);
+  --color-background-02-20t: var(--blue-200-20t);
+  --color-background-02-50t: var(--blue-200-50t);
+  --color-background-02-70t: var(--blue-200-70t);
+
+  --color-background-01: var(--blue-100);
+  --color-background-01-20t: var(--blue-100-20t);
+  --color-background-01-50t: var(--blue-100-50t);
+  --color-background-01-70t: var(--blue-100-70t);
+
+  --color-background-00: var(--blue-000);
+  --color-background-00-20t: var(--blue-000-20t);
+  --color-background-00-50t: var(--blue-000-50t);
+  --color-background-00-70t: var(--blue-000-70t);
+
   /* ========================================
        Text
        ======================================== */
@@ -66,6 +130,29 @@
   --color-muted-icon: var(--blue-700);
   --color-muted-background: transparent;
   --color-muted-border: var(--blue-800);
+
+  /* ========================================
+   Chart Colors - Dark Blue Theme
+   ======================================== */
+
+  /* Data Series */
+  --color-chart-01: var(--blue-100);
+  --color-chart-02: var(--blue-300);
+  --color-chart-03: var(--blue-500);
+  --color-chart-04: var(--blue-700);
+  --color-chart-05: var(--blue-900);
+
+  /* Optional Accent */
+  --color-chart-accent: var(--blue-400);
+
+  /* Chart UI */
+  --color-chart-text: var(--color-text-primary);
+  --color-chart-text-secondary: var(--color-text-secondary);
+
+  --color-chart-grid: var(--blue-800);
+  --color-chart-border: var(--color-border-primary);
+  --color-chart-background: transparent;
+
 
   /* ========================================
        Divider
