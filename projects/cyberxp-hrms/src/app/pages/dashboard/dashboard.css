@@ -13,7 +13,7 @@
 } */
  .chart-title{
   color: var(--color-text-primary);
-  padding: .5rem 1rem;
+  padding: 1rem 2rem .5rem 2rem;
  }
  .dashboard-item-group {
   display: grid;

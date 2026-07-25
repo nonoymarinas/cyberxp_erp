@@ -421,7 +421,7 @@ export class CxpChartBarApp implements AfterViewInit, OnChanges, OnDestroy {
 
     const leftPadding = this.showYAxisLabels ? 76 : 16;
 
-    const rightPadding = 56;
+    const rightPadding = 60;
 
     const topPadding = 20;
 
