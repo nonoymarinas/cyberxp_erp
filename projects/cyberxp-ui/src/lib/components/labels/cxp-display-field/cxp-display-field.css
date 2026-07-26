@@ -1,0 +1,175 @@
+/* ========================================
+   Host
+   ======================================== */
+
+:host {
+  display: block;
+
+  width: 100%;
+  min-width: 0;
+}
+
+/* ========================================
+   Display field container
+   ======================================== */
+
+.display-field {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  min-width: 0;
+
+  color: var(--color-input-text);
+  background-color: transparent;
+
+  border: 1px solid var(--color-border-08);
+  border-radius: 0;
+
+  box-sizing: border-box;
+
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease;
+}
+
+/* ========================================
+   Display value
+   ======================================== */
+
+.display-field__value {
+  flex: 1 1 auto;
+
+  min-width: 0;
+
+  color: inherit;
+
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+
+  overflow-wrap: anywhere;
+}
+
+/* ========================================
+   Empty value
+   ======================================== */
+
+.display-field__value:empty::before {
+  content: '—';
+
+  color: var(--color-input-placeholder);
+}
+
+/* ========================================
+   Prefix and suffix
+   ======================================== */
+
+.display-field__prefix,
+.display-field__suffix {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  color: var(--color-input-icon);
+}
+
+.display-field__prefix:empty,
+.display-field__suffix:empty {
+  display: none;
+}
+
+/* ========================================
+   Sizes
+   ======================================== */
+
+.display-field--sm {
+  min-height: 32px;
+  padding-inline: 10px;
+
+  gap: 6px;
+
+  font-size: 16px;
+}
+
+.display-field--md {
+  min-height: 40px;
+  padding-inline: 12px;
+
+  gap: 8px;
+
+  font-size: 17px;
+}
+
+.display-field--lg {
+  min-height: 48px;
+  padding-inline: 14px;
+
+  gap: 10px;
+
+  font-size: 18px;
+}
+
+.display-field--xl {
+  min-height: 56px;
+  padding-inline: 16px;
+
+  gap: 12px;
+
+  font-size: 20px;
+}
+
+/* ========================================
+   Hover
+   ======================================== */
+
+/* .display-field:not(.display-field--disabled):hover {
+  background-color: var(--color-input-hover-background);
+  border-color: var(--color-input-hover-border);
+} */
+
+/* ========================================
+   Disabled
+   ======================================== */
+
+.display-field--disabled {
+  color: var(--color-input-disabled-text);
+  background-color: var(--color-input-disabled-background);
+
+  border-color: var(--color-input-disabled-border);
+
+  cursor: not-allowed;
+}
+
+.display-field--disabled .display-field__prefix,
+.display-field--disabled .display-field__suffix {
+  color: var(--color-input-disabled-icon);
+}
+
+/* ========================================
+   Invalid
+   ======================================== */
+
+.display-field--invalid {
+  color: var(--color-input-error-text);
+  background-color: var(--color-input-error-background);
+
+  border-color: var(--color-input-error-border);
+}
+
+/* ========================================
+   Text selection
+   ======================================== */
+
+.display-field__value {
+  cursor: text;
+  user-select: text;
+}
+
+.display-field--disabled .display-field__value {
+  cursor: not-allowed;
+  user-select: none;
+}

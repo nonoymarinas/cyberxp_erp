@@ -4,6 +4,7 @@ export type CxpInputSize = 'sm' | 'md' | 'lg' | 'xl';
 
 export type CxpInputType =
   | 'text'
+  | 'date'
   | 'password'
   | 'email'
   | 'number'

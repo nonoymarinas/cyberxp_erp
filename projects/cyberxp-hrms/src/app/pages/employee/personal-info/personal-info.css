@@ -1,0 +1,142 @@
+/* ========================================
+   Section
+   ======================================== */
+
+.cxp-section__title {
+    align-self: self-start;
+}
+/* .cxp-section{
+    border: 1px solid var(--color-border-05);
+} */
+/* ========================================
+   Personal Information
+   ======================================== */
+
+.personal-info {
+    /* Reserved */
+}
+.employee-id-label-box{
+    /* display: grid;
+    grid-template-columns: auto 1fr;
+    gap:1rem */
+}
+.employee-id-label{
+    display: block;
+    width: 100%;
+}
+.employee-id-value{
+    /* justify-self: self-end; */
+}
+/* ========================================
+   Header
+   ======================================== */
+
+.item-group-header {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    background-color: transparent;
+}
+.cxp-input__wrap{
+    gap:.5rem;
+}
+.personal-info__heading {
+    display: contents;
+}
+
+.personal-info__icon {
+    align-self: center;
+}
+
+.personal-info__actions {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    justify-items: end;
+}
+
+cxp-button {
+    margin-left: 1rem;
+}
+
+/* ========================================
+   Body
+   ======================================== */
+
+.personal-info__body {
+    display: grid;
+    grid-template-columns: auto 1fr;
+
+    gap: 1rem;
+}
+.item-group-box {
+  display: flex;
+  flex-direction: column;
+  gap:.5rem
+}
+.cxp-input__wrap:last-child{
+    margin-bottom: 0;
+}
+/* ========================================
+   Image
+   ======================================== */
+.personal-info__box {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: 1rem;
+}
+.employee-id-label{
+    width: max-content;
+    /* justify-self: center; */
+}
+.personal-info__image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    align-self: self-start;
+
+    height: 100%;
+    aspect-ratio: 1 / 1;
+
+    border: 1px solid var(--color-border-06);
+}
+
+.personal-info__user-icon {
+    align-self: center;
+    justify-self: center;
+}
+
+.personal-info__photo {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+/* ========================================
+   Fields
+   ======================================== */
+
+.personal-info__fields {
+    display: flex;
+    flex-direction: column;
+}
+
+.personal-info__field {
+    margin-bottom: .5rem;
+}
+.personal-info__field:last-child {
+    margin-bottom: 0;
+}
+
+.personal-info__field:last-child {
+    margin-bottom: 0;
+}
+
+/* ========================================
+   Labels
+   ======================================== */
+.cxp-label{
+    padding: .5rem;
+}

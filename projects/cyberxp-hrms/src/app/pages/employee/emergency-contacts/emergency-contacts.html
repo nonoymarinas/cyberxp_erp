@@ -1,0 +1,87 @@
+<section>
+  <div class="item-group-box cxp-section">
+    <header class="item-group-header">
+      <cxp-icon-address-nav class="sub-header-icon" size="xs" fill="outline"></cxp-icon-address-nav>
+
+      <h3 class="cxp-section__title">Emergency Contact</h3>
+
+      <div class="emergency__actions">
+
+      @if (isEditing) {
+        <cxp-button size="sm" variant="secondary" (clicked)="cancelEdit()"> Cancel </cxp-button>
+
+        <cxp-button size="sm" variant="primary" (clicked)="saveEmergencyContact()">
+          Save
+        </cxp-button>
+      } @else {
+        <cxp-button size="sm" variant="secondary" (clicked)="startEdit()"> Edit </cxp-button>
+      }</div>
+    </header>
+
+    @if (isEditing) {
+      <div class="cxp-input__wrap">
+        <label class="cxp-label cxp-label-bg cxp-label-sm"> Contact Person </label>
+
+        <cxp-input-text
+          size="sm"
+          placeholder="Contact Person"
+          [(value)]="emergencyContact.contactPerson"
+        ></cxp-input-text>
+      </div>
+
+      <div class="cxp-input__wrap">
+        <label class="cxp-label cxp-label-bg cxp-label-sm"> Contact Number </label>
+
+        <cxp-input-text
+          size="sm"
+          placeholder="Contact Number"
+          [(value)]="emergencyContact.contactNumber"
+        ></cxp-input-text>
+      </div>
+
+      <div class="cxp-input__wrap">
+        <label class="cxp-label cxp-label-bg cxp-label-sm"> Complete Address </label>
+
+        <cxp-input-text
+          size="sm"
+          placeholder="Complete Address"
+          [(value)]="emergencyContact.completeAddress"
+        ></cxp-input-text>
+      </div>
+
+      <div class="cxp-input__wrap">
+        <label class="cxp-label cxp-label-bg cxp-label-sm"> Relationship </label>
+
+        <cxp-input-text
+          size="sm"
+          placeholder="Relationship"
+          [(value)]="emergencyContact.relationship"
+        ></cxp-input-text>
+      </div>
+    } @else {
+      <div class="cxp-input__wrap">
+        <label class="cxp-label cxp-label-bg cxp-label-sm"> Contact Person </label>
+
+        <cxp-display-field size="sm" [value]="emergencyContact.contactPerson"></cxp-display-field>
+      </div>
+
+      <div class="cxp-input__wrap">
+        <label class="cxp-label cxp-label-bg cxp-label-sm"> Contact Number </label>
+
+        <cxp-display-field size="sm" [value]="emergencyContact.contactNumber"></cxp-display-field>
+      </div>
+
+      <div class="cxp-input__wrap">
+        <label class="cxp-label cxp-label-bg cxp-label-sm"> Complete Address </label>
+
+        <cxp-display-field size="sm" [value]="emergencyContact.completeAddress"></cxp-display-field>
+      </div>
+
+      <div class="cxp-input__wrap">
+        <label class="cxp-label cxp-label-bg cxp-label-sm"> Relationship </label>
+
+        <cxp-display-field size="sm" [value]="emergencyContact.relationship"></cxp-display-field>
+      </div>
+    }
+  </div>
+</section>

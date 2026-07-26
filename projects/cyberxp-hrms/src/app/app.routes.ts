@@ -3,6 +3,7 @@ import { MainLayout } from './layouts/main-layout/main-layout';
 import { HomePage } from './pages/home/home';
 import { SettingsPage } from './pages/settings/settings-page/settings-page';
 import { DashboardPage } from './pages/dashboard/dashboard';
+import { NewEmployeePage } from './pages/employee/new-employee/new-employee';
 
 export const routes: Routes = [
   {
@@ -20,12 +21,18 @@ export const routes: Routes = [
     component: MainLayout,
     children: [
       {
+        path: 'dashboard',
+        component: DashboardPage,
+      },
+      {
         path: 'home',
         component: HomePage,
       },
       {
-        path: 'dashboard',
-        component: DashboardPage,
+        path: 'new-employee',
+        loadChildren: () =>
+          import('./pages/employee/new-employee/new-employee.routes')
+            .then(m => m.NEW_EMPLOYEE_ROUTES),
       },
       {
         path: 'settings',

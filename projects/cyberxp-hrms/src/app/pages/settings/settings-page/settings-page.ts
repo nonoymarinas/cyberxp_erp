@@ -1,9 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import {
   CxpIconUserCircle,
@@ -14,22 +9,12 @@ import {
   CxpSelectOption,
 } from 'cyberxp-ui';
 
-type ThemeClass =
-  | 'theme-dark'
-  | 'theme-light'
-  | 'theme-dark-blue'
-  |'theme-neutral-red';
+type ThemeClass = 'theme-dark' | 'theme-light' | 'theme-dark-blue' | 'theme-neutral-red';
 
 @Component({
   selector: 'ams-settings-page',
   standalone: true,
-  imports: [
-    CxpIconUserCircle,
-    CxpButton,
-    CxpIconSettingsNav,
-    CxpIconThemeNav,
-    CxpInputSelect,
-  ],
+  imports: [CxpIconUserCircle, CxpButton, CxpIconSettingsNav, CxpIconThemeNav, CxpInputSelect],
   templateUrl: './settings-page.html',
   styleUrl: './settings-page.css',
 })
@@ -68,32 +53,22 @@ export class SettingsPage implements OnInit {
     this.loadTheme();
   }
 
-  onThemeChange(
-    value: string | number | null,
-  ): void {
+  onThemeChange(value: string | number | null): void {
     if (this.isThemeClass(value)) {
       this.selectedTheme = value;
     }
   }
 
   applyTheme(): void {
-    document.body.classList.remove(
-      ...this.themeClasses,
-    );
+    document.body.classList.remove(...this.themeClasses);
 
-    document.body.classList.add(
-      this.selectedTheme,
-    );
+    document.body.classList.add(this.selectedTheme);
 
-    localStorage.setItem(
-      'cxp-theme',
-      this.selectedTheme,
-    );
+    localStorage.setItem('cxp-theme', this.selectedTheme);
   }
 
   private loadTheme(): void {
-    const savedTheme =
-      localStorage.getItem('cxp-theme');
+    const savedTheme = localStorage.getItem('cxp-theme');
 
     if (this.isThemeClass(savedTheme)) {
       this.selectedTheme = savedTheme;
@@ -101,12 +76,9 @@ export class SettingsPage implements OnInit {
       return;
     }
 
-    const currentBodyTheme =
-      this.themeClasses.find((themeClass) =>
-        document.body.classList.contains(
-          themeClass,
-        ),
-      );
+    const currentBodyTheme = this.themeClasses.find((themeClass) =>
+      document.body.classList.contains(themeClass),
+    );
 
     if (currentBodyTheme) {
       this.selectedTheme = currentBodyTheme;
@@ -116,14 +88,7 @@ export class SettingsPage implements OnInit {
     this.applyTheme();
   }
 
-  private isThemeClass(
-    value: unknown,
-  ): value is ThemeClass {
-    return (
-      typeof value === 'string' &&
-      this.themeClasses.includes(
-        value as ThemeClass,
-      )
-    );
+  private isThemeClass(value: unknown): value is ThemeClass {
+    return typeof value === 'string' && this.themeClasses.includes(value as ThemeClass);
   }
 }

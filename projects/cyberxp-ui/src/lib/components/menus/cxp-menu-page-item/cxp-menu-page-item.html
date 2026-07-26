@@ -1,0 +1,20 @@
+<a
+  class="cxp-menu-sidebar__item"
+  [routerLink]="route"
+  routerLinkActive="cxp-menu-sidebar__item--active"
+  [routerLinkActiveOptions]="{ exact: exact }"
+  [class.cxp-menu-sidebar__item--disabled]="disabled"
+  [attr.aria-disabled]="disabled"
+>
+  <span class="cxp-menu-sidebar__icon">
+    <ng-content select="[start]"></ng-content>
+  </span>
+
+  <span class="cxp-menu-sidebar__content">
+    <ng-content select="[label]"></ng-content>
+  </span>
+
+  <span class="cxp-menu-sidebar__end">
+    <ng-content select="[end]"></ng-content>
+  </span>
+</a>

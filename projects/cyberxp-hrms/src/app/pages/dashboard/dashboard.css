@@ -28,7 +28,7 @@ background-color:var(--color-background-09-70t)
 min-width: 500px;
 max-width: 500px;
 color: var(--color-text-primary);
-background-color: var(--color-background-09-50t);
+border:1px solid var(--color-border-08)
 }
 .home-page__title__box {
   display: grid;

@@ -1,0 +1,93 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 1.5rem;
+  height: 1.5rem;
+
+  flex: 0 0 auto;
+
+  color: var(
+    --color-icon-primary,
+    var(--color-text-primary)
+  );
+
+  line-height: 0;
+
+  box-sizing: border-box;
+}
+
+.cxp-icon-chevron {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: visible;
+
+  transition:
+    transform 150ms ease,
+    color 150ms ease,
+    opacity 150ms ease;
+}
+
+.cxp-icon-chevron__path {
+  fill: none;
+
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  vector-effect: non-scaling-stroke;
+}
+
+/* ========================================
+   Sizes
+   ======================================== */
+
+:host(.icon--xxs) {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+:host(.icon--xs) {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+:host(.icon--sm) {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+:host(.icon--md) {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+:host(.icon--lg) {
+  width: 3rem;
+  height: 3rem;
+}
+
+:host(.icon--xl) {
+  width: 3.75rem;
+  height: 3.75rem;
+}
+
+/* ========================================
+   Disabled
+   ======================================== */
+
+:host(.icon--disabled) {
+  color: var(
+    --color-icon-disabled,
+    var(--color-text-disabled)
+  );
+
+  opacity: 0.5;
+
+  pointer-events: none;
+}

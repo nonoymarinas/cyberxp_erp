@@ -81,6 +81,12 @@
   --color-background-00-70t: var(--blue-000-70t);
 
   /* ========================================
+       Lable
+       ======================================== */
+  --color-background-label: var(--color-background-09);
+  --color-background-label-active: var(--color-background-07);
+
+  /* ========================================
        Text
        ======================================== */
   --color-text-primary: rgba(255, 255, 255, 0.96);
@@ -90,6 +96,7 @@
   --color-text-disabled: rgba(255, 255, 255, 0.25);
   --color-text-inverse: var(--blue-1000);
 
+  --color-text-sub-sibebar-active-hover: var(--grey-600);
   /* ========================================
        Background
        ======================================== */
@@ -481,6 +488,7 @@
   --color-input-error-background: var(--color-error-background);
   --color-input-error-border: var(--color-error-border);
   --color-input-error-text: var(--color-error-text);
+
 
   /* ========================================
        Button Primary

@@ -4,7 +4,7 @@
       <h2 class="cxp-section__title">Dashboard Overview</h2>
     </header>
     <div class="dashboard-item-group">
-      <div class="dashboard-item-chart">
+      <div class="dashboard-item-chart cxp-section">
         <h3 class="chart-title">Employee Summary</h3>
         <cxp-chart-donut-app
           [items]="employeeSummary"
@@ -13,7 +13,7 @@
           [centerLabelFontSize]="14"
         ></cxp-chart-donut-app>
       </div>
-      <div class="dashboard-item-chart">
+      <div class="dashboard-item-chart cxp-section">
         <h3 class="chart-title">Attendance Summary</h3>
         <cxp-chart-bar-app
           [data]="attendanceData"

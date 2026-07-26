@@ -290,7 +290,7 @@
   border: 1px solid var(--color-section-border);
   border-radius: var(--radius-md);
   color: var(--color-section-text);
-  background-color: var(--color-section-background);
+  background-color: var(--color-background-09-50t);
 }
 
 /* ========================================
@@ -308,7 +308,7 @@
 }
 
 .cxp-section__title {
-  align-self: center;
+  /* align-self: center; */
   margin: 0;
   color: var(--color-section-title);
 }
@@ -375,6 +375,19 @@
   outline-color: var(--color-focus-border);
 }
 
+/* ========================================
+   Input
+   ======================================== */
+.cxp-input__wrap{
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  /* margin-bottom: .5rem; */
+}
+.item-group-box {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
 /* ========================================
    Toolbar
    ======================================== */
