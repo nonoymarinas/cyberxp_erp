@@ -30,9 +30,12 @@ export type CxpIconState =
   | 'danger'
   | 'info';
 
-  export interface CxpChartDonutItem {
+export interface CxpChartDonutItem {
   label: string;
-  alias:string;
+  alias: string;
   value: number;
   color: string;
 }
+export type CxpInputSize = 'sm' | 'md' | 'lg' | 'xl';
+export type CxpInputType =
+  'text' | 'date' | 'password' | 'email' | 'number' | 'search' | 'tel' | 'url';

@@ -1,20 +1,17 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-
 import type{CxpInputSize} from '../../../../lib/exports/cxp-export.types';
 import type{CxpInputType} from '../../../../lib/exports/cxp-export.types';
- 
+
 
 @Component({
-  selector: 'cxp-input-text',
+  selector: 'cxp-input-search',
   standalone: true,
-  templateUrl: './cxp-input-text.html',
-  styleUrl: './cxp-input-text.css',
+  templateUrl: './cxp-input-search.html',
+  styleUrl: './cxp-input-search.css',
 })
-export class CxpInputText {
+export class CxpInputSearch {
   @Input() value = '';
-
-  @Input() type: CxpInputType = 'text';
 
   @Input() size: CxpInputSize = 'md';
 

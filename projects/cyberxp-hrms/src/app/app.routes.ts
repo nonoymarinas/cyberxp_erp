@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
 import { MainLayout } from './layouts/main-layout/main-layout';
-import { HomePage } from './pages/home/home';
-import { SettingsPage } from './pages/settings/settings-page/settings-page';
-import { DashboardPage } from './pages/dashboard/dashboard';
-import { NewEmployeePage } from './pages/employee/new-employee/new-employee';
+import { HomePage } from './features/home/pages/home-page/home-page';
+import { SettingsPage } from './features/settings/pages/settings-page/settings-page';
+import { DashboardPage } from './features/dashboard/dashboard';
+import { NewEmployeePage } from './features/employees/pages/new-employee/new-employee';
 
 export const routes: Routes = [
   {
@@ -31,7 +31,13 @@ export const routes: Routes = [
       {
         path: 'new-employee',
         loadChildren: () =>
-          import('./pages/employee/new-employee/new-employee.routes')
+          import('./features/employees/pages/new-employee/new-employee.routes')
+            .then(m => m.NEW_EMPLOYEE_ROUTES),
+      },
+      {
+        path: 'employee-list',
+        loadChildren: () =>
+          import('./features/employees/pages/employee-list/employee-list.routes')
             .then(m => m.NEW_EMPLOYEE_ROUTES),
       },
       {

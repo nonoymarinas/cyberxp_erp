@@ -12,9 +12,9 @@ import {
 } from 'cyberxp-ui';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.html',
-  styleUrl: './home.css',
+  selector: 'home-page',
+  templateUrl: './home-page.html',
+  styleUrl: './home-page.css',
   imports: [
     CxpIconUserCircle,
     CxpIconAppNav,

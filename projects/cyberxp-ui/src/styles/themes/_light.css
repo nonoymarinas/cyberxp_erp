@@ -7,17 +7,59 @@
    Background Colors (Light Theme)
    ======================================== */
 
-  --color-background-00: var(--grey-000);
-  --color-background-01: var(--grey-100);
-  --color-background-02: var(--grey-200);
-  --color-background-03: var(--grey-300);
-  --color-background-04: var(--grey-400);
-  --color-background-05: var(--grey-500);
-  --color-background-06: var(--grey-600);
-  --color-background-07: var(--grey-700);
-  --color-background-08: var(--grey-800);
-  --color-background-09: var(--grey-900);
-  --color-background-10: var(--grey-1000);
+/* ========================================
+   Background Colors
+   ======================================== */
+
+--color-background-01: var(--grey-000);
+--color-background-01-20t: var(--grey-000-20t);
+--color-background-01-50t: var(--grey-000-50t);
+--color-background-01-70t: var(--grey-000-70t);
+
+--color-background-02: var(--grey-100);
+--color-background-02-20t: var(--grey-100-20t);
+--color-background-02-50t: var(--grey-100-50t);
+--color-background-02-70t: var(--grey-100-70t);
+
+--color-background-03: var(--grey-200);
+--color-background-03-20t: var(--grey-200-20t);
+--color-background-03-50t: var(--grey-200-50t);
+--color-background-03-70t: var(--grey-200-70t);
+
+--color-background-04: var(--grey-300);
+--color-background-04-20t: var(--grey-300-20t);
+--color-background-04-50t: var(--grey-300-50t);
+--color-background-04-70t: var(--grey-300-70t);
+
+--color-background-05: var(--grey-400);
+--color-background-05-20t: var(--grey-400-20t);
+--color-background-05-50t: var(--grey-400-50t);
+--color-background-05-70t: var(--grey-400-70t);
+
+--color-background-06: var(--grey-500);
+--color-background-06-20t: var(--grey-500-20t);
+--color-background-06-50t: var(--grey-500-50t);
+--color-background-06-70t: var(--grey-500-70t);
+
+--color-background-07: var(--grey-600);
+--color-background-07-20t: var(--grey-600-20t);
+--color-background-07-50t: var(--grey-600-50t);
+--color-background-07-70t: var(--grey-600-70t);
+
+--color-background-08: var(--grey-700);
+--color-background-08-20t: var(--grey-700-20t);
+--color-background-08-50t: var(--grey-700-50t);
+--color-background-08-70t: var(--grey-700-70t);
+
+--color-background-09: var(--grey-800);
+--color-background-09-20t: var(--grey-800-20t);
+--color-background-09-50t: var(--grey-800-50t);
+--color-background-09-70t: var(--grey-800-70t);
+
+--color-background-10: var(--grey-900);
+--color-background-10-20t: var(--grey-900-20t);
+--color-background-10-50t: var(--grey-900-50t);
+--color-background-10-70t: var(--grey-900-70t);
 
   
   /* ========================================
@@ -104,6 +146,7 @@
   --color-divider-primary: var(--grey-200);
   --color-divider-secondary: var(--grey-100);
   --color-divider-strong: var(--grey-300);
+  --color-border-divider:var(--color-background-05-50t);
 
   /* ========================================
        Overlay

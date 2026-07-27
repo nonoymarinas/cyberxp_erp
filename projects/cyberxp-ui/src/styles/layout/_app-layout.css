@@ -70,7 +70,7 @@
    Pop-up menu
    ======================================== */
 .cxp-popup-menu {
-  border:1px solid var(--color-border-07);
+  border: 1px solid var(--color-border-07);
   color: var(--color-sidebar-text);
   background-color: var(--color-background-secondary);
 }
@@ -79,10 +79,12 @@
   color: var(--color-sidebar-text);
   background-color: var(--color-background-secondary);
 }
+
 .cxp-popup-menu__footer {
   color: var(--color-sidebar-text);
   background-color: var(--color-background-secondary);
 }
+
 /* ========================================
    Sidebar
    ======================================== */
@@ -298,7 +300,9 @@
    ======================================== */
 
 .cxp-section__header {
-  display: grid; /* justify-content: space-between; */ /* align-items: center; */
+  display: grid;
+  /* justify-content: space-between; */
+  /* align-items: center; */
   grid-template-columns: auto 1fr auto;
   gap: 1rem;
   border-bottom: 1px solid var(--color-section-header-border);
@@ -345,6 +349,20 @@
 }
 
 /* ========================================
+   Divider
+   ======================================== */
+.cxp-divider-hor {
+  width: 100%;
+  height: 1px;
+  border: 1px groove var(--color-border-divider);
+}
+.cxp-divider-vert {
+  width: 1px;
+  height: 100%;
+  border: 1px groove var(--color-border-divider);
+}
+
+/* ========================================
    Footer
    ======================================== */
 
@@ -378,16 +396,18 @@
 /* ========================================
    Input
    ======================================== */
-.cxp-input__wrap{
+.cxp-input__wrap {
   display: grid;
   grid-template-columns: 120px 1fr;
   /* margin-bottom: .5rem; */
 }
+
 .item-group-box {
   display: flex;
   flex-direction: column;
   gap: .75rem;
 }
+
 /* ========================================
    Toolbar
    ======================================== */
@@ -625,19 +645,19 @@
    Modal
    ======================================== */
 .cxp-modal-overlay {
-    position: fixed;
-    inset: 0;
+  position: fixed;
+  inset: 0;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    background: var(--color-modal-overlay);
+  background: var(--color-modal-overlay);
 
-    z-index: 1000;
+  z-index: 1000;
 }
 
 .cxp-modal {
-    background: var(--color-modal-background);
-    border: var(--width-line-04) solid var(--color-modal-border);
+  background: var(--color-modal-background);
+  border: var(--width-line-04) solid var(--color-modal-border);
 }

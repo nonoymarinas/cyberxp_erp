@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { AmsBasicInfoView as BasicInfoView } from '../basic-info-view/basic-info-view';
-import { AmsSecurityView as SecurityView } from '../security-view/security-view';
-import { AmsSecurityEdit as SecurityEdit } from '../security-edit/security-edit';
+import { AmsBasicInfoView as BasicInfoView } from '../../components/basic-info-view/basic-info-view';
+import { AmsSecurityView as SecurityView } from '../../components/security-view/security-view';
+import { AmsSecurityEdit as SecurityEdit } from '../../components/security-edit/security-edit';
 import { CxpIconUserCircle, CxpButton, CxpIconUserNav, CxpIconLockNav } from 'cyberxp-ui';
 
 type AccountEditingSection = 'basic-info' | 'security' | null;

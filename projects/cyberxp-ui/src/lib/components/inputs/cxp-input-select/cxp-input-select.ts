@@ -25,7 +25,7 @@ export type CxpSelectValue =
   | number
   | null;
 
-export type CxpSelectSize =
+ type CxpSelectSize =
   | 'sm'
   | 'md'
   | 'lg'

@@ -1,30 +1,20 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
-
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { RouterLink } from '@angular/router';
 export type CxpButtonType = 'button' | 'submit' | 'reset';
 
-export type CxpButtonVariant =
-  | 'primary'
-  | 'secondary'
-  | 'ghost';
+export type CxpButtonVariant = 'primary' | 'secondary' | 'ghost';
 
-export type CxpButtonSize =
-  | 'sm'
-  | 'md'
-  | 'lg'
-  | 'xl';
+export type CxpButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 @Component({
   selector: 'cxp-button',
   standalone: true,
+  imports:[RouterLink],
   templateUrl: './cxp-button.html',
   styleUrl: './cxp-button.css',
 })
 export class CxpButton {
+  @Input() routerLink: string | any[] | null = null;
   @Input() type: CxpButtonType = 'button';
 
   @Input() variant: CxpButtonVariant = 'primary';

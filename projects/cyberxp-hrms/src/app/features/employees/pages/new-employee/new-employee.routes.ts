@@ -1,11 +1,12 @@
 import { Routes } from '@angular/router';
 
-import { NewEmployeePage } from '../new-employee/new-employee';
-import { PersonalInfo } from '../personal-info/personal-info';
-import { Address } from '../address/address';
-import { Contacts } from '../contacts/contacts';
-import { Employment } from '../employment/employment';
-import { EmergencyContacts } from '../emergency-contacts/emergency-contacts';
+import { NewEmployeePage } from './new-employee';
+import { PersonalInfo } from '../../components/personal-info/personal-info';
+import { Address } from '../../components/address/address';
+import { Contacts } from '../../components/contacts/contacts';
+import { Employment } from '../../components/employment/employment';
+import { EmergencyContacts } from '../../components/emergency-contacts/emergency-contacts';
+import { EmployeeListPage } from '../employee-list/employee-list';
 export const NEW_EMPLOYEE_ROUTES: Routes = [
   {
     path: '',

@@ -13,8 +13,8 @@ import {
   CxpMenuSidebarItem,
   CxpIconChartNav
 } from 'cyberxp-ui';
-import { HeaderAppsIcon } from "../../pages/header/header-apps-icon/header-apps-icon";
-import { HeaderUserIcon } from "../../pages/header/header-user-icon/header-user-icon";
+import { HeaderAppsIcon } from "./components/header-apps-icon/header-apps-icon";
+import { HeaderUserIcon } from "./components/header-user-icon/header-user-icon";
 
 @Component({
   selector: 'main-layout',

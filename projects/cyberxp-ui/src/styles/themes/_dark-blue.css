@@ -167,6 +167,7 @@
   --color-divider-primary: rgba(255, 255, 255, 0.06);
   --color-divider-secondary: rgba(255, 255, 255, 0.04);
   --color-divider-strong: rgba(255, 255, 255, 0.1);
+  --color-border-divider:var(--color-background-02-70t);
 
   /* ========================================
        Overlay

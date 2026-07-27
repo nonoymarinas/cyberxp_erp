@@ -150,6 +150,7 @@
   --color-divider-primary: var(--grey-800);
   --color-divider-secondary: var(--grey-900);
   --color-divider-strong: var(--grey-700);
+  --color-border-divider:var(--color-background-05-50t);
 
   /* ========================================
        Overlay

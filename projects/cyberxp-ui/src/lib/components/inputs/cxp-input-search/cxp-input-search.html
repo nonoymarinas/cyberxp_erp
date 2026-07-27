@@ -1,0 +1,33 @@
+<div
+  class="input"
+  [class.input--sm]="size === 'sm'"
+  [class.input--md]="size === 'md'"
+  [class.input--lg]="size === 'lg'"
+  [class.input--xl]="size === 'xl'"
+  [class.input--disabled]="disabled"
+  [class.input--readonly]="readonly"
+  [class.input--invalid]="invalid"
+>
+  <span class="input__prefix">
+    <ng-content select="[prefix]"></ng-content>
+  </span>
+
+  <input
+    class="input__field"
+    [value]="value"
+    [name]="name"
+    [placeholder]="placeholder"
+    [disabled]="disabled"
+    [readOnly]="readonly"
+    [required]="required"
+    [attr.autocomplete]="autocomplete"
+    [attr.aria-invalid]="invalid ? 'true' : 'false'"
+    (input)="onInput($event)"
+    (focus)="onFocus()"
+    (blur)="onBlur()"
+  />
+
+  <span class="input__suffix">
+    <ng-content select="[suffix]"></ng-content>
+  </span>
+</div>

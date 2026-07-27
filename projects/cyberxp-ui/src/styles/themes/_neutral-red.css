@@ -217,6 +217,7 @@
   --color-divider-primary: var(--red-800);
   --color-divider-secondary: var(--red-900);
   --color-divider-strong: var(--red-700);
+  --color-border-divider:var(--color-background-01-20t);
 
   /* ========================================
        Overlay

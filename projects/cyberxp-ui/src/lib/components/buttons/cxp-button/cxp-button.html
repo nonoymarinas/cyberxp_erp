@@ -1,8 +1,10 @@
 <button
   class="button"
+  [routerLink]="routerLink"
   [class.button--primary]="variant === 'primary'"
   [class.button--secondary]="variant === 'secondary'"
   [class.button--ghost]="variant === 'ghost'"
+  [class.button--xs]="size === 'xs'"
   [class.button--sm]="size === 'sm'"
   [class.button--md]="size === 'md'"
   [class.button--lg]="size === 'lg'"
@@ -27,7 +29,7 @@
     ></span>
   }
 
-  <span class="button__label">
+  <span  class="button__label">
     <ng-content></ng-content>
   </span>
 

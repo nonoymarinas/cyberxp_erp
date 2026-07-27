@@ -41,7 +41,7 @@ interface EmployeeBasicInfo {
   styleUrl: './personal-info.css',
 })
 export class PersonalInfo {
-  isEditing = false;
+  isEditing = true;
 
   readonly suffixOptions: ReferenceOption[] = [
     {

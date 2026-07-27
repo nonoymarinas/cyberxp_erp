@@ -1,0 +1,236 @@
+/* ========================================
+   Host
+   ======================================== */
+
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+/* ========================================
+   Input container
+   ======================================== */
+
+.input {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  min-width: 0;
+
+  background-color: var(--color-input-background);
+  border: 1px solid var(--color-input-border);
+  border-radius: 0;
+
+  color: var(--color-input-text);
+
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+/* ========================================
+   Native input field
+   ======================================== */
+
+.input__field {
+  flex: 1 1 auto;
+
+  width: 100%;
+  min-width: 0;
+
+  padding: 0;
+  margin: 0;
+
+  color: var(--color-input-text);
+  background-color: transparent;
+
+  border: 0;
+  outline: 0;
+
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+
+  appearance: none;
+}
+
+.input__field::placeholder {
+  color: var(--color-input-placeholder);
+  opacity: 1;
+}
+
+/* Prevent browser autofill from forcing its own theme */
+
+.input__field:-webkit-autofill,
+.input__field:-webkit-autofill:hover,
+.input__field:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--color-input-text);
+  caret-color: var(--color-input-text);
+
+  box-shadow:
+    0 0 0 1000px var(--color-input-background) inset;
+
+  transition: background-color 9999s ease-out;
+}
+
+/* Remove browser number controls */
+
+.input__field[type='number'] {
+  appearance: textfield;
+}
+
+.input__field[type='number']::-webkit-inner-spin-button,
+.input__field[type='number']::-webkit-outer-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+/* Remove browser search decoration */
+
+.input__field[type='search']::-webkit-search-cancel-button,
+.input__field[type='search']::-webkit-search-decoration {
+  appearance: none;
+}
+
+/* ========================================
+   Prefix and suffix
+   ======================================== */
+
+.input__prefix,
+.input__suffix {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  color: var(--color-input-icon);
+}
+
+.input__prefix:empty,
+.input__suffix:empty {
+  display: none;
+}
+
+/* ========================================
+   Sizes
+   ======================================== */
+
+.input--sm {
+    min-height: 32px;
+    padding-inline: 10px;
+
+    gap: 6px;
+
+    font-size: 16px;
+}
+
+.input--md {
+    min-height: 40px;
+    padding-inline: 12px;
+    gap: 8px;
+    font-size: 17px;
+}
+
+.input--lg {
+    min-height: 48px;
+    padding-inline: 14px;
+
+    gap: 10px;
+
+    font-size: 18px;
+}
+
+.input--xl {
+    min-height: 56px;
+    padding-inline: 16px;
+
+    gap: 12px;
+
+    font-size: 20px;
+}
+
+/* ========================================
+   Hover
+   ======================================== */
+
+.input:not(.input--disabled):not(.input--readonly):hover {
+  background-color: var(--color-input-hover-background);
+  border-color: var(--color-input-hover-border);
+}
+
+/* ========================================
+   Focus
+   ======================================== */
+
+.input:not(.input--disabled):focus-within {
+  background-color: var(--color-input-focus-background);
+  border-color: var(--color-input-focus-border);
+
+  box-shadow:
+    0 0 0 3px var(--color-input-focus-ring);
+}
+
+/* ========================================
+   Disabled
+   ======================================== */
+
+.input--disabled {
+  background-color: var(--color-input-disabled-background);
+  border-color: var(--color-input-disabled-border);
+
+  cursor: not-allowed;
+}
+
+.input--disabled .input__field {
+  color: var(--color-input-disabled-text);
+
+  cursor: not-allowed;
+}
+
+.input--disabled .input__field::placeholder {
+  color: var(--color-input-disabled-text);
+}
+
+.input--disabled .input__prefix,
+.input--disabled .input__suffix {
+  color: var(--color-input-disabled-icon);
+}
+
+/* ========================================
+   Readonly
+   ======================================== */
+
+.input--readonly {
+  background-color: var(--color-input-readonly-background);
+  border-color: var(--color-input-readonly-border);
+}
+
+.input--readonly .input__field {
+  color: var(--color-input-readonly-text);
+
+  cursor: default;
+}
+
+/* ========================================
+   Invalid
+   ======================================== */
+
+.input--invalid {
+  background-color: var(--color-input-error-background);
+  border-color: var(--color-input-error-border);
+}
+
+.input--invalid .input__field {
+  color: var(--color-input-error-text);
+}
+
+/* Keep the invalid border during focus */
+
+.input--invalid:focus-within {
+  border-color: var(--color-input-error-border);
+}

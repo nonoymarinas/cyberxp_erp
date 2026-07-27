@@ -1,0 +1,28 @@
+<section class="cxp-page">
+  <header class="cxp-section__header">
+    <h2 class="cxp-section__title">Employee Details</h2>
+  </header>
+  <div class="new-employee-main-body cxp-section">
+    <div class="sub-sidebar-box">
+      <cxp-menu-page-item class="sub-sidebar-menu-item" route="personal-info"
+        ><span label>Personal Info</span><cxp-icon-chevron-app end></cxp-icon-chevron-app
+      ></cxp-menu-page-item>
+      <cxp-menu-page-item class="sub-sidebar-menu-item" route="address"
+        ><span label>Addresses</span><cxp-icon-chevron-app end></cxp-icon-chevron-app
+      ></cxp-menu-page-item>
+      <cxp-menu-page-item class="sub-sidebar-menu-item" route="contacts"
+        ><span label>Contacts</span><cxp-icon-chevron-app end></cxp-icon-chevron-app
+      ></cxp-menu-page-item>
+      <cxp-menu-page-item class="sub-sidebar-menu-item" route="emergency-contacts"
+        ><span label>Emergency Contacts</span><cxp-icon-chevron-app end></cxp-icon-chevron-app
+      ></cxp-menu-page-item>
+      <cxp-menu-page-item class="sub-sidebar-menu-item" route="employment"
+        ><span label>Employment</span><cxp-icon-chevron-app end></cxp-icon-chevron-app
+      ></cxp-menu-page-item>
+    </div>
+    <hr class="menu-divider" />
+    <div class="route-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</section>
