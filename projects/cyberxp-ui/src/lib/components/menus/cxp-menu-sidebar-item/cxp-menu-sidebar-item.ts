@@ -9,7 +9,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './cxp-menu-sidebar-item.css',
 })
 export class CxpMenuSidebarItem {
-  @Input({ required: false })
+  @Input({ required: true })
   route = '';
 
   @Input()
