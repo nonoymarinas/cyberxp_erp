@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { CxpIconAppNav,CxpMenuSidebarItem,CxpIconLogoutNav, CxpModalMenu, CxpIconAtmsApp, CxpIconTnmsApp, CxpIconHrmsApp, CxpButton, CxpIconUserCircle, CxpIconSettingsNav } from 'cyberxp-ui';
 import { RouterLink } from "@angular/router";
@@ -12,6 +12,8 @@ import { RouterLink } from "@angular/router";
 })
 export class HeaderUserIcon {
   isAppMenuOpen = false;
+
+  @Input() image = '';
 
   toggleAppMenu(event: MouseEvent): void {
     const target = event.target;
