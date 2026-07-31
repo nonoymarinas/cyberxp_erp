@@ -1,0 +1,80 @@
+<section class="cxp-page">
+  <h2 class="cxp-section__header">List of Employee</h2>
+  <!-- <hr class="cxp-divider-hor" /> -->
+  <div class="cxp-section">
+    <div class="search-box">
+      <label class="cxp-label cxp-label-md cxp-label-bg">Search Employee</label>
+      <cxp-input-search size="sm" placeholder="Search keyword.."></cxp-input-search>
+    </div>
+    <div class="search-result__box">
+      <router-outlet></router-outlet>
+      <div class="search-result__item-header cxp-section__header">
+        <span>NO</span>
+        <span>PROFILE</span>
+        <span>NAME</span>
+        <span>EMP ID</span>
+        <span>POSITION</span>
+        <span>DEPARTMENT</span>
+        <span>CONTACT</span>
+        <span>EMP TYPE</span>
+        <span>EMP STATUS</span>
+      </div>
+      <div class="search-result__item-group-box">
+        <div class="search-result__item-box">
+          <span>1</span>
+          <cxp-icon-user-circle class="employee-image" size="sm"></cxp-icon-user-circle>
+          <span>MARINAS, FELICIANO JR</span>
+          <span>EMP00000001</span>
+          <span>President</span>
+          <span>Executive Dept</span>
+          <span>09173010779</span>
+          <span>Regular</span>
+          <span>Active</span>
+          <cxp-button variant="secondary" class="view-button" size="xs">open</cxp-button>
+        </div>
+        <div class="search-result__item-box">
+          <span>2</span>
+          <cxp-icon-user-circle class="employee-image" size="sm"></cxp-icon-user-circle>
+          <span>MARINAS, FELICIANO JR</span>
+          <span>EMP00000001</span>
+          <span>President</span>
+          <span>Executive Dept</span>
+          <span>09173010779</span>
+          <span>Regular</span>
+          <span>Active</span>
+          <cxp-button
+            routerLink="/app/new-employee/personal-info"
+            variant="secondary"
+            class="view-button"
+            size="xs"
+            >open</cxp-button
+          >
+        </div>
+        <div class="search-result__item-box">
+          <span>3</span>
+          <cxp-icon-user-circle class="employee-image" size="sm"></cxp-icon-user-circle>
+          <span>MARINAS, FELICIANO JR</span>
+          <span>EMP00000001</span>
+          <span>President</span>
+          <span>Executive Dept</span>
+          <span>09173010779</span>
+          <span>Regular</span>
+          <span>Active</span>
+          <cxp-button variant="secondary" class="view-button" size="xs">open</cxp-button>
+        </div>
+        <div class="search-result__item-box">
+          <span>4</span>
+          <cxp-icon-user-circle class="employee-image" size="sm"></cxp-icon-user-circle>
+          <span>MARINAS, FELICIANO JR</span>
+          <span>EMP00000001</span>
+          <span>President</span>
+          <span>Executive Dept</span>
+          <span>09173010779</span>
+          <span>Regular</span>
+          <span>Active</span>
+          <cxp-button variant="secondary" class="view-button" size="xs">open</cxp-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

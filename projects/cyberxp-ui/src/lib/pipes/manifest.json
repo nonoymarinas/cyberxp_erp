@@ -1,0 +1,20 @@
+{
+  "typescript_files": 144,
+  "pipe_files": 131,
+  "categories": [
+    "text",
+    "number",
+    "date",
+    "array",
+    "object",
+    "boolean",
+    "color",
+    "html",
+    "url",
+    "file",
+    "validation",
+    "hrms"
+  ],
+  "bad_patterns": [],
+  "duplicate_classes": {}
+}

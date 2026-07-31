@@ -14,9 +14,9 @@
   display: grid;
   gap: 10px;
 }
-.cxp-section{
+/* .cxp-section{
   background-color: var(--color-background-09-50t);
-}
+} */
 .section-box-content {
   display: grid;
   gap: 10px;

@@ -23,20 +23,23 @@ export class SettingsPage implements OnInit {
 
   readonly themeOptions: CxpSelectOption[] = [
     {
-      label: 'Dark',
       value: 'theme-dark',
+      label: 'Dark Mode',
     },
     {
-      label: 'Light',
+  
       value: 'theme-light',
+      label: 'Light Mode',
     },
     {
-      label: 'Dark Blue',
+   
       value: 'theme-dark-blue',
+      label: 'Dark Blue',
     },
     {
-      label: 'Neutral Red',
+    
       value: 'theme-neutral-red',
+      label: 'Dark Red',
     },
   ];
 
