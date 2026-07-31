@@ -1,5 +1,5 @@
 <div class="header-apps-icon" (click)="toggleAppMenu($event)">
-  <cxp-icon-user-circle class="app-icon" size="sm"></cxp-icon-user-circle>
+  <cxp-icon-user-circle class="app-icon" size="sm" [image]="image"></cxp-icon-user-circle>
   <cxp-modal-menu
     title="Your Application"
     [isOpen]="isAppMenuOpen"
