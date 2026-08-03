@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   CxpButton,
   CxpDisplayField,
@@ -7,13 +7,11 @@ import {
   CxpIconUserNav,
   CxpInputSelect,
   CxpInputText,
-  CxpTextCapitalizePipe,
 } from 'cyberxp-ui';
 
 import type { CxpSelectOption, CxpSelectPrimitive } from 'cyberxp-ui';
 
 import { PersonalInfoService } from '../../../business/services/personal-info.service';
-import { PersonalInfoReference } from '../../../models/references/personal-info-reference.model';
 
 interface EmployeeBasicInfo {
   id: string;
@@ -29,24 +27,81 @@ interface EmployeeBasicInfo {
 
   imageUrl: string | null;
 }
+interface PersonalInfoForm {
+  firstName: FormControl<string>;
+  middleName: FormControl<string>;
+  lastName: FormControl<string>;
 
+  suffixId: FormControl<string | number | null>;
+  dateOfBirth: FormControl<string>;
+
+  genderId: FormControl<string | number | null>;
+  civilStatusId: FormControl<string | number | null>;
+
+  imageUrl: FormControl<string | null>;
+}
 @Component({
   selector: 'personal-info',
   standalone: true,
   imports: [
+    ReactiveFormsModule,
     CxpButton,
     CxpDisplayField,
     CxpIconUserCircle,
     CxpIconUserNav,
     CxpInputSelect,
     CxpInputText,
-    CxpTextCapitalizePipe,
   ],
   templateUrl: './personal-info.html',
   styleUrl: './personal-info.css',
 })
 export class PersonalInfo implements OnInit {
-  references: PersonalInfoReference | null = null;
+  readonly personalInfoForm = new FormGroup<PersonalInfoForm>({
+    firstName: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+
+    middleName: new FormControl('', {
+      nonNullable: true,
+    }),
+
+    lastName: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+
+    suffixId: new FormControl<string | null>(null),
+
+    dateOfBirth: new FormControl('', {
+      nonNullable: true,
+    }),
+
+    genderId: new FormControl<string | null>(null, {
+      validators: [Validators.required],
+    }),
+
+    civilStatusId: new FormControl<string | null>(null, {
+      validators: [Validators.required],
+    }),
+
+    imageUrl: new FormControl<string | null>(null),
+  });
+
+  private enableDisableControls(isDataAvailable: boolean): void {
+    const controls = this.personalInfoForm.controls;
+
+    if (isDataAvailable) {
+      controls.suffixId.enable();
+      controls.genderId.enable();
+      controls.civilStatusId.enable();
+      return;
+    }
+
+    controls.suffixId.disable();
+    controls.genderId.disable();
+    controls.civilStatusId.disable();
+  }
 
   suffixOptions: CxpSelectOption[] = [];
   genderOptions: CxpSelectOption[] = [];
@@ -59,11 +114,11 @@ export class PersonalInfo implements OnInit {
 
   employee: EmployeeBasicInfo = {
     id: '',
-    firstName: 'Feliciano',
-    middleName: 'Marinas',
-    lastName: 'Marinias',
+    firstName: '',
+    middleName: '',
+    lastName: '',
     suffixId: null,
-    dateOfBirth: '1979-01-01',
+    dateOfBirth: '',
     genderId: null,
     civilStatusId: null,
     imageUrl: null,
@@ -77,24 +132,27 @@ export class PersonalInfo implements OnInit {
 
   ngOnInit(): void {
     this.loadReferences();
+    this.enableDisableControls(false);
   }
 
   loadReferences(): void {
     this.isLoading = true;
     this.errorMessage = '';
 
-    this.personalInfoService.getReferences().subscribe({
-      next: (references) => {
-        this.references = references;
+    this.personalInfoService.getReferenceOptions().subscribe({
+      next: (options) => {
+        this.suffixOptions = options.suffixOptions;
+        this.genderOptions = options.genderOptions;
+        this.civilStatusOptions = options.civilStatusOptions;
+        this.isLoading = false;
 
-        // No mapping required because
-        // ReferenceItem and CxpSelectOption
-        // now share the same structure.
-        this.suffixOptions = references.suffixes;
-        this.genderOptions = references.genders;
-        this.civilStatusOptions = references.civilStatuses;
-        console.log(this.suffixOptions);
-        console.log(this.genderOptions);
+        // Enable or disable the controls based on the availability of reference data
+        const isDataAvailable =
+          this.suffixOptions.length > 0 &&
+          this.genderOptions.length > 0 &&
+          this.civilStatusOptions.length > 0;
+
+        this.enableDisableControls(isDataAvailable);
         this.isLoading = false;
       },
 
@@ -102,7 +160,6 @@ export class PersonalInfo implements OnInit {
         console.error('Failed to load personal information references:', error);
 
         this.errorMessage = 'Unable to load reference data.';
-
         this.isLoading = false;
       },
     });
@@ -140,7 +197,8 @@ export class PersonalInfo implements OnInit {
 
     this.isEditing = false;
 
-    console.log('Saved employee basic information:', this.employee);
+    // console.log('Saved employee basic information:', this.employee);
+    console.log(this.personalInfoForm.value);
   }
 
   getReferenceLabel(options: CxpSelectOption[], selectedValue: CxpSelectPrimitive | null): string {

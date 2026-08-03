@@ -3,15 +3,7 @@ import { Router } from '@angular/router';
 import { CxpChartDonutApp } from '../../components/cxp-chart-donut-app/cxp-chart-donut-app';
 import { CxpChartBarApp } from '../../components/cxp-chart-bar-app/cxp-chart-bar-app';
 import {
-  CxpIconUserCircle,
-  CxpIconAppNav,
-  CxpIconHrmsApp,
-  CxpIconUserNav,
-  CxpIconHomeNav,
-  CxpIconAppStatic,
-  CxpIconTnmsApp,
-  CxpIconAtmsApp,
-  CxpIconChartNav,
+ 
   CxpChartDonutItem,
 } from 'cyberxp-ui';
 
@@ -27,17 +19,8 @@ export interface AttendanceBarItem {
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
   imports: [
-    CxpIconUserCircle,
-    CxpIconAppNav,
-    CxpIconHrmsApp,
-    CxpIconUserNav,
-    CxpIconHomeNav,
-    CxpIconAppStatic,
-    CxpIconTnmsApp,
-    CxpIconAtmsApp,
-    CxpChartDonutApp,
-    CxpIconChartNav,
     CxpChartBarApp,
+    CxpChartDonutApp,
   ],
 })
 export class DashboardPage {

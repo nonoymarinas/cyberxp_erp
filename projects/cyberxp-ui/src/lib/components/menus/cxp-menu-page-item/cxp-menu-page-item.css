@@ -76,14 +76,14 @@
    ======================================== */
 
 .cxp-menu-sidebar__item:hover:not(.cxp-menu-sidebar__item--disabled) {
-  color: var(--color-text-secondary);
+  color: var(--color-text-page-sidebar-hover);
 }
 
 .cxp-menu-sidebar__item:hover:not(.cxp-menu-sidebar__item--disabled) .cxp-menu-sidebar__icon {
-  color: var(--color-text-secondary);
+  color: var(--color-text-page-sidebar-hover);
 }
 .cxp-menu-sidebar__item:hover:not(.cxp-menu-sidebar__item--disabled) .cxp-menu-sidebar__end {
-  color: var(--color-text-secondary);
+  color: var(--color-text-page-sidebar-hover);
 }
 
 /* ========================================
@@ -91,16 +91,12 @@
    ======================================== */
 
 .cxp-menu-sidebar__item--active {
-  /* background-color: var(--color-nav-active-background); */
-  color: var(--color-text-01);
+  color: var(--color-text-sub-sibebar-active);
   background-color: var(--color-background-label-active);
-  /* font-weight: 600; */
 }
 .cxp-menu-sidebar__item--active:hover:not(.cxp-menu-sidebar__item--disabled) {
-  /* background-color: var(--color-nav-active-background); */
   color: var(--color-text-sub-sibebar-active-hover);
   background-color: var(--color-background-label-active);
-  /* font-weight: 600; */
 }
 .cxp-menu-sidebar__item--active .cxp-menu-sidebar__end {
   display: inline-flex;

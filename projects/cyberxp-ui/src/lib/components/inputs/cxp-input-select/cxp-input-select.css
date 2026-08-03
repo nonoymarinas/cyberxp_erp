@@ -191,10 +191,13 @@
 
 .select--disabled .select__control {
     cursor: not-allowed;
+    background: var(--color-input-disabled-background);
+    border-color: var(--color-input-disabled-border);
 }
 
 .select--disabled .select__field {
     cursor: not-allowed;
+    color: var(--color-input-disabled-text);
 }
 
 .select--readonly .select__field {

@@ -1,9 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import {
-  CxpIconUserCircle,
   CxpButton,
-  CxpIconSettingsNav,
   CxpIconThemeNav,
   CxpInputSelect,
   CxpSelectOption,
@@ -14,7 +12,7 @@ type ThemeClass = 'theme-dark' | 'theme-light' | 'theme-dark-blue' | 'theme-neut
 @Component({
   selector: 'ams-settings-page',
   standalone: true,
-  imports: [CxpIconUserCircle, CxpButton, CxpIconSettingsNav, CxpIconThemeNav, CxpInputSelect],
+  imports: [CxpButton, CxpIconThemeNav, CxpInputSelect],
   templateUrl: './settings-page.html',
   styleUrl: './settings-page.css',
 })

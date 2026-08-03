@@ -1,12 +1,25 @@
 import { Component } from '@angular/core';
 
-import { CxpIconAppNav,CxpMenuSidebarItem,CxpIconLogoutNav, CxpModalMenu, CxpIconAtmsApp, CxpIconTnmsApp, CxpIconHrmsApp, CxpButton, CxpIconUserCircle, CxpIconSettingsNav } from 'cyberxp-ui';
-import { RouterLink } from "@angular/router";
+import {
+  CxpMenuSidebarItem,
+  CxpIconLogoutNav,
+  CxpModalMenu,
+  CxpButton,
+  CxpIconUserCircle,
+  CxpIconSettingsNav,
+} from 'cyberxp-ui';
 
 @Component({
   selector: 'header-user-icon',
   standalone: true,
-  imports: [CxpIconAppNav,CxpMenuSidebarItem, CxpIconLogoutNav, CxpModalMenu, CxpIconAtmsApp, CxpIconTnmsApp, CxpIconHrmsApp, CxpButton, CxpIconUserCircle, CxpIconSettingsNav, RouterLink],
+  imports: [
+    CxpMenuSidebarItem,
+    CxpIconLogoutNav,
+    CxpModalMenu,
+    CxpButton,
+    CxpIconUserCircle,
+    CxpIconSettingsNav,
+  ],
   templateUrl: './header-user-icon.html',
   styleUrl: './header-user-icon.css',
 })

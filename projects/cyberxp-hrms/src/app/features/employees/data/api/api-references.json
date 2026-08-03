@@ -1,0 +1,73 @@
+{
+  "Success": true,
+  "Message": null,
+  "ErrorCode": null,
+  "Data": {
+    "Genders": [
+      { "PublicId": "ddbf611f-bc33-4afb-9865-87b9ea206783", "ReferenceName": "Male" },
+      { "PublicId": "b7c59756-168d-4294-b595-bd2ec3009e17", "ReferenceName": "Female" }
+    ],
+    "CivilStatuses": [
+      { "PublicId": "945e67c0-ccee-4352-b4ba-ebddfd5770a1", "ReferenceName": "Single" },
+      { "PublicId": "fd8ad18e-d801-4ef2-8f59-3f6086706682", "ReferenceName": "Married" },
+      { "PublicId": "7a9e280f-0601-4e07-91bd-5914c9eaf472", "ReferenceName": "Divorced" },
+      { "PublicId": "c274d431-10c5-49c4-be62-30b4cb4a01e1", "ReferenceName": "Separated" },
+      { "PublicId": "4033fe15-8838-4942-b3b2-680e8b37c73d", "ReferenceName": "Widowed" }
+    ],
+    "Suffixes": [
+      { "PublicId": "c71ab148-d8c1-48f3-a9b3-1aede9ec1ef7", "ReferenceName": "JR" },
+      { "PublicId": "e5182f65-20eb-46c9-a40c-82bee918d43d", "ReferenceName": "SR" },
+      { "PublicId": "e4ff976c-7515-42cd-8045-183395ba2c26", "ReferenceName": "I" },
+      { "PublicId": "2ce0f8ef-128c-44e2-a7b3-9fd884da0199", "ReferenceName": "II" },
+      { "PublicId": "7a2a760d-d2e3-40d8-b039-871649095359", "ReferenceName": "III" },
+      { "PublicId": "4490a3c1-63ad-4037-b776-2bf8f3cf9393", "ReferenceName": "IV" },
+      { "PublicId": "ebbe8258-4225-4e79-b334-6810d7a45b6a", "ReferenceName": "V" },
+      { "PublicId": "cb4d1c1a-55b3-4221-964a-fe9b54e01041", "ReferenceName": "VI" }
+    ],
+    "Departments": [
+      { "PublicId": "b7298cf5-8808-4488-820d-66c39a7523ac", "ReferenceName": "Engineering" },
+      { "PublicId": "909e199b-6808-41c6-9b5a-3d9f276ddba0", "ReferenceName": "Admin" },
+      { "PublicId": "3eeeac2c-93e4-4d27-ade1-058cebef5f14", "ReferenceName": "HR" },
+      { "PublicId": "5d859cdd-3e1e-4223-96a9-9016b7e093f2", "ReferenceName": "Finance" },
+      { "PublicId": "025c74c1-a738-4f9c-80d6-2364c297fb32", "ReferenceName": "IT" }
+    ],
+    "Positions": [
+      { "PublicId": "023626f0-cfeb-4fac-829a-e62577902f7a", "ReferenceName": "President" },
+      { "PublicId": "8be205d9-24bf-4e6b-a85a-0aaaea54d9b3", "ReferenceName": "Vice President" },
+      { "PublicId": "00059eeb-bdce-4a8a-8d6c-e8556b81a1c4", "ReferenceName": "CEO" },
+      { "PublicId": "2f413749-704e-43e5-90e8-08147db62172", "ReferenceName": "HR Manager" },
+      { "PublicId": "e013d476-039b-42be-bfc2-33965e6748fe", "ReferenceName": "Finance Mananger" },
+      { "PublicId": "ec20a85a-df49-4be5-9082-ffa0d6706b12", "ReferenceName": "IT Manager" },
+      { "PublicId": "d82311d9-fca9-4052-ab60-2adebe37f383", "ReferenceName": "Accounting Staff" },
+      { "PublicId": "6a722890-b9ae-44b1-a31c-214e88b8e6c7", "ReferenceName": "HR Assistant" },
+      { "PublicId": "d4faa473-cbe2-4b64-bb5f-0c584876c866", "ReferenceName": "HR Recruitment" },
+      { "PublicId": "b3ab8e07-bca3-400b-81f8-a2cf0cf116aa", "ReferenceName": "Office Staff" },
+      { "PublicId": "01cea6e6-bab8-47e8-ad62-5f00a7980147", "ReferenceName": "IT Staff" },
+      { "PublicId": "0d3af1ac-48f6-44ac-871f-456cd67b582e", "ReferenceName": "Web Developer" }
+    ],
+    "EmploymentStatuses": [
+      { "PublicId": "8dc261f5-2875-4979-85b2-7ea11d5c044a", "ReferenceName": "Active" },
+      { "PublicId": "5fe750c1-11d4-483e-ade6-9035c2bb3340", "ReferenceName": "Inactive" },
+      { "PublicId": "2437a5c7-8473-4343-b9da-1c314478c6ed", "ReferenceName": "Separated" }
+    ],
+    "AddressTypes": [
+      { "PublicId": "8052b54d-6d90-4942-ba16-7dca2a68450a", "ReferenceName": "Present Address" },
+      {
+        "PublicId": "0c10d1bf-85c4-4dac-ae8a-9dcb55f1015e",
+        "ReferenceName": "Residential Address"
+      },
+      { "PublicId": "b6d7073a-bd55-40fd-b310-28bc4e95ee92", "ReferenceName": "Permanent Address" }
+    ],
+    "ContactMediumTypes": [
+      { "PublicId": "e6ea5448-c26c-4325-9e7c-141612bae6a7", "ReferenceName": "Email" },
+      { "PublicId": "2f3a5bff-9596-47ae-aa7a-b23ae33af533", "ReferenceName": "Mobile" },
+      { "PublicId": "bf62d348-f180-479d-86bc-34ce8a0b4904", "ReferenceName": "Landline" }
+    ],
+    "ContactContextTypes": [
+      { "PublicId": "8d4e4c21-31cb-4d29-b17a-658fb05ea908", "ReferenceName": "Personal" },
+      { "PublicId": "a24d64f8-8955-4ca7-86c6-721d0b645a9f", "ReferenceName": "Work" },
+      { "PublicId": "f61d6b0d-7909-4ce6-baa3-9617b4c79299", "ReferenceName": "Home" }
+    ],
+    "Branches": []
+  }
+}

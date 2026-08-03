@@ -3,9 +3,6 @@ import { Component } from '@angular/core';
 import {
   CxpLayoutMain,
   CxpIconCyberxpApp,
-  CxpIconAppNav,
-  CxpIconUserCircle,
-  CxpIconBurgerNav,
   CxpIconHomeNav,
   CxpIconLogoutNav,
   CxpIconSettingsNav,
@@ -22,9 +19,6 @@ import { HeaderUserIcon } from "./components/header-user-icon/header-user-icon";
   imports: [
     CxpLayoutMain,
     CxpIconCyberxpApp,
-    CxpIconAppNav,
-    CxpIconUserCircle,
-    CxpIconBurgerNav,
     CxpIconHomeNav,
     CxpIconLogoutNav,
     CxpIconSettingsNav,
