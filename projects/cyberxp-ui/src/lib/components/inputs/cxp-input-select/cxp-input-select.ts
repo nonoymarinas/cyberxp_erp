@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -11,7 +12,6 @@ import {
 
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { CxpTextCapitalizePipe } from '../../../pipes';
 /* =========================================================
    Select models
    ========================================================= */
@@ -75,6 +75,7 @@ export class CxpInputSelect implements ControlValueAccessor {
     this._options = options ?? [];
 
     this.syncSearchTextWithValue();
+    this.cdr.markForCheck();
   }
 
   get options(): CxpSelectOption[] {
@@ -95,6 +96,7 @@ export class CxpInputSelect implements ControlValueAccessor {
     this._value = value;
 
     this.syncSearchTextWithValue();
+    this.cdr.markForCheck();
   }
 
   get value(): CxpSelectValue {
@@ -164,7 +166,10 @@ export class CxpInputSelect implements ControlValueAccessor {
      Constructor
      ======================================================= */
 
-  constructor(private readonly elementRef: ElementRef<HTMLElement>) {}
+  constructor(
+    private readonly elementRef: ElementRef<HTMLElement>,
+    private readonly cdr: ChangeDetectorRef,
+  ) {}
 
   /* =======================================================
      Computed properties
@@ -414,6 +419,7 @@ export class CxpInputSelect implements ControlValueAccessor {
     this._value = value;
 
     this.syncSearchTextWithValue();
+    this.cdr.markForCheck();
   }
 
   registerOnChange(fn: (value: CxpSelectValue) => void): void {
@@ -425,12 +431,13 @@ export class CxpInputSelect implements ControlValueAccessor {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    console.log('CURRENT CxpInputSelect:', isDisabled);
     this.disabled = isDisabled;
 
     if (isDisabled) {
       this.closeDropdown();
     }
+
+    this.cdr.markForCheck();
   }
 
   /* =======================================================
@@ -592,7 +599,10 @@ export class CxpInputSelect implements ControlValueAccessor {
      Central value update
      ======================================================= */
 
-  private setValue(value: CxpSelectValue, option: CxpSelectOption | null = null): void {
+  private setValue(
+    value: CxpSelectValue,
+    option: CxpSelectOption | null = null,
+  ): void {
     this._value = value;
 
     this.onChange(value);

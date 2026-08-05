@@ -4,7 +4,7 @@
   [class.input--md]="size === 'md'"
   [class.input--lg]="size === 'lg'"
   [class.input--xl]="size === 'xl'"
-  [class.input--disabled]="isDisabled"
+  [class.input--disabled]="disabled"
   [class.input--readonly]="readonly"
   [class.input--invalid]="invalid"
 >
@@ -13,12 +13,13 @@
   </span>
 
   <input
+    #nativeInput
     class="input__field"
     [type]="type"
     [value]="value"
     [name]="name"
     [placeholder]="placeholder"
-    [disabled]="isDisabled"
+    [disabled]="disabled"
     [readOnly]="readonly"
     [required]="required"
     [attr.autocomplete]="autocomplete"
