@@ -234,7 +234,7 @@ export class PersonalInfo implements OnInit {
     this.personalInfoForm.disable();
     this.isEditing = false;
 
-    console.log('Saved employee:', this.employee);
+    console.log('Saved employee:', formValue);
   }
 
   private loadEmployeeIntoForm(): void {
