@@ -69,7 +69,6 @@
                 formControlName="middleName"
                 id="middleName"
                 size="sm"
-                [(value)]="editEmployee.middleName"
                 placeholder="Middle Name (Optional)"
                 autocomplete="new-password"
               ></cxp-input-text>
@@ -113,7 +112,6 @@
                 id="dateOfBirth"
                 size="sm"
                 type="date"
-                [(value)]="editEmployee.dateOfBirth"
               ></cxp-input-text>
             </div>
 
@@ -126,7 +124,6 @@
                 size="sm"
                 placeholder="Select"
                 [options]="genderOptions"
-                [(value)]="editEmployee.genderId"
               ></cxp-input-select>
             </div>
 
@@ -141,7 +138,6 @@
                 size="sm"
                 placeholder="Select"
                 [options]="civilStatusOptions"
-                [(value)]="editEmployee.civilStatusId"
               ></cxp-input-select>
             </div>
           </div>

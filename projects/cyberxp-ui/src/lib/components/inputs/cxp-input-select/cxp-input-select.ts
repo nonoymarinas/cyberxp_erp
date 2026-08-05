@@ -9,12 +9,9 @@ import {
   ViewChild,
 } from '@angular/core';
 
-import {
-  ControlValueAccessor,
-  NG_VALUE_ACCESSOR,
-} from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
- import { CxpTextCapitalizePipe } from '../../../pipes';
+import { CxpTextCapitalizePipe } from '../../../pipes';
 /* =========================================================
    Select models
    ========================================================= */
@@ -40,7 +37,7 @@ export type CxpSelectSize = 'sm' | 'md' | 'lg' | 'xl';
   standalone: true,
   templateUrl: './cxp-input-select.html',
   styleUrl: './cxp-input-select.css',
-  imports:[CxpTextCapitalizePipe],
+  imports: [],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -74,9 +71,7 @@ export class CxpInputSelect implements ControlValueAccessor {
      ======================================================= */
 
   @Input()
-  set options(
-    options: CxpSelectOption[] | null | undefined
-  ) {
+  set options(options: CxpSelectOption[] | null | undefined) {
     this._options = options ?? [];
 
     this.syncSearchTextWithValue();
@@ -145,8 +140,7 @@ export class CxpInputSelect implements ControlValueAccessor {
   valueChange = new EventEmitter<CxpSelectValue>();
 
   @Output()
-  selectedChange =
-    new EventEmitter<CxpSelectOption | null>();
+  selectedChange = new EventEmitter<CxpSelectOption | null>();
 
   @Output()
   focused = new EventEmitter<void>();
@@ -164,24 +158,20 @@ export class CxpInputSelect implements ControlValueAccessor {
 
   activeIndex = -1;
 
-  readonly listboxId =
-    `cxp-select-${Math.random().toString(36).slice(2, 10)}`;
+  readonly listboxId = `cxp-select-${Math.random().toString(36).slice(2, 10)}`;
 
   /* =======================================================
      Constructor
      ======================================================= */
 
-  constructor(
-    private readonly elementRef: ElementRef<HTMLElement>
-  ) {}
+  constructor(private readonly elementRef: ElementRef<HTMLElement>) {}
 
   /* =======================================================
      Computed properties
      ======================================================= */
 
   get filteredOptions(): CxpSelectOption[] {
-    const search =
-      this.searchText.trim().toLowerCase();
+    const search = this.searchText.trim().toLowerCase();
 
     const selectedOption = this.getSelectedOption();
 
@@ -189,10 +179,7 @@ export class CxpInputSelect implements ControlValueAccessor {
      * When the selected option label is already displayed,
      * opening the dropdown should display all options.
      */
-    if (
-      selectedOption &&
-      selectedOption.label === this.searchText
-    ) {
+    if (selectedOption && selectedOption.label === this.searchText) {
       return this.options;
     }
 
@@ -200,9 +187,7 @@ export class CxpInputSelect implements ControlValueAccessor {
       return this.options;
     }
 
-    return this.options.filter((option) =>
-      option.label.toLowerCase().includes(search)
-    );
+    return this.options.filter((option) => option.label.toLowerCase().includes(search));
   }
 
   get selectedOption(): CxpSelectOption | null {
@@ -210,14 +195,9 @@ export class CxpInputSelect implements ControlValueAccessor {
   }
 
   get activeOptionId(): string | null {
-    const activeOption =
-      this.filteredOptions[this.activeIndex];
+    const activeOption = this.filteredOptions[this.activeIndex];
 
-    if (
-      !this.isOpen ||
-      this.activeIndex < 0 ||
-      !activeOption
-    ) {
+    if (!this.isOpen || this.activeIndex < 0 || !activeOption) {
       return null;
     }
 
@@ -247,15 +227,11 @@ export class CxpInputSelect implements ControlValueAccessor {
      */
     const selectedOption = this.getSelectedOption();
 
-    if (
-      this._value !== null &&
-      this.searchText !== selectedOption?.label
-    ) {
+    if (this._value !== null && this.searchText !== selectedOption?.label) {
       this.setValue(null);
     }
 
-    this.activeIndex =
-      this.findFirstEnabledOptionIndex();
+    this.activeIndex = this.findFirstEnabledOptionIndex();
   }
 
   onFocus(): void {
@@ -327,18 +303,11 @@ export class CxpInputSelect implements ControlValueAccessor {
      Option selection
      ======================================================= */
 
-  selectOption(
-    option: CxpSelectOption,
-    event?: MouseEvent
-  ): void {
+  selectOption(option: CxpSelectOption, event?: MouseEvent): void {
     event?.preventDefault();
     event?.stopPropagation();
 
-    if (
-      this.disabled ||
-      this.readonly ||
-      option.disabled
-    ) {
+    if (this.disabled || this.readonly || option.disabled) {
       return;
     }
 
@@ -415,8 +384,7 @@ export class CxpInputSelect implements ControlValueAccessor {
         if (this.isOpen) {
           event.preventDefault();
 
-          this.activeIndex =
-            this.findFirstEnabledOptionIndex();
+          this.activeIndex = this.findFirstEnabledOptionIndex();
         }
         break;
 
@@ -424,8 +392,7 @@ export class CxpInputSelect implements ControlValueAccessor {
         if (this.isOpen) {
           event.preventDefault();
 
-          this.activeIndex =
-            this.findLastEnabledOptionIndex();
+          this.activeIndex = this.findLastEnabledOptionIndex();
         }
         break;
     }
@@ -435,10 +402,7 @@ export class CxpInputSelect implements ControlValueAccessor {
      Angular template tracking
      ======================================================= */
 
-  trackOption(
-    _index: number,
-    option: CxpSelectOption
-  ): CxpSelectPrimitive {
+  trackOption(_index: number, option: CxpSelectOption): CxpSelectPrimitive {
     return option.value;
   }
 
@@ -452,9 +416,7 @@ export class CxpInputSelect implements ControlValueAccessor {
     this.syncSearchTextWithValue();
   }
 
-  registerOnChange(
-    fn: (value: CxpSelectValue) => void
-  ): void {
+  registerOnChange(fn: (value: CxpSelectValue) => void): void {
     this.onChange = fn;
   }
 
@@ -463,6 +425,7 @@ export class CxpInputSelect implements ControlValueAccessor {
   }
 
   setDisabledState(isDisabled: boolean): void {
+    console.log('CURRENT CxpInputSelect:', isDisabled);
     this.disabled = isDisabled;
 
     if (isDisabled) {
@@ -478,8 +441,7 @@ export class CxpInputSelect implements ControlValueAccessor {
   onDocumentMouseDown(event: MouseEvent): void {
     const target = event.target as Node;
 
-    const clickedInside =
-      this.elementRef.nativeElement.contains(target);
+    const clickedInside = this.elementRef.nativeElement.contains(target);
 
     if (clickedInside) {
       return;
@@ -497,8 +459,7 @@ export class CxpInputSelect implements ControlValueAccessor {
      ======================================================= */
 
   private selectActiveOption(): void {
-    const option =
-      this.filteredOptions[this.activeIndex];
+    const option = this.filteredOptions[this.activeIndex];
 
     if (option && !option.disabled) {
       this.selectOption(option);
@@ -511,9 +472,7 @@ export class CxpInputSelect implements ControlValueAccessor {
     }
   }
 
-  private moveActiveIndex(
-    direction: 1 | -1
-  ): void {
+  private moveActiveIndex(direction: 1 | -1): void {
     const options = this.filteredOptions;
 
     if (options.length === 0) {
@@ -523,11 +482,7 @@ export class CxpInputSelect implements ControlValueAccessor {
 
     let nextIndex = this.activeIndex;
 
-    for (
-      let count = 0;
-      count < options.length;
-      count++
-    ) {
+    for (let count = 0; count < options.length; count++) {
       nextIndex += direction;
 
       if (nextIndex >= options.length) {
@@ -550,34 +505,24 @@ export class CxpInputSelect implements ControlValueAccessor {
   }
 
   private setActiveOptionFromCurrentValue(): void {
-    const selectedIndex =
-      this.filteredOptions.findIndex(
-        (option) =>
-          option.value === this._value &&
-          !option.disabled
-      );
+    const selectedIndex = this.filteredOptions.findIndex(
+      (option) => option.value === this._value && !option.disabled,
+    );
 
     if (selectedIndex >= 0) {
       this.activeIndex = selectedIndex;
       return;
     }
 
-    this.activeIndex =
-      this.findFirstEnabledOptionIndex();
+    this.activeIndex = this.findFirstEnabledOptionIndex();
   }
 
   private findFirstEnabledOptionIndex(): number {
-    return this.filteredOptions.findIndex(
-      (option) => !option.disabled
-    );
+    return this.filteredOptions.findIndex((option) => !option.disabled);
   }
 
   private findLastEnabledOptionIndex(): number {
-    for (
-      let index = this.filteredOptions.length - 1;
-      index >= 0;
-      index--
-    ) {
+    for (let index = this.filteredOptions.length - 1; index >= 0; index--) {
       const option = this.filteredOptions[index];
 
       if (option && !option.disabled) {
@@ -588,13 +533,8 @@ export class CxpInputSelect implements ControlValueAccessor {
     return -1;
   }
 
-  private getSelectedOption():
-    CxpSelectOption | null {
-    return (
-      this.options.find(
-        (option) => option.value === this._value
-      ) ?? null
-    );
+  private getSelectedOption(): CxpSelectOption | null {
+    return this.options.find((option) => option.value === this._value) ?? null;
   }
 
   /* =======================================================
@@ -602,18 +542,14 @@ export class CxpInputSelect implements ControlValueAccessor {
      ======================================================= */
 
   private syncSearchTextWithValue(): void {
-    const selectedOption =
-      this.getSelectedOption();
+    const selectedOption = this.getSelectedOption();
 
     if (selectedOption) {
       this.searchText = selectedOption.label;
       return;
     }
 
-    if (
-      this.allowCustomValue &&
-      this._value !== null
-    ) {
+    if (this.allowCustomValue && this._value !== null) {
       this.searchText = String(this._value);
       return;
     }
@@ -634,21 +570,13 @@ export class CxpInputSelect implements ControlValueAccessor {
     }
 
     const matchingOption = this.options.find(
-      (option) =>
-        option.label.toLowerCase() ===
-        customValue.toLowerCase()
+      (option) => option.label.toLowerCase() === customValue.toLowerCase(),
     );
 
-    if (
-      matchingOption &&
-      !matchingOption.disabled
-    ) {
+    if (matchingOption && !matchingOption.disabled) {
       this.searchText = matchingOption.label;
 
-      this.setValue(
-        matchingOption.value,
-        matchingOption
-      );
+      this.setValue(matchingOption.value, matchingOption);
 
       return;
     }
@@ -664,10 +592,7 @@ export class CxpInputSelect implements ControlValueAccessor {
      Central value update
      ======================================================= */
 
-  private setValue(
-    value: CxpSelectValue,
-    option: CxpSelectOption | null = null
-  ): void {
+  private setValue(value: CxpSelectValue, option: CxpSelectOption | null = null): void {
     this._value = value;
 
     this.onChange(value);

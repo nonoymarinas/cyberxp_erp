@@ -27,6 +27,8 @@ interface EmployeeBasicInfo {
 
   imageUrl: string | null;
 }
+
+// interface
 interface PersonalInfoForm {
   firstName: FormControl<string>;
   middleName: FormControl<string>;
@@ -40,6 +42,7 @@ interface PersonalInfoForm {
 
   imageUrl: FormControl<string | null>;
 }
+
 @Component({
   selector: 'personal-info',
   standalone: true,
@@ -56,62 +59,71 @@ interface PersonalInfoForm {
   styleUrl: './personal-info.css',
 })
 export class PersonalInfo implements OnInit {
+   private referencesLoaded = false;
+
+  // reactive forms
   readonly personalInfoForm = new FormGroup<PersonalInfoForm>({
-    firstName: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required],
-    }),
+    firstName: new FormControl(
+      { value: '', disabled: false },
+      {
+        nonNullable: true,
+        validators: [Validators.required],
+      },
+    ),
 
-    middleName: new FormControl('', {
-      nonNullable: true,
-    }),
+    middleName: new FormControl(
+      { value: '', disabled: false },
+      {
+        nonNullable: true,
+      },
+    ),
 
-    lastName: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required],
-    }),
+    lastName: new FormControl(
+      { value: '', disabled: false },
+      {
+        nonNullable: true,
+        validators: [Validators.required],
+      },
+    ),
 
-    suffixId: new FormControl<string | null>(null),
+    suffixId: new FormControl<string | null>({ value: null, disabled: false }),
 
-    dateOfBirth: new FormControl('', {
-      nonNullable: true,
-    }),
+    dateOfBirth: new FormControl(
+      { value: '', disabled: false },
+      {
+        nonNullable: true,
+        validators: [Validators.required],
+      },
+    ),
 
-    genderId: new FormControl<string | null>(null, {
-      validators: [Validators.required],
-    }),
+    genderId: new FormControl<string | null>(
+      { value: null, disabled: false },
+      {
+        validators: [Validators.required],
+      },
+    ),
 
-    civilStatusId: new FormControl<string | null>(null, {
-      validators: [Validators.required],
-    }),
+    civilStatusId: new FormControl<string | null>(
+      { value: null, disabled: false },
+      {
+        validators: [Validators.required],
+      },
+    ),
 
-    imageUrl: new FormControl<string | null>(null),
+    imageUrl: new FormControl<string | null>({ value: null, disabled: false }),
   });
 
-  private enableDisableControls(isDataAvailable: boolean): void {
-    const controls = this.personalInfoForm.controls;
-
-    if (isDataAvailable) {
-      controls.suffixId.enable();
-      controls.genderId.enable();
-      controls.civilStatusId.enable();
-      return;
-    }
-
-    controls.suffixId.disable();
-    controls.genderId.disable();
-    controls.civilStatusId.disable();
-  }
-
+  // reference data
   suffixOptions: CxpSelectOption[] = [];
   genderOptions: CxpSelectOption[] = [];
   civilStatusOptions: CxpSelectOption[] = [];
 
+  // status
   isLoading = false;
   errorMessage = '';
-
   isEditing = true;
 
+  // employee data
   employee: EmployeeBasicInfo = {
     id: '',
     firstName: '',
@@ -124,17 +136,24 @@ export class PersonalInfo implements OnInit {
     imageUrl: null,
   };
 
-  editEmployee: EmployeeBasicInfo = {
-    ...this.employee,
-  };
+  
 
+  // inject data from service
   constructor(private readonly personalInfoService: PersonalInfoService) {}
 
-  ngOnInit(): void {
+  // start init
+   ngOnInit(): void {
+    this.personalInfoForm.disable();
     this.loadReferences();
-    this.enableDisableControls(false);
   }
 
+  ngAfterViewInit(): void {
+    queueMicrotask(() => {
+      this.updateFormState();
+    });
+  }
+
+  // reference data
   loadReferences(): void {
     this.isLoading = true;
     this.errorMessage = '';
@@ -144,25 +163,35 @@ export class PersonalInfo implements OnInit {
         this.suffixOptions = options.suffixOptions;
         this.genderOptions = options.genderOptions;
         this.civilStatusOptions = options.civilStatusOptions;
-        this.isLoading = false;
 
-        // Enable or disable the controls based on the availability of reference data
-        const isDataAvailable =
+        this.referencesLoaded =
           this.suffixOptions.length > 0 &&
           this.genderOptions.length > 0 &&
           this.civilStatusOptions.length > 0;
 
-        this.enableDisableControls(isDataAvailable);
         this.isLoading = false;
+
+        queueMicrotask(() => {
+          this.updateFormState();
+        });
       },
 
-      error: (error: unknown) => {
-        console.error('Failed to load personal information references:', error);
-
-        this.errorMessage = 'Unable to load reference data.';
+      error: () => {
+        this.referencesLoaded = false;
         this.isLoading = false;
+        this.errorMessage = 'Unable to load reference data.';
+        this.personalInfoForm.disable();
       },
     });
+  }
+
+  private updateFormState(): void {
+    if (this.referencesLoaded && this.isEditing) {
+      this.personalInfoForm.enable();
+      return;
+    }
+
+    this.personalInfoForm.disable();
   }
 
   onEditSave(): void {
@@ -175,30 +204,50 @@ export class PersonalInfo implements OnInit {
   }
 
   startEdit(): void {
-    this.editEmployee = {
-      ...this.employee,
-    };
+    this.loadEmployeeIntoForm();
 
+    this.personalInfoForm.enable();
     this.isEditing = true;
   }
 
   cancelEdit(): void {
-    this.editEmployee = {
-      ...this.employee,
-    };
+    this.loadEmployeeIntoForm();
 
+    this.personalInfoForm.disable();
     this.isEditing = false;
   }
 
   savePersonalInfo(): void {
+    this.personalInfoForm.markAllAsTouched();
+
+    if (this.personalInfoForm.invalid) {
+      return;
+    }
+
+    const formValue = this.personalInfoForm.getRawValue();
+
     this.employee = {
-      ...this.editEmployee,
+      ...this.employee,
+      ...formValue,
     };
 
+    this.personalInfoForm.disable();
     this.isEditing = false;
 
-    // console.log('Saved employee basic information:', this.employee);
-    console.log(this.personalInfoForm.value);
+    console.log('Saved employee:', this.employee);
+  }
+
+  private loadEmployeeIntoForm(): void {
+    this.personalInfoForm.patchValue({
+      firstName: this.employee.firstName,
+      middleName: this.employee.middleName,
+      lastName: this.employee.lastName,
+      suffixId: this.employee.suffixId,
+      dateOfBirth: this.employee.dateOfBirth,
+      genderId: this.employee.genderId,
+      civilStatusId: this.employee.civilStatusId,
+      imageUrl: this.employee.imageUrl,
+    });
   }
 
   getReferenceLabel(options: CxpSelectOption[], selectedValue: CxpSelectPrimitive | null): string {

@@ -1,4 +1,5 @@
 import {
+  booleanAttribute,
   Component,
   EventEmitter,
   forwardRef,
@@ -6,15 +7,9 @@ import {
   Output,
 } from '@angular/core';
 
-import {
-  ControlValueAccessor,
-  NG_VALUE_ACCESSOR,
-} from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import type {
-  CxpInputSize,
-  CxpInputType,
-} from '../../../../lib/exports/cxp-export.types';
+import type { CxpInputSize, CxpInputType } from '../../../../lib/exports/cxp-export.types';
 
 @Component({
   selector: 'cxp-input-text',
@@ -31,7 +26,19 @@ import type {
 })
 export class CxpInputText implements ControlValueAccessor {
   private internalValue = '';
+
+  /*
+   * Disabled state coming from Angular Forms:
+   * control.disable() / control.enable()
+   */
   private formDisabled = false;
+
+  /*
+   * Disabled state supplied directly to the component:
+   * <cxp-input-text [disabled]="true">
+   */
+  @Input({ transform: booleanAttribute })
+  disabled = false;
 
   private onChange: (value: string) => void = () => {};
   private onTouched: () => void = () => {};
@@ -55,13 +62,14 @@ export class CxpInputText implements ControlValueAccessor {
 
   @Input() autocomplete = 'off';
 
-  @Input() disabled = false;
+  @Input({ transform: booleanAttribute })
+  readonly = false;
 
-  @Input() readonly = false;
+  @Input({ transform: booleanAttribute })
+  required = false;
 
-  @Input() required = false;
-
-  @Input() invalid = false;
+  @Input({ transform: booleanAttribute })
+  invalid = false;
 
   @Output() valueChange = new EventEmitter<string>();
 
@@ -85,8 +93,10 @@ export class CxpInputText implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  setDisabledState(disabled: boolean): void {
-    this.formDisabled = disabled;
+  setDisabledState(isDisabled: boolean): void {
+    console.log('TEXT form disabled:', isDisabled);
+
+    this.formDisabled = isDisabled;
   }
 
   onInput(event: Event): void {
@@ -94,10 +104,7 @@ export class CxpInputText implements ControlValueAccessor {
 
     this.internalValue = input.value;
 
-    // Update Angular Reactive Forms.
     this.onChange(this.internalValue);
-
-    // Support [(value)] outside Reactive Forms.
     this.valueChange.emit(this.internalValue);
   }
 
@@ -106,9 +113,7 @@ export class CxpInputText implements ControlValueAccessor {
   }
 
   onBlur(): void {
-    // Marks the Angular FormControl as touched.
     this.onTouched();
-
     this.blurred.emit();
   }
 }

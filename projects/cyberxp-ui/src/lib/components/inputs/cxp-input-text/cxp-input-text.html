@@ -8,17 +8,9 @@
   [class.input--readonly]="readonly"
   [class.input--invalid]="invalid"
 >
-  <!-- ========================================
-       Prefix
-       ======================================== -->
-
   <span class="input__prefix">
     <ng-content select="[prefix]"></ng-content>
   </span>
-
-  <!-- ========================================
-       Native input
-       ======================================== -->
 
   <input
     class="input__field"
@@ -35,10 +27,6 @@
     (focus)="onFocus()"
     (blur)="onBlur()"
   />
-
-  <!-- ========================================
-       Suffix
-       ======================================== -->
 
   <span class="input__suffix">
     <ng-content select="[suffix]"></ng-content>
