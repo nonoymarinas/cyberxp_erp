@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   CxpButton,
@@ -10,38 +10,12 @@ import {
 } from 'cyberxp-ui';
 
 import type { CxpSelectOption, CxpSelectPrimitive } from 'cyberxp-ui';
-
 import { PersonalInfoService } from '../../../business/services/personal-info.service';
-
-interface EmployeeBasicInfo {
-  id: string;
-  firstName: string;
-  middleName: string;
-  lastName: string;
-
-  suffixId: string | number | null;
-  dateOfBirth: string;
-
-  genderId: string | number | null;
-  civilStatusId: string | number | null;
-
-  imageUrl: string | null;
-}
-
-// interface
-interface PersonalInfoForm {
-  firstName: FormControl<string>;
-  middleName: FormControl<string>;
-  lastName: FormControl<string>;
-
-  suffixId: FormControl<string | number | null>;
-  dateOfBirth: FormControl<string>;
-
-  genderId: FormControl<string | number | null>;
-  civilStatusId: FormControl<string | number | null>;
-
-  imageUrl: FormControl<string | null>;
-}
+import {
+  PersonalInformation,
+  PersonalInfoForm,
+  SavePersonalInfoRequest,
+} from '../../../models/domain/personal-info.model';
 
 @Component({
   selector: 'personal-info',
@@ -59,7 +33,7 @@ interface PersonalInfoForm {
   styleUrl: './personal-info.css',
 })
 export class PersonalInfo implements OnInit {
-   private referencesLoaded = false;
+  private referencesLoaded = false;
 
   // reactive forms
   readonly personalInfoForm = new FormGroup<PersonalInfoForm>({
@@ -120,12 +94,20 @@ export class PersonalInfo implements OnInit {
 
   // status
   isLoading = false;
-  errorMessage = '';
   isEditing = true;
 
+  // saving state
+  employeeId: string | null = null;
+  employeeGuid: string | null = null;
+
+  isSaving = false;
+  successMessage = '';
+  errorMessage = '';
+
   // employee data
-  employee: EmployeeBasicInfo = {
-    id: '',
+  employee: PersonalInformation = {
+    employeeId: '',
+    employeeGuid: null,
     firstName: '',
     middleName: '',
     lastName: '',
@@ -136,13 +118,11 @@ export class PersonalInfo implements OnInit {
     imageUrl: null,
   };
 
-  
-
   // inject data from service
   constructor(private readonly personalInfoService: PersonalInfoService) {}
 
   // start init
-   ngOnInit(): void {
+  ngOnInit(): void {
     this.personalInfoForm.disable();
     this.loadReferences();
   }
@@ -217,30 +197,89 @@ export class PersonalInfo implements OnInit {
     this.isEditing = false;
   }
 
+  // save personal info
   savePersonalInfo(): void {
+    // 1. Validate the form before saving
     this.personalInfoForm.markAllAsTouched();
-
     if (this.personalInfoForm.invalid) {
+      alert('Please fill in all required fields before saving.');
       return;
     }
-
+    // 2. Validate the form before saving
     const formValue = this.personalInfoForm.getRawValue();
+    console.log('FORM VALUE:', formValue);
+    console.log('genderId:', formValue.genderId);
+    console.log('suffixId:', formValue.suffixId);
+    console.log('civilStatusId:', formValue.civilStatusId);
+    // 3. Load to the request model
+    const request: SavePersonalInfoRequest = {
+      employeeId: this.employeeId,
+      employeeGuid: this.employeeGuid,
 
-    this.employee = {
-      ...this.employee,
-      ...formValue,
+      firstName: formValue.firstName,
+      middleName: formValue.middleName,
+      lastName: formValue.lastName,
+
+      suffixId: formValue.suffixId ?? '',
+      dateOfBirth: formValue.dateOfBirth,
+      genderId: formValue.genderId ?? '',
+      civilStatusId: formValue.civilStatusId ?? '',
+      imageUrl: formValue.imageUrl,
     };
+
+    // 4. Call Service
+    this.personalInfoService.savePersonalInfo(request).subscribe({
+      next: (response) => {
+        this.isSaving = false;
+
+        if (!response.success) {
+          this.errorMessage = response.message ?? 'Unable to save personal information.';
+          return;
+        }
+        // update employee for value of display mode later
+        this.employee = response.data;
+        
+        // Store returned identifiers
+        this.employeeId = response.data.employeeId;
+        this.employeeGuid = response.data.employeeGuid;
+
+        // 2. Update the form with the saved data
+        this.personalInfoForm.patchValue({
+          firstName: response.data.firstName,
+          middleName: response.data.middleName ?? '',
+          lastName: response.data.lastName,
+          suffixId: response.data.suffixId,
+          dateOfBirth: response.data.dateOfBirth,
+          genderId: response.data.genderId,
+          civilStatusId: response.data.civilStatusId,
+          imageUrl: response.data.imageUrl,
+        });
+
+        // 3. The form now matches the database
+        this.personalInfoForm.markAsPristine();
+
+        // Exit edit mode (optional)
+        this.isEditing = false;
+
+        // Success message
+        this.successMessage = response.message ?? 'Personal information saved successfully.';
+      },
+
+      error: (error) => {
+        this.isSaving = false;
+        this.errorMessage = 'An unexpected error occurred while saving.';
+        console.error(error);
+      },
+    });
 
     this.personalInfoForm.disable();
     this.isEditing = false;
-
-    console.log('Saved employee:', formValue);
   }
 
   private loadEmployeeIntoForm(): void {
     this.personalInfoForm.patchValue({
       firstName: this.employee.firstName,
-      middleName: this.employee.middleName,
+      middleName: this.employee.middleName ?? '',
       lastName: this.employee.lastName,
       suffixId: this.employee.suffixId,
       dateOfBirth: this.employee.dateOfBirth,

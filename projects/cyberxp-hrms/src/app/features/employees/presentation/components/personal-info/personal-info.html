@@ -24,6 +24,7 @@
           </cxp-button>
         </div>
       </header>
+
       <!-- ========================================
          Edit mode
          ======================================== -->
@@ -41,7 +42,9 @@
               >ID No.<span class="employee-id-value">0000000000</span></label
             >
           </div>
+
           <div class="cxp-item-group-box">
+            <!-- First Name -->
             <div class="cxp-input__wrap">
               <label class="cxp-label cxp-label-bg cxp-label-sm" for="firstName">
                 First Name
@@ -60,6 +63,7 @@
               ></cxp-input-text>
             </div>
 
+            <!-- Middle Name -->
             <div class="cxp-input__wrap">
               <label class="cxp-label cxp-label-bg cxp-label-sm" for="middleName">
                 Middle Name
@@ -74,8 +78,11 @@
               ></cxp-input-text>
             </div>
 
+            <!-- Last Name -->
             <div class="cxp-input__wrap">
-              <label class="cxp-label cxp-label-bg cxp-label-sm" for="lastName"> Last Name </label>
+              <label class="cxp-label cxp-label-bg cxp-label-sm" for="lastName">
+                Last Name
+              </label>
 
               <cxp-input-text
                 formControlName="lastName"
@@ -84,14 +91,17 @@
                 placeholder="Last Name"
                 autocomplete="new-password"
                 [invalid]="
-                  personalInfoForm.controls.firstName.invalid &&
-                  personalInfoForm.controls.firstName.touched
+                  personalInfoForm.controls.lastName.invalid &&
+                  personalInfoForm.controls.lastName.touched
                 "
               ></cxp-input-text>
             </div>
 
+            <!-- Suffix -->
             <div class="cxp-input__wrap">
-              <label class="cxp-label cxp-label-bg cxp-label-sm" for="suffix"> Suffix </label>
+              <label class="cxp-label cxp-label-bg cxp-label-sm" for="suffix">
+                Suffix
+              </label>
 
               <cxp-input-select
                 formControlName="suffixId"
@@ -102,6 +112,7 @@
               ></cxp-input-select>
             </div>
 
+            <!-- Date of Birth -->
             <div class="cxp-input__wrap">
               <label class="cxp-label cxp-label-bg cxp-label-sm" for="dateOfBirth">
                 Date of Birth
@@ -112,11 +123,18 @@
                 id="dateOfBirth"
                 size="sm"
                 type="date"
+                [invalid]="
+                  personalInfoForm.controls.dateOfBirth.invalid &&
+                  personalInfoForm.controls.dateOfBirth.touched
+                "
               ></cxp-input-text>
             </div>
 
+            <!-- Gender -->
             <div class="cxp-input__wrap">
-              <label class="cxp-label cxp-label-bg cxp-label-sm" for="gender"> Gender </label>
+              <label class="cxp-label cxp-label-bg cxp-label-sm" for="gender">
+                Gender
+              </label>
 
               <cxp-input-select
                 formControlName="genderId"
@@ -124,9 +142,14 @@
                 size="sm"
                 placeholder="Select"
                 [options]="genderOptions"
+                [invalid]="
+                  personalInfoForm.controls.genderId.invalid &&
+                  personalInfoForm.controls.genderId.touched
+                "
               ></cxp-input-select>
             </div>
 
+            <!-- Civil Status -->
             <div class="cxp-input__wrap">
               <label class="cxp-label cxp-label-bg cxp-label-sm" for="civilStatus">
                 Civil Status
@@ -138,86 +161,125 @@
                 size="sm"
                 placeholder="Select"
                 [options]="civilStatusOptions"
+                [invalid]="
+                  personalInfoForm.controls.civilStatusId.invalid &&
+                  personalInfoForm.controls.civilStatusId.touched
+                "
               ></cxp-input-select>
             </div>
           </div>
         </div>
       } @else {
-        <!-- ========================================
-           View mode
-           ======================================== -->
+      <!-- ========================================
+     View mode
+     ======================================== -->
+<div class="personal-info__body">
+  <div class="personal-info__box">
+    <div class="personal-info__image">
+      <cxp-icon-user-circle
+        class="personal-info__user-icon"
+        size="6xl"
+        fill="filled"
+      ></cxp-icon-user-circle>
+    </div>
 
-        <div class="personal-info__body">
-          <div class="personal-info__box">
-            <div class="personal-info__image">
-              <cxp-icon-user-circle
-                class="personal-info__user-icon"
-                size="6xl"
-                fill="filled"
-              ></cxp-icon-user-circle>
-            </div>
-            <label class="cxp-label cxp-label-bg cxp-label-md"
-              >ID No.<span class="employee-id-value">0000000000</span></label
-            >
-          </div>
+    <label class="cxp-label cxp-label-bg cxp-label-md">
+      ID No.
+      <span class="employee-id-value">
+        {{ employee?.employeeId ?? '—' }}
+      </span>
+    </label>
+  </div>
 
-          <div class="cxp-item-group-box">
-            <div class="cxp-input__wrap">
-              <label class="cxp-label cxp-label-bg cxp-label-sm"> First Name </label>
-              <cxp-display-field size="sm">
-                {{ employee?.firstName ?? '—' }}
-              </cxp-display-field>
-            </div>
+  <div class="cxp-item-group-box">
 
-            <div class="cxp-input__wrap">
-              <label class="cxp-label cxp-label-bg cxp-label-sm"> Middle Name </label>
+    <div class="cxp-input__wrap">
+      <label class="cxp-label cxp-label-bg cxp-label-sm">
+        First Name
+      </label>
 
-              <cxp-display-field size="sm">
-                {{ employee.middleName || '—' }}
-              </cxp-display-field>
-            </div>
+      <cxp-display-field size="sm">
+        {{ employee?.firstName || '—' }}
+      </cxp-display-field>
+    </div>
 
-            <div class="cxp-input__wrap">
-              <label class="cxp-label cxp-label-bg cxp-label-sm"> Last Name </label>
+    <div class="cxp-input__wrap">
+      <label class="cxp-label cxp-label-bg cxp-label-sm">
+        Middle Name
+      </label>
 
-              <cxp-display-field size="sm">
-                {{ employee.lastName || '—' }}
-              </cxp-display-field>
-            </div>
+      <cxp-display-field size="sm">
+        {{ employee?.middleName || '—' }}
+      </cxp-display-field>
+    </div>
 
-            <div class="cxp-input__wrap">
-              <label class="cxp-label cxp-label-bg cxp-label-sm"> Suffix </label>
+    <div class="cxp-input__wrap">
+      <label class="cxp-label cxp-label-bg cxp-label-sm">
+        Last Name
+      </label>
 
-              <cxp-display-field size="sm">
-                {{ getReferenceLabel(suffixOptions, employee.suffixId) }}
-              </cxp-display-field>
-            </div>
+      <cxp-display-field size="sm">
+        {{ employee?.lastName || '—' }}
+      </cxp-display-field>
+    </div>
 
-            <div class="cxp-input__wrap">
-              <label class="cxp-label cxp-label-bg cxp-label-sm"> Date of Birth </label>
+    <div class="cxp-input__wrap">
+      <label class="cxp-label cxp-label-bg cxp-label-sm">
+        Suffix
+      </label>
 
-              <cxp-display-field size="sm">
-                {{ employee.dateOfBirth || '—' }}
-              </cxp-display-field>
-            </div>
+      <cxp-display-field size="sm">
+        {{
+          getReferenceLabel(
+            suffixOptions,
+            employee?.suffixId ?? null
+          ) || '—'
+        }}
+      </cxp-display-field>
+    </div>
 
-            <div class="cxp-input__wrap">
-              <label class="cxp-label cxp-label-bg cxp-label-sm"> Gender </label>
+    <div class="cxp-input__wrap">
+      <label class="cxp-label cxp-label-bg cxp-label-sm">
+        Date of Birth
+      </label>
 
-              <cxp-display-field size="sm">
-                {{ getReferenceLabel(genderOptions, employee.genderId) }}
-              </cxp-display-field>
-            </div>
+      <cxp-display-field size="sm">
+        {{ employee?.dateOfBirth || '—' }}
+      </cxp-display-field>
+    </div>
 
-            <div class="cxp-input__wrap">
-              <label class="cxp-label cxp-label-bg cxp-label-sm"> Civil Status </label>
+    <div class="cxp-input__wrap">
+      <label class="cxp-label cxp-label-bg cxp-label-sm">
+        Gender
+      </label>
 
-              <cxp-display-field size="sm">
-                {{ getReferenceLabel(civilStatusOptions, employee.civilStatusId) }}
-              </cxp-display-field>
-            </div>
-          </div>
-        </div>
+      <cxp-display-field size="sm">
+        {{
+          getReferenceLabel(
+            genderOptions,
+            employee?.genderId ?? null
+          ) || '—'
+        }}
+      </cxp-display-field>
+    </div>
+
+    <div class="cxp-input__wrap">
+      <label class="cxp-label cxp-label-bg cxp-label-sm">
+        Civil Status
+      </label>
+
+      <cxp-display-field size="sm">
+        {{
+          getReferenceLabel(
+            civilStatusOptions,
+            employee?.civilStatusId ?? null
+          ) || '—'
+        }}
+      </cxp-display-field>
+    </div>
+
+  </div>
+</div>
       }
     </div>
   </form>

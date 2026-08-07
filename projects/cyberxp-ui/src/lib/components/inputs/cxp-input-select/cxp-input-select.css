@@ -116,7 +116,7 @@
 
     background: var(--color-background-primary);
 
-    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .15);
 }
 
 /* ========================================
@@ -182,7 +182,9 @@
 }
 
 .select--invalid .select__control {
-    border-color: var(--color-border-invalid);
+    color: var(--color-input-error-text);
+    border-color: var(--color-input-error-border);
+    background-color: var(--color-input-error-background);
 }
 
 .select--disabled {

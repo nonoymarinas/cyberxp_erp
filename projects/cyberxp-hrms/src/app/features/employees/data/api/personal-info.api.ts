@@ -1,6 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
+import {
+  SavePersonalInfoRequest,
+  SavePersonalInfoResponse,
+
+} from '../../models/domain/personal-info.model';
 
 export interface EmployeeReferenceDto {
   PublicId: string;
@@ -38,5 +43,9 @@ export class EmployeeReferenceApi {
 
   getReferences(): Observable<EmployeeReferenceResponseDto> {
     return this.http.get<EmployeeReferenceResponseDto>(this.endpoint);
+  }
+
+  savePersonalInfo(request: SavePersonalInfoRequest): Observable<SavePersonalInfoResponse> {
+    return this.http.post<SavePersonalInfoResponse>(this.endpoint, request);
   }
 }
