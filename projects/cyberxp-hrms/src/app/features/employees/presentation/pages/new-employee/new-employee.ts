@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
+
 import {
   CxpIconChevronApp,
   CxpMenuPageItem,
 } from 'cyberxp-ui';
-
+import { EmployeeState } from '../../../state/employee-state.service';
 @Component({
   selector: 'cxp-new-employee',
   templateUrl: './new-employee.html',
@@ -15,5 +16,9 @@ import {
     RouterOutlet,
     CxpIconChevronApp,
   ],
+  providers:[EmployeeState]
 })
-export class NewEmployeePage {}
+export class NewEmployeePage {
+   employeeGuid: string | null = null;
+  employeeId: string | null = null;
+}

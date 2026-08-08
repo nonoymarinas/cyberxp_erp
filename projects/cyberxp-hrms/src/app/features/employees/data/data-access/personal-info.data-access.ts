@@ -6,8 +6,9 @@ import { map, Observable, of, delay } from 'rxjs';
 import { ReferenceItem } from '../../../../shared/models/reference-item.model';
 import { PersonalInfoReference } from '../../models/references/personal-info-reference.model';
 import { EmployeeReferenceApi, EmployeeReferenceDto } from '../api/personal-info.api';
-import { savePersonalInfoMock } from '../mocks/personal-info.mock';
+import { savePersonalInfoMock, getPersonalInfoMock } from '../mocks/personal-info.mock';
 import {
+  PersonalInformation,
   SavePersonalInfoRequest,
   SavePersonalInfoResponse,
 } from '../../models/domain/personal-info.model';
@@ -36,6 +37,10 @@ export class PersonalInfoDataAccess {
     return of(response).pipe(delay(1000));
   }
 
+  getPersonalInfo(employeeGuid: string): Observable<PersonalInformation | null> {
+    return of(getPersonalInfoMock(employeeGuid));
+  }
+  
   private mapReferenceItems(items: EmployeeReferenceDto[]): ReferenceItem<string>[] {
     return items.map((item) => ({
       value: item.PublicId,

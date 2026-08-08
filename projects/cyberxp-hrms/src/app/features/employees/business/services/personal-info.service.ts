@@ -9,6 +9,7 @@ import {
   SavePersonalInfoRequest,
   SavePersonalInfoResponse,
   PersonalInformation,
+  PersonalInfo,
 } from '../../models/domain/personal-info.model';
 import { ReferenceItem } from '../../../../shared/models/reference-item.model';
 
@@ -78,8 +79,16 @@ export class PersonalInfoService {
     );
   }
 
-  getPersonalInfo(): PersonalInformation | null {
-    return this.personalInfoCache;
+  getPersonalInfo(employeeGuid: string): Observable<PersonalInformation | null> {
+    if (this.personalInfoCache && this.personalInfoCache.employeeGuid === employeeGuid) {
+      return of(this.personalInfoCache);
+    }
+
+    return this.dataAccess.getPersonalInfo(employeeGuid).pipe(
+      tap((employee: PersonalInformation | null) => {
+        this.personalInfoCache = employee;
+      }),
+    );
   }
 
   clearEmployeeCache(): void {

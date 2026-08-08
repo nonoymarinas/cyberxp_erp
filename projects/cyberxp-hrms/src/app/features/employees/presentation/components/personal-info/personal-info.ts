@@ -8,7 +8,7 @@ import {
   CxpInputSelect,
   CxpInputText,
 } from 'cyberxp-ui';
-
+import { EmployeeState } from '../../../state/employee-state.service';
 import type { CxpSelectOption, CxpSelectPrimitive } from 'cyberxp-ui';
 import { PersonalInfoService } from '../../../business/services/personal-info.service';
 import {
@@ -96,9 +96,8 @@ export class PersonalInfo implements OnInit {
   isLoading = false;
   isEditing = true;
 
-  // saving state
-  employeeId: string | null = null;
-  employeeGuid: string | null = null;
+  // State
+  private originalEmployee: PersonalInformation | null = null;
 
   isSaving = false;
   successMessage = '';
@@ -119,10 +118,16 @@ export class PersonalInfo implements OnInit {
   };
 
   // inject data from service
-  constructor(private readonly personalInfoService: PersonalInfoService) {}
+  constructor(
+    private readonly personalInfoService: PersonalInfoService,
+    public readonly employeeState: EmployeeState,
+  ) {}
 
   // start init
   ngOnInit(): void {
+     if (this.employeeState.employeeGuid) {
+      this.loadPersonalInfo(this.employeeState.employeeGuid);
+    }
     this.personalInfoForm.disable();
     this.loadReferences();
   }
@@ -179,23 +184,37 @@ export class PersonalInfo implements OnInit {
       this.savePersonalInfo();
       return;
     }
-
     this.startEdit();
   }
 
   startEdit(): void {
-    this.loadEmployeeIntoForm();
-
+    // this.loadEmployeeIntoForm();
     this.personalInfoForm.enable();
     this.isEditing = true;
   }
 
   cancelEdit(): void {
-    this.loadEmployeeIntoForm();
-
-    this.personalInfoForm.disable();
-    this.isEditing = false;
+  if (!this.originalEmployee) {
+    return;
   }
+
+  this.personalInfoForm.reset({
+    firstName: this.originalEmployee.firstName,
+    middleName: this.originalEmployee.middleName ?? '',
+    lastName: this.originalEmployee.lastName,
+
+    suffixId: this.originalEmployee.suffixId,
+    dateOfBirth: this.originalEmployee.dateOfBirth ?? '',
+    genderId: this.originalEmployee.genderId,
+    civilStatusId: this.originalEmployee.civilStatusId,
+    imageUrl: this.originalEmployee.imageUrl,
+  });
+
+  this.personalInfoForm.markAsPristine();
+  this.personalInfoForm.markAsUntouched();
+
+  this.isEditing = false;
+}
 
   // save personal info
   savePersonalInfo(): void {
@@ -205,16 +224,13 @@ export class PersonalInfo implements OnInit {
       alert('Please fill in all required fields before saving.');
       return;
     }
-    // 2. Validate the form before saving
+    // 2. Get form data value
     const formValue = this.personalInfoForm.getRawValue();
-    console.log('FORM VALUE:', formValue);
-    console.log('genderId:', formValue.genderId);
-    console.log('suffixId:', formValue.suffixId);
-    console.log('civilStatusId:', formValue.civilStatusId);
+
     // 3. Load to the request model
     const request: SavePersonalInfoRequest = {
-      employeeId: this.employeeId,
-      employeeGuid: this.employeeGuid,
+      employeeId: this.employeeState.employeeId,
+      employeeGuid: this.employeeState.employeeId,
 
       firstName: formValue.firstName,
       middleName: formValue.middleName,
@@ -230,6 +246,7 @@ export class PersonalInfo implements OnInit {
     // 4. Call Service
     this.personalInfoService.savePersonalInfo(request).subscribe({
       next: (response) => {
+        console.log(response);
         this.isSaving = false;
 
         if (!response.success) {
@@ -238,10 +255,10 @@ export class PersonalInfo implements OnInit {
         }
         // update employee for value of display mode later
         this.employee = response.data;
-        
+
         // Store returned identifiers
-        this.employeeId = response.data.employeeId;
-        this.employeeGuid = response.data.employeeGuid;
+        this.employeeState.employeeId = response.data.employeeId;
+        this.employeeState.employeeGuid = response.data.employeeGuid;
 
         // 2. Update the form with the saved data
         this.personalInfoForm.patchValue({
@@ -276,18 +293,46 @@ export class PersonalInfo implements OnInit {
     this.isEditing = false;
   }
 
-  private loadEmployeeIntoForm(): void {
-    this.personalInfoForm.patchValue({
-      firstName: this.employee.firstName,
-      middleName: this.employee.middleName ?? '',
-      lastName: this.employee.lastName,
-      suffixId: this.employee.suffixId,
-      dateOfBirth: this.employee.dateOfBirth,
-      genderId: this.employee.genderId,
-      civilStatusId: this.employee.civilStatusId,
-      imageUrl: this.employee.imageUrl,
-    });
-  }
+ private loadPersonalInfo(employeeGuid: string): void {
+  this.personalInfoService.getPersonalInfo(employeeGuid).subscribe({
+    next: (employee) => {
+      if (!employee) {
+        return;
+      }
+
+      this.personalInfoForm.patchValue({
+        firstName: employee.firstName,
+        middleName: employee.middleName ?? '',
+        lastName: employee.lastName,
+        suffixId: employee.suffixId,
+        dateOfBirth: employee.dateOfBirth,
+        genderId: employee.genderId,
+        civilStatusId: employee.civilStatusId,
+        imageUrl: employee.imageUrl,
+      });
+
+      this.originalEmployee = employee;
+
+      this.personalInfoForm.markAsPristine();
+      this.personalInfoForm.markAsUntouched();
+
+      this.isEditing = false;
+    },
+  });
+}
+
+  // private loadEmployeeIntoForm(): void {
+  //   this.personalInfoForm.patchValue({
+  //     firstName: this.employee.firstName,
+  //     middleName: this.employee.middleName ?? '',
+  //     lastName: this.employee.lastName,
+  //     suffixId: this.employee.suffixId,
+  //     dateOfBirth: this.employee.dateOfBirth,
+  //     genderId: this.employee.genderId,
+  //     civilStatusId: this.employee.civilStatusId,
+  //     imageUrl: this.employee.imageUrl,
+  //   });
+  // }
 
   getReferenceLabel(options: CxpSelectOption[], selectedValue: CxpSelectPrimitive | null): string {
     if (selectedValue === null) {

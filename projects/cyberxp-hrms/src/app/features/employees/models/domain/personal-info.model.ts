@@ -2,7 +2,7 @@ import { CreatePersonalInfo } from './create-personal-info.model';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApiResponse } from '../../../../shared/models/api-response.model';
 
-export interface PersonalInf extends CreatePersonalInfo {
+export interface PersonalInfo extends CreatePersonalInfo {
   id: string | null;
   employeeNumber: string | null;
 }
