@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import {
   CxpLayoutMain,
@@ -8,10 +8,11 @@ import {
   CxpIconSettingsNav,
   CxpIconUserNav,
   CxpMenuSidebarItem,
-  CxpIconChartNav
+  CxpIconChartNav,
 } from 'cyberxp-ui';
-import { HeaderAppsIcon } from "./components/header-apps-icon/header-apps-icon";
-import { HeaderUserIcon } from "./components/header-user-icon/header-user-icon";
+import { HeaderAppsIcon } from './components/header-apps-icon/header-apps-icon';
+import { HeaderUserIcon } from './components/header-user-icon/header-user-icon';
+import { UserAccessService } from '../../core/authorization/services/user-access.services';
 
 @Component({
   selector: 'main-layout',
@@ -27,11 +28,13 @@ import { HeaderUserIcon } from "./components/header-user-icon/header-user-icon";
     HeaderAppsIcon,
     HeaderUserIcon,
     CxpIconChartNav,
-],
+  ],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.css',
 })
 export class MainLayout {
   sidebarOpen = false;
   sidebarWidth = 260;
+
+  public readonly userAccessService = inject(UserAccessService);
 }

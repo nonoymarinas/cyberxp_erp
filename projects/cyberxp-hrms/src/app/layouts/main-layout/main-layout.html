@@ -33,16 +33,19 @@
         <cxp-icon-home-nav start size="xs" fill="outline"></cxp-icon-home-nav>
         <span label>Home</span>
       </cxp-menu-sidebar-item>
-      <cxp-menu-sidebar-item route="/app/new-employee/personal-info">
-        <cxp-icon-user-nav start size="xs" fill="outline"></cxp-icon-user-nav>
-        <span label>New Employee</span>
-      </cxp-menu-sidebar-item>
+
+      @if (userAccessService.hasPermission('hrms.employee.create')) {
+        <cxp-menu-sidebar-item route="/app/new-employee/personal-info">
+          <cxp-icon-user-nav start size="xs" fill="outline"></cxp-icon-user-nav>
+          <span label>New Employee</span>
+        </cxp-menu-sidebar-item>
+      }
+      
       <cxp-menu-sidebar-item route="/app/employee-list">
         <cxp-icon-user-nav start size="xs" fill="outline"></cxp-icon-user-nav>
         <span label>Employee List</span>
       </cxp-menu-sidebar-item>
     </nav>
-  
 
     <!-- Bottom Section -->
     <div class="sidebar__footer">

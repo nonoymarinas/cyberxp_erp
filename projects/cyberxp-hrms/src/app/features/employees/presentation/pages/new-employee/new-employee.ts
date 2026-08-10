@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component,inject } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-
+import { UserAccessService } from '../../../../../core/authorization/services/user-access.services';
 import {
   CxpIconChevronApp,
   CxpMenuPageItem,
@@ -19,6 +19,7 @@ import { EmployeeState } from '../../../state/employee-state.service';
   providers:[EmployeeState]
 })
 export class NewEmployeePage {
+  public readonly userAccessService = inject(UserAccessService);
    employeeGuid: string | null = null;
   employeeId: string | null = null;
 }

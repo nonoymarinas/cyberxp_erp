@@ -16,6 +16,7 @@ export const NEW_EMPLOYEE_ROUTES: Routes = [
         path: 'personal-info',
         component: PersonalInfo,
       },
+      
       {
         path: 'address',
         component: Address,
