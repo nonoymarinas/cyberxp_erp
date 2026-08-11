@@ -1,145 +1,186 @@
 <section class="cxp-page">
-  <h2 class="cxp-section__header">List of Employee</h2>
+  <h2 class="cxp-section__header">
+    List of Employee
+  </h2>
 
-  <div class="cxp-section">
-
-    <!-- ========================================
-       Search
-       ======================================== -->
-    <div class="search-box">
-      <label class="cxp-label cxp-label-md cxp-label-bg">
-        Search Employee
-      </label>
-
-      <cxp-input-search
-        size="sm"
-        placeholder="Search keyword.."
-      ></cxp-input-search>
-    </div>
-
-    <!-- ========================================
-       Search Results
-       ======================================== -->
-    <div class="search-result__box">
-
-      <!-- Header -->
-      <div class="search-result__item-header cxp-section__header">
-        <span>NO</span>
-        <span>PROFILE</span>
-        <span>NAME</span>
-        <span>EMP ID</span>
-        <span>POSITION</span>
-        <span>DEPARTMENT</span>
-        <span>CONTACT</span>
-        <span>EMP TYPE</span>
-        <span>EMP STATUS</span>
-        <span>ACTION</span>
-      </div>
-
-      <!-- Items -->
-      <div class="search-result__item-group-box">
-
-        <!-- Loading -->
-        @if (isLoading) {
-          <div>
-            Loading employees...
-          </div>
-        }
-
-        <!-- Error -->
-        @if (errorMessage) {
-          <div>
-            {{ errorMessage }}
-          </div>
-        }
-
-        <!-- Employee List -->
-        @for (
-          employee of employees;
-          track employee.publicId;
-          let i = $index
-        ) {
-          <div class="search-result__item-box">
-
-            <!-- No -->
-            <span>
-              {{ i + 1 }}
-            </span>
-
-            <!-- Profile -->
-            @if (employee.employeeImg) {
-              <img
-                class="employee-image"
-                [src]="employee.employeeImg"
-                [alt]="employee.firstName + ' ' + employee.lastName"
-              />
-            } @else {
-              <cxp-icon-user-circle
-                class="employee-image"
-                size="sm"
-              ></cxp-icon-user-circle>
-            }
-
-            <!-- Name -->
-            <span>
-              {{ employee.lastName }},
-              {{ employee.firstName }}
-              {{ employee.middleName ?? '' }}
-            </span>
-
-            <!-- Employee ID -->
-            <span>
-              {{ employee.employeeNumber }}
-            </span>
-
-            <!-- Position -->
-            <span>
-              {{ employee.positionName }}
-            </span>
-
-            <!-- Department -->
-            <span>
-              {{ employee.departmentName }}
-            </span>
-
-            <!-- Contact -->
-            <span>
-              —
-            </span>
-
-            <!-- Employment Type -->
-            <span>
-              —
-            </span>
-
-            <!-- Employment Status -->
-            <span>
-              {{ employee.employmentStatusName }}
-            </span>
-
-            <!-- Action -->
-            <cxp-button
-              [routerLink]="[
-                '/app/new-employee/personal-info'
-              ]"
-              variant="secondary"
-              class="view-button"
-              size="xs"
-            >
-              open
-            </cxp-button>
-
-          </div>
-        }
-
-        <!-- Empty -->
-        @if (!isLoading && employees.length === 0) {
-          <div>
-            No employees found.
-          </div>
-        }
-
+  <!-- ========================================
+     No Permission
+     ======================================== -->
+  @if (!canReadEmployee) {
+    <div class="cxp-section">
+      <div class="search-result__message">
+        You do not have permission to view employees.
       </div>
     </div>
-  </div>
+  }
+
+  <!-- ========================================
+     Employee List
+     ======================================== -->
+  @if (canReadEmployee) {
+    <div class="cxp-section">
+
+      <!-- ========================================
+         Search
+         ======================================== -->
+      <div class="search-box">
+        <label class="cxp-label cxp-label-md cxp-label-bg">
+          Search Employee
+        </label>
+
+        <cxp-input-search
+          size="sm"
+          placeholder="Search keyword.."
+        ></cxp-input-search>
+      </div>
+
+      <!-- ========================================
+         Search Results
+         ======================================== -->
+      <div class="search-result__box">
+
+        <!-- Header -->
+        <div class="search-result__item-header cxp-section__header">
+          <span>NO</span>
+          <span>PROFILE</span>
+          <span>NAME</span>
+          <span>EMP ID</span>
+          <span>POSITION</span>
+          <span>DEPARTMENT</span>
+          <span>CONTACT</span>
+          <span>EMP TYPE</span>
+          <span>EMP STATUS</span>
+          <span class="header-text-action">ACTION</span>
+        </div>
+
+        <!-- ========================================
+           Items
+           ======================================== -->
+        <div class="search-result__item-group-box">
+
+          <!-- Loading -->
+          @if (isLoading) {
+            <div class="search-result__message">
+              Loading employees...
+            </div>
+          }
+
+          <!-- Error -->
+          @if (errorMessage) {
+            <div class="search-result__message">
+              {{ errorMessage }}
+            </div>
+          }
+
+          <!-- ========================================
+             Employee List
+             ======================================== -->
+          @for (
+            employee of employees;
+            track employee.publicId;
+            let i = $index
+          ) {
+            <div class="search-result__item-box">
+
+              <!-- No -->
+              <span>
+                {{ i + 1 }}
+              </span>
+
+              <!-- Profile -->
+              <div>
+                @if (employee.employeeImg) {
+                  <div class="image-box">
+                    <img
+                      class="employee-image"
+                      [src]="employee.employeeImg"
+                      [alt]="employee.firstName + ' ' + employee.lastName"
+                    />
+                  </div>
+                } @else {
+                  <cxp-icon-user-circle
+                    class="employee-image"
+                    size="sm"
+                  ></cxp-icon-user-circle>
+                }
+              </div>
+
+              <!-- Name -->
+              <span>
+                {{ employee.lastName }},
+                {{ employee.firstName }}
+
+                @if (employee.middleName) {
+                  {{ employee.middleName }}
+                }
+              </span>
+
+              <!-- Employee ID -->
+              <span>
+                {{ employee.employeeNumber || '—' }}
+              </span>
+
+              <!-- Position -->
+              <span>
+                {{ employee.positionName || '—' }}
+              </span>
+
+              <!-- Department -->
+              <span>
+                {{ employee.departmentName || '—' }}
+              </span>
+
+              <!-- Contact -->
+              <span>
+                —
+              </span>
+
+              <!-- Employment Type -->
+              <span>
+                —
+              </span>
+
+              <!-- Employment Status -->
+              <span>
+                {{ employee.employmentStatusName || '—' }}
+              </span>
+
+              <!-- ========================================
+                 Action
+                 ======================================== -->
+              <div class="button-box">
+                @if (canReadEmployee) {
+                  <cxp-button
+                    [routerLink]="[
+                      '/app/new-employee/personal-info'
+                    ]"
+                    variant="secondary"
+                    class="view-button"
+                    size="xs"
+                  >
+                    Open
+                  </cxp-button>
+                }
+              </div>
+
+            </div>
+          }
+
+          <!-- ========================================
+             Empty
+             ======================================== -->
+          @if (
+            !isLoading &&
+            !errorMessage &&
+            employees.length === 0
+          ) {
+            <div class="search-result__message">
+              No employees found.
+            </div>
+          }
+
+        </div>
+      </div>
+    </div>
+  }
 </section>

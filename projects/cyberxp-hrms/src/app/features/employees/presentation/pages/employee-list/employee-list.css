@@ -26,11 +26,32 @@
     font-weight: 600;
     align-items: center;
 }
+.search-result__item-header span:last-child {
+   justify-content: end;
+}
+.image-box {
+    justify-self: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
 
+.employee-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
 .cxp-section__header {
     gap: 0;
 }
-
+.button-box{
+    display: grid;
+    justify-content: end;
+}
 .search-result__item-box {
     display: grid;
     grid-template-columns: 40px 80px minmax(80px, 220px) minmax(60px, 140px) minmax(60px, 120px) minmax(60px, 140px) minmax(60px, 140px) minmax(60px, 120px) minmax(60px, 120px)  1fr auto;
