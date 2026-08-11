@@ -1,13 +1,28 @@
 <section class="cxp-page">
   <h2 class="cxp-section__header">List of Employee</h2>
-  <!-- <hr class="cxp-divider-hor" /> -->
+
   <div class="cxp-section">
+
+    <!-- ========================================
+       Search
+       ======================================== -->
     <div class="search-box">
-      <label class="cxp-label cxp-label-md cxp-label-bg">Search Employee</label>
-      <cxp-input-search size="sm" placeholder="Search keyword.."></cxp-input-search>
+      <label class="cxp-label cxp-label-md cxp-label-bg">
+        Search Employee
+      </label>
+
+      <cxp-input-search
+        size="sm"
+        placeholder="Search keyword.."
+      ></cxp-input-search>
     </div>
+
+    <!-- ========================================
+       Search Results
+       ======================================== -->
     <div class="search-result__box">
-      <router-outlet></router-outlet>
+
+      <!-- Header -->
       <div class="search-result__item-header cxp-section__header">
         <span>NO</span>
         <span>PROFILE</span>
@@ -18,62 +33,112 @@
         <span>CONTACT</span>
         <span>EMP TYPE</span>
         <span>EMP STATUS</span>
+        <span>ACTION</span>
       </div>
+
+      <!-- Items -->
       <div class="search-result__item-group-box">
-        <div class="search-result__item-box">
-          <span>1</span>
-          <cxp-icon-user-circle class="employee-image" size="sm"></cxp-icon-user-circle>
-          <span>MARINAS, FELICIANO JR</span>
-          <span>EMP00000001</span>
-          <span>President</span>
-          <span>Executive Dept</span>
-          <span>09173010779</span>
-          <span>Regular</span>
-          <span>Active</span>
-          <cxp-button variant="secondary" class="view-button" size="xs">open</cxp-button>
-        </div>
-        <div class="search-result__item-box">
-          <span>2</span>
-          <cxp-icon-user-circle class="employee-image" size="sm"></cxp-icon-user-circle>
-          <span>MARINAS, FELICIANO JR</span>
-          <span>EMP00000001</span>
-          <span>President</span>
-          <span>Executive Dept</span>
-          <span>09173010779</span>
-          <span>Regular</span>
-          <span>Active</span>
-          <cxp-button
-            routerLink="/app/new-employee/personal-info"
-            variant="secondary"
-            class="view-button"
-            size="xs"
-            >open</cxp-button
-          >
-        </div>
-        <div class="search-result__item-box">
-          <span>3</span>
-          <cxp-icon-user-circle class="employee-image" size="sm"></cxp-icon-user-circle>
-          <span>MARINAS, FELICIANO JR</span>
-          <span>EMP00000001</span>
-          <span>President</span>
-          <span>Executive Dept</span>
-          <span>09173010779</span>
-          <span>Regular</span>
-          <span>Active</span>
-          <cxp-button variant="secondary" class="view-button" size="xs">open</cxp-button>
-        </div>
-        <div class="search-result__item-box">
-          <span>4</span>
-          <cxp-icon-user-circle class="employee-image" size="sm"></cxp-icon-user-circle>
-          <span>MARINAS, FELICIANO JR</span>
-          <span>EMP00000001</span>
-          <span>President</span>
-          <span>Executive Dept</span>
-          <span>09173010779</span>
-          <span>Regular</span>
-          <span>Active</span>
-          <cxp-button variant="secondary" class="view-button" size="xs">open</cxp-button>
-        </div>
+
+        <!-- Loading -->
+        @if (isLoading) {
+          <div>
+            Loading employees...
+          </div>
+        }
+
+        <!-- Error -->
+        @if (errorMessage) {
+          <div>
+            {{ errorMessage }}
+          </div>
+        }
+
+        <!-- Employee List -->
+        @for (
+          employee of employees;
+          track employee.publicId;
+          let i = $index
+        ) {
+          <div class="search-result__item-box">
+
+            <!-- No -->
+            <span>
+              {{ i + 1 }}
+            </span>
+
+            <!-- Profile -->
+            @if (employee.employeeImg) {
+              <img
+                class="employee-image"
+                [src]="employee.employeeImg"
+                [alt]="employee.firstName + ' ' + employee.lastName"
+              />
+            } @else {
+              <cxp-icon-user-circle
+                class="employee-image"
+                size="sm"
+              ></cxp-icon-user-circle>
+            }
+
+            <!-- Name -->
+            <span>
+              {{ employee.lastName }},
+              {{ employee.firstName }}
+              {{ employee.middleName ?? '' }}
+            </span>
+
+            <!-- Employee ID -->
+            <span>
+              {{ employee.employeeNumber }}
+            </span>
+
+            <!-- Position -->
+            <span>
+              {{ employee.positionName }}
+            </span>
+
+            <!-- Department -->
+            <span>
+              {{ employee.departmentName }}
+            </span>
+
+            <!-- Contact -->
+            <span>
+              —
+            </span>
+
+            <!-- Employment Type -->
+            <span>
+              —
+            </span>
+
+            <!-- Employment Status -->
+            <span>
+              {{ employee.employmentStatusName }}
+            </span>
+
+            <!-- Action -->
+            <cxp-button
+              [routerLink]="[
+                '/app/new-employee/personal-info'
+              ]"
+              variant="secondary"
+              class="view-button"
+              size="xs"
+            >
+              open
+            </cxp-button>
+
+          </div>
+        }
+
+        <!-- Empty -->
+        @if (!isLoading && employees.length === 0) {
+          <div>
+            No employees found.
+          </div>
+        }
+
       </div>
     </div>
   </div>

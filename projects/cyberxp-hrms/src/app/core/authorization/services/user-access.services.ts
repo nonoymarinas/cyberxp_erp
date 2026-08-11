@@ -18,7 +18,6 @@ export class UserAccessService {
     return this.dataAccess.getUserAccess(userId).pipe(
       tap((access) => {
         this._userAccess.set(access);
-        console.log(this._userAccess());
       }),
     );
   }
@@ -28,7 +27,6 @@ export class UserAccessService {
   }
 
   hasPermission(code: string): boolean {
-    console.log(this._userAccess());
     return this._userAccess()?.permissions.some((permission) => permission.code === code) ?? false;
   }
 }

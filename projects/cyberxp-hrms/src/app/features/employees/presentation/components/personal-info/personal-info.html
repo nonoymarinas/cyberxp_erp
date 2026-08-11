@@ -1,11 +1,15 @@
 <section class="cxp-section">
-  @if (userAccessService.hasPermission('hrms.employee.personalinfo.view')) {
-    <form [formGroup]="personalInfoForm" autocomplete="off">
+  @if (canAccess) {
+    <form
+      [formGroup]="personalInfoForm"
+      autocomplete="off"
+    >
       <div class="cxp-item-group-box personal-info">
 
         <!-- ========================================
-             Section header
+             Section Header
              ======================================== -->
+
         <header class="item-group-header cxp-section__header">
           <cxp-icon-user-nav
             class="personal-info__icon"
@@ -19,12 +23,7 @@
 
           <div class="personal-info__actions">
 
-            @if (
-              isEditing &&
-              userAccessService.hasPermission(
-                'hrms.employee.personalinfo.edit'
-              )
-            ) {
+            @if (isEditing && canModify) {
               <cxp-button
                 size="xs"
                 variant="secondary"
@@ -35,18 +34,20 @@
               </cxp-button>
             }
 
-            @if (
-              userAccessService.hasPermission(
-                'hrms.employee.personalinfo.edit'
-              )
-            ) {
+            @if (canModify) {
               <cxp-button
                 size="xs"
                 [variant]="isEditing ? 'primary' : 'secondary'"
                 type="button"
                 (clicked)="onEditSave()"
               >
-                {{ isEditing ? 'Save' : 'Edit' }}
+                @if (isEditing) {
+                  Save
+                } @else if (isNewEmployee) {
+                  Add
+                } @else {
+                  Edit
+                }
               </cxp-button>
             }
 
@@ -54,15 +55,15 @@
         </header>
 
         <!-- ========================================
-             Edit mode
+             Create / Edit Mode
              ======================================== -->
-        @if (
-          isEditing &&
-          userAccessService.hasPermission(
-            'hrms.employee.personalinfo.edit'
-          )
-        ) {
+
+        @if (isEditing && canModify) {
           <div class="personal-info__body">
+
+            <!-- ========================================
+                 Employee Image / ID
+                 ======================================== -->
 
             <div class="personal-info__box">
               <div class="personal-info__image">
@@ -75,15 +76,21 @@
 
               <label class="cxp-label cxp-label-bg cxp-label-md">
                 ID No.
+
                 <span class="employee-id-value">
                   {{ employeeState.employeeId ?? '—' }}
                 </span>
               </label>
             </div>
 
+            <!-- ========================================
+                 Input Fields
+                 ======================================== -->
+
             <div class="cxp-item-group-box">
 
               <!-- First Name -->
+
               <div class="cxp-input__wrap">
                 <label
                   class="cxp-label cxp-label-bg cxp-label-sm"
@@ -106,6 +113,7 @@
               </div>
 
               <!-- Middle Name -->
+
               <div class="cxp-input__wrap">
                 <label
                   class="cxp-label cxp-label-bg cxp-label-sm"
@@ -124,6 +132,7 @@
               </div>
 
               <!-- Last Name -->
+
               <div class="cxp-input__wrap">
                 <label
                   class="cxp-label cxp-label-bg cxp-label-sm"
@@ -146,6 +155,7 @@
               </div>
 
               <!-- Suffix -->
+
               <div class="cxp-input__wrap">
                 <label
                   class="cxp-label cxp-label-bg cxp-label-sm"
@@ -164,6 +174,7 @@
               </div>
 
               <!-- Date of Birth -->
+
               <div class="cxp-input__wrap">
                 <label
                   class="cxp-label cxp-label-bg cxp-label-sm"
@@ -185,6 +196,7 @@
               </div>
 
               <!-- Gender -->
+
               <div class="cxp-input__wrap">
                 <label
                   class="cxp-label cxp-label-bg cxp-label-sm"
@@ -207,6 +219,7 @@
               </div>
 
               <!-- Civil Status -->
+
               <div class="cxp-input__wrap">
                 <label
                   class="cxp-label cxp-label-bg cxp-label-sm"
@@ -234,12 +247,16 @@
         } @else {
 
           <!-- ========================================
-               View mode
+               View Mode
                ======================================== -->
+
           <div class="personal-info__body">
 
-            <div class="personal-info__box">
+            <!-- ========================================
+                 Employee Image / ID
+                 ======================================== -->
 
+            <div class="personal-info__box">
               <div class="personal-info__image">
                 <cxp-icon-user-circle
                   class="personal-info__user-icon"
@@ -250,16 +267,21 @@
 
               <label class="cxp-label cxp-label-bg cxp-label-md">
                 ID No.
+
                 <span class="employee-id-value">
                   {{ employeeState.employeeId ?? '—' }}
                 </span>
               </label>
-
             </div>
+
+            <!-- ========================================
+                 Display Fields
+                 ======================================== -->
 
             <div class="cxp-item-group-box">
 
               <!-- First Name -->
+
               <div class="cxp-input__wrap">
                 <label class="cxp-label cxp-label-bg cxp-label-sm">
                   First Name
@@ -273,6 +295,7 @@
               </div>
 
               <!-- Middle Name -->
+
               <div class="cxp-input__wrap">
                 <label class="cxp-label cxp-label-bg cxp-label-sm">
                   Middle Name
@@ -286,6 +309,7 @@
               </div>
 
               <!-- Last Name -->
+
               <div class="cxp-input__wrap">
                 <label class="cxp-label cxp-label-bg cxp-label-sm">
                   Last Name
@@ -299,6 +323,7 @@
               </div>
 
               <!-- Suffix -->
+
               <div class="cxp-input__wrap">
                 <label class="cxp-label cxp-label-bg cxp-label-sm">
                   Suffix
@@ -309,12 +334,13 @@
                     getReferenceLabel(
                       suffixOptions,
                       personalInfoForm.controls.suffixId.value
-                    ) || '—'
+                    )
                   }}
                 </cxp-display-field>
               </div>
 
               <!-- Date of Birth -->
+
               <div class="cxp-input__wrap">
                 <label class="cxp-label cxp-label-bg cxp-label-sm">
                   Date of Birth
@@ -328,6 +354,7 @@
               </div>
 
               <!-- Gender -->
+
               <div class="cxp-input__wrap">
                 <label class="cxp-label cxp-label-bg cxp-label-sm">
                   Gender
@@ -338,12 +365,13 @@
                     getReferenceLabel(
                       genderOptions,
                       personalInfoForm.controls.genderId.value
-                    ) || '—'
+                    )
                   }}
                 </cxp-display-field>
               </div>
 
               <!-- Civil Status -->
+
               <div class="cxp-input__wrap">
                 <label class="cxp-label cxp-label-bg cxp-label-sm">
                   Civil Status
@@ -354,7 +382,7 @@
                     getReferenceLabel(
                       civilStatusOptions,
                       personalInfoForm.controls.civilStatusId.value
-                    ) || '—'
+                    )
                   }}
                 </cxp-display-field>
               </div>
@@ -367,3 +395,4 @@
     </form>
   }
 </section>
+

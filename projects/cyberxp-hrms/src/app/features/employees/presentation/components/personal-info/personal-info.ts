@@ -22,7 +22,9 @@ import type {
 
 import { EmployeeState } from '../../../state/employee-state.service';
 import { PersonalInfoService } from '../../../business/services/personal-info.service';
+
 import { UserAccessService } from '../../../../../core/authorization/services/user-access.services';
+import { EMPLOYEE_PERMISSIONS } from '../../../../../core/authorization/permissions/employee-permissions';
 
 import {
   PersonalInformation,
@@ -47,28 +49,58 @@ import {
 export class PersonalInfo implements OnInit {
   private referencesLoaded = false;
 
-  public readonly userAccessService = inject(UserAccessService);
+  private readonly userAccessService = inject(UserAccessService);
+
+  readonly permissions = EMPLOYEE_PERMISSIONS.personalInfo;
 
   // ========================================
   // Permissions
   // ========================================
 
-  private readonly viewPermission =
-    'hrms.employee.personal-info.view';
-
-  private readonly editPermission =
-    'hrms.employee.personal-info.edit';
-
-  get canView(): boolean {
+  get canCreate(): boolean {
     return this.userAccessService.hasPermission(
-      this.viewPermission,
+      this.permissions.create,
     );
   }
 
-  get canEdit(): boolean {
+  get canRead(): boolean {
     return this.userAccessService.hasPermission(
-      this.editPermission,
+      this.permissions.read,
     );
+  }
+
+  get canUpdate(): boolean {
+    return this.userAccessService.hasPermission(
+      this.permissions.update,
+    );
+  }
+
+  get canDelete(): boolean {
+    return this.userAccessService.hasPermission(
+      this.permissions.delete,
+    );
+  }
+
+  // ========================================
+  // Employee State
+  // ========================================
+
+  get isNewEmployee(): boolean {
+    return !this.employeeState.employeeGuid;
+  }
+
+  get canModify(): boolean {
+    return this.isNewEmployee
+      ? this.canCreate
+      : this.canUpdate;
+  }
+
+  get canAccess(): boolean {
+    if (this.isNewEmployee) {
+      return this.canCreate || this.canRead;
+    }
+
+    return this.canRead;
   }
 
   // ========================================
@@ -204,6 +236,14 @@ export class PersonalInfo implements OnInit {
   ngOnInit(): void {
     this.personalInfoForm.disable();
 
+    console.log('PersonalInfo Init');
+    console.log('employeeGuid:', this.employeeState.employeeGuid);
+    console.log('isNewEmployee:', this.isNewEmployee);
+    console.log('canCreate:', this.canCreate);
+    console.log('canRead:', this.canRead);
+    console.log('canUpdate:', this.canUpdate);
+    console.log('canModify:', this.canModify);
+
     this.loadReferences();
 
     if (this.employeeState.employeeGuid) {
@@ -211,12 +251,6 @@ export class PersonalInfo implements OnInit {
         this.employeeState.employeeGuid,
       );
     }
-  }
-
-  ngAfterViewInit(): void {
-    queueMicrotask(() => {
-      this.updateFormState();
-    });
   }
 
   // ========================================
@@ -231,28 +265,60 @@ export class PersonalInfo implements OnInit {
       .getReferenceOptions()
       .subscribe({
         next: (options) => {
+          console.log(
+            'Personal Info Reference Options:',
+            options,
+          );
+
           this.suffixOptions =
-            options.suffixOptions;
+            options.suffixOptions ?? [];
 
           this.genderOptions =
-            options.genderOptions;
+            options.genderOptions ?? [];
 
           this.civilStatusOptions =
-            options.civilStatusOptions;
+            options.civilStatusOptions ?? [];
+
+          console.log(
+            'Suffix Options:',
+            this.suffixOptions,
+          );
+
+          console.log(
+            'Gender Options:',
+            this.genderOptions,
+          );
+
+          console.log(
+            'Civil Status Options:',
+            this.civilStatusOptions,
+          );
+
+          // ========================================
+          // Suffix is optional.
+          // Only required reference lists are checked.
+          // ========================================
 
           this.referencesLoaded =
-            this.suffixOptions.length > 0 &&
             this.genderOptions.length > 0 &&
             this.civilStatusOptions.length > 0;
 
+          console.log(
+            'referencesLoaded:',
+            this.referencesLoaded,
+          );
+
           this.isLoading = false;
 
-          queueMicrotask(() => {
-            this.updateFormState();
-          });
+          this.updateFormState();
         },
 
-        error: () => {
+        error: (error) => {
+          console.error(
+            'Failed to load reference data:',
+            error,
+          );
+
           this.referencesLoaded = false;
           this.isLoading = false;
 
@@ -269,10 +335,22 @@ export class PersonalInfo implements OnInit {
   // ========================================
 
   private updateFormState(): void {
+    console.log(
+      'updateFormState:',
+      {
+        referencesLoaded:
+          this.referencesLoaded,
+        isEditing:
+          this.isEditing,
+        canModify:
+          this.canModify,
+      },
+    );
+
     if (
       this.referencesLoaded &&
       this.isEditing &&
-      this.canEdit
+      this.canModify
     ) {
       this.personalInfoForm.enable();
       return;
@@ -282,16 +360,28 @@ export class PersonalInfo implements OnInit {
   }
 
   // ========================================
-  // Edit / Save Button
+  // Add / Edit / Save
   // ========================================
 
   onEditSave(): void {
-    if (!this.canEdit) {
+    console.log('onEditSave called');
+    console.log('isEditing:', this.isEditing);
+    console.log('isNewEmployee:', this.isNewEmployee);
+    console.log('canCreate:', this.canCreate);
+    console.log('canUpdate:', this.canUpdate);
+    console.log('canModify:', this.canModify);
+    console.log(
+      'referencesLoaded:',
+      this.referencesLoaded,
+    );
+
+    if (!this.canModify) {
       this.personalInfoForm.disable();
       this.isEditing = false;
 
-      this.errorMessage =
-        'You do not have permission to edit personal information.';
+      this.errorMessage = this.isNewEmployee
+        ? 'You do not have permission to create personal information.'
+        : 'You do not have permission to update personal information.';
 
       return;
     }
@@ -309,12 +399,26 @@ export class PersonalInfo implements OnInit {
   // ========================================
 
   startEdit(): void {
-    if (!this.canEdit) {
+    console.log('startEdit called');
+
+    console.log({
+      canCreate: this.canCreate,
+      canUpdate: this.canUpdate,
+      canModify: this.canModify,
+      isNewEmployee: this.isNewEmployee,
+      referencesLoaded: this.referencesLoaded,
+      genderOptions: this.genderOptions,
+      civilStatusOptions: this.civilStatusOptions,
+      suffixOptions: this.suffixOptions,
+    });
+
+    if (!this.canModify) {
       this.personalInfoForm.disable();
       this.isEditing = false;
 
-      this.errorMessage =
-        'You do not have permission to edit personal information.';
+      this.errorMessage = this.isNewEmployee
+        ? 'You do not have permission to create personal information.'
+        : 'You do not have permission to update personal information.';
 
       return;
     }
@@ -326,13 +430,26 @@ export class PersonalInfo implements OnInit {
       this.errorMessage =
         'Reference data is not yet available.';
 
+      console.error(
+        'Cannot enter edit mode because referencesLoaded is false.',
+      );
+
       return;
     }
 
     this.errorMessage = '';
     this.successMessage = '';
 
+    // ========================================
+    // Switch UI to Edit Mode
+    // ========================================
+
     this.isEditing = true;
+
+    console.log(
+      'isEditing changed to:',
+      this.isEditing,
+    );
 
     this.personalInfoForm.enable();
   }
@@ -368,6 +485,17 @@ export class PersonalInfo implements OnInit {
         imageUrl:
           this.originalEmployee.imageUrl,
       });
+    } else {
+      this.personalInfoForm.reset({
+        firstName: '',
+        middleName: '',
+        lastName: '',
+        suffixId: null,
+        dateOfBirth: '',
+        genderId: null,
+        civilStatusId: null,
+        imageUrl: null,
+      });
     }
 
     this.personalInfoForm.markAsPristine();
@@ -379,6 +507,11 @@ export class PersonalInfo implements OnInit {
 
     this.errorMessage = '';
     this.successMessage = '';
+
+    console.log(
+      'Edit cancelled. isEditing:',
+      this.isEditing,
+    );
   }
 
   // ========================================
@@ -386,23 +519,33 @@ export class PersonalInfo implements OnInit {
   // ========================================
 
   savePersonalInfo(): void {
-    // Permission check
-    if (!this.canEdit) {
+    // ========================================
+    // Permission Check
+    // ========================================
+
+    if (!this.canModify) {
       this.personalInfoForm.disable();
       this.isEditing = false;
 
-      this.errorMessage =
-        'You do not have permission to save personal information.';
+      this.errorMessage = this.isNewEmployee
+        ? 'You do not have permission to create personal information.'
+        : 'You do not have permission to update personal information.';
 
       return;
     }
 
-    // Prevent multiple save requests
+    // ========================================
+    // Prevent Duplicate Requests
+    // ========================================
+
     if (this.isSaving) {
       return;
     }
 
-    // Validate form
+    // ========================================
+    // Validation
+    // ========================================
+
     this.personalInfoForm.markAllAsTouched();
 
     if (this.personalInfoForm.invalid) {
@@ -416,7 +559,10 @@ export class PersonalInfo implements OnInit {
     this.successMessage = '';
     this.isSaving = true;
 
-    // Get all form values including disabled fields
+    // ========================================
+    // Form Values
+    // ========================================
+
     const formValue =
       this.personalInfoForm.getRawValue();
 
@@ -441,20 +587,25 @@ export class PersonalInfo implements OnInit {
         formValue.lastName,
 
       suffixId:
-        formValue.suffixId ?? '',
+        formValue.suffixId,
 
       dateOfBirth:
         formValue.dateOfBirth,
 
       genderId:
-        formValue.genderId ?? '',
+        formValue.genderId,
 
       civilStatusId:
-        formValue.civilStatusId ?? '',
+        formValue.civilStatusId,
 
       imageUrl:
         formValue.imageUrl,
     };
+
+    console.log(
+      'Save Personal Info Request:',
+      request,
+    );
 
     // ========================================
     // Call Service
@@ -465,6 +616,11 @@ export class PersonalInfo implements OnInit {
       .subscribe({
         next: (response) => {
           this.isSaving = false;
+
+          console.log(
+            'Save Personal Info Response:',
+            response,
+          );
 
           if (!response.success) {
             this.errorMessage =
@@ -521,7 +677,7 @@ export class PersonalInfo implements OnInit {
           });
 
           // ========================================
-          // Update Original Snapshot
+          // Original Snapshot
           // ========================================
 
           this.originalEmployee = {
@@ -544,7 +700,7 @@ export class PersonalInfo implements OnInit {
           this.personalInfoForm.disable();
 
           // ========================================
-          // Success Message
+          // Success
           // ========================================
 
           this.successMessage =
@@ -558,7 +714,10 @@ export class PersonalInfo implements OnInit {
           this.errorMessage =
             'An unexpected error occurred while saving.';
 
-          console.error(error);
+          console.error(
+            'Failed to save personal information:',
+            error,
+          );
         },
       });
   }
@@ -570,27 +729,58 @@ export class PersonalInfo implements OnInit {
   private loadPersonalInfo(
     employeeGuid: string,
   ): void {
+    // ========================================
+    // Permission
+    // ========================================
+
+    if (!this.canRead) {
+      this.isEditing = false;
+
+      this.personalInfoForm.disable();
+
+      this.errorMessage =
+        'You do not have permission to read personal information.';
+
+      return;
+    }
+
     this.personalInfoService
       .getPersonalInfo(employeeGuid)
       .subscribe({
         next: (employee) => {
+          console.log(
+            'Personal Info Loaded:',
+            employee,
+          );
+
           if (!employee) {
             this.isEditing = false;
+
             this.personalInfoForm.disable();
+
             return;
           }
 
-          // Store employee
+          // ========================================
+          // Store Employee
+          // ========================================
+
           this.employee = employee;
 
-          // Update shared identifiers
+          // ========================================
+          // Shared State
+          // ========================================
+
           this.employeeState.employeeId =
             employee.employeeId;
 
           this.employeeState.employeeGuid =
             employee.employeeGuid;
 
-          // Load values into form
+          // ========================================
+          // Populate Form
+          // ========================================
+
           this.personalInfoForm.patchValue({
             firstName:
               employee.firstName,
@@ -617,7 +807,10 @@ export class PersonalInfo implements OnInit {
               employee.imageUrl,
           });
 
-          // Save original copy for Cancel
+          // ========================================
+          // Original Snapshot
+          // ========================================
+
           this.originalEmployee = {
             ...employee,
           };
@@ -625,7 +818,10 @@ export class PersonalInfo implements OnInit {
           this.personalInfoForm.markAsPristine();
           this.personalInfoForm.markAsUntouched();
 
-          // Existing employee defaults to view mode
+          // ========================================
+          // Existing Employee = View Mode
+          // ========================================
+
           this.isEditing = false;
 
           this.personalInfoForm.disable();
@@ -636,9 +832,13 @@ export class PersonalInfo implements OnInit {
             'Unable to load personal information.';
 
           this.isEditing = false;
+
           this.personalInfoForm.disable();
 
-          console.error(error);
+          console.error(
+            'Failed to load personal information:',
+            error,
+          );
         },
       });
   }
