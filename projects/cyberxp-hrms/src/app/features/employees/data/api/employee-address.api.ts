@@ -1,72 +1,11 @@
-
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
-// ========================================
-// Country
-// ========================================
-
-export interface CountryDto {
-  Id: number;
-  CountryName: string;
-}
-
-// ========================================
-// Region
-// ========================================
-
-export interface RegionDto {
-  Id: number;
-  CountryId: number;
-  RegionName: string;
-}
-
-// ========================================
-// Province
-// ========================================
-
-export interface ProvinceDto {
-  Id: number;
-  RegionId: number;
-  ProvinceName: string;
-}
-
-// ========================================
-// City / Municipality
-// ========================================
-
-export interface CityDto {
-  Id: number;
-  ProvinceId: number;
-  CityOrMunicipalName: string;
-}
-
-// ========================================
-// Address Reference Data
-// ========================================
-
-export interface AddressReferenceDataDto {
-  Countries: CountryDto[];
-  Regions: RegionDto[];
-  Provinces: ProvinceDto[];
-  Cities: CityDto[];
-}
-
-// ========================================
-// Address Reference API Response
-// ========================================
-
-export interface AddressReferenceResponseDto {
-  Success: boolean;
-  Message: string | null;
-  ErrorCode: string | null;
-  Data: AddressReferenceDataDto;
-}
-
-// ========================================
-// API
-// ========================================
+import {
+  AddressReferencesResponseDto,
+  BarangaysResponseDto,
+} from '../../models/dto/address.dto.model';
 
 @Injectable({
   providedIn: 'root',
@@ -74,13 +13,59 @@ export interface AddressReferenceResponseDto {
 export class AddressReferenceApi {
   private readonly http = inject(HttpClient);
 
-  private readonly endpoint =
+  private readonly referencesEndpoint =
     'https://api-hrms-employee-dev.azurewebsites.net/api/v1/address/references';
 
-  getReferences(): Observable<AddressReferenceResponseDto> {
-    return this.http.get<AddressReferenceResponseDto>(
-      this.endpoint,
-    );
-  }
-}
+  private readonly barangaysEndpoint =
+    'https://api-hrms-employee-dev.azurewebsites.net/api/v1/address/references/barangays';
 
+  // ========================================
+  // Get Address References
+  // ========================================
+
+  getReferences(): Observable<AddressReferencesResponseDto> {
+    return this.http
+      .get<AddressReferencesResponseDto>(
+        this.referencesEndpoint,
+      )
+      .pipe(
+        tap((response) => {
+          console.log(
+            'RAW ADDRESS API RESPONSE:',
+            response,
+          );
+
+          console.log(
+            'RAW ADDRESS DATA:',
+            response.data,
+          );
+        }),
+      );
+  }
+
+  // ========================================
+  // Get Barangays By City
+  // ========================================
+
+  getBarangaysByCity(
+  cityId: number,
+): Observable<BarangaysResponseDto> {
+  return this.http
+    .get<BarangaysResponseDto>(
+      `${this.barangaysEndpoint}/${cityId}`,
+    )
+    .pipe(
+      tap((response) => {
+        console.log(
+          'RAW BARANGAY API RESPONSE:',
+          response,
+        );
+
+        console.log(
+          'RAW BARANGAY DATA:',
+          response.data,
+        );
+      }),
+    );
+}
+}

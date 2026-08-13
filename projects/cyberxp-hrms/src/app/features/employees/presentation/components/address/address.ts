@@ -1,107 +1,128 @@
 import { Component, OnInit, inject } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import {
   CxpButton,
   CxpDisplayField,
-  CxpIconUserNav,
+  CxpIconAddressNav,
   CxpInputSelect,
   CxpInputText,
 } from 'cyberxp-ui';
 
-import type {
-  CxpSelectOption,
-  CxpSelectPrimitive,
-} from 'cyberxp-ui';
+import type { CxpSelectOption, CxpSelectPrimitive } from 'cyberxp-ui';
 
 import { EmployeeState } from '../../../state/employee-state.service';
-import { AddressService } from '../../../business/services/employee-address.service';
+
+import { AddressService } from '../../../business/services/address-references.service';
 
 import { UserAccessService } from '../../../../../core/authorization/services/user-access.services';
+
 import { EMPLOYEE_PERMISSIONS } from '../../../../../core/authorization/permissions/employee-permissions';
 
 import {
-  AddressReference,
+  AddressReferences,
+  EmployeeAddress,
   Region,
   Province,
   City,
-} from '../../../../../shared/models/reference-address.model';
+} from '../../../models/domain/address.domain.model';
 
 @Component({
   selector: 'employee-address',
   standalone: true,
+
   imports: [
     ReactiveFormsModule,
+
     CxpButton,
     CxpDisplayField,
-    CxpIconUserNav,
+    CxpIconAddressNav,
     CxpInputSelect,
     CxpInputText,
   ],
+
   templateUrl: './address.html',
   styleUrl: './address.css',
 })
 export class Address implements OnInit {
+  private readonly userAccessService = inject(UserAccessService);
+
+  private readonly addressService = inject(AddressService);
+
+  readonly permissions = EMPLOYEE_PERMISSIONS.address;
+
+  // ========================================
+  // Reference State
+  // ========================================
+
   private referencesLoaded = false;
 
-  private readonly userAccessService =
-    inject(UserAccessService);
+  private addressReferences: AddressReferences | null = null;
 
-  private readonly addressService =
-    inject(AddressService);
+  // ========================================
+  // Address State
+  // ========================================
 
-  readonly permissions =
-    EMPLOYEE_PERMISSIONS.address;
+  hasAddress = false;
+
+  isLoading = false;
+
+  isLoadingBarangays = false;
+
+  isEditing = false;
+
+  isSaving = false;
+
+  successMessage = '';
+
+  errorMessage = '';
+
+  // ========================================
+  // Select Options
+  // ========================================
+
+  countryOptions: CxpSelectOption[] = [];
+
+  regionOptions: CxpSelectOption[] = [];
+
+  provinceOptions: CxpSelectOption[] = [];
+
+  cityOptions: CxpSelectOption[] = [];
+
+  barangayOptions: CxpSelectOption[] = [];
+
+  constructor(public readonly employeeState: EmployeeState) {}
 
   // ========================================
   // Permissions
   // ========================================
 
   get canCreate(): boolean {
-    return this.userAccessService.hasPermission(
-      this.permissions.create,
-    );
+    return this.userAccessService.hasPermission(this.permissions.create);
   }
 
   get canRead(): boolean {
-    return this.userAccessService.hasPermission(
-      this.permissions.read,
-    );
+    return this.userAccessService.hasPermission(this.permissions.read);
   }
 
   get canUpdate(): boolean {
-    return this.userAccessService.hasPermission(
-      this.permissions.update,
-    );
+    return this.userAccessService.hasPermission(this.permissions.update);
   }
 
   get canDelete(): boolean {
-    return this.userAccessService.hasPermission(
-      this.permissions.delete,
-    );
+    return this.userAccessService.hasPermission(this.permissions.delete);
   }
 
   // ========================================
-  // Employee State
+  // Can Modify
   // ========================================
-
-  get isNewEmployee(): boolean {
-    return !this.employeeState.employeeGuid;
-  }
 
   get canModify(): boolean {
-    return this.isNewEmployee
-      ? this.canCreate
-      : this.canUpdate;
+    return this.hasAddress ? this.canUpdate : this.canCreate;
   }
 
   get canAccess(): boolean {
-    if (this.isNewEmployee) {
+    if (!this.hasAddress) {
       return this.canCreate || this.canRead;
     }
 
@@ -113,6 +134,10 @@ export class Address implements OnInit {
   // ========================================
 
   readonly addressForm = new FormGroup({
+    // ========================================
+    // Country
+    // ========================================
+
     countryId: new FormControl<number | null>(
       {
         value: null,
@@ -123,37 +148,35 @@ export class Address implements OnInit {
       },
     ),
 
-    regionId: new FormControl<number | null>(
-      {
-        value: null,
-        disabled: false,
-      },
-      {
-        validators: [Validators.required],
-      },
-    ),
+    // ========================================
+    // Philippine Address
+    // ========================================
 
-    provinceId: new FormControl<number | null>(
-      {
-        value: null,
-        disabled: false,
-      },
-      {
-        validators: [Validators.required],
-      },
-    ),
+    regionId: new FormControl<number | null>({
+      value: null,
+      disabled: false,
+    }),
 
-    cityId: new FormControl<number | null>(
-      {
-        value: null,
-        disabled: false,
-      },
-      {
-        validators: [Validators.required],
-      },
-    ),
+    provinceId: new FormControl<number | null>({
+      value: null,
+      disabled: false,
+    }),
 
-    street: new FormControl(
+    cityId: new FormControl<number | null>({
+      value: null,
+      disabled: false,
+    }),
+
+    barangayId: new FormControl<number | null>({
+      value: null,
+      disabled: false,
+    }),
+
+    // ========================================
+    // Foreign Address
+    // ========================================
+
+    foreignStateProvinceRegion: new FormControl(
       {
         value: '',
         disabled: false,
@@ -163,7 +186,32 @@ export class Address implements OnInit {
       },
     ),
 
-    houseUnit: new FormControl(
+    foreignCity: new FormControl(
+      {
+        value: '',
+        disabled: false,
+      },
+      {
+        nonNullable: true,
+      },
+    ),
+
+    // ========================================
+    // Common Address
+    // ========================================
+
+    addressLine1: new FormControl(
+      {
+        value: '',
+        disabled: false,
+      },
+      {
+        nonNullable: true,
+        validators: [Validators.required],
+      },
+    ),
+
+    addressLine2: new FormControl(
       {
         value: '',
         disabled: false,
@@ -185,37 +233,28 @@ export class Address implements OnInit {
   });
 
   // ========================================
-  // Address References
+  // Country Selected
   // ========================================
 
-  private addressReferences: AddressReference | null =
-    null;
-
-  countryOptions: CxpSelectOption[] = [];
-
-  regionOptions: CxpSelectOption[] = [];
-
-  provinceOptions: CxpSelectOption[] = [];
-
-  cityOptions: CxpSelectOption[] = [];
+  get hasCountrySelected(): boolean {
+    return this.addressForm.controls.countryId.value !== null;
+  }
 
   // ========================================
-  // Status
+  // Philippines Selected
   // ========================================
 
-  isLoading = false;
+  get isPhilippinesSelected(): boolean {
+    const countryId = this.addressForm.controls.countryId.value;
 
-  isEditing = false;
+    if (countryId === null || !this.addressReferences) {
+      return false;
+    }
 
-  isSaving = false;
+    const country = this.addressReferences.countries.find((item) => item.id === countryId);
 
-  successMessage = '';
-
-  errorMessage = '';
-
-  constructor(
-    public readonly employeeState: EmployeeState,
-  ) {}
+    return country?.countryName.trim().toLowerCase() === 'philippines';
+  }
 
   // ========================================
   // Init
@@ -233,138 +272,311 @@ export class Address implements OnInit {
   // Load References
   // ========================================
 
-  loadReferences(): void {
+  private loadReferences(): void {
     this.isLoading = true;
 
     this.errorMessage = '';
 
-    this.addressService
-      .getReferences()
-      .subscribe({
-        next: (references) => {
-          this.addressReferences =
-            references;
+    this.addressService.getReferences().subscribe({
+      next: (references) => {
+        console.log('Address References:', references);
 
-          // ========================================
-          // Countries
-          // ========================================
+        this.addressReferences = references;
 
-          this.countryOptions =
-            references.countries.map(
-              (country) => ({
-                value: country.id,
-                label:
-                  country.countryName.toUpperCase(),
-              }),
-            );
+        this.countryOptions = references.countries.map((country) => ({
+          value: country.id,
 
-          // ========================================
-          // Initially show ALL cities
-          // ========================================
+          label: country.countryName.toUpperCase(),
+        }));
 
-          this.cityOptions =
-            this.toCityOptions(
-              references.cities,
-            );
+        this.regionOptions = [];
 
-          // Region and Province start empty
-          this.regionOptions = [];
+        this.provinceOptions = [];
 
-          this.provinceOptions = [];
+        this.cityOptions = [];
 
-          this.referencesLoaded =
-            this.countryOptions.length > 0 &&
-            this.cityOptions.length > 0;
+        this.barangayOptions = [];
 
-          this.isLoading = false;
+        this.referencesLoaded = this.countryOptions.length > 0;
 
-          this.updateFormState();
-        },
+        this.loadAddress();
+      },
 
-        error: (error) => {
-          this.referencesLoaded = false;
+      error: (error) => {
+        console.error('Failed to load address references:', error);
 
-          this.isLoading = false;
+        this.referencesLoaded = false;
 
-          this.errorMessage =
-            'Unable to load address reference data.';
+        this.isLoading = false;
 
-          this.addressForm.disable();
+        this.errorMessage = 'Unable to load address reference data.';
 
-          console.error(error);
-        },
-      });
+        this.addressForm.disable();
+      },
+    });
   }
 
   // ========================================
-  // Setup Cascading Changes
+  // Load Employee Address
+  // ========================================
+
+  private loadAddress(): void {
+    /*
+     * Temporary until GET Employee Address
+     * API is connected.
+     */
+
+    const address: EmployeeAddress | null = null;
+
+    this.handleLoadedAddress(address);
+  }
+
+  // ========================================
+  // Handle Loaded Address
+  // ========================================
+
+  private handleLoadedAddress(address: EmployeeAddress | null): void {
+    // ========================================
+    // No Existing Address
+    // ========================================
+
+    if (!address) {
+      this.hasAddress = false;
+
+      this.resetAddressForm();
+
+      this.isEditing = true;
+
+      this.addressForm.enable();
+
+      this.updateAddressValidators();
+
+      this.isLoading = false;
+
+      return;
+    }
+
+    // ========================================
+    // Existing Address
+    // ========================================
+
+    this.hasAddress = true;
+
+    this.populateAddress(address);
+
+    this.isEditing = false;
+
+    this.addressForm.disable();
+
+    this.isLoading = false;
+  }
+
+  // ========================================
+  // Populate Existing Address
+  // ========================================
+
+  private populateAddress(address: EmployeeAddress): void {
+    // ========================================
+    // Set Country First
+    // ========================================
+
+    this.addressForm.controls.countryId.setValue(address.countryId, {
+      emitEvent: false,
+    });
+
+    // ========================================
+    // Philippine Address
+    // ========================================
+
+    if (this.isPhilippinesSelected) {
+      this.populatePhilippineAddressOptions(address);
+
+      this.addressForm.patchValue(
+        {
+          countryId: address.countryId,
+
+          regionId: address.regionId,
+
+          provinceId: address.provinceId,
+
+          cityId: address.cityId,
+
+          barangayId: address.barangayId,
+
+          foreignStateProvinceRegion: '',
+
+          foreignCity: '',
+
+          addressLine1: address.addressLine1,
+
+          addressLine2: address.addressLine2,
+
+          zipCode: address.zipCode,
+        },
+        {
+          emitEvent: false,
+        },
+      );
+
+      // ========================================
+      // Load Barangays For Existing City
+      // ========================================
+
+      if (address.cityId !== null) {
+        this.loadBarangays(address.cityId, address.barangayId);
+      }
+
+      return;
+    }
+
+    // ========================================
+    // Foreign Address
+    // ========================================
+
+    this.regionOptions = [];
+
+    this.provinceOptions = [];
+
+    this.cityOptions = [];
+
+    this.barangayOptions = [];
+
+    this.addressForm.patchValue(
+      {
+        countryId: address.countryId,
+
+        regionId: null,
+
+        provinceId: null,
+
+        cityId: null,
+
+        barangayId: null,
+
+        foreignStateProvinceRegion: address.foreignStateProvinceRegion,
+
+        foreignCity: address.foreignCity,
+
+        addressLine1: address.addressLine1,
+
+        addressLine2: address.addressLine2,
+
+        zipCode: address.zipCode,
+      },
+      {
+        emitEvent: false,
+      },
+    );
+  }
+
+  // ========================================
+  // Populate Philippine Options
+  // ========================================
+
+  private populatePhilippineAddressOptions(address: EmployeeAddress): void {
+    if (!this.addressReferences || address.countryId === null) {
+      return;
+    }
+
+    // ========================================
+    // Regions
+    // ========================================
+
+    const regions = this.addressReferences.regions.filter(
+      (region) => region.countryId === address.countryId,
+    );
+
+    this.regionOptions = this.toRegionOptions(regions);
+
+    // ========================================
+    // Provinces
+    // ========================================
+
+    if (address.regionId !== null) {
+      const provinces = this.addressReferences.provinces.filter(
+        (province) => province.regionId === address.regionId,
+      );
+
+      this.provinceOptions = this.toProvinceOptions(provinces);
+    } else {
+      this.provinceOptions = [];
+    }
+
+    // ========================================
+    // Cities
+    // ========================================
+
+    if (address.provinceId !== null) {
+      const cities = this.addressReferences.cities.filter(
+        (city) => city.provinceId === address.provinceId,
+      );
+
+      this.cityOptions = this.toCityOptions(cities);
+    } else {
+      this.cityOptions = [];
+    }
+  }
+
+  // ========================================
+  // Setup Address Changes
   // ========================================
 
   private setupAddressChanges(): void {
-    this.addressForm.controls.countryId
-      .valueChanges
-      .subscribe((countryId) => {
-        this.onCountryChange(
-          countryId,
-        );
-      });
+    this.addressForm.controls.countryId.valueChanges.subscribe((countryId) => {
+      this.onCountryChange(countryId);
+    });
 
-    this.addressForm.controls.regionId
-      .valueChanges
-      .subscribe((regionId) => {
-        this.onRegionChange(
-          regionId,
-        );
-      });
+    this.addressForm.controls.regionId.valueChanges.subscribe((regionId) => {
+      this.onRegionChange(regionId);
+    });
 
-    this.addressForm.controls.provinceId
-      .valueChanges
-      .subscribe((provinceId) => {
-        this.onProvinceChange(
-          provinceId,
-        );
-      });
+    this.addressForm.controls.provinceId.valueChanges.subscribe((provinceId) => {
+      this.onProvinceChange(provinceId);
+    });
 
-    this.addressForm.controls.cityId
-      .valueChanges
-      .subscribe((cityId) => {
-        this.onCityChange(
-          cityId,
-        );
-      });
+    this.addressForm.controls.cityId.valueChanges.subscribe((cityId) => {
+      this.onCityChange(cityId);
+    });
   }
 
   // ========================================
   // Country Change
   // ========================================
 
-  onCountryChange(
-    countryId: number | null,
-  ): void {
+  onCountryChange(countryId: number | null): void {
     if (!this.addressReferences) {
       return;
     }
 
     // ========================================
-    // Clear downstream values
+    // Clear Local Address
     // ========================================
 
-    this.addressForm.controls.regionId.setValue(
-      null,
+    this.addressForm.patchValue(
+      {
+        regionId: null,
+
+        provinceId: null,
+
+        cityId: null,
+
+        barangayId: null,
+      },
       {
         emitEvent: false,
       },
     );
 
-    this.addressForm.controls.provinceId.setValue(
-      null,
-      {
-        emitEvent: false,
-      },
-    );
+    // ========================================
+    // Clear Foreign Location
+    // ========================================
 
-    this.addressForm.controls.cityId.setValue(
-      null,
+    this.addressForm.patchValue(
+      {
+        foreignStateProvinceRegion: '',
+
+        foreignCity: '',
+      },
       {
         emitEvent: false,
       },
@@ -374,200 +586,164 @@ export class Address implements OnInit {
 
     this.provinceOptions = [];
 
+    this.cityOptions = [];
+
+    this.barangayOptions = [];
+
     // ========================================
     // No Country
-    // Show All Cities
     // ========================================
 
     if (countryId === null) {
-      this.cityOptions =
-        this.toCityOptions(
-          this.addressReferences.cities,
-        );
+      this.updateAddressValidators();
 
       return;
     }
 
     // ========================================
-    // Filter Regions by Country
+    // Philippines
     // ========================================
 
-    const regions =
-      this.addressReferences.regions.filter(
-        (region) =>
-          region.countryId === countryId,
-      );
+    if (this.isPhilippinesSelected) {
+      this.loadAllPhilippineOptions();
+    }
 
-    this.regionOptions =
-      this.toRegionOptions(
-        regions,
-      );
-
-    // Province still empty,
-    // therefore City still shows all cities
-    this.cityOptions =
-      this.toCityOptions(
-        this.addressReferences.cities,
-      );
+    this.updateAddressValidators();
   }
 
   // ========================================
   // Region Change
   // ========================================
 
-  onRegionChange(
-    regionId: number | null,
-  ): void {
-    if (!this.addressReferences) {
+  onRegionChange(regionId: number | null): void {
+    if (!this.addressReferences || !this.isPhilippinesSelected) {
       return;
     }
 
-    // ========================================
-    // Clear downstream values
-    // ========================================
-
-    this.addressForm.controls.provinceId.setValue(
-      null,
-      {
-        emitEvent: false,
-      },
-    );
-
-    this.addressForm.controls.cityId.setValue(
-      null,
-      {
-        emitEvent: false,
-      },
-    );
-
-    this.provinceOptions = [];
+    this.clearBarangay();
 
     // ========================================
-    // No Region
-    // Show All Cities
+    // Region Cleared
     // ========================================
 
     if (regionId === null) {
-      this.cityOptions =
-        this.toCityOptions(
-          this.addressReferences.cities,
-        );
+      this.addressForm.patchValue(
+        {
+          provinceId: null,
+
+          cityId: null,
+
+          barangayId: null,
+        },
+        {
+          emitEvent: false,
+        },
+      );
+
+      this.loadAllPhilippineOptions();
 
       return;
     }
 
     // ========================================
-    // Filter Provinces by Region
+    // Region Selected
     // ========================================
 
-    const provinces =
-      this.addressReferences.provinces.filter(
-        (province) =>
-          province.regionId === regionId,
-      );
+    this.addressForm.patchValue(
+      {
+        provinceId: null,
 
-    this.provinceOptions =
-      this.toProvinceOptions(
-        provinces,
-      );
+        cityId: null,
 
-    // Province is still empty.
-    // Keep all cities available.
-    this.cityOptions =
-      this.toCityOptions(
-        this.addressReferences.cities,
-      );
+        barangayId: null,
+      },
+      {
+        emitEvent: false,
+      },
+    );
+
+    // ========================================
+    // Provinces Under Region
+    // ========================================
+
+    const provinces = this.addressReferences.provinces.filter(
+      (province) => province.regionId === regionId,
+    );
+
+    this.provinceOptions = this.toProvinceOptions(provinces);
+
+    // ========================================
+    // Cities Under Region
+    // ========================================
+
+    const provinceIds = new Set(provinces.map((province) => province.id));
+
+    const cities = this.addressReferences.cities.filter((city) => provinceIds.has(city.provinceId));
+
+    this.cityOptions = this.toCityOptions(cities);
   }
 
   // ========================================
   // Province Change
   // ========================================
 
-  onProvinceChange(
-    provinceId: number | null,
-  ): void {
-    if (!this.addressReferences) {
+  onProvinceChange(provinceId: number | null): void {
+    if (!this.addressReferences || !this.isPhilippinesSelected) {
       return;
     }
 
     // ========================================
-    // Clear City
+    // Clear City + Barangay
     // ========================================
 
-    this.addressForm.controls.cityId.setValue(
-      null,
+    this.addressForm.patchValue(
+      {
+        cityId: null,
+
+        barangayId: null,
+      },
       {
         emitEvent: false,
       },
     );
 
+    this.barangayOptions = [];
+
     // ========================================
-    // Province Empty
-    // Show All Cities
+    // Province Cleared
     // ========================================
 
     if (provinceId === null) {
-      this.cityOptions =
-        this.toCityOptions(
-          this.addressReferences.cities,
+      const regionId = this.addressForm.controls.regionId.value;
+
+      // ========================================
+      // Region Selected
+      // ========================================
+
+      if (regionId !== null) {
+        const provinces = this.addressReferences.provinces.filter(
+          (province) => province.regionId === regionId,
         );
 
-      return;
-    }
+        this.provinceOptions = this.toProvinceOptions(provinces);
 
-    // ========================================
-    // Filter Cities by Province
-    // ========================================
+        const provinceIds = new Set(provinces.map((province) => province.id));
 
-    const cities =
-      this.addressReferences.cities.filter(
-        (city) =>
-          city.provinceId === provinceId,
-      );
+        const cities = this.addressReferences.cities.filter((city) =>
+          provinceIds.has(city.provinceId),
+        );
 
-    this.cityOptions =
-      this.toCityOptions(
-        cities,
-      );
-  }
+        this.cityOptions = this.toCityOptions(cities);
 
-  // ========================================
-  // City Change
-  // ========================================
+        return;
+      }
 
-  onCityChange(
-    cityId: number | null,
-  ): void {
-    if (
-      cityId === null ||
-      !this.addressReferences
-    ) {
-      return;
-    }
+      // ========================================
+      // No Region
+      // ========================================
 
-    // ========================================
-    // Only auto-fill location hierarchy
-    // if Province is currently empty
-    // ========================================
+      this.loadAllPhilippineOptions();
 
-    const currentProvinceId =
-      this.addressForm.controls.provinceId.value;
-
-    if (currentProvinceId !== null) {
-      return;
-    }
-
-    // ========================================
-    // Find Selected City
-    // ========================================
-
-    const city =
-      this.addressReferences.cities.find(
-        (item) =>
-          item.id === cityId,
-      );
-
-    if (!city) {
       return;
     }
 
@@ -575,225 +751,424 @@ export class Address implements OnInit {
     // Find Province
     // ========================================
 
-    const province =
-      this.addressReferences.provinces.find(
-        (item) =>
-          item.id === city.provinceId,
-      );
+    const province = this.addressReferences.provinces.find((item) => item.id === provinceId);
 
     if (!province) {
       return;
     }
 
     // ========================================
-    // Find Region
+    // Automatically Fill Region
     // ========================================
 
-    const region =
-      this.addressReferences.regions.find(
-        (item) =>
-          item.id === province.regionId,
-      );
+    this.addressForm.controls.regionId.setValue(province.regionId, {
+      emitEvent: false,
+    });
 
-    if (!region) {
+    // ========================================
+    // Provinces Under Region
+    // ========================================
+
+    const provinces = this.addressReferences.provinces.filter(
+      (item) => item.regionId === province.regionId,
+    );
+
+    this.provinceOptions = this.toProvinceOptions(provinces);
+
+    // ========================================
+    // Cities Under Province
+    // ========================================
+
+    const cities = this.addressReferences.cities.filter((city) => city.provinceId === provinceId);
+
+    this.cityOptions = this.toCityOptions(cities);
+  }
+
+  // ========================================
+  // City Change
+  // ========================================
+
+  onCityChange(cityId: number | null): void {
+    if (!this.addressReferences || !this.isPhilippinesSelected) {
       return;
     }
 
     // ========================================
-    // Find Country
+    // Clear Previous Barangay
     // ========================================
 
-    const country =
-      this.addressReferences.countries.find(
-        (item) =>
-          item.id === region.countryId,
-      );
+    this.clearBarangay();
 
-    if (!country) {
+    // ========================================
+    // No City
+    // ========================================
+
+    if (cityId === null) {
       return;
     }
 
     // ========================================
-    // Populate Country
+    // Find Selected City
     // ========================================
 
-    this.addressForm.controls.countryId.setValue(
-      country.id,
-      {
-        emitEvent: false,
+    const city = this.addressReferences.cities.find((item) => item.id === cityId);
+
+    if (!city) {
+      return;
+    }
+
+    // ========================================
+    // Current Province
+    // ========================================
+
+    const currentProvinceId = this.addressForm.controls.provinceId.value;
+
+    // ========================================
+    // No Province Selected
+    //
+    // Determine Province + Region
+    // ========================================
+
+    if (currentProvinceId === null) {
+      const province = this.addressReferences.provinces.find((item) => item.id === city.provinceId);
+
+      if (province) {
+        // ========================================
+        // Set Province
+        // ========================================
+
+        this.addressForm.controls.provinceId.setValue(province.id, {
+          emitEvent: false,
+        });
+
+        // ========================================
+        // Set Region
+        // ========================================
+
+        this.addressForm.controls.regionId.setValue(province.regionId, {
+          emitEvent: false,
+        });
+
+        // ========================================
+        // Province Options
+        // ========================================
+
+        const provinces = this.addressReferences.provinces.filter(
+          (item) => item.regionId === province.regionId,
+        );
+
+        this.provinceOptions = this.toProvinceOptions(provinces);
+
+        // ========================================
+        // City Options
+        // ========================================
+
+        const cities = this.addressReferences.cities.filter(
+          (item) => item.provinceId === province.id,
+        );
+
+        this.cityOptions = this.toCityOptions(cities);
+      }
+    }
+
+    // ========================================
+    // Load Barangays By City
+    // ========================================
+
+    this.loadBarangays(cityId);
+  }
+
+  // ========================================
+  // Load Barangays
+  // ========================================
+
+  private loadBarangays(cityId: number, selectedBarangayId: number | null = null): void {
+    this.isLoadingBarangays = true;
+
+    this.barangayOptions = [];
+
+    this.addressService.getBarangaysByCity(cityId).subscribe({
+      next: (response) => {
+        console.log('Barangay Response:', response);
+
+        console.log('Barangay Success:', response.success);
+
+        console.log('Barangay Message:', response.message);
+
+        console.log('Barangay Error Code:', response.errorCode);
+
+        // ========================================
+        // API Business Failure
+        // ========================================
+
+        if (!response.success) {
+          this.isLoadingBarangays = false;
+
+          this.barangayOptions = [];
+
+          this.errorMessage = response.message ?? 'Unable to load barangays.';
+
+          return;
+        }
+
+        // ========================================
+        // API Success
+        // ========================================
+
+        this.barangayOptions = response.data.map((barangay) => ({
+          value: barangay.id,
+
+          label: barangay.barangayName.toUpperCase(),
+        }));
+
+        // ========================================
+        // Restore Existing Barangay
+        // ========================================
+
+        if (selectedBarangayId !== null) {
+          this.addressForm.controls.barangayId.setValue(selectedBarangayId, {
+            emitEvent: false,
+          });
+        }
+
+        this.isLoadingBarangays = false;
       },
+
+      // ========================================
+      // HTTP / Network Error
+      // ========================================
+
+      error: (error) => {
+        console.error('Failed to load barangays:', error);
+
+        this.isLoadingBarangays = false;
+
+        this.barangayOptions = [];
+
+        this.addressForm.controls.barangayId.setValue(null, {
+          emitEvent: false,
+        });
+
+        this.errorMessage = 'Unable to load barangays.';
+      },
+    });
+  }
+
+  // ========================================
+  // Clear Barangay
+  // ========================================
+
+  private clearBarangay(): void {
+    this.addressForm.controls.barangayId.setValue(null, {
+      emitEvent: false,
+    });
+
+    this.barangayOptions = [];
+  }
+
+  // ========================================
+  // Load All Philippine Options
+  // ========================================
+
+  private loadAllPhilippineOptions(): void {
+    if (!this.addressReferences) {
+      return;
+    }
+
+    const countryId = this.addressForm.controls.countryId.value;
+
+    if (countryId === null) {
+      this.regionOptions = [];
+
+      this.provinceOptions = [];
+
+      this.cityOptions = [];
+
+      this.barangayOptions = [];
+
+      return;
+    }
+
+    // ========================================
+    // Regions
+    // ========================================
+
+    const regions = this.addressReferences.regions.filter(
+      (region) => region.countryId === countryId,
     );
 
-    // ========================================
-    // Populate Region Options
-    // ========================================
+    this.regionOptions = this.toRegionOptions(regions);
 
-    const countryRegions =
-      this.addressReferences.regions.filter(
-        (item) =>
-          item.countryId === country.id,
-      );
-
-    this.regionOptions =
-      this.toRegionOptions(
-        countryRegions,
-      );
+    const regionIds = new Set(regions.map((region) => region.id));
 
     // ========================================
-    // Populate Region
+    // Provinces
     // ========================================
 
-    this.addressForm.controls.regionId.setValue(
-      region.id,
-      {
-        emitEvent: false,
-      },
+    const provinces = this.addressReferences.provinces.filter((province) =>
+      regionIds.has(province.regionId),
     );
 
-    // ========================================
-    // Populate Province Options
-    // ========================================
+    this.provinceOptions = this.toProvinceOptions(provinces);
 
-    const regionProvinces =
-      this.addressReferences.provinces.filter(
-        (item) =>
-          item.regionId === region.id,
-      );
-
-    this.provinceOptions =
-      this.toProvinceOptions(
-        regionProvinces,
-      );
+    const provinceIds = new Set(provinces.map((province) => province.id));
 
     // ========================================
-    // Populate Province
+    // Cities
     // ========================================
 
-    this.addressForm.controls.provinceId.setValue(
-      province.id,
-      {
-        emitEvent: false,
-      },
-    );
+    const cities = this.addressReferences.cities.filter((city) => provinceIds.has(city.provinceId));
+
+    this.cityOptions = this.toCityOptions(cities);
+
+    // Barangays load only after City selection.
+
+    this.barangayOptions = [];
+  }
+
+  // ========================================
+  // Dynamic Validators
+  // ========================================
+
+  private updateAddressValidators(): void {
+    const countryId = this.addressForm.controls.countryId.value;
+
+    const regionControl = this.addressForm.controls.regionId;
+
+    const provinceControl = this.addressForm.controls.provinceId;
+
+    const cityControl = this.addressForm.controls.cityId;
+
+    const barangayControl = this.addressForm.controls.barangayId;
+
+    const foreignStateProvinceRegionControl = this.addressForm.controls.foreignStateProvinceRegion;
+
+    const foreignCityControl = this.addressForm.controls.foreignCity;
 
     // ========================================
-    // Filter City Options to Province
+    // No Country
     // ========================================
 
-    const provinceCities =
-      this.addressReferences.cities.filter(
-        (item) =>
-          item.provinceId === province.id,
-      );
+    if (countryId === null) {
+      regionControl.clearValidators();
 
-    this.cityOptions =
-      this.toCityOptions(
-        provinceCities,
-      );
+      provinceControl.clearValidators();
+
+      cityControl.clearValidators();
+
+      barangayControl.clearValidators();
+
+      foreignStateProvinceRegionControl.clearValidators();
+
+      foreignCityControl.clearValidators();
+
+      this.updateLocationValidity();
+
+      return;
+    }
 
     // ========================================
-    // Keep Selected City
+    // Philippines
     // ========================================
 
-    this.addressForm.controls.cityId.setValue(
-      city.id,
-      {
-        emitEvent: false,
-      },
-    );
+    if (this.isPhilippinesSelected) {
+      regionControl.setValidators([Validators.required]);
+
+      provinceControl.setValidators([Validators.required]);
+
+      cityControl.setValidators([Validators.required]);
+
+      barangayControl.setValidators([Validators.required]);
+
+      foreignStateProvinceRegionControl.clearValidators();
+
+      foreignCityControl.clearValidators();
+    }
+
+    // ========================================
+    // Foreign
+    // ========================================
+    else {
+      regionControl.clearValidators();
+
+      provinceControl.clearValidators();
+
+      cityControl.clearValidators();
+
+      barangayControl.clearValidators();
+
+      foreignStateProvinceRegionControl.setValidators([Validators.required]);
+
+      foreignCityControl.setValidators([Validators.required]);
+    }
+
+    this.updateLocationValidity();
+  }
+
+  // ========================================
+  // Update Validator State
+  // ========================================
+
+  private updateLocationValidity(): void {
+    this.addressForm.controls.regionId.updateValueAndValidity({
+      emitEvent: false,
+    });
+
+    this.addressForm.controls.provinceId.updateValueAndValidity({
+      emitEvent: false,
+    });
+
+    this.addressForm.controls.cityId.updateValueAndValidity({
+      emitEvent: false,
+    });
+
+    this.addressForm.controls.barangayId.updateValueAndValidity({
+      emitEvent: false,
+    });
+
+    this.addressForm.controls.foreignStateProvinceRegion.updateValueAndValidity({
+      emitEvent: false,
+    });
+
+    this.addressForm.controls.foreignCity.updateValueAndValidity({
+      emitEvent: false,
+    });
   }
 
   // ========================================
   // Region Options
   // ========================================
 
-  private toRegionOptions(
-    items: Region[],
-  ): CxpSelectOption[] {
-    return items.map(
-      (item) => ({
-        value: item.id,
-        label:
-          item.regionName.toUpperCase(),
-      }),
-    );
+  private toRegionOptions(items: Region[]): CxpSelectOption[] {
+    return items.map((item) => ({
+      value: item.id,
+
+      label: item.regionName.toUpperCase(),
+    }));
   }
 
   // ========================================
   // Province Options
   // ========================================
 
-  private toProvinceOptions(
-    items: Province[],
-  ): CxpSelectOption[] {
-    return items.map(
-      (item) => ({
-        value: item.id,
-        label:
-          item.provinceName.toUpperCase(),
-      }),
-    );
+  private toProvinceOptions(items: Province[]): CxpSelectOption[] {
+    return items.map((item) => ({
+      value: item.id,
+
+      label: item.provinceName.toUpperCase(),
+    }));
   }
 
   // ========================================
   // City Options
   // ========================================
 
-  private toCityOptions(
-    items: City[],
-  ): CxpSelectOption[] {
-    return items.map(
-      (item) => ({
-        value: item.id,
-        label:
-          item.cityOrMunicipalName.toUpperCase(),
-      }),
-    );
-  }
+  private toCityOptions(items: City[]): CxpSelectOption[] {
+    return items.map((item) => ({
+      value: item.id,
 
-  // ========================================
-  // Form State
-  // ========================================
-
-  private updateFormState(): void {
-    if (
-      this.referencesLoaded &&
-      this.isEditing &&
-      this.canModify
-    ) {
-      this.addressForm.enable();
-
-      return;
-    }
-
-    this.addressForm.disable();
-  }
-
-  // ========================================
-  // Add / Edit / Save
-  // ========================================
-
-  onEditSave(): void {
-    if (!this.canModify) {
-      this.addressForm.disable();
-
-      this.isEditing = false;
-
-      this.errorMessage =
-        this.isNewEmployee
-          ? 'You do not have permission to create an address.'
-          : 'You do not have permission to update an address.';
-
-      return;
-    }
-
-    if (this.isEditing) {
-      this.saveAddress();
-
-      return;
-    }
-
-    this.startEdit();
+      label: item.cityOrMunicipalName.toUpperCase(),
+    }));
   }
 
   // ========================================
@@ -802,25 +1177,15 @@ export class Address implements OnInit {
 
   startEdit(): void {
     if (!this.canModify) {
-      this.addressForm.disable();
-
-      this.isEditing = false;
-
-      this.errorMessage =
-        this.isNewEmployee
-          ? 'You do not have permission to create an address.'
-          : 'You do not have permission to update an address.';
+      this.errorMessage = this.hasAddress
+        ? 'You do not have permission to update an address.'
+        : 'You do not have permission to create an address.';
 
       return;
     }
 
     if (!this.referencesLoaded) {
-      this.addressForm.disable();
-
-      this.isEditing = false;
-
-      this.errorMessage =
-        'Address reference data is not yet available.';
+      this.errorMessage = 'Address reference data is not yet available.';
 
       return;
     }
@@ -832,45 +1197,42 @@ export class Address implements OnInit {
     this.isEditing = true;
 
     this.addressForm.enable();
+
+    this.updateAddressValidators();
   }
 
   // ========================================
-  // Cancel
+  // Cancel Edit
   // ========================================
 
   cancelEdit(): void {
-    this.addressForm.reset({
-      countryId: null,
-      regionId: null,
-      provinceId: null,
-      cityId: null,
-      street: '',
-      houseUnit: '',
-      zipCode: '',
-    });
+    // ========================================
+    // Existing Address
+    // ========================================
 
-    this.regionOptions = [];
+    if (this.hasAddress) {
+      this.isEditing = false;
 
-    this.provinceOptions = [];
+      this.addressForm.disable();
 
-    // After cancel,
-    // restore all cities
-    if (this.addressReferences) {
-      this.cityOptions =
-        this.toCityOptions(
-          this.addressReferences.cities,
-        );
-    } else {
-      this.cityOptions = [];
+      this.errorMessage = '';
+
+      this.successMessage = '';
+
+      return;
     }
 
-    this.addressForm.markAsPristine();
+    // ========================================
+    // New Address
+    // ========================================
 
-    this.addressForm.markAsUntouched();
+    this.resetAddressForm();
 
-    this.isEditing = false;
+    this.isEditing = true;
 
-    this.addressForm.disable();
+    this.addressForm.enable();
+
+    this.updateAddressValidators();
 
     this.errorMessage = '';
 
@@ -878,52 +1240,159 @@ export class Address implements OnInit {
   }
 
   // ========================================
+  // Reset Address Form
+  // ========================================
+
+  private resetAddressForm(): void {
+    this.addressForm.reset(
+      {
+        countryId: null,
+
+        regionId: null,
+
+        provinceId: null,
+
+        cityId: null,
+
+        barangayId: null,
+
+        foreignStateProvinceRegion: '',
+
+        foreignCity: '',
+
+        addressLine1: '',
+
+        addressLine2: '',
+
+        zipCode: '',
+      },
+      {
+        emitEvent: false,
+      },
+    );
+
+    this.regionOptions = [];
+
+    this.provinceOptions = [];
+
+    this.cityOptions = [];
+
+    this.barangayOptions = [];
+
+    this.addressForm.markAsPristine();
+
+    this.addressForm.markAsUntouched();
+  }
+
+  // ========================================
   // Save Address
   // ========================================
 
-  private saveAddress(): void {
+  saveAddress(): void {
     if (!this.canModify) {
       return;
     }
 
+    // ========================================
+    // Update Validators
+    // ========================================
+
+    this.updateAddressValidators();
+
     this.addressForm.markAllAsTouched();
 
     if (this.addressForm.invalid) {
-      this.errorMessage =
-        'Please fill in all required address fields.';
-
+      this.errorMessage = 'Please fill in all required address fields.';
       return;
     }
 
+    this.isSaving = true;
+
     this.errorMessage = '';
 
-    /*
-     * Address save API will be added later.
-     */
+    this.successMessage = '';
 
-    console.log(
-      'Address form:',
-      this.addressForm.getRawValue(),
-    );
+    const formValue = this.addressForm.getRawValue();
+
+    // ========================================
+    // Local Address - Philippines
+    // ========================================
+
+    if (this.isPhilippinesSelected) {
+      const request = {
+        countryId: formValue.countryId,
+
+        regionId: formValue.regionId,
+
+        provinceId: formValue.provinceId,
+
+        cityId: formValue.cityId,
+
+        barangayId: formValue.barangayId,
+
+        addressLine1: formValue.addressLine1,
+
+        addressLine2: formValue.addressLine2,
+
+        zipCode: formValue.zipCode,
+      };
+
+      console.log('SAVE LOCAL ADDRESS REQUEST:', request);
+    }
+
+    // ========================================
+    // Foreign Address
+    // ========================================
+    else {
+      const request = {
+        countryId: formValue.countryId,
+
+        stateProvinceRegion: formValue.foreignStateProvinceRegion,
+
+        city: formValue.foreignCity,
+
+        addressLine1: formValue.addressLine1,
+
+        addressLine2: formValue.addressLine2,
+
+        zipCode: formValue.zipCode,
+      };
+
+      console.log('SAVE FOREIGN ADDRESS REQUEST:', request);
+    }
+
+    // ========================================
+    // Temporary Mock Successful Save
+    // ========================================
+
+    this.hasAddress = true;
+
+    this.isSaving = false;
+
+    this.successMessage = 'Address saved successfully.';
+
+    // ========================================
+    // Switch To View Mode
+    // ========================================
+
+    this.isEditing = false;
+
+    this.addressForm.disable();
+
+    this.addressForm.markAsPristine();
+
+    this.addressForm.markAsUntouched();
   }
 
   // ========================================
-  // Reference Label Helper
+  // Reference Label
   // ========================================
 
-  getReferenceLabel(
-    options: CxpSelectOption[],
-    selectedValue: CxpSelectPrimitive | null,
-  ): string {
+  getReferenceLabel(options: CxpSelectOption[], selectedValue: CxpSelectPrimitive | null): string {
     if (selectedValue === null) {
       return '—';
     }
 
-    return (
-      options.find(
-        (option) =>
-          option.value === selectedValue,
-      )?.label ?? '—'
-    );
+    return options.find((option) => option.value === selectedValue)?.label ?? '—';
   }
 }

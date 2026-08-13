@@ -8,9 +8,10 @@
     display: grid;
     grid-template-columns: auto auto 1fr;
     gap: 1rem;
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */
     align-items: center;
 }
+
 
 cxp-button {
   margin-left: 1rem;
@@ -30,7 +31,11 @@ cxp-button {
 
   gap: 0.5rem;
 }
-
+.address__body{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
 .sub-header-icon {
   align-self: center;
 }

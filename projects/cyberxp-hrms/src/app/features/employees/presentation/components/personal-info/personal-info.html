@@ -1,11 +1,7 @@
 <section class="cxp-section">
   @if (canAccess) {
-    <form
-      [formGroup]="personalInfoForm"
-      autocomplete="off"
-    >
+    <form [formGroup]="personalInfoForm" autocomplete="off">
       <div class="cxp-item-group-box personal-info">
-
         <!-- ========================================
              Section Header
              ======================================== -->
@@ -17,19 +13,11 @@
             fill="outline"
           ></cxp-icon-user-nav>
 
-          <h2 class="cxp-section__title">
-            Personal Information
-          </h2>
+          <h2 class="cxp-section__title">Personal Information</h2>
 
           <div class="personal-info__actions">
-
             @if (isEditing && canModify) {
-              <cxp-button
-                size="xs"
-                variant="secondary"
-                type="button"
-                (clicked)="cancelEdit()"
-              >
+              <cxp-button size="xs" variant="secondary" type="button" (clicked)="cancelEdit()">
                 Cancel
               </cxp-button>
             }
@@ -50,7 +38,6 @@
                 }
               </cxp-button>
             }
-
           </div>
         </header>
 
@@ -60,7 +47,6 @@
 
         @if (isEditing && canModify) {
           <div class="personal-info__body">
-
             <!-- ========================================
                  Employee Image / ID
                  ======================================== -->
@@ -88,14 +74,10 @@
                  ======================================== -->
 
             <div class="cxp-item-group-box">
-
               <!-- First Name -->
 
               <div class="cxp-input__wrap">
-                <label
-                  class="cxp-label cxp-label-bg cxp-label-sm"
-                  for="firstName"
-                >
+                <label class="cxp-label cxp-label-bg cxp-label-sm" for="firstName">
                   First Name
                 </label>
 
@@ -115,10 +97,7 @@
               <!-- Middle Name -->
 
               <div class="cxp-input__wrap">
-                <label
-                  class="cxp-label cxp-label-bg cxp-label-sm"
-                  for="middleName"
-                >
+                <label class="cxp-label cxp-label-bg cxp-label-sm" for="middleName">
                   Middle Name
                 </label>
 
@@ -134,10 +113,7 @@
               <!-- Last Name -->
 
               <div class="cxp-input__wrap">
-                <label
-                  class="cxp-label cxp-label-bg cxp-label-sm"
-                  for="lastName"
-                >
+                <label class="cxp-label cxp-label-bg cxp-label-sm" for="lastName">
                   Last Name
                 </label>
 
@@ -157,12 +133,7 @@
               <!-- Suffix -->
 
               <div class="cxp-input__wrap">
-                <label
-                  class="cxp-label cxp-label-bg cxp-label-sm"
-                  for="suffix"
-                >
-                  Suffix
-                </label>
+                <label class="cxp-label cxp-label-bg cxp-label-sm" for="suffix"> Suffix </label>
 
                 <cxp-input-select
                   formControlName="suffixId"
@@ -176,10 +147,7 @@
               <!-- Date of Birth -->
 
               <div class="cxp-input__wrap">
-                <label
-                  class="cxp-label cxp-label-bg cxp-label-sm"
-                  for="dateOfBirth"
-                >
+                <label class="cxp-label cxp-label-bg cxp-label-sm" for="dateOfBirth">
                   Date of Birth
                 </label>
 
@@ -198,12 +166,7 @@
               <!-- Gender -->
 
               <div class="cxp-input__wrap">
-                <label
-                  class="cxp-label cxp-label-bg cxp-label-sm"
-                  for="gender"
-                >
-                  Gender
-                </label>
+                <label class="cxp-label cxp-label-bg cxp-label-sm" for="gender"> Gender </label>
 
                 <cxp-input-select
                   formControlName="genderId"
@@ -221,10 +184,7 @@
               <!-- Civil Status -->
 
               <div class="cxp-input__wrap">
-                <label
-                  class="cxp-label cxp-label-bg cxp-label-sm"
-                  for="civilStatus"
-                >
+                <label class="cxp-label cxp-label-bg cxp-label-sm" for="civilStatus">
                   Civil Status
                 </label>
 
@@ -240,18 +200,14 @@
                   "
                 ></cxp-input-select>
               </div>
-
             </div>
           </div>
-
         } @else {
-
           <!-- ========================================
                View Mode
                ======================================== -->
 
           <div class="personal-info__body">
-
             <!-- ========================================
                  Employee Image / ID
                  ======================================== -->
@@ -279,103 +235,70 @@
                  ======================================== -->
 
             <div class="cxp-item-group-box">
-
               <!-- First Name -->
 
               <div class="cxp-input__wrap">
-                <label class="cxp-label cxp-label-bg cxp-label-sm">
-                  First Name
-                </label>
+                <label class="cxp-label cxp-label-bg cxp-label-sm"> First Name </label>
 
                 <cxp-display-field size="sm">
-                  {{
-                    personalInfoForm.controls.firstName.value || '—'
-                  }}
+                  {{ personalInfoForm.controls.firstName.value || '—' }}
                 </cxp-display-field>
               </div>
 
               <!-- Middle Name -->
 
               <div class="cxp-input__wrap">
-                <label class="cxp-label cxp-label-bg cxp-label-sm">
-                  Middle Name
-                </label>
+                <label class="cxp-label cxp-label-bg cxp-label-sm"> Middle Name </label>
 
                 <cxp-display-field size="sm">
-                  {{
-                    personalInfoForm.controls.middleName.value || '—'
-                  }}
+                  {{ personalInfoForm.controls.middleName.value || '—' }}
                 </cxp-display-field>
               </div>
 
               <!-- Last Name -->
 
               <div class="cxp-input__wrap">
-                <label class="cxp-label cxp-label-bg cxp-label-sm">
-                  Last Name
-                </label>
+                <label class="cxp-label cxp-label-bg cxp-label-sm"> Last Name </label>
 
                 <cxp-display-field size="sm">
-                  {{
-                    personalInfoForm.controls.lastName.value || '—'
-                  }}
+                  {{ personalInfoForm.controls.lastName.value || '—' }}
                 </cxp-display-field>
               </div>
 
               <!-- Suffix -->
 
               <div class="cxp-input__wrap">
-                <label class="cxp-label cxp-label-bg cxp-label-sm">
-                  Suffix
-                </label>
+                <label class="cxp-label cxp-label-bg cxp-label-sm"> Suffix </label>
 
                 <cxp-display-field size="sm">
-                  {{
-                    getReferenceLabel(
-                      suffixOptions,
-                      personalInfoForm.controls.suffixId.value
-                    )
-                  }}
+                  {{ getReferenceLabel(suffixOptions, personalInfoForm.controls.suffixId.value) }}
                 </cxp-display-field>
               </div>
 
               <!-- Date of Birth -->
 
               <div class="cxp-input__wrap">
-                <label class="cxp-label cxp-label-bg cxp-label-sm">
-                  Date of Birth
-                </label>
+                <label class="cxp-label cxp-label-bg cxp-label-sm"> Date of Birth </label>
 
                 <cxp-display-field size="sm">
-                  {{
-                    personalInfoForm.controls.dateOfBirth.value || '—'
-                  }}
+                  {{ personalInfoForm.controls.dateOfBirth.value || '—' }}
                 </cxp-display-field>
               </div>
 
               <!-- Gender -->
 
               <div class="cxp-input__wrap">
-                <label class="cxp-label cxp-label-bg cxp-label-sm">
-                  Gender
-                </label>
+                <label class="cxp-label cxp-label-bg cxp-label-sm"> Gender </label>
 
                 <cxp-display-field size="sm">
-                  {{
-                    getReferenceLabel(
-                      genderOptions,
-                      personalInfoForm.controls.genderId.value
-                    )
-                  }}
+                  {{ getReferenceLabel(genderOptions, personalInfoForm.controls.genderId.value) }}
                 </cxp-display-field>
               </div>
 
               <!-- Civil Status -->
 
               <div class="cxp-input__wrap">
-                <label class="cxp-label cxp-label-bg cxp-label-sm">
-                  Civil Status
-                </label>
+                <label class="cxp-label cxp-label-bg cxp-label-sm"> Civil Status </label>
 
                 <cxp-display-field size="sm">
                   {{
@@ -386,13 +309,10 @@
                   }}
                 </cxp-display-field>
               </div>
-
             </div>
           </div>
         }
-
       </div>
     </form>
   }
 </section>
-

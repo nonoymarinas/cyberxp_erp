@@ -15,7 +15,16 @@
     --label-size-lg: 16px;
     --label-size-xl: 18px;
 }
-
+.cxp-label__error{
+ color: var(--invalid-red);
+ display: block; 
+ font-size: smaller;
+}
+.cxp-label__success{
+    color: var(--color-text-primary);
+ display: block; 
+ font-size: smaller;
+}
 /* Base */
 
 .cxp-label {

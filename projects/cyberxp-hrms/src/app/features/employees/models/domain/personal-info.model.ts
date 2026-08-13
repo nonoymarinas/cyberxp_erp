@@ -1,10 +1,22 @@
-import { CreatePersonalInfo } from './create-personal-info.model';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApiResponse } from '../../../../shared/models/api-response.model';
 
 export interface PersonalInfo extends CreatePersonalInfo {
   id: string | null;
   employeeNumber: string | null;
+}
+
+export interface CreatePersonalInfo {
+  id: string | null;
+  employeeNumber:string | null;
+  firstName:string;
+  middleName: string | null;
+  lastName:string;
+  civilStatusId:string | null;
+  genderId:string | null;
+  dateOfBirth:string;
+  suffixId:string | null;
+  imageUrl:string | null;
 }
 
 export interface PersonalInformation {
@@ -48,7 +60,7 @@ export interface SavePersonalInfoRequest {
   dateOfBirth: string | null;
   genderId: string | null;
   civilStatusId: string | null;
-
+  
   imageUrl: string | null;
 }
 
@@ -71,3 +83,4 @@ export interface EmployeeReferenceDataDto {
 }
 
 export type EmployeeReferenceResponseDto = ApiResponse<EmployeeReferenceDataDto>;
+
