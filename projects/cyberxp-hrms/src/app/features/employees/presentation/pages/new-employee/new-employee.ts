@@ -9,7 +9,6 @@ import {
 import { UserAccessService } from '../../../../../core/authorization/services/user-access.services';
 import { EMPLOYEE_PERMISSIONS } from '../../../../../core/authorization/permissions/employee-permissions';
 
-import { EmployeeState } from '../../../state/employee-state.service';
 
 @Component({
   selector: 'cxp-new-employee',
@@ -20,7 +19,6 @@ import { EmployeeState } from '../../../state/employee-state.service';
     RouterOutlet,
     CxpIconChevronApp,
   ],
-  providers: [EmployeeState],
 })
 export class NewEmployeePage {
   private readonly userAccessService =

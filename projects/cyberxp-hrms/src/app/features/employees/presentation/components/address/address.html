@@ -1,4 +1,4 @@
-<section class=" cxp-section">
+<section class="cxp-section">
   <!-- ========================================
        Header
        ======================================== -->
@@ -89,6 +89,7 @@
         [formGroup]="addressForm"
       >
         <div class="address__body">
+
           <!-- ========================================
                Country
                ======================================== -->
@@ -111,11 +112,13 @@
                ======================================== -->
 
           @if (hasCountrySelected) {
+
             <!-- ========================================
                  Philippine Address
                  ======================================== -->
 
             @if (isPhilippinesSelected) {
+
               <!-- Region -->
 
               <div class="cxp-input__wrap">
@@ -175,7 +178,9 @@
                   [options]="barangayOptions"
                 ></cxp-input-select>
               </div>
+
             } @else {
+
               <!-- ========================================
                    Foreign Address
                    ======================================== -->
@@ -254,6 +259,44 @@
                 formControlName="zipCode"
               ></cxp-input-text>
             </div>
+
+            <!-- ========================================
+                 Address Scope
+                 ======================================== -->
+
+            <div class="cxp-input__wrap">
+              <label class="cxp-label cxp-label-bg cxp-label-sm">
+                Address Scope
+              </label>
+
+              <cxp-input-select
+                size="sm"
+                placeholder="Address Scope"
+                formControlName="scopeId"
+                [options]="addressScopeOptions"
+              ></cxp-input-select>
+            </div>
+
+            <!-- ========================================
+                 Present Address
+                 ======================================== -->
+
+            <div class="cxp-input__wrap">
+              <label class="cxp-label cxp-label-bg cxp-label-sm">
+                Present Address?
+              </label>
+
+              <label class="address__checkbox">
+                <input
+                  type="checkbox"
+                  formControlName="isPresent"
+                />
+
+                <span>
+                  Yes
+                </span>
+              </label>
+            </div>
           }
         </div>
       </form>
@@ -265,6 +308,7 @@
 
     @else if (!isLoading) {
       <div class="address__body">
+
         <!-- ========================================
              Country
              ======================================== -->
@@ -290,11 +334,13 @@
              ======================================== -->
 
         @if (hasCountrySelected) {
+
           <!-- ========================================
                Philippine Address
                ======================================== -->
 
           @if (isPhilippinesSelected) {
+
             <!-- Region -->
 
             <div class="cxp-input__wrap">
@@ -366,7 +412,9 @@
                 "
               ></cxp-display-field>
             </div>
+
           } @else {
+
             <!-- ========================================
                  Foreign Address
                  ======================================== -->
@@ -381,8 +429,7 @@
               <cxp-display-field
                 size="sm"
                 [value]="
-                  addressForm.controls
-                    .foreignStateProvinceRegion.value ||
+                  addressForm.controls.foreignStateProvinceRegion.value ||
                   '—'
                 "
               ></cxp-display-field>
@@ -453,6 +500,45 @@
               [value]="
                 addressForm.controls.zipCode.value ||
                 '—'
+              "
+            ></cxp-display-field>
+          </div>
+
+          <!-- ========================================
+               Address Scope
+               ======================================== -->
+
+          <div class="cxp-input__wrap">
+            <label class="cxp-label cxp-label-bg cxp-label-sm">
+              Address Scope
+            </label>
+
+            <cxp-display-field
+              size="sm"
+              [value]="
+                getReferenceLabel(
+                  addressScopeOptions,
+                  addressForm.controls.scopeId.value
+                )
+              "
+            ></cxp-display-field>
+          </div>
+
+          <!-- ========================================
+               Present Address
+               ======================================== -->
+
+          <div class="cxp-input__wrap">
+            <label class="cxp-label cxp-label-bg cxp-label-sm">
+              Present Address?
+            </label>
+
+            <cxp-display-field
+              size="sm"
+              [value]="
+                addressForm.controls.isPresent.value
+                  ? 'YES'
+                  : 'NO'
               "
             ></cxp-display-field>
           </div>

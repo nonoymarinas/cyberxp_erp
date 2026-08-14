@@ -10,7 +10,7 @@ export function savePersonalInfoMock(
 ): SavePersonalInfoResponse {
 
   personalInfoDatabase = {
-    employeeId: request.employeeId ?? 'EMP000001',
+    employeeNumber: request.employeeGuid ?? 'EMP000001',
     employeeGuid: request.employeeGuid ?? crypto.randomUUID(),
 
     firstName: request.firstName,

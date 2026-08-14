@@ -29,7 +29,7 @@ export interface EmployeeEmployment {
   templateUrl: './employment.html',
   styleUrl: './employment.css',
 })
-export class Employment {
+export class EmploymentComponent {
   isEditing = false;
 
   employment: EmployeeEmployment = {

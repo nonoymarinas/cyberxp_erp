@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, tap } from 'rxjs';
+import { environment } from '../../../../../environments/environment';
 
 import {
-  AddressReferencesResponseDto,
-  BarangaysResponseDto,
-} from '../../models/dto/address.dto.model';
+  AddressRefResponseDto,
+  BarangaysRefResponseDto,
+} from '../../models/dto/address-ref.dto.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,18 +15,20 @@ export class AddressReferenceApi {
   private readonly http = inject(HttpClient);
 
   private readonly referencesEndpoint =
-    'https://api-hrms-employee-dev.azurewebsites.net/api/v1/address/references';
+     `${environment.api.baseUrl}/address/references`;
 
   private readonly barangaysEndpoint =
-    'https://api-hrms-employee-dev.azurewebsites.net/api/v1/address/references/barangays';
+    `${environment.api.baseUrl}/address/references/barangays`;
 
   // ========================================
   // Get Address References
   // ========================================
 
-  getReferences(): Observable<AddressReferencesResponseDto> {
+  getReferences(): Observable<AddressRefResponseDto> {
+    console.log(this.barangaysEndpoint)
+    console.log(this.referencesEndpoint)
     return this.http
-      .get<AddressReferencesResponseDto>(
+      .get<AddressRefResponseDto>(
         this.referencesEndpoint,
       )
       .pipe(
@@ -49,9 +52,9 @@ export class AddressReferenceApi {
 
   getBarangaysByCity(
   cityId: number,
-): Observable<BarangaysResponseDto> {
+): Observable<BarangaysRefResponseDto> {
   return this.http
-    .get<BarangaysResponseDto>(
+    .get<BarangaysRefResponseDto>(
       `${this.barangaysEndpoint}/${cityId}`,
     )
     .pipe(

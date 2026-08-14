@@ -7,13 +7,13 @@ import { ReferenceItem } from '../../../../shared/models/reference-item.model';
 import { PersonalInfoReference } from '../../models/references/personal-info-reference.model';
 import { EmployeeReferenceApi } from '../api/personal-info.api';
 import { EmployeeReferenceDto } from '../../models/domain/personal-info.model';
-import { savePersonalInfoMock, getPersonalInfoMock } from '../mocks/personal-info.mock';
+import {  getPersonalInfoMock } from '../mocks/personal-info.mock';
 import {
-  PersonalInformation,
-  SavePersonalInfoRequest,
-  SavePersonalInfoResponse,
+  SavePersonalInfoRequest as PersonalInfoRequest,
 } from '../../models/domain/personal-info.model';
-import { EmployeeDataResponse } from '../../models/domain/employee.domain.model';
+import { EmployeeDataResponse,PersonalInfo } from '../../models/domain/employee.model';
+import { PersonalInfoDto } from '../../models/dto/personal-info.dto.model';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -45,41 +45,55 @@ export class PersonalInfoDataAccess {
     );
   }
 
-  savePersonalInfo(request: SavePersonalInfoRequest): Observable<EmployeeDataResponse> {
-    return this.api.savePersonalInfo(request).pipe(
+  savePersonalInfo(
+  request: PersonalInfoRequest,
+): Observable<EmployeeDataResponse> {
+  return this.api
+    .savePersonalInfo(request)
+    .pipe(
       map((response) => ({
         success: response.success,
         message: response.message,
         errorCode: response.errorCode,
 
         data: {
-          personalInfo: {
-            employeeId: response.data.personalInfo.employeeId,
-            employeeGuid: response.data.personalInfo.employeeGuid,
-            firstName: response.data.personalInfo.firstName,
-            middleName: response.data.personalInfo.middleName,
-            lastName: response.data.personalInfo.lastName,
-            suffixId: response.data.personalInfo.suffixId,
-            dateOfBirth: response.data.personalInfo.dateOfBirth,
-            genderId: response.data.personalInfo.genderId,
-            civilStatusId: response.data.personalInfo.civilStatusId,
-            imageUrl: response.data.personalInfo.imageUrl,
-          },
+          personalInfo: this.mapPersonalInfo(
+            response.data.personalInfo,
+          ),
         },
       })),
+
       tap((response) => {
-        console.log('Mapped Employee Data:', response);
-        console.log('Mapped Personal Info:', response.data.personalInfo);
+        console.log(
+          'Mapped Employee Data:',
+          response,
+        );
+
+        console.log(
+          'Mapped Personal Info:',
+          response.data.personalInfo,
+        );
       }),
     );
+}
+
+  
+  private mapPersonalInfo(dto: PersonalInfoDto): PersonalInfo {
+    return {
+      employeeNumber: dto.employeeNumber,
+      employeeGuid: dto.employeeGuid,
+      firstName: dto.firstName,
+      middleName: dto.middleName,
+      lastName: dto.lastName,
+      suffixId: dto.suffixId,
+      dateOfBirth: dto.dateOfBirth,
+      genderId: dto.genderId,
+      civilStatusId: dto.civilStatusId,
+      imageUrl: dto.imageUrl,
+    };
   }
 
-  // savePersonalInfo(request: SavePersonalInfoRequest): Observable<SavePersonalInfoResponse> {
-  //   const response = savePersonalInfoMock(request);
-  //   return of(response).pipe(delay(1000));
-  // }
-
-  getPersonalInfo(employeeGuid: string): Observable<PersonalInformation | null> {
+  getPersonalInfo(employeeGuid: string): Observable<PersonalInfo | null> {
     return of(getPersonalInfoMock(employeeGuid));
   }
 

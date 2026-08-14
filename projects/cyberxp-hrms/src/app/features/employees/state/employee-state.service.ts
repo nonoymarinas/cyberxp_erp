@@ -6,7 +6,7 @@ import {
 
 import {
   EmployeeData,
-} from '../models/domain/employee.domain.model';
+} from '../models/domain/employee.model';
 
 @Injectable({
   providedIn: 'root',
@@ -26,11 +26,11 @@ export class EmployeeState {
   // Employee ID
   // ========================================
 
-  readonly employeeId = computed(
+  readonly employeeNumber = computed(
     () =>
       this._employeeData()
         ?.personalInfo
-        ?.employeeId ?? null,
+        ?.employeeNumber ?? null,
   );
 
   // ========================================

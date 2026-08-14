@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable, of, tap } from 'rxjs';
 
-import { EmployeeListDataAccess } from '../../data/data-access/employee-list.data-access';
+import { EmployeeListDataAccess } from '../../data/data-access/employeelist.data-access';
 
 import {
   EmployeeListApiResponse,

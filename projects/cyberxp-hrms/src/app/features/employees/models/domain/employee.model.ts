@@ -1,7 +1,7 @@
 import { ApiResponse } from '../../../../shared/models/api-response.model';
 
 export interface PersonalInfo {
-  employeeId: string | null;
+  employeeNumber: string | null;
   employeeGuid: string | null;
   firstName: string;
   middleName: string | null;

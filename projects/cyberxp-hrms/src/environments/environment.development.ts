@@ -1,5 +1,5 @@
 export const environment = {
-  production: false,
+    production: false,
 
   app: {
     name: 'CyberXP HRMS',
@@ -7,7 +7,7 @@ export const environment = {
   },
 
   api: {
-    baseUrl: 'https://localhost:7001/api',
-    timeout: 30000,
+    baseUrl: 'https://api-hrms-employee-dev.azurewebsites.net/api/v1',
+    apiKey: 'YOUR_API_KEY_HERE',
   },
 } as const;

@@ -24,7 +24,7 @@ export interface EmployeeContact {
   templateUrl: './contacts.html',
   styleUrl: './contacts.css',
 })
-export class Contacts {
+export class ContactsComponent {
   isEditing = false;
 
   contact: EmployeeContact = {

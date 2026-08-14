@@ -1,6 +1,4 @@
-export interface EmployeeAddressDto {
-  scopeId: string | null;
-
+export interface EmployeeAddress {
   countryId: number | null;
 
   regionId: number | null;
@@ -14,22 +12,22 @@ export interface EmployeeAddressDto {
   foreignCity:
     string | null;
 
-  addressLine1:
-    string | null;
+  addressLine1: string;
 
   addressLine2:
     string | null;
 
   zipCode:
-    string;
+    string | null;
+
+  scopeId:
+    number | null;
 
   isPresent:
-    boolean | null;
+    boolean;
 }
 
-export interface SaveAddressRequestDto {
-  scopeId: string | null;
-
+export interface SaveAddressRequest {
   countryId: number | null;
 
   regionId: number | null;
@@ -43,15 +41,17 @@ export interface SaveAddressRequestDto {
   foreignCity:
     string | null;
 
-  addressLine1:
-    string | null;
+  addressLine1: string;
 
   addressLine2:
     string | null;
 
   zipCode:
-    string;
+    string | null;
+
+  scopeId:
+    number | null;
 
   isPresent:
-    boolean | null;
+    boolean;
 }

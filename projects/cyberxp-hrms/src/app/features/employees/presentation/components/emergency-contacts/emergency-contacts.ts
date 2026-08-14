@@ -25,7 +25,7 @@ export interface EmployeeEmergencyContact {
   templateUrl: './emergency-contacts.html',
   styleUrl: './emergency-contacts.css',
 })
-export class EmergencyContacts {
+export class EmergencyContactsComponent {
   isEditing = false;
 
   emergencyContact: EmployeeEmergencyContact = {

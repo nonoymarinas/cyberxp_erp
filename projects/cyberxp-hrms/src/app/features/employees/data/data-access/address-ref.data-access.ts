@@ -9,7 +9,7 @@ import {
   ProvinceDto,
   CityDto,
   BarangayDto,
-} from '../../models/dto/address.dto.model';
+} from '../../models/dto/address-ref.dto.model';
 
 import {
   Country,
@@ -19,12 +19,12 @@ import {
   Barangay,
   AddressesReferencesResponse,
   BarangaysResponse,
-} from '../../models/domain/address.domain.model';
+} from '../../models/domain/address-ref.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AddressDataAccess {
+export class AddressRefDataAccess {
   private readonly api = inject(AddressReferenceApi);
 
   // ========================================
@@ -52,6 +52,7 @@ export class AddressDataAccess {
           cities: this.mapCities(
             response.data.cities,
           ),
+          addressScopes:[],
         },
       })),
     );
@@ -89,6 +90,7 @@ export class AddressDataAccess {
     return items.map((item) => ({
       id: item.id,
       countryName: item.countryName,
+      code:item.code,
     }));
   }
 
@@ -103,6 +105,7 @@ export class AddressDataAccess {
       id: item.id,
       countryId: item.countryId,
       regionName: item.regionName,
+      code:item.code,
     }));
   }
 
@@ -117,6 +120,7 @@ export class AddressDataAccess {
       id: item.id,
       regionId: item.regionId,
       provinceName: item.provinceName,
+      code:item.code,
     }));
   }
 
@@ -132,6 +136,7 @@ export class AddressDataAccess {
       provinceId: item.provinceId,
       cityOrMunicipalName:
         item.cityOrMunicipalName,
+        code:item.code,
     }));
   }
 
@@ -146,6 +151,7 @@ export class AddressDataAccess {
       id: item.id,
       cityId: item.cityId,
       barangayName: item.barangayName,
+      code:item.code,
     }));
   }
 }
