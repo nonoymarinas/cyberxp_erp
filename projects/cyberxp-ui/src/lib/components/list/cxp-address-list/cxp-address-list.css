@@ -1,0 +1,215 @@
+/* ========================================
+   Host
+   ======================================== */
+
+:host {
+  display: block;
+
+  width: 100%;
+  min-width: 0;
+}
+
+
+/* ========================================
+   Address list
+   ======================================== */
+
+.address-list {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  min-width: 0;
+
+  color: var(--color-input-text);
+  background-color: transparent;
+
+  border: 1px solid var(--color-border-08);
+  border-radius: 0;
+
+  box-sizing: border-box;
+
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease;
+}
+
+
+/* ========================================
+   Label
+   ======================================== */
+
+.address-list__label {
+  flex: 0 0 auto;
+
+  margin: 0;
+
+  white-space: nowrap;
+}
+
+
+/* ========================================
+   Address content
+   ======================================== */
+
+.address-list__content {
+  display: flex;
+  align-items: center;
+
+  flex: 1 1 auto;
+
+  min-width: 0;
+
+  overflow: hidden;
+}
+
+
+/* ========================================
+   Address value
+   ======================================== */
+
+.address-list__value {
+  flex: 1 1 auto;
+
+  min-width: 0;
+
+  color: inherit;
+
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  cursor: text;
+  user-select: text;
+}
+
+
+/* ========================================
+   Empty value
+   ======================================== */
+
+.address-list__value:empty::before {
+  content: '—';
+
+  color: var(--color-input-placeholder);
+}
+
+
+/* ========================================
+   Prefix / suffix
+   ======================================== */
+
+.address-list__prefix,
+.address-list__suffix {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  color: var(--color-input-icon);
+}
+
+
+.address-list__prefix:empty,
+.address-list__suffix:empty {
+  display: none;
+}
+
+
+/* ========================================
+   Button
+   ======================================== */
+
+.address-list__button {
+  flex: 0 0 auto;
+
+  margin-left: auto;
+}
+
+
+/* ========================================
+   Sizes
+   ======================================== */
+
+.address-list--sm {
+  min-height: 32px;
+  padding-inline: 10px;
+
+  gap: 6px;
+
+  font-size: 16px;
+}
+
+
+.address-list--md {
+  min-height: 40px;
+  padding-inline: 12px;
+
+  gap: 8px;
+
+  font-size: 17px;
+}
+
+
+.address-list--lg {
+  min-height: 48px;
+  padding-inline: 14px;
+
+  gap: 10px;
+
+  font-size: 18px;
+}
+
+
+.address-list--xl {
+  min-height: 56px;
+  padding-inline: 16px;
+
+  gap: 12px;
+
+  font-size: 20px;
+}
+
+
+/* ========================================
+   Disabled
+   ======================================== */
+
+.address-list--disabled {
+  color: var(--color-input-disabled-text);
+  background-color: var(--color-input-disabled-background);
+
+  border-color: var(--color-input-disabled-border);
+
+  cursor: not-allowed;
+}
+
+
+.address-list--disabled .address-list__prefix,
+.address-list--disabled .address-list__suffix {
+  color: var(--color-input-disabled-icon);
+}
+
+
+.address-list--disabled .address-list__value {
+  cursor: not-allowed;
+  user-select: none;
+}
+
+
+/* ========================================
+   Invalid
+   ======================================== */
+
+.address-list--invalid {
+  color: var(--color-input-error-text);
+  background-color: var(--color-input-error-background);
+
+  border-color: var(--color-input-error-border);
+}

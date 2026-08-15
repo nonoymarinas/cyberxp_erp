@@ -13,56 +13,48 @@
         }
       </div>
     </header>
+    <div class="contact-list-box">
+      <cxp-contact-list size="sm" value="09173010779">
+        <cxp-icon-lock-nav contacttypeicon size="xs" fill="outline"></cxp-icon-lock-nav>
+        <cxp-icon-chevron-app contactscopeicon size="xs"></cxp-icon-chevron-app>
+      </cxp-contact-list>
+      <cxp-contact-list size="sm" value="09173010779">
+        <cxp-icon-lock-nav contacttypeicon size="xs" fill="outline"></cxp-icon-lock-nav>
+        <cxp-icon-chevron-app contactscopeicon size="xs"></cxp-icon-chevron-app>
+      </cxp-contact-list>
+      <cxp-contact-list size="sm" value="09173010779">
+        <cxp-icon-lock-nav contacttypeicon size="xs" fill="outline"></cxp-icon-lock-nav>
+        <cxp-icon-chevron-app contactscopeicon size="xs"></cxp-icon-chevron-app>
+      </cxp-contact-list>
+    </div>
     <div class="cxp-item-group-box">
       @if (isEditing) {
         <div class="cxp-input__wrap">
-          <label class="cxp-label cxp-label-bg cxp-label-sm"> Mobile No </label>
-
-          <cxp-input-text
+          <label class="cxp-label cxp-label-bg cxp-label-sm"> Contact type </label>
+          <cxp-input-select
             size="sm"
             placeholder="Mobile No"
-            [(value)]="contact.mobileNo"
-          ></cxp-input-text>
+          ></cxp-input-select>
         </div>
 
         <div class="cxp-input__wrap">
-          <label class="cxp-label cxp-label-bg cxp-label-sm"> Landline No </label>
+          <label class="cxp-label cxp-label-bg cxp-label-sm"> Contact scope</label>
 
-          <cxp-input-text
+          <cxp-input-select
             size="sm"
             placeholder="Landline No"
-            [(value)]="contact.landlineNo"
-          ></cxp-input-text>
+          ></cxp-input-select>
         </div>
 
         <div class="cxp-input__wrap">
-          <label class="cxp-label cxp-label-bg cxp-label-sm"> Email Address </label>
+          <label class="cxp-label cxp-label-bg cxp-label-sm"> Value </label>
 
           <cxp-input-text
             size="sm"
             placeholder="Email Address"
-            [(value)]="contact.emailAddress"
           ></cxp-input-text>
         </div>
-      } @else {
-        <div class="cxp-input__wrap">
-          <label class="cxp-label cxp-label-bg cxp-label-sm"> Mobile No </label>
-
-          <cxp-display-field [value]="contact.mobileNo" size="sm"></cxp-display-field>
-        </div>
-
-        <div class="cxp-input__wrap">
-          <label class="cxp-label cxp-label-bg cxp-label-sm"> Landline No </label>
-
-          <cxp-display-field [value]="contact.landlineNo" size="sm"></cxp-display-field>
-        </div>
-
-        <div class="cxp-input__wrap">
-          <label class="cxp-label cxp-label-bg cxp-label-sm"> Email Address </label>
-
-          <cxp-display-field [value]="contact.emailAddress" size="sm"></cxp-display-field>
-        </div>
-      }
+      } 
     </div>
   </div>
 </section>

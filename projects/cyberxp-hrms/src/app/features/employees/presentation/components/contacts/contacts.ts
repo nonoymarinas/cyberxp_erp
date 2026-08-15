@@ -1,10 +1,5 @@
 import { Component } from '@angular/core';
-import {
-  CxpButton,
-  CxpDisplayField,
-  CxpIconAddressNav,
-  CxpInputText,
-} from 'cyberxp-ui';
+import { CxpButton, CxpDisplayField, CxpIconAddressNav, CxpInputText, CxpContactList, CxpIconLockNav, CxpIconChevronApp, CxpInputSelect } from 'cyberxp-ui';
 
 export interface EmployeeContact {
   mobileNo: string;
@@ -20,7 +15,11 @@ export interface EmployeeContact {
     CxpDisplayField,
     CxpIconAddressNav,
     CxpInputText,
-  ],
+    CxpContactList,
+    CxpIconLockNav,
+    CxpIconChevronApp,
+    CxpInputSelect
+],
   templateUrl: './contacts.html',
   styleUrl: './contacts.css',
 })

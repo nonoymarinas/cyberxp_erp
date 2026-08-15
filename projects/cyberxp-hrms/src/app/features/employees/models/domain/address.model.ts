@@ -1,4 +1,9 @@
+import { ApiResponse } from '../../../../shared/models/api-response.model';
+
 export interface EmployeeAddress {
+  addressId: string;
+  scopeId: string | null;
+
   countryId: number | null;
 
   regionId: number | null;
@@ -6,28 +11,26 @@ export interface EmployeeAddress {
   cityId: number | null;
   barangayId: number | null;
 
-  foreignStateProvinceRegion:
-    string | null;
+  foreignStateProvinceRegion: string | null;
 
-  foreignCity:
-    string | null;
+  foreignCity: string | null;
 
-  addressLine1: string;
+  addressLine1: string | null;
 
-  addressLine2:
-    string | null;
+  addressLine2: string | null;
 
-  zipCode:
-    string | null;
+  zipCode: string;
 
-  scopeId:
-    number | null;
-
-  isPresent:
-    boolean;
+  isPresent: boolean | null;
 }
 
+export type EmployeeAddreResponse = ApiResponse<EmployeeAddress[]>;
+
 export interface SaveAddressRequest {
+  employeeGuid: string;
+  addressId: string | null;
+  scopeId: string | null;
+
   countryId: number | null;
 
   regionId: number | null;
@@ -35,23 +38,13 @@ export interface SaveAddressRequest {
   cityId: number | null;
   barangayId: number | null;
 
-  foreignStateProvinceRegion:
-    string | null;
+  foreignStateProvinceRegion: string | null;
+  foreignCity: string | null;
 
-  foreignCity:
-    string | null;
+  addressLine1: string | null;
+  addressLine2: string | null;
 
-  addressLine1: string;
+  zipCode: string;
 
-  addressLine2:
-    string | null;
-
-  zipCode:
-    string | null;
-
-  scopeId:
-    number | null;
-
-  isPresent:
-    boolean;
+  isPresent: boolean | null;
 }

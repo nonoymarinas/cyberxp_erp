@@ -1,0 +1,48 @@
+<div
+  class="address-list"
+  [class.address-list--sm]="size === 'sm'"
+  [class.address-list--md]="size === 'md'"
+  [class.address-list--lg]="size === 'lg'"
+  [class.address-list--xl]="size === 'xl'"
+  [class.address-list--disabled]="disabled"
+  [class.address-list--invalid]="invalid"
+>
+  <!-- Label -->
+  <label class="address-list__label cxp-label cxp-label-bg cxp-label-sm">
+    {{ label }}
+  </label>
+
+  <!-- Address -->
+  <div class="address-list__content">
+    <span class="address-list__prefix">
+      <ng-content select="[prefix]"></ng-content>
+    </span>
+
+    <span
+      class="address-list__value"
+      [attr.aria-invalid]="invalid ? 'true' : null"
+    >
+      @if (value !== null && value !== undefined && value !== '') {
+        {{ value }}
+      } @else {
+        <ng-content></ng-content>
+      }
+    </span>
+
+    <span class="address-list__suffix">
+      <ng-content select="[suffix]"></ng-content>
+    </span>
+  </div>
+
+  <!-- Action -->
+  <cxp-button
+    class="address-list__button"
+    variant="ghost"
+    size="xs"
+    type="button"
+    [disabled]="disabled"
+    (clicked)="onSelect()"
+  >
+    {{ buttonLabel }}
+  </cxp-button>
+</div>

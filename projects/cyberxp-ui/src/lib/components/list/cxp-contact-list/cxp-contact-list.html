@@ -1,0 +1,47 @@
+<div
+  class="contact-list"
+  [class.contact-list--sm]="size === 'sm'"
+  [class.contact-list--md]="size === 'md'"
+  [class.contact-list--lg]="size === 'lg'"
+  [class.contact-list--xl]="size === 'xl'"
+  [class.contact-list--disabled]="disabled"
+  [class.contact-list--invalid]="invalid"
+>
+  <!-- icon -->
+  <div class="contact-list__icon">
+    <ng-content select="[contacttypeicon]"></ng-content>
+  </div>
+  <div class="contact-list__icon">
+    <ng-content select="[contactscopeicon]"></ng-content>
+  </div>
+  <!-- Address -->
+  <div class="contact-list__content">
+    <span class="contact-list__prefix">
+      <ng-content select="[prefix]"></ng-content>
+    </span>
+
+    <span class="contact-list__value" [attr.aria-invalid]="invalid ? 'true' : null">
+      @if (value !== null && value !== undefined && value !== '') {
+        {{ value }}
+      } @else {
+        <ng-content></ng-content>
+      }
+    </span>
+
+    <span class="contact-list__suffix">
+      <ng-content select="[suffix]"></ng-content>
+    </span>
+  </div>
+
+  <!-- Action -->
+  <cxp-button
+    class="contact-list__button"
+    variant="ghost"
+    size="xs"
+    type="button"
+    [disabled]="disabled"
+    (clicked)="onSelect()"
+  >
+    {{ buttonLabel }}
+  </cxp-button>
+</div>

@@ -1,0 +1,215 @@
+/* ========================================
+   Host
+   ======================================== */
+
+:host {
+  display: block;
+
+  width: 100%;
+  min-width: 0;
+}
+
+
+/* ========================================
+   Address list
+   ======================================== */
+
+.contact-list {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  min-width: 0;
+
+  color: var(--color-input-text);
+  background-color: transparent;
+
+  border: 1px solid var(--color-border-08);
+  border-radius: 0;
+
+  box-sizing: border-box;
+
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease;
+}
+
+
+/* ========================================
+   Label
+   ======================================== */
+
+.contact-list__label {
+  flex: 0 0 auto;
+
+  margin: 0;
+
+  white-space: nowrap;
+}
+
+
+/* ========================================
+   Address content
+   ======================================== */
+
+.contact-list__content {
+  display: flex;
+  align-items: center;
+
+  flex: 1 1 auto;
+
+  min-width: 0;
+
+  overflow: hidden;
+}
+
+
+/* ========================================
+   Address value
+   ======================================== */
+
+.contact-list__value {
+  flex: 1 1 auto;
+
+  min-width: 0;
+
+  color: inherit;
+
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  cursor: text;
+  user-select: text;
+}
+
+
+/* ========================================
+   Empty value
+   ======================================== */
+
+.contact-list__value:empty::before {
+  content: '—';
+
+  color: var(--color-input-placeholder);
+}
+
+
+/* ========================================
+   Prefix / suffix
+   ======================================== */
+
+.contact-list__prefix,
+.contact-list__suffix {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  color: var(--color-input-icon);
+}
+
+
+.contact-list__prefix:empty,
+.contact-list__suffix:empty {
+  display: none;
+}
+
+
+/* ========================================
+   Button
+   ======================================== */
+
+.contact-list__button {
+  flex: 0 0 auto;
+
+  margin-left: auto;
+}
+
+
+/* ========================================
+   Sizes
+   ======================================== */
+
+.contact-list--sm {
+  min-height: 32px;
+  padding-inline: 10px;
+
+  gap: 6px;
+
+  font-size: 16px;
+}
+
+
+.contact-list--md {
+  min-height: 40px;
+  padding-inline: 12px;
+
+  gap: 8px;
+
+  font-size: 17px;
+}
+
+
+.contact-list--lg {
+  min-height: 48px;
+  padding-inline: 14px;
+
+  gap: 10px;
+
+  font-size: 18px;
+}
+
+
+.contact-list--xl {
+  min-height: 56px;
+  padding-inline: 16px;
+
+  gap: 12px;
+
+  font-size: 20px;
+}
+
+
+/* ========================================
+   Disabled
+   ======================================== */
+
+.contact-list--disabled {
+  color: var(--color-input-disabled-text);
+  background-color: var(--color-input-disabled-background);
+
+  border-color: var(--color-input-disabled-border);
+
+  cursor: not-allowed;
+}
+
+
+.contact-list--disabled .contact-list__prefix,
+.contact-list--disabled .contact-list__suffix {
+  color: var(--color-input-disabled-icon);
+}
+
+
+.contact-list--disabled .contact-list__value {
+  cursor: not-allowed;
+  user-select: none;
+}
+
+
+/* ========================================
+   Invalid
+   ======================================== */
+
+.contact-list--invalid {
+  color: var(--color-input-error-text);
+  background-color: var(--color-input-error-background);
+
+  border-color: var(--color-input-error-border);
+}

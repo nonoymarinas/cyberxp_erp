@@ -1,18 +1,7 @@
-import { Injectable } from '@angular/core';
-import {
-  Observable,
-  of,
-  tap,
-} from 'rxjs';
+import { Injectable, inject, signal } from '@angular/core';
+import { map, Observable, tap } from 'rxjs';
 
-import {
-  CxpSelectOption,
-} from 'cyberxp-ui';
-
-import {
-  AddressDataAccess,
-} from '../../data/data-access/address.data-access';
-
+import { AddressDataAccess } from '../../data/data-access/address.data-access';
 import {
   EmployeeAddress,
   SaveAddressRequest,
@@ -22,197 +11,90 @@ import {
   providedIn: 'root',
 })
 export class AddressService {
-  // ========================================
-  // Address Cache
-  // ========================================
+  private readonly dataAccess = inject(AddressDataAccess);
 
-  private addressCache:
-    EmployeeAddress | null = null;
+  private readonly _addresses = signal<EmployeeAddress[]>([]);
+  readonly addresses = this._addresses.asReadonly();
 
-  /*
-   * Distinguishes:
-   *
-   * false = address has not been loaded yet
-   * true  = address has already been loaded
-   *
-   * addressCache can still be null when
-   * the employee has no saved address.
-   */
-  private addressLoaded = false;
-
-  // ========================================
-  // Temporary Address Scope Options
-  // ========================================
-
-  private readonly addressScopeOptions:
-    CxpSelectOption[] = [
-      {
-        value: 1,
-        label: 'HOME',
-      },
-      {
-        value: 2,
-        label: 'PROVINCIAL',
-      },
-    ];
-
-  // ========================================
-  // Constructor
-  // ========================================
-
-  constructor(
-    private readonly dataAccess:
-      AddressDataAccess,
-  ) {}
-
-  // ========================================
-  // Get Address
-  // ========================================
-
-  getAddress():
-    Observable<EmployeeAddress | null> {
-    // ========================================
-    // Return Cache If Already Loaded
-    // ========================================
-
-    if (this.addressLoaded) {
-      console.log(
-        'SERVICE - ADDRESS FROM CACHE:',
-        this.addressCache,
-      );
-
-      return of(
-        this.addressCache,
-      );
-    }
-
-    // ========================================
-    // First Load
-    // ========================================
-
-    return this.refreshAddress();
-  }
-
-  // ========================================
-  // Refresh Address
-  // ========================================
-
-  refreshAddress():
-    Observable<EmployeeAddress | null> {
+  getAddresses(
+    employeeGuid: string,
+  ): Observable<EmployeeAddress[]> {
     return this.dataAccess
-      .getAddress()
+      .getAddresses(employeeGuid)
       .pipe(
-        tap((address) => {
-          this.addressCache =
-            address;
+        map((response) => {
+          if (!response.success) {
+            throw new Error(
+              response.message ?? 'Unable to retrieve addresses.',
+            );
+          }
 
-          this.addressLoaded =
-            true;
-
-          console.log(
-            'SERVICE - ADDRESS LOADED:',
-            address,
-          );
+          return response.data;
+        }),
+        tap((addresses) => {
+          this._addresses.set(addresses);
         }),
       );
   }
-
-  // ========================================
-  // Save Address
-  // ========================================
 
   saveAddress(
     request: SaveAddressRequest,
-  ): Observable<EmployeeAddress> {
-    console.log(
-      'SERVICE - SAVE ADDRESS REQUEST:',
-      request,
-    );
-
+  ): Observable<EmployeeAddress[]> {
     return this.dataAccess
       .saveAddress(request)
       .pipe(
-        tap((savedAddress) => {
-          // ========================================
-          // Update Cache From Save Response
-          // ========================================
+        map((response) => {
+          if (!response.success) {
+            throw new Error(
+              response.message ?? 'Unable to save address.',
+            );
+          }
 
-          this.addressCache =
-            savedAddress;
-
-          this.addressLoaded =
-            true;
-
-          console.log(
-            'SERVICE - ADDRESS SAVED:',
-            savedAddress,
-          );
-
-          console.log(
-            'SERVICE - ADDRESS CACHE UPDATED:',
-            this.addressCache,
-          );
+          return response.data;
+        }),
+        tap((addresses) => {
+          this._addresses.set(addresses);
         }),
       );
   }
 
-  // ========================================
-  // Get Cached Address
-  // ========================================
+  deleteAddress(
+    employeeGuid: string,
+    addressId: string,
+  ): Observable<EmployeeAddress[]> {
+    return this.dataAccess
+      .deleteAddress(employeeGuid, addressId)
+      .pipe(
+        map((response) => {
+          if (!response.success) {
+            throw new Error(
+              response.message ?? 'Unable to delete address.',
+            );
+          }
 
-  getCachedAddress():
-    EmployeeAddress | null {
-    return this.addressCache;
+          return response.data;
+        }),
+        tap((addresses) => {
+          this._addresses.set(addresses);
+        }),
+      );
   }
 
-  // ========================================
-  // Address Scope Options
-  // ========================================
-
-  getAddressScopeOptions():
-    CxpSelectOption[] {
-    /*
-     * Return a copy so a component
-     * cannot mutate the service array.
-     */
-
-    return [
-      ...this.addressScopeOptions,
-    ];
+  getCachedAddresses(): EmployeeAddress[] {
+    return this._addresses();
   }
 
-  // ========================================
-  // Clear Address Cache Only
-  // ========================================
-
-  clearAddressCache(): void {
-    this.addressCache =
-      null;
-
-    this.addressLoaded =
-      false;
-
-    console.log(
-      'SERVICE - ADDRESS CACHE CLEARED',
+  getAddressById(
+    addressId: string,
+  ): EmployeeAddress | null {
+    return (
+      this._addresses().find(
+        (address) => address.addressId === addressId,
+      ) ?? null
     );
   }
 
-  // ========================================
-  // Clear Mock Address + Cache
-  // ========================================
-
-  clearAddress(): void {
-    this.dataAccess
-      .clearAddress();
-
-    this.addressCache =
-      null;
-
-    this.addressLoaded =
-      false;
-
-    console.log(
-      'SERVICE - ADDRESS CLEARED',
-    );
+  clearAddresses(): void {
+    this._addresses.set([]);
   }
 }

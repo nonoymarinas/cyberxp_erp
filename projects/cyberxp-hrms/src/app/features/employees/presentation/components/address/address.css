@@ -6,7 +6,7 @@
 
 .item-group-header {
     display: grid;
-    grid-template-columns: auto auto 1fr;
+    grid-template-columns: auto auto auto auto 1fr;
     gap: 1rem;
     /* margin-bottom: 1rem; */
     align-items: center;
@@ -16,7 +16,13 @@
 cxp-button {
   margin-left: 1rem;
 }
-
+.cxp-button-delete{
+  margin-left: 0;
+}
+.address__delete{
+  display: flex;
+  justify-content: flex-end;
+}
 .address__actions {
   display: grid;
   grid-template-columns: 1fr auto;
