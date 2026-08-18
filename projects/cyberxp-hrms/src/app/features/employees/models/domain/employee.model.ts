@@ -17,22 +17,28 @@ export interface PersonalInfo {
 }
 
 export interface EmployeeAddress {
+  addressId: string;
+  scopeId: string | null;
+
   countryId: number | null;
 
-  // Philippine only
   regionId: number | null;
   provinceId: number | null;
   cityId: number | null;
   barangayId: number | null;
 
-  // Foreign
-  foreignStateProvinceRegion: string;
-  foreignCity: string;
+  internationalRegion: string | null;
+  internationalStates: string | null;
+  internationalProvince: string | null;
+  internationalCity: string | null;
+  internationalSuburb: string | null;
 
-  // Common
-  addressLine1: string;
-  addressLine2: string;
+  addressLine1: string | null;
+  addressLine2: string | null;
+
   zipCode: string;
+
+  isPresent: boolean | null;
 }
 
 

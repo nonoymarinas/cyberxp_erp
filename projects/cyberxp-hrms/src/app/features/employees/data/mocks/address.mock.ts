@@ -5,7 +5,10 @@ import {
   EmployeeAddressDto,
   EmployeeAddreResponseDto,
 } from '../../models/dto/address.dto.model';
-import { SaveAddressRequest } from '../../models/domain/address.model';
+
+import {
+  SaveAddressRequest,
+} from '../../models/domain/address.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +16,10 @@ import { SaveAddressRequest } from '../../models/domain/address.model';
 export class AddressMockApi {
   private readonly addressesByEmployee =
     new Map<string, EmployeeAddressDto[]>();
+
+  // ========================================
+  // Get Addresses
+  // ========================================
 
   getAddresses(
     employeeGuid: string,
@@ -28,16 +35,26 @@ export class AddressMockApi {
     });
   }
 
+  // ========================================
+  // Save Address
+  // ========================================
+
   saveAddress(
     request: SaveAddressRequest,
   ): Observable<EmployeeAddreResponseDto> {
     const currentAddresses =
       this.addressesByEmployee.get(request.employeeGuid) ?? [];
 
+    // ========================================
+    // Update Existing Address
+    // ========================================
+
     if (request.addressId !== null) {
-      const existingIndex = currentAddresses.findIndex(
-        (address) => address.addressId === request.addressId,
-      );
+      const existingIndex =
+        currentAddresses.findIndex(
+          (address) =>
+            address.addressId === request.addressId,
+        );
 
       if (existingIndex === -1) {
         return of({
@@ -50,23 +67,50 @@ export class AddressMockApi {
 
       const updatedAddress: EmployeeAddressDto = {
         addressId: request.addressId,
+
         scopeId: request.scopeId,
+
         countryId: request.countryId,
+
         regionId: request.regionId,
         provinceId: request.provinceId,
         cityId: request.cityId,
         barangayId: request.barangayId,
-        foreignStateProvinceRegion:
-          request.foreignStateProvinceRegion,
-        foreignCity: request.foreignCity,
-        addressLine1: request.addressLine1,
-        addressLine2: request.addressLine2,
-        zipCode: request.zipCode,
-        isPresent: request.isPresent,
+
+        internationalRegion:
+          request.internationalRegion,
+
+        internationalStates:
+          request.internationalStates,
+
+        internationalProvince:
+          request.internationalProvince,
+
+        internationalCity:
+          request.internationalCity,
+
+        internationalSuburb:
+          request.internationalSuburb,
+
+        addressLine1:
+          request.addressLine1,
+
+        addressLine2:
+          request.addressLine2,
+
+        zipCode:
+          request.zipCode,
+
+        isPresent:
+          request.isPresent,
       };
 
-      const updatedAddresses = [...currentAddresses];
-      updatedAddresses[existingIndex] = updatedAddress;
+      const updatedAddresses = [
+        ...currentAddresses,
+      ];
+
+      updatedAddresses[existingIndex] =
+        updatedAddress;
 
       this.addressesByEmployee.set(
         request.employeeGuid,
@@ -81,21 +125,48 @@ export class AddressMockApi {
       });
     }
 
+    // ========================================
+    // Create New Address
+    // ========================================
+
     const newAddress: EmployeeAddressDto = {
       addressId: crypto.randomUUID(),
+
       scopeId: request.scopeId,
+
       countryId: request.countryId,
+
       regionId: request.regionId,
       provinceId: request.provinceId,
       cityId: request.cityId,
       barangayId: request.barangayId,
-      foreignStateProvinceRegion:
-        request.foreignStateProvinceRegion,
-      foreignCity: request.foreignCity,
-      addressLine1: request.addressLine1,
-      addressLine2: request.addressLine2,
-      zipCode: request.zipCode,
-      isPresent: request.isPresent,
+
+      internationalRegion:
+        request.internationalRegion,
+
+      internationalStates:
+        request.internationalStates,
+
+      internationalProvince:
+        request.internationalProvince,
+
+      internationalCity:
+        request.internationalCity,
+
+      internationalSuburb:
+        request.internationalSuburb,
+
+      addressLine1:
+        request.addressLine1,
+
+      addressLine2:
+        request.addressLine2,
+
+      zipCode:
+        request.zipCode,
+
+      isPresent:
+        request.isPresent,
     };
 
     const updatedAddresses = [
@@ -116,6 +187,10 @@ export class AddressMockApi {
     });
   }
 
+  // ========================================
+  // Delete Address
+  // ========================================
+
   deleteAddress(
     employeeGuid: string,
     addressId: string,
@@ -123,9 +198,11 @@ export class AddressMockApi {
     const currentAddresses =
       this.addressesByEmployee.get(employeeGuid) ?? [];
 
-    const exists = currentAddresses.some(
-      (address) => address.addressId === addressId,
-    );
+    const exists =
+      currentAddresses.some(
+        (address) =>
+          address.addressId === addressId,
+      );
 
     if (!exists) {
       return of({
@@ -136,9 +213,11 @@ export class AddressMockApi {
       });
     }
 
-    const updatedAddresses = currentAddresses.filter(
-      (address) => address.addressId !== addressId,
-    );
+    const updatedAddresses =
+      currentAddresses.filter(
+        (address) =>
+          address.addressId !== addressId,
+      );
 
     this.addressesByEmployee.set(
       employeeGuid,
@@ -153,11 +232,21 @@ export class AddressMockApi {
     });
   }
 
+  // ========================================
+  // Clear Employee Addresses
+  // ========================================
+
   clearAddresses(
     employeeGuid: string,
   ): void {
-    this.addressesByEmployee.delete(employeeGuid);
+    this.addressesByEmployee.delete(
+      employeeGuid,
+    );
   }
+
+  // ========================================
+  // Clear All Addresses
+  // ========================================
 
   clearAllAddresses(): void {
     this.addressesByEmployee.clear();

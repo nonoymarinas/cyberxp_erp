@@ -7,18 +7,26 @@ import {
   inject,
 } from '@angular/core';
 
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 import {
+  CxpAddressList,
   CxpButton,
   CxpDisplayField,
   CxpIconAddressNav,
   CxpInputSelect,
   CxpInputText,
-  CxpAddressList,
 } from 'cyberxp-ui';
 
-import type { CxpSelectOption, CxpSelectPrimitive } from 'cyberxp-ui';
+import type {
+  CxpSelectOption,
+  CxpSelectPrimitive,
+} from 'cyberxp-ui';
 
 import { EmployeeState } from '../../../state/employee-state.service';
 
@@ -37,7 +45,9 @@ import {
   City,
 } from '../../../models/domain/address-ref.model';
 
-import { EmployeeAddress, SaveAddressRequest } from '../../../models/domain/address.model';
+import {
+  EmployeeAddress,
+} from '../../../models/domain/address.model';
 
 @Component({
   selector: 'employee-address',
@@ -61,17 +71,23 @@ export class AddressComponent implements OnInit {
   // Services
   // ========================================
 
-  private readonly userAccessService = inject(UserAccessService);
+  private readonly userAccessService =
+    inject(UserAccessService);
 
-  private readonly addressRefService = inject(AddressRefService);
+  private readonly addressRefService =
+    inject(AddressRefService);
 
-  private readonly addressService = inject(AddressService);
+  private readonly addressService =
+    inject(AddressService);
 
-  private readonly cdr = inject(ChangeDetectorRef);
+  private readonly cdr =
+    inject(ChangeDetectorRef);
 
-  private readonly injector = inject(Injector);
+  private readonly injector =
+    inject(Injector);
 
-  readonly permissions = EMPLOYEE_PERMISSIONS.address;
+  readonly permissions =
+    EMPLOYEE_PERMISSIONS.address;
 
   // ========================================
   // Reference State
@@ -79,9 +95,11 @@ export class AddressComponent implements OnInit {
 
   private referencesLoaded = false;
 
-  private addressReferences: AddressReferences | null = null;
+  private addressReferences:
+    AddressReferences | null = null;
 
-  private loadedEmployeeGuid: string | null = null;
+  private loadedEmployeeGuid:
+    string | null = null;
 
   // ========================================
   // Address State
@@ -101,10 +119,10 @@ export class AddressComponent implements OnInit {
 
   errorMessage = '';
 
-  //new for address list
   addresses: EmployeeAddress[] = [];
 
-  selectedAddress: EmployeeAddress | null = null;
+  selectedAddress:
+    EmployeeAddress | null = null;
 
   showAddressList = false;
 
@@ -112,19 +130,27 @@ export class AddressComponent implements OnInit {
   // Select Options
   // ========================================
 
-  countryOptions: CxpSelectOption[] = [];
+  countryOptions:
+    CxpSelectOption[] = [];
 
-  regionOptions: CxpSelectOption[] = [];
+  regionOptions:
+    CxpSelectOption[] = [];
 
-  provinceOptions: CxpSelectOption[] = [];
+  provinceOptions:
+    CxpSelectOption[] = [];
 
-  cityOptions: CxpSelectOption[] = [];
+  cityOptions:
+    CxpSelectOption[] = [];
 
-  barangayOptions: CxpSelectOption[] = [];
+  barangayOptions:
+    CxpSelectOption[] = [];
 
-  addressScopeOptions: CxpSelectOption[] = [];
+  addressScopeOptions:
+    CxpSelectOption[] = [];
 
-  constructor(public readonly employeeState: EmployeeState) {}
+  constructor(
+    public readonly employeeState: EmployeeState,
+  ) {}
 
   // ========================================
   // Employee State
@@ -132,7 +158,10 @@ export class AddressComponent implements OnInit {
 
   get employeeGuid(): string | null {
     return (
-      this.employeeState.employeeData()?.personalInfo.employeeGuid ??
+      this.employeeState
+        .employeeData()
+        ?.personalInfo
+        .employeeGuid ??
       null
     );
   }
@@ -148,33 +177,45 @@ export class AddressComponent implements OnInit {
   get canCreate(): boolean {
     return (
       this.hasEmployeeId &&
-      this.userAccessService.hasPermission(this.permissions.create)
+      this.userAccessService
+        .hasPermission(
+          this.permissions.create,
+        )
     );
   }
 
   get canRead(): boolean {
     return (
       this.hasEmployeeId &&
-      this.userAccessService.hasPermission(this.permissions.read)
+      this.userAccessService
+        .hasPermission(
+          this.permissions.read,
+        )
     );
   }
 
   get canUpdate(): boolean {
     return (
       this.hasEmployeeId &&
-      this.userAccessService.hasPermission(this.permissions.update)
+      this.userAccessService
+        .hasPermission(
+          this.permissions.update,
+        )
     );
   }
 
   get canDelete(): boolean {
     return (
       this.hasEmployeeId &&
-      this.userAccessService.hasPermission(this.permissions.delete)
+      this.userAccessService
+        .hasPermission(
+          this.permissions.delete,
+        )
     );
   }
 
   // ========================================
-  // Address Display State
+  // Display State
   // ========================================
 
   get showMainBody(): boolean {
@@ -190,166 +231,230 @@ export class AddressComponent implements OnInit {
       return true;
     }
 
-    return this.selectedAddress !== null && !this.showAddressList;
+    return (
+      this.selectedAddress !== null &&
+      !this.showAddressList
+    );
   }
 
   get addressToggleLabel(): string {
-    return this.showAddressList ? 'Hide address' : 'Show all address';
+    return this.showAddressList
+      ? 'Hide address'
+      : 'Show all address';
   }
-  // ========================================
-  // Can Modify
-  // ========================================
 
   get canModify(): boolean {
-    return this.hasAddress ? this.canUpdate : this.canCreate;
+    return this.hasAddress
+      ? this.canUpdate
+      : this.canCreate;
   }
 
   get canAccess(): boolean {
     if (!this.hasAddress) {
-      return this.canCreate || this.canRead;
+      return (
+        this.canCreate ||
+        this.canRead
+      );
     }
 
     return this.canRead;
   }
 
   // ========================================
-  // Reactive Form
+  // Form
   // ========================================
 
-  readonly addressForm = new FormGroup({
-    // ========================================
-    // Country
-    // ========================================
+  readonly addressForm =
+    new FormGroup({
+      // ======================================
+      // Country
+      // ======================================
 
-    countryId: new FormControl<number | null>(
-      {
-        value: null,
-        disabled: false,
-      },
-      {
-        validators: [Validators.required],
-      },
-    ),
+      countryId:
+        new FormControl<number | null>(
+          {
+            value: null,
+            disabled: false,
+          },
+          {
+            validators: [
+              Validators.required,
+            ],
+          },
+        ),
 
-    // ========================================
-    // Philippine Address
-    // ========================================
+      // ======================================
+      // Philippine Address
+      // ======================================
 
-    regionId: new FormControl<number | null>({
-      value: null,
-      disabled: false,
-    }),
+      regionId:
+        new FormControl<number | null>({
+          value: null,
+          disabled: false,
+        }),
 
-    provinceId: new FormControl<number | null>({
-      value: null,
-      disabled: false,
-    }),
+      provinceId:
+        new FormControl<number | null>({
+          value: null,
+          disabled: false,
+        }),
 
-    cityId: new FormControl<number | null>({
-      value: null,
-      disabled: false,
-    }),
+      cityId:
+        new FormControl<number | null>({
+          value: null,
+          disabled: false,
+        }),
 
-    barangayId: new FormControl<number | null>({
-      value: null,
-      disabled: false,
-    }),
+      barangayId:
+        new FormControl<number | null>({
+          value: null,
+          disabled: false,
+        }),
 
-    // ========================================
-    // Foreign Address
-    // ========================================
+      // ======================================
+      // International Address
+      // ======================================
 
-    foreignStateProvinceRegion: new FormControl<string | null>({
-      value: null,
-      disabled: false,
-    }),
+      internationalRegion:
+        new FormControl<string | null>({
+          value: null,
+          disabled: false,
+        }),
 
-    foreignCity: new FormControl<string | null>({
-      value: null,
-      disabled: false,
-    }),
+      internationalStates:
+        new FormControl<string | null>({
+          value: null,
+          disabled: false,
+        }),
 
-    // ========================================
-    // Common Address
-    // ========================================
+      internationalProvince:
+        new FormControl<string | null>({
+          value: null,
+          disabled: false,
+        }),
 
-    addressLine1: new FormControl<string>(
-      {
-        value: '',
-        disabled: false,
-      },
-      {
-        nonNullable: true,
-        validators: [Validators.required],
-      },
-    ),
+      internationalCity:
+        new FormControl<string | null>({
+          value: null,
+          disabled: false,
+        }),
 
-    addressLine2: new FormControl<string | null>({
-      value: null,
-      disabled: false,
-    }),
+      internationalSuburb:
+        new FormControl<string | null>({
+          value: null,
+          disabled: false,
+        }),
 
-    zipCode: new FormControl<string>(
-      {
-        value: '',
-        disabled: false,
-      },
-      {
-        nonNullable: true,
-      },
-    ),
+      // ======================================
+      // Common
+      // ======================================
 
-    // ========================================
-    // Scope
-    // ========================================
+      addressLine1:
+        new FormControl<string>(
+          {
+            value: '',
+            disabled: false,
+          },
+          {
+            nonNullable: true,
+            validators: [
+              Validators.required,
+            ],
+          },
+        ),
 
-    scopeId: new FormControl<string | null>(
-      {
-        value: null,
-        disabled: false,
-      },
-      {
-        validators: [Validators.required],
-      },
-    ),
+      addressLine2:
+        new FormControl<string | null>({
+          value: null,
+          disabled: false,
+        }),
 
-    // ========================================
-    // Present Address
-    // ========================================
+      zipCode:
+        new FormControl<string>(
+          {
+            value: '',
+            disabled: false,
+          },
+          {
+            nonNullable: true,
+          },
+        ),
 
-    isPresent: new FormControl<boolean>(
-      {
-        value: false,
-        disabled: false,
-      },
-      {
-        nonNullable: true,
-      },
-    ),
-  });
+      // ======================================
+      // Scope
+      // ======================================
+
+      scopeId:
+        new FormControl<string | null>(
+          {
+            value: null,
+            disabled: false,
+          },
+          {
+            validators: [
+              Validators.required,
+            ],
+          },
+        ),
+
+      // ======================================
+      // Present
+      // ======================================
+
+      isPresent:
+        new FormControl<boolean>(
+          {
+            value: false,
+            disabled: false,
+          },
+          {
+            nonNullable: true,
+          },
+        ),
+    });
 
   // ========================================
-  // Country Selected
+  // Country State
   // ========================================
 
   get hasCountrySelected(): boolean {
-    return this.addressForm.controls.countryId.value !== null;
+    return (
+      this.addressForm
+        .controls
+        .countryId
+        .value !== null
+    );
   }
 
-  // ========================================
-  // Philippines Selected
-  // ========================================
-
   get isPhilippinesSelected(): boolean {
-    const countryId = this.addressForm.controls.countryId.value;
+    const countryId =
+      this.addressForm
+        .controls
+        .countryId
+        .value;
 
-    if (countryId === null || !this.addressReferences) {
+    if (
+      countryId === null ||
+      !this.addressReferences
+    ) {
       return false;
     }
 
-    const country = this.addressReferences.countries.find((item) => item.id === countryId);
+    const country =
+      this.addressReferences
+        .countries
+        .find(
+          (item) =>
+            item.id === countryId,
+        );
 
-    return country?.countryName.trim().toLowerCase() === 'philippines';
+    return (
+      country
+        ?.countryName
+        .trim()
+        .toLowerCase() ===
+      'philippines'
+    );
   }
 
   // ========================================
@@ -365,11 +470,16 @@ export class AddressComponent implements OnInit {
 
     effect(
       () => {
-        const employeeGuid = this.employeeGuid;
+        const employeeGuid =
+          this.employeeGuid;
 
-        this.handleEmployeeGuidChange(employeeGuid);
+        this.handleEmployeeGuidChange(
+          employeeGuid,
+        );
       },
-      { injector: this.injector },
+      {
+        injector: this.injector,
+      },
     );
   }
 
@@ -388,112 +498,122 @@ export class AddressComponent implements OnInit {
 
     this.referencesLoaded = false;
 
-    this.addressRefService.getReferences().subscribe({
-      next: (references: AddressReferences) => {
-        console.log('Address References:', references);
+    this.addressRefService
+      .getReferences()
+      .subscribe({
+        next: (
+          references:
+            AddressReferences,
+        ) => {
+          this.addressReferences =
+            references;
 
-        this.addressReferences = references;
+          this.countryOptions =
+            references
+              .countries
+              .map(
+                (country) => ({
+                  value:
+                    country.id,
 
-        // ========================================
-        // Country Options
-        // ========================================
+                  label:
+                    country
+                      .countryName
+                      .toUpperCase(),
+                }),
+              );
 
-        this.countryOptions = references.countries.map((country) => ({
-          value: country.id,
+          this.addressScopeOptions =
+            this.addressRefService
+              .getAddressScopeOptions();
 
-          label: country.countryName.toUpperCase(),
-        }));
+          this.regionOptions = [];
+          this.provinceOptions = [];
+          this.cityOptions = [];
+          this.barangayOptions = [];
 
-        // ========================================
-        // Scope Options
-        // ========================================
+          this.referencesLoaded =
+            true;
 
-        this.addressScopeOptions = this.addressRefService.getAddressScopeOptions();
+          this.isLoading = false;
 
-        console.log('Address Scope Options:', this.addressScopeOptions);
+          this.loadAddresses();
+        },
 
-        // ========================================
-        // Reset Cascading Options
-        // ========================================
+        error: (
+          error: unknown,
+        ) => {
+          console.error(
+            'Failed to load address references:',
+            error,
+          );
 
-        this.regionOptions = [];
+          this.referencesLoaded =
+            false;
 
-        this.provinceOptions = [];
+          this.isLoading = false;
 
-        this.cityOptions = [];
+          this.addressReferences =
+            null;
 
-        this.barangayOptions = [];
+          this.countryOptions = [];
+          this.regionOptions = [];
+          this.provinceOptions = [];
+          this.cityOptions = [];
+          this.barangayOptions = [];
+          this.addressScopeOptions =
+            [];
 
-        this.referencesLoaded = true;
+          this.errorMessage =
+            'Unable to load address reference data.';
 
-        this.isLoading = false;
-
-        // ========================================
-        // Load Employee Addresses
-        // ========================================
-
-        this.loadAddresses();
-      },
-
-      error: (error: unknown) => {
-        console.error('Failed to load address references:', error);
-
-        this.referencesLoaded = false;
-
-        this.isLoading = false;
-
-        this.addressReferences = null;
-
-        this.countryOptions = [];
-
-        this.regionOptions = [];
-
-        this.provinceOptions = [];
-
-        this.cityOptions = [];
-
-        this.barangayOptions = [];
-
-        this.addressScopeOptions = [];
-
-        this.errorMessage = 'Unable to load address reference data.';
-
-        this.addressForm.disable({
-          emitEvent: false,
-        });
-      },
-    });
+          this.addressForm.disable({
+            emitEvent: false,
+          });
+        },
+      });
   }
 
   // ========================================
-  // Employee ID Change
+  // Employee Change
   // ========================================
 
   private handleEmployeeGuidChange(
     employeeGuid: string | null,
   ): void {
-    // No employee yet: keep Address turned off.
     if (!employeeGuid) {
-      this.loadedEmployeeGuid = null;
+      this.loadedEmployeeGuid =
+        null;
+
       this.resetAddressFeatureForNoEmployee();
+
       return;
     }
 
-    // The same employee is already loaded.
-    if (this.loadedEmployeeGuid === employeeGuid) {
+    if (
+      this.loadedEmployeeGuid ===
+      employeeGuid
+    ) {
       return;
     }
 
-    // A new employee became available or the user changed employee.
-    this.loadedEmployeeGuid = employeeGuid;
+    this.loadedEmployeeGuid =
+      employeeGuid;
 
     this.addresses = [];
+
     this.hasAddress = false;
+
     this.selectedAddress = null;
+
     this.showAddressList = false;
+
     this.isEditing = false;
+
     this.isSaving = false;
+
     this.successMessage = '';
+
     this.errorMessage = '';
 
     this.resetAddressForm();
@@ -504,6 +624,7 @@ export class AddressComponent implements OnInit {
 
     if (this.referencesLoaded) {
       this.loadAddresses();
+
       return;
     }
 
@@ -511,17 +632,25 @@ export class AddressComponent implements OnInit {
   }
 
   // ========================================
-  // Turn Address Off
+  // Reset Feature
   // ========================================
 
-  private resetAddressFeatureForNoEmployee(): void {
+  private resetAddressFeatureForNoEmployee():
+    void {
     this.addresses = [];
+
     this.hasAddress = false;
+
     this.selectedAddress = null;
+
     this.showAddressList = false;
+
     this.isEditing = false;
+
     this.isSaving = false;
+
     this.successMessage = '';
+
     this.errorMessage = '';
 
     this.resetAddressForm();
@@ -534,52 +663,83 @@ export class AddressComponent implements OnInit {
   }
 
   // ========================================
-  // Load Employee Addresses
+  // Load Addresses
   // ========================================
 
   private loadAddresses(): void {
-    const employeeGuid = this.employeeGuid;
+    const employeeGuid =
+      this.employeeGuid;
 
     if (!employeeGuid) {
       this.resetAddressFeatureForNoEmployee();
+
       return;
     }
 
-    this.addressService.getAddresses(employeeGuid).subscribe({
-      next: (addresses: EmployeeAddress[]) => {
-        console.log('COMPONENT - LOADED ADDRESSES:', addresses);
-        this.handleLoadedAddresses(addresses);
-      },
+    this.addressService
+      .getAddresses(employeeGuid)
+      .subscribe({
+        next: (
+          addresses:
+            EmployeeAddress[],
+        ) => {
+          console.log(
+            'LOADED ADDRESSES:',
+            addresses,
+          );
 
-      error: (error: unknown) => {
-        console.error('Failed to load addresses:', error);
+          this.handleLoadedAddresses(
+            addresses,
+          );
+        },
 
-        this.errorMessage = 'Unable to load employee addresses.';
-        this.handleLoadedAddresses([]);
-      },
-    });
+        error: (
+          error: unknown,
+        ) => {
+          console.error(
+            'Failed to load addresses:',
+            error,
+          );
+
+          this.errorMessage =
+            'Unable to load employee addresses.';
+
+          this.handleLoadedAddresses(
+            [],
+          );
+        },
+      });
   }
 
   // ========================================
-  // Handle Loaded Addresses
+  // Handle Addresses
   // ========================================
 
-  private handleLoadedAddresses(addresses: EmployeeAddress[]): void {
+  private handleLoadedAddresses(
+    addresses: EmployeeAddress[],
+  ): void {
     this.addresses = addresses;
-    this.hasAddress = addresses.length > 0;
 
-    // ========================================
+    this.hasAddress =
+      addresses.length > 0;
+
+    // ======================================
     // No Address
-    // ========================================
+    // ======================================
 
     if (!this.hasAddress) {
       this.selectedAddress = null;
+
       this.showAddressList = false;
 
       this.resetAddressForm();
+
       this.isEditing = true;
 
-      if (this.referencesLoaded && this.canCreate) {
+      if (
+        this.referencesLoaded &&
+        this.canCreate
+      ) {
         this.addressForm.enable({
           emitEvent: false,
         });
@@ -590,16 +750,20 @@ export class AddressComponent implements OnInit {
       }
 
       this.updateAddressValidators();
+
       this.cdr.detectChanges();
+
       return;
     }
 
-    // ========================================
-    // Existing Addresses
-    // ========================================
+    // ======================================
+    // Has Addresses
+    // ======================================
 
     this.selectedAddress = null;
+
     this.showAddressList = true;
+
     this.isEditing = false;
 
     this.addressForm.disable({
@@ -610,54 +774,84 @@ export class AddressComponent implements OnInit {
   }
 
   // ========================================
-  // Toggle Address
+  // Toggle Address List
   // ========================================
+
   toggleAddressList(): void {
     if (!this.hasEmployeeId) {
       return;
     }
 
-    this.showAddressList = !this.showAddressList;
+    this.showAddressList =
+      !this.showAddressList;
+
+    if (
+      this.showAddressList
+    ) {
+      this.isEditing = false;
+    }
   }
 
   // ========================================
   // Add Address
   // ========================================
+
   addAddress(): void {
     if (!this.hasEmployeeId) {
-      this.errorMessage = 'Employee ID is not available.';
+      this.errorMessage =
+        'Employee ID is not available.';
+
       return;
     }
 
     if (!this.canCreate) {
-      this.errorMessage = 'You do not have permission to create an address.';
+      this.errorMessage =
+        'You do not have permission to create an address.';
+
       return;
     }
 
     if (!this.referencesLoaded) {
-      this.errorMessage = 'Address reference data is not yet available.';
+      this.errorMessage =
+        'Address reference data is not yet available.';
+
       return;
     }
 
     this.selectedAddress = null;
+
     this.showAddressList = false;
+
     this.resetAddressForm();
+
     this.isEditing = true;
+
     this.errorMessage = '';
+
     this.successMessage = '';
 
-    this.addressForm.enable({ emitEvent: false });
+    this.addressForm.enable({
+      emitEvent: false,
+    });
+
     this.updateAddressValidators();
+
     this.cdr.detectChanges();
   }
 
   // ========================================
-  // Address Selection Method
+  // Select Address
   // ========================================
-  selectAddress(address: EmployeeAddress): void {
-    this.selectedAddress = address;
 
-    this.populateAddress(address);
+  selectAddress(
+    address: EmployeeAddress,
+  ): void {
+    this.selectedAddress =
+      address;
+
+    this.populateAddress(
+      address,
+    );
 
     this.isEditing = false;
 
@@ -665,9 +859,11 @@ export class AddressComponent implements OnInit {
       emitEvent: false,
     });
 
-    this.showAddressList = false;
+    this.showAddressList =
+      false;
 
     this.errorMessage = '';
+
     this.successMessage = '';
 
     this.cdr.detectChanges();
@@ -677,75 +873,100 @@ export class AddressComponent implements OnInit {
   // Populate Address
   // ========================================
 
-  private populateAddress(address: EmployeeAddress): void {
-    // ========================================
-    // Country First
-    // ========================================
+  private populateAddress(
+    address: EmployeeAddress,
+  ): void {
+    this.addressForm
+      .controls
+      .countryId
+      .setValue(
+        address.countryId,
+        {
+          emitEvent: false,
+        },
+      );
 
-    this.addressForm.controls.countryId.setValue(address.countryId, {
-      emitEvent: false,
-    });
+    // ======================================
+    // Philippines
+    // ======================================
 
-    // ========================================
-    // Philippine Address
-    // ========================================
-
-    if (this.isPhilippinesSelected) {
-      this.populatePhilippineAddressOptions(address);
+    if (
+      this.isPhilippinesSelected
+    ) {
+      this.populatePhilippineAddressOptions(
+        address,
+      );
 
       this.addressForm.patchValue(
         {
-          countryId: address.countryId,
+          countryId:
+            address.countryId,
 
-          regionId: address.regionId,
+          regionId:
+            address.regionId,
 
-          provinceId: address.provinceId,
+          provinceId:
+            address.provinceId,
 
-          cityId: address.cityId,
+          cityId:
+            address.cityId,
 
-          barangayId: address.barangayId,
+          barangayId:
+            address.barangayId,
 
-          foreignStateProvinceRegion: null,
+          internationalRegion:
+            null,
 
-          foreignCity: null,
+          internationalStates:
+            null,
 
-          addressLine1: address.addressLine1 ?? '',
+          internationalProvince:
+            null,
 
-          addressLine2: address.addressLine2,
+          internationalCity:
+            null,
 
-          zipCode: address.zipCode,
+          internationalSuburb:
+            null,
 
-          scopeId: address.scopeId,
+          addressLine1:
+            address.addressLine1 ??
+            '',
 
-          isPresent: address.isPresent ?? false,
+          addressLine2:
+            address.addressLine2,
+
+          zipCode:
+            address.zipCode ??
+            '',
+
+          scopeId:
+            address.scopeId,
+
+          isPresent:
+            address.isPresent ??
+            false,
         },
         {
           emitEvent: false,
         },
       );
 
-      if (address.cityId !== null) {
-        const barangayExists =
-          address.barangayId !== null &&
-          this.barangayOptions.some(
-            (option) => String(option.value) === String(address.barangayId),
-          );
-
-        if (barangayExists) {
-          this.addressForm.controls.barangayId.setValue(address.barangayId, {
-            emitEvent: false,
-          });
-        } else {
-          this.loadBarangays(address.cityId, address.barangayId);
-        }
+      if (
+        address.cityId !== null
+      ) {
+        this.loadBarangays(
+          address.cityId,
+          address.barangayId,
+        );
       }
 
       return;
     }
 
-    // ========================================
-    // Foreign Address
-    // ========================================
+    // ======================================
+    // International
+    // ======================================
 
     this.regionOptions = [];
 
@@ -757,7 +978,8 @@ export class AddressComponent implements OnInit {
 
     this.addressForm.patchValue(
       {
-        countryId: address.countryId,
+        countryId:
+          address.countryId,
 
         regionId: null,
 
@@ -767,19 +989,38 @@ export class AddressComponent implements OnInit {
 
         barangayId: null,
 
-        foreignStateProvinceRegion: address.foreignStateProvinceRegion,
+        internationalRegion:
+          address.internationalRegion,
 
-        foreignCity: address.foreignCity,
+        internationalStates:
+          address.internationalStates,
 
-        addressLine1: address.addressLine1 ?? '',
+        internationalProvince:
+          address.internationalProvince,
 
-        addressLine2: address.addressLine2,
+        internationalCity:
+          address.internationalCity,
 
-        zipCode: address.zipCode,
+        internationalSuburb:
+          address.internationalSuburb,
 
-        scopeId: address.scopeId,
+        addressLine1:
+          address.addressLine1 ??
+          '',
 
-        isPresent: address.isPresent ?? false,
+        addressLine2:
+          address.addressLine2,
+
+        zipCode:
+          address.zipCode ??
+          '',
+
+        scopeId:
+          address.scopeId,
+
+        isPresent:
+          address.isPresent ??
+          false,
       },
       {
         emitEvent: false,
@@ -791,78 +1032,144 @@ export class AddressComponent implements OnInit {
   // Populate Philippine Options
   // ========================================
 
-  private populatePhilippineAddressOptions(address: EmployeeAddress): void {
-    if (!this.addressReferences || address.countryId === null) {
+  private populatePhilippineAddressOptions(
+    address: EmployeeAddress,
+  ): void {
+    if (
+      !this.addressReferences ||
+      address.countryId === null
+    ) {
       return;
     }
 
-    // ========================================
-    // Regions
-    // ========================================
+    const regions =
+      this.addressReferences
+        .regions
+        .filter(
+          (region) =>
+            region.countryId ===
+            address.countryId,
+        );
 
-    const regions = this.addressReferences.regions.filter(
-      (region) => region.countryId === address.countryId,
-    );
-
-    this.regionOptions = this.toRegionOptions(regions);
-
-    // ========================================
-    // Provinces
-    // ========================================
-
-    if (address.regionId !== null) {
-      const provinces = this.addressReferences.provinces.filter(
-        (province) => province.regionId === address.regionId,
+    this.regionOptions =
+      this.toRegionOptions(
+        regions,
       );
 
-      this.provinceOptions = this.toProvinceOptions(provinces);
+    if (
+      address.regionId !== null
+    ) {
+      const provinces =
+        this.addressReferences
+          .provinces
+          .filter(
+            (province) =>
+              province.regionId ===
+              address.regionId,
+          );
+
+      this.provinceOptions =
+        this.toProvinceOptions(
+          provinces,
+        );
     } else {
       this.provinceOptions = [];
     }
 
-    // ========================================
-    // Cities
-    // ========================================
+    if (
+      address.provinceId !== null
+    ) {
+      const cities =
+        this.addressReferences
+          .cities
+          .filter(
+            (city) =>
+              city.provinceId ===
+              address.provinceId,
+          );
 
-    if (address.provinceId !== null) {
-      const cities = this.addressReferences.cities.filter(
-        (city) => city.provinceId === address.provinceId,
-      );
-
-      this.cityOptions = this.toCityOptions(cities);
+      this.cityOptions =
+        this.toCityOptions(
+          cities,
+        );
     } else {
       this.cityOptions = [];
     }
   }
 
   // ========================================
-  // Setup Address Changes
+  // Form Changes
   // ========================================
 
-  private setupAddressChanges(): void {
-    this.addressForm.controls.countryId.valueChanges.subscribe((countryId) => {
-      this.onCountryChange(countryId);
-    });
+  private setupAddressChanges():
+    void {
+    this.addressForm
+      .controls
+      .countryId
+      .valueChanges
+      .subscribe(
+        (
+          countryId,
+        ) => {
+          this.onCountryChange(
+            countryId,
+          );
+        },
+      );
 
-    this.addressForm.controls.regionId.valueChanges.subscribe((regionId) => {
-      this.onRegionChange(regionId);
-    });
+    this.addressForm
+      .controls
+      .regionId
+      .valueChanges
+      .subscribe(
+        (
+          regionId,
+        ) => {
+          this.onRegionChange(
+            regionId,
+          );
+        },
+      );
 
-    this.addressForm.controls.provinceId.valueChanges.subscribe((provinceId) => {
-      this.onProvinceChange(provinceId);
-    });
+    this.addressForm
+      .controls
+      .provinceId
+      .valueChanges
+      .subscribe(
+        (
+          provinceId,
+        ) => {
+          this.onProvinceChange(
+            provinceId,
+          );
+        },
+      );
 
-    this.addressForm.controls.cityId.valueChanges.subscribe((cityId) => {
-      this.onCityChange(cityId);
-    });
+    this.addressForm
+      .controls
+      .cityId
+      .valueChanges
+      .subscribe(
+        (
+          cityId,
+        ) => {
+          this.onCityChange(
+            cityId,
+          );
+        },
+      );
   }
 
   // ========================================
   // Country Change
   // ========================================
 
-  onCountryChange(countryId: number | null): void {
-    if (!this.addressReferences) {
+  onCountryChange(
+    countryId: number | null,
+  ): void {
+    if (
+      !this.addressReferences
+    ) {
       return;
     }
 
@@ -872,17 +1179,21 @@ export class AddressComponent implements OnInit {
         provinceId: null,
         cityId: null,
         barangayId: null,
-      },
-      {
-        emitEvent: false,
-      },
-    );
 
-    this.addressForm.patchValue(
-      {
-        foreignStateProvinceRegion: null,
+        internationalRegion:
+          null,
 
-        foreignCity: null,
+        internationalStates:
+          null,
+
+        internationalProvince:
+          null,
+
+        internationalCity:
+          null,
+
+        internationalSuburb:
+          null,
       },
       {
         emitEvent: false,
@@ -903,7 +1214,9 @@ export class AddressComponent implements OnInit {
       return;
     }
 
-    if (this.isPhilippinesSelected) {
+    if (
+      this.isPhilippinesSelected
+    ) {
       this.loadAllPhilippineOptions();
     }
 
@@ -914,8 +1227,13 @@ export class AddressComponent implements OnInit {
   // Region Change
   // ========================================
 
-  onRegionChange(regionId: number | null): void {
-    if (!this.addressReferences || !this.isPhilippinesSelected) {
+  onRegionChange(
+    regionId: number | null,
+  ): void {
+    if (
+      !this.addressReferences ||
+      !this.isPhilippinesSelected
+    ) {
       return;
     }
 
@@ -949,25 +1267,56 @@ export class AddressComponent implements OnInit {
       },
     );
 
-    const provinces = this.addressReferences.provinces.filter(
-      (province) => province.regionId === regionId,
-    );
+    const provinces =
+      this.addressReferences
+        .provinces
+        .filter(
+          (province) =>
+            province.regionId ===
+            regionId,
+        );
 
-    this.provinceOptions = this.toProvinceOptions(provinces);
+    this.provinceOptions =
+      this.toProvinceOptions(
+        provinces,
+      );
 
-    const provinceIds = new Set(provinces.map((province) => province.id));
+    const provinceIds =
+      new Set(
+        provinces.map(
+          (province) =>
+            province.id,
+        ),
+      );
 
-    const cities = this.addressReferences.cities.filter((city) => provinceIds.has(city.provinceId));
+    const cities =
+      this.addressReferences
+        .cities
+        .filter(
+          (city) =>
+            provinceIds.has(
+              city.provinceId,
+            ),
+        );
 
-    this.cityOptions = this.toCityOptions(cities);
+    this.cityOptions =
+      this.toCityOptions(
+        cities,
+      );
   }
 
   // ========================================
   // Province Change
   // ========================================
 
-  onProvinceChange(provinceId: number | null): void {
-    if (!this.addressReferences || !this.isPhilippinesSelected) {
+  onProvinceChange(
+    provinceId:
+      number | null,
+  ): void {
+    if (
+      !this.addressReferences ||
+      !this.isPhilippinesSelected
+    ) {
       return;
     }
 
@@ -983,23 +1332,55 @@ export class AddressComponent implements OnInit {
 
     this.barangayOptions = [];
 
-    if (provinceId === null) {
-      const regionId = this.addressForm.controls.regionId.value;
+    if (
+      provinceId === null
+    ) {
+      const regionId =
+        this.addressForm
+          .controls
+          .regionId
+          .value;
 
-      if (regionId !== null) {
-        const provinces = this.addressReferences.provinces.filter(
-          (province) => province.regionId === regionId,
-        );
+      if (
+        regionId !== null
+      ) {
+        const provinces =
+          this.addressReferences
+            .provinces
+            .filter(
+              (province) =>
+                province
+                  .regionId ===
+                regionId,
+            );
 
-        this.provinceOptions = this.toProvinceOptions(provinces);
+        this.provinceOptions =
+          this.toProvinceOptions(
+            provinces,
+          );
 
-        const provinceIds = new Set(provinces.map((province) => province.id));
+        const provinceIds =
+          new Set(
+            provinces.map(
+              (province) =>
+                province.id,
+            ),
+          );
 
-        const cities = this.addressReferences.cities.filter((city) =>
-          provinceIds.has(city.provinceId),
-        );
+        const cities =
+          this.addressReferences
+            .cities
+            .filter(
+              (city) =>
+                provinceIds.has(
+                  city.provinceId,
+                ),
+            );
 
-        this.cityOptions = this.toCityOptions(cities);
+        this.cityOptions =
+          this.toCityOptions(
+            cities,
+          );
 
         return;
       }
@@ -1009,33 +1390,68 @@ export class AddressComponent implements OnInit {
       return;
     }
 
-    const province = this.addressReferences.provinces.find((item) => item.id === provinceId);
+    const province =
+      this.addressReferences
+        .provinces
+        .find(
+          (item) =>
+            item.id === provinceId,
+        );
 
     if (!province) {
       return;
     }
 
-    this.addressForm.controls.regionId.setValue(province.regionId, {
-      emitEvent: false,
-    });
+    this.addressForm
+      .controls
+      .regionId
+      .setValue(
+        province.regionId,
+        {
+          emitEvent: false,
+        },
+      );
 
-    const provinces = this.addressReferences.provinces.filter(
-      (item) => item.regionId === province.regionId,
-    );
+    const provinces =
+      this.addressReferences
+        .provinces
+        .filter(
+          (item) =>
+            item.regionId ===
+            province.regionId,
+        );
 
-    this.provinceOptions = this.toProvinceOptions(provinces);
+    this.provinceOptions =
+      this.toProvinceOptions(
+        provinces,
+      );
 
-    const cities = this.addressReferences.cities.filter((city) => city.provinceId === provinceId);
+    const cities =
+      this.addressReferences
+        .cities
+        .filter(
+          (city) =>
+            city.provinceId ===
+            provinceId,
+        );
 
-    this.cityOptions = this.toCityOptions(cities);
+    this.cityOptions =
+      this.toCityOptions(
+        cities,
+      );
   }
 
   // ========================================
   // City Change
   // ========================================
 
-  onCityChange(cityId: number | null): void {
-    if (!this.addressReferences || !this.isPhilippinesSelected) {
+  onCityChange(
+    cityId: number | null,
+  ): void {
+    if (
+      !this.addressReferences ||
+      !this.isPhilippinesSelected
+    ) {
       return;
     }
 
@@ -1045,328 +1461,597 @@ export class AddressComponent implements OnInit {
       return;
     }
 
-    const city = this.addressReferences.cities.find((item) => item.id === cityId);
+    const city =
+      this.addressReferences
+        .cities
+        .find(
+          (item) =>
+            item.id === cityId,
+        );
 
     if (!city) {
       return;
     }
 
-    const currentProvinceId = this.addressForm.controls.provinceId.value;
+    const currentProvinceId =
+      this.addressForm
+        .controls
+        .provinceId
+        .value;
 
-    if (currentProvinceId === null) {
-      const province = this.addressReferences.provinces.find((item) => item.id === city.provinceId);
+    // Only automatically fill province/region
+    // when no province is already selected.
+    if (
+      currentProvinceId === null
+    ) {
+      const province =
+        this.addressReferences
+          .provinces
+          .find(
+            (item) =>
+              item.id ===
+              city.provinceId,
+          );
 
       if (province) {
-        this.addressForm.controls.provinceId.setValue(province.id, {
-          emitEvent: false,
-        });
+        this.addressForm
+          .controls
+          .provinceId
+          .setValue(
+            province.id,
+            {
+              emitEvent: false,
+            },
+          );
 
-        this.addressForm.controls.regionId.setValue(province.regionId, {
-          emitEvent: false,
-        });
+        this.addressForm
+          .controls
+          .regionId
+          .setValue(
+            province.regionId,
+            {
+              emitEvent: false,
+            },
+          );
 
-        const provinces = this.addressReferences.provinces.filter(
-          (item) => item.regionId === province.regionId,
-        );
+        const provinces =
+          this.addressReferences
+            .provinces
+            .filter(
+              (item) =>
+                item.regionId ===
+                province.regionId,
+            );
 
-        this.provinceOptions = this.toProvinceOptions(provinces);
+        this.provinceOptions =
+          this.toProvinceOptions(
+            provinces,
+          );
 
-        const cities = this.addressReferences.cities.filter(
-          (item) => item.provinceId === province.id,
-        );
+        const cities =
+          this.addressReferences
+            .cities
+            .filter(
+              (item) =>
+                item.provinceId ===
+                province.id,
+            );
 
-        this.cityOptions = this.toCityOptions(cities);
+        this.cityOptions =
+          this.toCityOptions(
+            cities,
+          );
       }
     }
 
-    this.loadBarangays(cityId);
+    this.loadBarangays(
+      cityId,
+    );
   }
 
   // ========================================
-  // Load Barangays
+  // Barangays
   // ========================================
 
   private loadBarangays(
     cityId: number,
-    selectedBarangayId: number | null = null,
-    onLoaded?: () => void,
+    selectedBarangayId:
+      number | null = null,
   ): void {
-    this.isLoadingBarangays = true;
+    this.isLoadingBarangays =
+      true;
 
-    console.log('LOAD BARANGAYS - CITY:', cityId);
+    this.barangayOptions = [];
 
-    console.log('LOAD BARANGAYS - SELECTED:', selectedBarangayId);
+    this.addressRefService
+      .getBarangaysByCity(
+        cityId,
+      )
+      .subscribe({
+        next: (
+          response,
+        ) => {
+          if (!response.success) {
+            this.isLoadingBarangays =
+              false;
 
-    this.addressRefService.getBarangaysByCity(cityId).subscribe({
-      next: (response) => {
-        console.log('BARANGAY RESPONSE:', response);
+            this.errorMessage =
+              response.message ??
+              'Unable to load barangays.';
 
-        if (!response.success) {
-          this.isLoadingBarangays = false;
+            this.cdr.detectChanges();
 
-          this.errorMessage = response.message ?? 'Unable to load barangays.';
+            return;
+          }
+
+          this.barangayOptions =
+            response.data.map(
+              (barangay) => ({
+                value:
+                  barangay.id,
+
+                label:
+                  barangay
+                    .barangayName
+                    .toUpperCase(),
+              }),
+            );
+
+          if (
+            selectedBarangayId !==
+            null
+          ) {
+            const exists =
+              this.barangayOptions
+                .some(
+                  (option) =>
+                    String(
+                      option.value,
+                    ) ===
+                    String(
+                      selectedBarangayId,
+                    ),
+                );
+
+            if (exists) {
+              this.addressForm
+                .controls
+                .barangayId
+                .setValue(
+                  selectedBarangayId,
+                  {
+                    emitEvent:
+                      false,
+                  },
+                );
+            }
+          }
+
+          this.isLoadingBarangays =
+            false;
 
           this.cdr.detectChanges();
+        },
 
-          return;
-        }
-
-        // ========================================
-        // Build Barangay Options
-        // ========================================
-
-        this.barangayOptions = response.data.map((barangay) => ({
-          value: barangay.id,
-
-          label: barangay.barangayName.toUpperCase(),
-        }));
-
-        console.log('BARANGAY OPTIONS:', this.barangayOptions);
-
-        // ========================================
-        // Restore Saved Barangay
-        // ========================================
-
-        if (selectedBarangayId !== null) {
-          const exists = this.barangayOptions.some(
-            (option) => String(option.value) === String(selectedBarangayId),
+        error: (
+          error: unknown,
+        ) => {
+          console.error(
+            'Failed to load barangays:',
+            error,
           );
 
-          console.log('BARANGAY EXISTS:', exists);
+          this.isLoadingBarangays =
+            false;
 
-          if (exists) {
-            this.addressForm.controls.barangayId.setValue(selectedBarangayId, {
-              emitEvent: false,
-            });
-          }
-        }
+          this.errorMessage =
+            'Unable to load barangays.';
 
-        console.log('BARANGAY FORM VALUE:', this.addressForm.controls.barangayId.value);
-
-        console.log(
-          'BARANGAY DISPLAY LABEL:',
-          this.getReferenceLabel(this.barangayOptions, this.addressForm.controls.barangayId.value),
-        );
-
-        this.isLoadingBarangays = false;
-
-        onLoaded?.();
-
-        // ========================================
-        // Force UI Refresh
-        // ========================================
-
-        this.cdr.detectChanges();
-      },
-
-      error: (error: unknown) => {
-        console.error('Failed to load barangays:', error);
-
-        this.isLoadingBarangays = false;
-
-        this.errorMessage = 'Unable to load barangays.';
-
-        this.cdr.detectChanges();
-      },
-    });
+          this.cdr.detectChanges();
+        },
+      });
   }
 
-  // ========================================
-  // Clear Barangay
-  // ========================================
-
   private clearBarangay(): void {
-    this.addressForm.controls.barangayId.setValue(null, {
-      emitEvent: false,
-    });
+    this.addressForm
+      .controls
+      .barangayId
+      .setValue(
+        null,
+        {
+          emitEvent: false,
+        },
+      );
 
     this.barangayOptions = [];
   }
 
   // ========================================
-  // Load All Philippine Options
+  // Load All PH Options
   // ========================================
 
-  private loadAllPhilippineOptions(): void {
-    if (!this.addressReferences) {
+  private loadAllPhilippineOptions():
+    void {
+    if (
+      !this.addressReferences
+    ) {
       return;
     }
 
-    const countryId = this.addressForm.controls.countryId.value;
+    const countryId =
+      this.addressForm
+        .controls
+        .countryId
+        .value;
 
-    if (countryId === null) {
+    if (
+      countryId === null
+    ) {
       this.regionOptions = [];
-
       this.provinceOptions = [];
-
       this.cityOptions = [];
-
       this.barangayOptions = [];
 
       return;
     }
 
-    const regions = this.addressReferences.regions.filter(
-      (region) => region.countryId === countryId,
-    );
+    const regions =
+      this.addressReferences
+        .regions
+        .filter(
+          (region) =>
+            region.countryId ===
+            countryId,
+        );
 
-    this.regionOptions = this.toRegionOptions(regions);
+    this.regionOptions =
+      this.toRegionOptions(
+        regions,
+      );
 
-    const regionIds = new Set(regions.map((region) => region.id));
+    const regionIds =
+      new Set(
+        regions.map(
+          (region) =>
+            region.id,
+        ),
+      );
 
-    const provinces = this.addressReferences.provinces.filter((province) =>
-      regionIds.has(province.regionId),
-    );
+    const provinces =
+      this.addressReferences
+        .provinces
+        .filter(
+          (province) =>
+            regionIds.has(
+              province.regionId,
+            ),
+        );
 
-    this.provinceOptions = this.toProvinceOptions(provinces);
+    this.provinceOptions =
+      this.toProvinceOptions(
+        provinces,
+      );
 
-    const provinceIds = new Set(provinces.map((province) => province.id));
+    const provinceIds =
+      new Set(
+        provinces.map(
+          (province) =>
+            province.id,
+        ),
+      );
 
-    const cities = this.addressReferences.cities.filter((city) => provinceIds.has(city.provinceId));
+    const cities =
+      this.addressReferences
+        .cities
+        .filter(
+          (city) =>
+            provinceIds.has(
+              city.provinceId,
+            ),
+        );
 
-    this.cityOptions = this.toCityOptions(cities);
+    this.cityOptions =
+      this.toCityOptions(
+        cities,
+      );
 
     this.barangayOptions = [];
   }
 
   // ========================================
-  // Dynamic Validators
+  // Validators
   // ========================================
 
-  private updateAddressValidators(): void {
-    const countryId = this.addressForm.controls.countryId.value;
+  private updateAddressValidators():
+    void {
+    const countryId =
+      this.addressForm
+        .controls
+        .countryId
+        .value;
 
-    const regionControl = this.addressForm.controls.regionId;
+    const regionControl =
+      this.addressForm
+        .controls
+        .regionId;
 
-    const provinceControl = this.addressForm.controls.provinceId;
+    const provinceControl =
+      this.addressForm
+        .controls
+        .provinceId;
 
-    const cityControl = this.addressForm.controls.cityId;
+    const cityControl =
+      this.addressForm
+        .controls
+        .cityId;
 
-    const barangayControl = this.addressForm.controls.barangayId;
+    const barangayControl =
+      this.addressForm
+        .controls
+        .barangayId;
 
-    const foreignStateProvinceRegionControl = this.addressForm.controls.foreignStateProvinceRegion;
+    const internationalRegionControl =
+      this.addressForm
+        .controls
+        .internationalRegion;
 
-    const foreignCityControl = this.addressForm.controls.foreignCity;
+    const internationalStatesControl =
+      this.addressForm
+        .controls
+        .internationalStates;
 
-    const scopeControl = this.addressForm.controls.scopeId;
+    const internationalProvinceControl =
+      this.addressForm
+        .controls
+        .internationalProvince;
 
-    scopeControl.setValidators([Validators.required]);
+    const internationalCityControl =
+      this.addressForm
+        .controls
+        .internationalCity;
 
-    if (countryId === null) {
-      regionControl.clearValidators();
+    const internationalSuburbControl =
+      this.addressForm
+        .controls
+        .internationalSuburb;
 
-      provinceControl.clearValidators();
+    const scopeControl =
+      this.addressForm
+        .controls
+        .scopeId;
 
-      cityControl.clearValidators();
+    scopeControl.setValidators([
+      Validators.required,
+    ]);
 
-      barangayControl.clearValidators();
+    if (
+      countryId === null
+    ) {
+      regionControl
+        .clearValidators();
 
-      foreignStateProvinceRegionControl.clearValidators();
+      provinceControl
+        .clearValidators();
 
-      foreignCityControl.clearValidators();
+      cityControl
+        .clearValidators();
+
+      barangayControl
+        .clearValidators();
+
+      internationalRegionControl
+        .clearValidators();
+
+      internationalStatesControl
+        .clearValidators();
+
+      internationalProvinceControl
+        .clearValidators();
+
+      internationalCityControl
+        .clearValidators();
+
+      internationalSuburbControl
+        .clearValidators();
 
       this.updateLocationValidity();
 
       return;
     }
 
-    if (this.isPhilippinesSelected) {
-      regionControl.setValidators([Validators.required]);
+    if (
+      this.isPhilippinesSelected
+    ) {
+      regionControl.setValidators([
+        Validators.required,
+      ]);
 
-      provinceControl.setValidators([Validators.required]);
+      provinceControl.setValidators([
+        Validators.required,
+      ]);
 
-      cityControl.setValidators([Validators.required]);
+      cityControl.setValidators([
+        Validators.required,
+      ]);
 
-      barangayControl.setValidators([Validators.required]);
+      barangayControl.setValidators([
+        Validators.required,
+      ]);
 
-      foreignStateProvinceRegionControl.clearValidators();
+      internationalRegionControl
+        .clearValidators();
 
-      foreignCityControl.clearValidators();
+      internationalStatesControl
+        .clearValidators();
+
+      internationalProvinceControl
+        .clearValidators();
+
+      internationalCityControl
+        .clearValidators();
+
+      internationalSuburbControl
+        .clearValidators();
     } else {
-      regionControl.clearValidators();
+      regionControl
+        .clearValidators();
 
-      provinceControl.clearValidators();
+      provinceControl
+        .clearValidators();
 
-      cityControl.clearValidators();
+      cityControl
+        .clearValidators();
 
-      barangayControl.clearValidators();
+      barangayControl
+        .clearValidators();
 
-      foreignStateProvinceRegionControl.setValidators([Validators.required]);
+      /*
+       * International fields are nullable
+       * in your new model, therefore they
+       * are not forced required here.
+       *
+       * If your API requires specific
+       * international fields, add
+       * Validators.required to them here.
+       */
 
-      foreignCityControl.setValidators([Validators.required]);
+      internationalRegionControl
+        .clearValidators();
+
+      internationalStatesControl
+        .clearValidators();
+
+      internationalProvinceControl
+        .clearValidators();
+
+      internationalCityControl
+        .clearValidators();
+
+      internationalSuburbControl
+        .clearValidators();
     }
 
     this.updateLocationValidity();
   }
 
-  // ========================================
-  // Update Validator State
-  // ========================================
+  private updateLocationValidity():
+    void {
+    this.addressForm
+      .controls
+      .regionId
+      .updateValueAndValidity({
+        emitEvent: false,
+      });
 
-  private updateLocationValidity(): void {
-    this.addressForm.controls.regionId.updateValueAndValidity({
-      emitEvent: false,
-    });
+    this.addressForm
+      .controls
+      .provinceId
+      .updateValueAndValidity({
+        emitEvent: false,
+      });
 
-    this.addressForm.controls.provinceId.updateValueAndValidity({
-      emitEvent: false,
-    });
+    this.addressForm
+      .controls
+      .cityId
+      .updateValueAndValidity({
+        emitEvent: false,
+      });
 
-    this.addressForm.controls.cityId.updateValueAndValidity({
-      emitEvent: false,
-    });
+    this.addressForm
+      .controls
+      .barangayId
+      .updateValueAndValidity({
+        emitEvent: false,
+      });
 
-    this.addressForm.controls.barangayId.updateValueAndValidity({
-      emitEvent: false,
-    });
+    this.addressForm
+      .controls
+      .internationalRegion
+      .updateValueAndValidity({
+        emitEvent: false,
+      });
 
-    this.addressForm.controls.foreignStateProvinceRegion.updateValueAndValidity({
-      emitEvent: false,
-    });
+    this.addressForm
+      .controls
+      .internationalStates
+      .updateValueAndValidity({
+        emitEvent: false,
+      });
 
-    this.addressForm.controls.foreignCity.updateValueAndValidity({
-      emitEvent: false,
-    });
+    this.addressForm
+      .controls
+      .internationalProvince
+      .updateValueAndValidity({
+        emitEvent: false,
+      });
 
-    this.addressForm.controls.scopeId.updateValueAndValidity({
-      emitEvent: false,
-    });
+    this.addressForm
+      .controls
+      .internationalCity
+      .updateValueAndValidity({
+        emitEvent: false,
+      });
+
+    this.addressForm
+      .controls
+      .internationalSuburb
+      .updateValueAndValidity({
+        emitEvent: false,
+      });
+
+    this.addressForm
+      .controls
+      .scopeId
+      .updateValueAndValidity({
+        emitEvent: false,
+      });
   }
 
   // ========================================
-  // Region Options
+  // Option Mapping
   // ========================================
 
-  private toRegionOptions(items: Region[]): CxpSelectOption[] {
-    return items.map((item) => ({
-      value: item.id,
+  private toRegionOptions(
+    items: Region[],
+  ): CxpSelectOption[] {
+    return items.map(
+      (item) => ({
+        value: item.id,
 
-      label: item.regionName.toUpperCase(),
-    }));
+        label:
+          item.regionName
+            .toUpperCase(),
+      }),
+    );
   }
 
-  // ========================================
-  // Province Options
-  // ========================================
+  private toProvinceOptions(
+    items: Province[],
+  ): CxpSelectOption[] {
+    return items.map(
+      (item) => ({
+        value: item.id,
 
-  private toProvinceOptions(items: Province[]): CxpSelectOption[] {
-    return items.map((item) => ({
-      value: item.id,
-
-      label: item.provinceName.toUpperCase(),
-    }));
+        label:
+          item.provinceName
+            .toUpperCase(),
+      }),
+    );
   }
 
-  // ========================================
-  // City Options
-  // ========================================
+  private toCityOptions(
+    items: City[],
+  ): CxpSelectOption[] {
+    return items.map(
+      (item) => ({
+        value: item.id,
 
-  private toCityOptions(items: City[]): CxpSelectOption[] {
-    return items.map((item) => ({
-      value: item.id,
-
-      label: item.cityOrMunicipalName.toUpperCase(),
-    }));
+        label:
+          item
+            .cityOrMunicipalName
+            .toUpperCase(),
+      }),
+    );
   }
 
   // ========================================
@@ -1375,31 +2060,42 @@ export class AddressComponent implements OnInit {
 
   startEdit(): void {
     if (!this.hasEmployeeId) {
-      this.errorMessage = 'Employee ID is not available.';
+      this.errorMessage =
+        'Employee ID is not available.';
+
       return;
     }
 
-    if (!this.canModify) {
-      this.errorMessage = this.hasAddress
-        ? 'You do not have permission to update an address.'
-        : 'You do not have permission to create an address.';
+    if (!this.canUpdate) {
+      this.errorMessage =
+        'You do not have permission to update an address.';
 
       return;
     }
 
     if (!this.referencesLoaded) {
-      this.errorMessage = 'Address reference data is not yet available.';
+      this.errorMessage =
+        'Address reference data is not yet available.';
+
+      return;
+    }
+
+    if (
+      !this.selectedAddress
+    ) {
       return;
     }
 
     this.errorMessage = '';
+
     this.successMessage = '';
 
-    if (this.selectedAddress) {
-      this.populateAddress(this.selectedAddress);
-    }
+    this.populateAddress(
+      this.selectedAddress,
+    );
 
     this.isEditing = true;
+
     this.showAddressList = false;
 
     this.addressForm.enable({
@@ -1407,9 +2103,8 @@ export class AddressComponent implements OnInit {
     });
 
     this.updateAddressValidators();
-    this.cdr.detectChanges();
 
-    console.log('FORM AFTER EDIT LOAD:', this.addressForm.getRawValue());
+    this.cdr.detectChanges();
   }
 
   // ========================================
@@ -1418,53 +2113,103 @@ export class AddressComponent implements OnInit {
 
   cancelEdit(): void {
     this.errorMessage = '';
+
     this.successMessage = '';
 
-    if (this.hasAddress && this.selectedAddress) {
-      this.populateAddress(this.selectedAddress);
+    // Existing selected address
+    if (
+      this.hasAddress &&
+      this.selectedAddress
+    ) {
+      this.populateAddress(
+        this.selectedAddress,
+      );
+
       this.isEditing = false;
-      this.addressForm.disable({ emitEvent: false });
+
+      this.addressForm.disable({
+        emitEvent: false,
+      });
+
       this.cdr.detectChanges();
+
       return;
     }
 
-    if (this.hasAddress && !this.selectedAddress) {
+    // Adding new address while others exist
+    if (
+      this.hasAddress &&
+      !this.selectedAddress
+    ) {
       this.resetAddressForm();
+
       this.isEditing = false;
+
       this.showAddressList = true;
-      this.addressForm.disable({ emitEvent: false });
+
+      this.addressForm.disable({
+        emitEvent: false,
+      });
+
       this.cdr.detectChanges();
+
       return;
     }
 
+    // No existing address
     this.resetAddressForm();
+
     this.isEditing = true;
 
-    if (this.referencesLoaded && this.canCreate && this.hasEmployeeId) {
-      this.addressForm.enable({ emitEvent: false });
+    if (
+      this.referencesLoaded &&
+      this.canCreate &&
+      this.hasEmployeeId
+    ) {
+      this.addressForm.enable({
+        emitEvent: false,
+      });
     } else {
-      this.addressForm.disable({ emitEvent: false });
+      this.addressForm.disable({
+        emitEvent: false,
+      });
     }
 
     this.updateAddressValidators();
   }
 
   // ========================================
-  // Reset Address Form
+  // Reset Form
   // ========================================
 
-  private resetAddressForm(): void {
+  private resetAddressForm():
+    void {
     this.addressForm.reset(
       {
         countryId: null,
+
         regionId: null,
+
         provinceId: null,
+
         cityId: null,
+
         barangayId: null,
 
-        foreignStateProvinceRegion: null,
+        internationalRegion:
+          null,
 
-        foreignCity: null,
+        internationalStates:
+          null,
+
+        internationalProvince:
+          null,
+
+        internationalCity:
+          null,
+
+        internationalSuburb:
+          null,
 
         addressLine1: '',
 
@@ -1489,9 +2234,11 @@ export class AddressComponent implements OnInit {
 
     this.barangayOptions = [];
 
-    this.addressForm.markAsPristine();
+    this.addressForm
+      .markAsPristine();
 
-    this.addressForm.markAsUntouched();
+    this.addressForm
+      .markAsUntouched();
   }
 
   // ========================================
@@ -1499,288 +2246,700 @@ export class AddressComponent implements OnInit {
   // ========================================
 
   saveAddress(): void {
-    const employeeGuid = this.employeeGuid;
+    const employeeGuid =
+      this.employeeGuid;
 
     if (!employeeGuid) {
-      this.errorMessage = 'Employee ID is not available.';
+      this.errorMessage =
+        'Employee ID is not available.';
+
       return;
     }
 
-    const addressId = this.selectedAddress?.addressId ?? null;
-    const isCreating = addressId === null;
+    const addressId =
+      this.selectedAddress
+        ?.addressId ??
+      null;
 
-    if (isCreating && !this.canCreate) {
-      this.errorMessage = 'You do not have permission to create an address.';
+    const isCreating =
+      addressId === null;
+
+    if (
+      isCreating &&
+      !this.canCreate
+    ) {
+      this.errorMessage =
+        'You do not have permission to create an address.';
+
       return;
     }
 
-    if (!isCreating && !this.canUpdate) {
-      this.errorMessage = 'You do not have permission to update this address.';
+    if (
+      !isCreating &&
+      !this.canUpdate
+    ) {
+      this.errorMessage =
+        'You do not have permission to update this address.';
+
       return;
     }
 
     this.updateAddressValidators();
-    this.addressForm.markAllAsTouched();
 
-    if (this.addressForm.invalid) {
-      this.errorMessage = 'Please fill in all required address fields.';
+    this.addressForm
+      .markAllAsTouched();
+
+    if (
+      this.addressForm.invalid
+    ) {
+      this.errorMessage =
+        'Please fill in all required address fields.';
+
       return;
     }
 
     this.isSaving = true;
+
     this.errorMessage = '';
+
     this.successMessage = '';
 
-    const formValue = this.addressForm.getRawValue();
+    const formValue =
+      this.addressForm
+        .getRawValue();
 
-    const request: SaveAddressRequest = {
+    const request = {
       employeeGuid,
+
       addressId,
-      countryId: formValue.countryId,
-      regionId: this.isPhilippinesSelected ? formValue.regionId : null,
-      provinceId: this.isPhilippinesSelected ? formValue.provinceId : null,
-      cityId: this.isPhilippinesSelected ? formValue.cityId : null,
-      barangayId: this.isPhilippinesSelected ? formValue.barangayId : null,
-      foreignStateProvinceRegion: this.isPhilippinesSelected
-        ? null
-        : formValue.foreignStateProvinceRegion,
-      foreignCity: this.isPhilippinesSelected ? null : formValue.foreignCity,
-      addressLine1: formValue.addressLine1,
-      addressLine2: formValue.addressLine2,
-      zipCode: formValue.zipCode,
-      scopeId: formValue.scopeId,
-      isPresent: formValue.isPresent,
+
+      scopeId:
+        formValue.scopeId,
+
+      countryId:
+        formValue.countryId,
+
+      regionId:
+        this.isPhilippinesSelected
+          ? formValue.regionId
+          : null,
+
+      provinceId:
+        this.isPhilippinesSelected
+          ? formValue.provinceId
+          : null,
+
+      cityId:
+        this.isPhilippinesSelected
+          ? formValue.cityId
+          : null,
+
+      barangayId:
+        this.isPhilippinesSelected
+          ? formValue.barangayId
+          : null,
+
+      internationalRegion:
+        this.isPhilippinesSelected
+          ? null
+          : formValue
+              .internationalRegion,
+
+      internationalStates:
+        this.isPhilippinesSelected
+          ? null
+          : formValue
+              .internationalStates,
+
+      internationalProvince:
+        this.isPhilippinesSelected
+          ? null
+          : formValue
+              .internationalProvince,
+
+      internationalCity:
+        this.isPhilippinesSelected
+          ? null
+          : formValue
+              .internationalCity,
+
+      internationalSuburb:
+        this.isPhilippinesSelected
+          ? null
+          : formValue
+              .internationalSuburb,
+
+      addressLine1:
+        formValue.addressLine1,
+
+      addressLine2:
+        formValue.addressLine2,
+
+      zipCode:
+        formValue.zipCode,
+
+      isPresent:
+        formValue.isPresent,
     };
 
-    this.addressService.saveAddress(request).subscribe({
-      next: (addresses: EmployeeAddress[]) => {
-        this.addresses = addresses;
-        this.hasAddress = addresses.length > 0;
+    console.log(
+      'SAVE ADDRESS REQUEST:',
+      request,
+    );
 
-        const savedAddress = addressId !== null
-          ? addresses.find((address) => address.addressId === addressId) ?? null
-          : addresses.at(-1) ?? null;
+    this.addressService
+      .saveAddress(request)
+      .subscribe({
+        next: (
+          addresses:
+            EmployeeAddress[],
+        ) => {
+          this.addresses =
+            addresses;
 
-        this.selectedAddress = savedAddress;
+          this.hasAddress =
+            addresses.length >
+            0;
 
-        if (savedAddress) {
-          this.populateAddress(savedAddress);
-        }
+          let savedAddress:
+            EmployeeAddress |
+            null = null;
 
-        this.showAddressList = false;
-        this.isSaving = false;
-        this.isEditing = false;
-        this.successMessage = isCreating
-          ? 'Address saved successfully.'
-          : 'Address updated successfully.';
+          if (
+            addressId !== null
+          ) {
+            savedAddress =
+              addresses.find(
+                (address) =>
+                  address.addressId ===
+                  addressId,
+              ) ??
+              null;
+          } else {
+            savedAddress =
+              addresses[
+                addresses.length -
+                  1
+              ] ??
+              null;
+          }
 
-        this.addressForm.disable({ emitEvent: false });
-        this.addressForm.markAsPristine();
-        this.addressForm.markAsUntouched();
-        this.cdr.detectChanges();
-      },
+          this.selectedAddress =
+            savedAddress;
 
-      error: (error: unknown) => {
-        console.error('Failed to save address:', error);
-        this.isSaving = false;
-        this.errorMessage = isCreating
-          ? 'Unable to save address.'
-          : 'Unable to update address.';
-      },
-    });
+          if (savedAddress) {
+            this.populateAddress(
+              savedAddress,
+            );
+          }
+
+          this.showAddressList =
+            false;
+
+          this.isSaving = false;
+
+          this.isEditing = false;
+
+          this.successMessage =
+            isCreating
+              ? 'Address saved successfully.'
+              : 'Address updated successfully.';
+
+          this.addressForm.disable({
+            emitEvent: false,
+          });
+
+          this.addressForm
+            .markAsPristine();
+
+          this.addressForm
+            .markAsUntouched();
+
+          this.cdr.detectChanges();
+        },
+
+        error: (
+          error: unknown,
+        ) => {
+          console.error(
+            'Failed to save address:',
+            error,
+          );
+
+          this.isSaving = false;
+
+          this.errorMessage =
+            isCreating
+              ? 'Unable to save address.'
+              : 'Unable to update address.';
+        },
+      });
   }
 
   // ========================================
   // Delete Address
   // ========================================
-  deleteAddress(): void {
-    const employeeGuid = this.employeeGuid;
-    const addressId = this.selectedAddress?.addressId ?? null;
 
-    if (!employeeGuid || !addressId) {
+  deleteAddress(): void {
+    const employeeGuid =
+      this.employeeGuid;
+
+    const addressId =
+      this.selectedAddress
+        ?.addressId ??
+      null;
+
+    if (
+      !employeeGuid ||
+      !addressId
+    ) {
       return;
     }
 
     if (!this.canDelete) {
-      this.errorMessage = 'You do not have permission to delete this address.';
+      this.errorMessage =
+        'You do not have permission to delete this address.';
+
       return;
     }
 
     this.isSaving = true;
+
     this.errorMessage = '';
+
     this.successMessage = '';
 
-    this.addressService.deleteAddress(employeeGuid, addressId).subscribe({
-      next: (addresses: EmployeeAddress[]) => {
-        this.addresses = addresses;
-        this.hasAddress = addresses.length > 0;
-        this.selectedAddress = null;
-        this.isSaving = false;
-        this.resetAddressForm();
+    this.addressService
+      .deleteAddress(
+        employeeGuid,
+        addressId,
+      )
+      .subscribe({
+        next: (
+          addresses:
+            EmployeeAddress[],
+        ) => {
+          this.addresses =
+            addresses;
 
-        if (this.hasAddress) {
-          this.isEditing = false;
-          this.showAddressList = true;
-          this.addressForm.disable({ emitEvent: false });
-        } else {
-          this.isEditing = true;
-          this.showAddressList = false;
+          this.hasAddress =
+            addresses.length >
+            0;
 
-          if (this.canCreate) {
-            this.addressForm.enable({ emitEvent: false });
+          this.selectedAddress =
+            null;
+
+          this.isSaving = false;
+
+          this.resetAddressForm();
+
+          if (
+            this.hasAddress
+          ) {
+            this.isEditing =
+              false;
+
+            this.showAddressList =
+              true;
+
+            this.addressForm.disable({
+              emitEvent: false,
+            });
           } else {
-            this.addressForm.disable({ emitEvent: false });
+            this.isEditing =
+              true;
+
+            this.showAddressList =
+              false;
+
+            if (
+              this.canCreate
+            ) {
+              this.addressForm.enable({
+                emitEvent:
+                  false,
+              });
+            } else {
+              this.addressForm.disable({
+                emitEvent:
+                  false,
+              });
+            }
+
+            this.updateAddressValidators();
           }
 
-          this.updateAddressValidators();
-        }
+          this.successMessage =
+            'Address deleted successfully.';
 
-        this.successMessage = 'Address deleted successfully.';
-        this.cdr.detectChanges();
-      },
+          this.cdr.detectChanges();
+        },
 
-      error: (error: unknown) => {
-        console.error('Failed to delete address:', error);
-        this.isSaving = false;
-        this.errorMessage = 'Unable to delete address.';
-      },
-    });
+        error: (
+          error: unknown,
+        ) => {
+          console.error(
+            'Failed to delete address:',
+            error,
+          );
+
+          this.isSaving =
+            false;
+
+          this.errorMessage =
+            'Unable to delete address.';
+        },
+      });
   }
 
   // ========================================
-  // Reference Label
+  // Labels
   // ========================================
 
   getReferenceLabel(
-    options: CxpSelectOption[],
+    options:
+      CxpSelectOption[],
 
-    selectedValue: CxpSelectPrimitive | null,
+    selectedValue:
+      CxpSelectPrimitive |
+      null,
   ): string {
-    if (selectedValue === null || selectedValue === undefined) {
+    if (
+      selectedValue === null ||
+      selectedValue === undefined
+    ) {
       return '—';
     }
 
-    const option = options.find((item) => String(item.value) === String(selectedValue));
+    const option =
+      options.find(
+        (item) =>
+          String(item.value) ===
+          String(
+            selectedValue,
+          ),
+      );
 
-    return option?.label ?? '—';
+    return (
+      option?.label ??
+      '—'
+    );
   }
 
-  getAddressLabel(address: EmployeeAddress): string {
-    const scope = this.getReferenceLabel(this.addressScopeOptions, address.scopeId);
+  getAddressLabel(
+    address:
+      EmployeeAddress,
+  ): string {
+    const scope =
+      this.getReferenceLabel(
+        this.addressScopeOptions,
+        address.scopeId,
+      );
 
     if (scope !== '—') {
       return scope;
     }
 
-    return address.isPresent ? 'Present Address' : 'Address';
+    return address.isPresent
+      ? 'Present Address'
+      : 'Address';
   }
 
-  getCompleteAddress(address: EmployeeAddress): string {
-    const parts: string[] = [];
+  // ========================================
+  // Complete Address
+  // ========================================
 
-    if (address.addressLine1) {
-      parts.push(address.addressLine1);
+  getCompleteAddress(
+    address:
+      EmployeeAddress,
+  ): string {
+    const parts:
+      string[] = [];
+
+    if (
+      address.addressLine1
+    ) {
+      parts.push(
+        address.addressLine1,
+      );
     }
 
-    if (address.addressLine2) {
-      parts.push(address.addressLine2);
+    if (
+      address.addressLine2
+    ) {
+      parts.push(
+        address.addressLine2,
+      );
     }
 
-    if (this.isPhilippineAddress(address)) {
-      const barangay = this.getReferenceLabel(this.barangayOptions, address.barangayId);
+    // ======================================
+    // Philippine
+    // ======================================
 
-      const city = this.getReferenceLabel(this.getCityOptionsForAddress(address), address.cityId);
+    if (
+      this.isPhilippineAddress(
+        address,
+      )
+    ) {
+      if (
+        address.barangayId !==
+        null
+      ) {
+        /*
+         * Barangays are loaded by API,
+         * therefore only display it when
+         * currently available.
+         */
+        const barangay =
+          this.getReferenceLabel(
+            this.barangayOptions,
+            address.barangayId,
+          );
 
-      const province = this.getReferenceLabel(
-        this.getProvinceOptionsForAddress(address),
-        address.provinceId,
-      );
-
-      const region = this.getReferenceLabel(
-        this.getRegionOptionsForAddress(address),
-        address.regionId,
-      );
-
-      if (barangay !== '—') {
-        parts.push(barangay);
+        if (
+          barangay !== '—'
+        ) {
+          parts.push(
+            barangay,
+          );
+        }
       }
+
+      const city =
+        this.getReferenceLabel(
+          this.getCityOptionsForAddress(
+            address,
+          ),
+          address.cityId,
+        );
+
+      const province =
+        this.getReferenceLabel(
+          this.getProvinceOptionsForAddress(
+            address,
+          ),
+          address.provinceId,
+        );
+
+      const region =
+        this.getReferenceLabel(
+          this.getRegionOptionsForAddress(
+            address,
+          ),
+          address.regionId,
+        );
 
       if (city !== '—') {
         parts.push(city);
       }
 
-      if (province !== '—') {
-        parts.push(province);
+      if (
+        province !== '—'
+      ) {
+        parts.push(
+          province,
+        );
       }
 
-      if (region !== '—') {
-        parts.push(region);
-      }
-    } else {
-      if (address.foreignCity) {
-        parts.push(address.foreignCity);
-      }
-
-      if (address.foreignStateProvinceRegion) {
-        parts.push(address.foreignStateProvinceRegion);
+      if (
+        region !== '—'
+      ) {
+        parts.push(
+          region,
+        );
       }
     }
 
-    if (address.zipCode) {
-      parts.push(address.zipCode);
+    // ======================================
+    // International
+    // ======================================
+
+    else {
+      if (
+        address
+          .internationalSuburb
+      ) {
+        parts.push(
+          address
+            .internationalSuburb,
+        );
+      }
+
+      if (
+        address
+          .internationalCity
+      ) {
+        parts.push(
+          address
+            .internationalCity,
+        );
+      }
+
+      if (
+        address
+          .internationalProvince
+      ) {
+        parts.push(
+          address
+            .internationalProvince,
+        );
+      }
+
+      if (
+        address
+          .internationalStates
+      ) {
+        parts.push(
+          address
+            .internationalStates,
+        );
+      }
+
+      if (
+        address
+          .internationalRegion
+      ) {
+        parts.push(
+          address
+            .internationalRegion,
+        );
+      }
     }
 
-    const country = this.getCountryName(address.countryId);
+    if (
+      address.zipCode
+    ) {
+      parts.push(
+        address.zipCode,
+      );
+    }
+
+    const country =
+      this.getCountryName(
+        address.countryId,
+      );
 
     if (country) {
-      parts.push(country);
+      parts.push(
+        country,
+      );
     }
 
-    return parts.join(', ');
+    return parts.join(
+      ', ',
+    );
   }
 
-  private getCountryName(countryId: number | null): string {
-    if (countryId === null || !this.addressReferences) {
+  // ========================================
+  // Country Helpers
+  // ========================================
+
+  private getCountryName(
+    countryId:
+      number | null,
+  ): string {
+    if (
+      countryId === null ||
+      !this.addressReferences
+    ) {
       return '';
     }
 
     return (
-      this.addressReferences.countries.find((country) => country.id === countryId)?.countryName ??
+      this.addressReferences
+        .countries
+        .find(
+          (country) =>
+            country.id ===
+            countryId,
+        )
+        ?.countryName ??
       ''
     );
   }
 
-  private isPhilippineAddress(address: EmployeeAddress): boolean {
-    return this.getCountryName(address.countryId).trim().toLowerCase() === 'philippines';
+  private isPhilippineAddress(
+    address:
+      EmployeeAddress,
+  ): boolean {
+    return (
+      this.getCountryName(
+        address.countryId,
+      )
+        .trim()
+        .toLowerCase() ===
+      'philippines'
+    );
   }
 
-  private getRegionOptionsForAddress(address: EmployeeAddress): CxpSelectOption[] {
-    if (!this.addressReferences || address.countryId === null) {
+  // ========================================
+  // Address-specific Options
+  // ========================================
+
+  private getRegionOptionsForAddress(
+    address:
+      EmployeeAddress,
+  ): CxpSelectOption[] {
+    if (
+      !this.addressReferences ||
+      address.countryId === null
+    ) {
       return [];
     }
 
     return this.toRegionOptions(
-      this.addressReferences.regions.filter((region) => region.countryId === address.countryId),
+      this.addressReferences
+        .regions
+        .filter(
+          (region) =>
+            region.countryId ===
+            address.countryId,
+        ),
     );
   }
 
-  private getProvinceOptionsForAddress(address: EmployeeAddress): CxpSelectOption[] {
-    if (!this.addressReferences || address.regionId === null) {
+  private getProvinceOptionsForAddress(
+    address:
+      EmployeeAddress,
+  ): CxpSelectOption[] {
+    if (
+      !this.addressReferences ||
+      address.regionId === null
+    ) {
       return [];
     }
 
     return this.toProvinceOptions(
-      this.addressReferences.provinces.filter((province) => province.regionId === address.regionId),
+      this.addressReferences
+        .provinces
+        .filter(
+          (province) =>
+            province.regionId ===
+            address.regionId,
+        ),
     );
   }
 
-  private getCityOptionsForAddress(address: EmployeeAddress): CxpSelectOption[] {
-    if (!this.addressReferences || address.provinceId === null) {
+  private getCityOptionsForAddress(
+    address:
+      EmployeeAddress,
+  ): CxpSelectOption[] {
+    if (
+      !this.addressReferences ||
+      address.provinceId ===
+        null
+    ) {
       return [];
     }
 
     return this.toCityOptions(
-      this.addressReferences.cities.filter((city) => city.provinceId === address.provinceId),
+      this.addressReferences
+        .cities
+        .filter(
+          (city) =>
+            city.provinceId ===
+            address.provinceId,
+        ),
     );
   }
 }

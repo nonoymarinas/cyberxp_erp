@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   map,
   Observable,
@@ -62,11 +62,11 @@ export class AddressRefService {
       },
     ];
 
-  constructor(
-    private readonly dataAccess:
-      AddressRefDataAccess,
-  ) {}
-
+  // constructor(
+  //   private readonly dataAccess:
+  //     AddressRefDataAccess,
+  // ) {}
+private readonly dataAccess = inject(AddressRefDataAccess);
   // ========================================
   // Get References
   // ========================================

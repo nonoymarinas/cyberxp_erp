@@ -2,7 +2,9 @@
   display: block;
   width: 100%;
 }
-
+.contact_show_add{
+  display: flex;
+}
 .contact__actions{
     display: grid;
   grid-template-columns: 1fr auto;
@@ -14,17 +16,22 @@
   gap: 1rem;
 }
 
-
 .item-group-header {
     display: grid;
-    grid-template-columns: auto auto 1fr;
+    grid-template-columns: auto auto auto 1fr;
     gap: 1rem;
     margin-bottom: 1rem;
     align-items: center;
 }
-
+.contact__delete{
+  display: flex;
+  justify-content: flex-end;
+}
 cxp-button{
     margin-left:1rem
+}
+.cxp-button-delete{
+  margin-left: 0;
 }
 .sub-header-icon {
   color: var(--color-icon-primary);

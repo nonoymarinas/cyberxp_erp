@@ -1,4 +1,4 @@
-import { ApiResponse } from "../../../../shared/models/api-response.model";
+import { ApiResponse } from '../../../../shared/models/api-response.model';
 
 export interface EmployeeAddressDto {
   addressId: string;
@@ -11,24 +11,18 @@ export interface EmployeeAddressDto {
   cityId: number | null;
   barangayId: number | null;
 
-  foreignStateProvinceRegion:
-    string | null;
+  internationalRegion: string | null;
+  internationalStates: string | null;
+  internationalProvince: string | null;
+  internationalCity: string | null;
+  internationalSuburb: string | null;
 
-  foreignCity:
-    string | null;
+  addressLine1: string | null;
+  addressLine2: string | null;
 
-  addressLine1:
-    string | null;
+  zipCode: string;
 
-  addressLine2:
-    string | null;
-
-  zipCode:
-    string;
-
-  isPresent:
-    boolean | null;
+  isPresent: boolean | null;
 }
-
 
 export type EmployeeAddreResponseDto = ApiResponse<EmployeeAddressDto[]>;

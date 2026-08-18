@@ -1,11 +1,11 @@
-import { ApiResponse } from "../../../../shared/models/api-response.model";
+import { ApiResponse } from '../../../../shared/models/api-response.model';
 
-export interface ContactDto {
-  id: string;
-  typeId: string;
-  scopeId: string;
-  value: string;
-  isPrimary: boolean;
+export interface EmployeeContactDto {
+  contactId:string |null
+  contactTypeId: string | null;
+  contactScopeId: string | null;
+  value: string | null;
+  isPrimary: boolean | null;
 }
+export type EmployeeContactResponseDto = ApiResponse<EmployeeContactDto[]>;
 
-export type ContactResponseDto = ApiResponse<ContactDto[]>;

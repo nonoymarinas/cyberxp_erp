@@ -1,32 +1,54 @@
 <section class="cxp-section">
+
   <!-- ========================================
        Header
        ======================================== -->
 
   <header class="item-group-header cxp-section__header">
+
     <cxp-icon-address-nav
       class="personal-info__icon"
       size="xs"
       fill="outline"
     ></cxp-icon-address-nav>
 
-    <h2 class="cxp-section__title">Address</h2>
+    <h2 class="cxp-section__title">
+      Address
+    </h2>
+
+    <!-- ========================================
+         Add Address
+         ======================================== -->
 
     <cxp-button
       size="xs"
       variant="secondary"
       type="button"
-      [disabled]="!hasEmployeeId || !canCreate || isEditing || isSaving"
+      [disabled]="
+        !hasEmployeeId ||
+        !canCreate ||
+        isEditing ||
+        isSaving
+      "
       (clicked)="addAddress()"
     >
       Add Address
     </cxp-button>
 
+    <!-- ========================================
+         Toggle Address List
+         ======================================== -->
+
     <cxp-button
       size="xs"
       variant="secondary"
       type="button"
-      [disabled]="!hasEmployeeId || !hasAddress || isEditing || isSaving"
+      [disabled]="
+        !hasEmployeeId ||
+        !hasAddress ||
+        isEditing ||
+        isSaving
+      "
       (clicked)="toggleAddressList()"
     >
       {{ addressToggleLabel }}
@@ -37,31 +59,72 @@
          ======================================== -->
 
     <div class="address__actions">
+
       @if (isEditing) {
-        <cxp-button size="xs" variant="secondary" type="button" [disabled]="isSaving" (clicked)="cancelEdit()">
+
+        <cxp-button
+          size="xs"
+          variant="secondary"
+          type="button"
+          [disabled]="isSaving"
+          (clicked)="cancelEdit()"
+        >
           Cancel
         </cxp-button>
 
-        <cxp-button size="xs" variant="primary" type="button" [disabled]="isSaving || !hasEmployeeId" (clicked)="saveAddress()">
+        <cxp-button
+          size="xs"
+          variant="primary"
+          type="button"
+          [disabled]="
+            isSaving ||
+            !hasEmployeeId
+          "
+          (clicked)="saveAddress()"
+        >
           Save
         </cxp-button>
+
       } @else {
-        @if (selectedAddress && canUpdate) {
-          <cxp-button size="xs" variant="secondary" type="button" (clicked)="startEdit()">
+
+        @if (
+          selectedAddress &&
+          canUpdate
+        ) {
+
+          <cxp-button
+            size="xs"
+            variant="secondary"
+            type="button"
+            (clicked)="startEdit()"
+          >
             Edit
           </cxp-button>
+
         }
+
       }
+
     </div>
+
   </header>
 
   <!-- ========================================
        Saved Address List
        ======================================== -->
 
-  @if (hasAddress && showAddressList) {
+  @if (
+    hasAddress &&
+    showAddressList
+  ) {
+
     <div class="address-list-box">
-      @for (address of addresses; track address.addressId) {
+
+      @for (
+        address of addresses;
+        track address.addressId
+      ) {
+
         <cxp-address-list
           size="sm"
           [label]="getAddressLabel(address)"
@@ -69,22 +132,31 @@
           buttonLabel="Select"
           (selected)="selectAddress(address)"
         ></cxp-address-list>
+
       }
+
     </div>
+
   }
 
   <!-- ========================================
-       Main Address Display / Form
+       Main Address Body
        ======================================== -->
 
   @if (showMainBody) {
+
     <div class="address__main-body">
+
       <!-- ========================================
            Loading
            ======================================== -->
 
       @if (isLoading) {
-        <div class="cxp-section__message">Loading address references...</div>
+
+        <div class="cxp-section__message">
+          Loading address references...
+        </div>
+
       }
 
       <!-- ========================================
@@ -92,9 +164,11 @@
            ======================================== -->
 
       @if (errorMessage) {
+
         <label class="cxp-label__error">
           {{ errorMessage }}
         </label>
+
       }
 
       <!-- ========================================
@@ -102,24 +176,38 @@
            ======================================== -->
 
       @if (successMessage) {
+
         <label class="cxp-label__success">
           {{ successMessage }}
         </label>
+
       }
 
       <!-- ========================================
            Edit Mode
            ======================================== -->
 
-      @if (isEditing && !isLoading) {
-        <form class="cxp-section__body" [formGroup]="addressForm">
+      @if (
+        isEditing &&
+        !isLoading
+      ) {
+
+        <form
+          class="cxp-section__body"
+          [formGroup]="addressForm"
+        >
+
           <div class="address__body">
+
             <!-- ========================================
                  Country
                  ======================================== -->
 
             <div class="cxp-input__wrap">
-              <label class="cxp-label cxp-label-bg cxp-label-sm"> Country </label>
+
+              <label class="cxp-label cxp-label-bg cxp-label-sm">
+                Country
+              </label>
 
               <cxp-input-select
                 size="sm"
@@ -127,6 +215,7 @@
                 formControlName="countryId"
                 [options]="countryOptions"
               ></cxp-input-select>
+
             </div>
 
             <!-- ========================================
@@ -134,15 +223,20 @@
                  ======================================== -->
 
             @if (hasCountrySelected) {
+
               <!-- ========================================
                    Philippine Address
                    ======================================== -->
 
               @if (isPhilippinesSelected) {
+
                 <!-- Region -->
 
                 <div class="cxp-input__wrap">
-                  <label class="cxp-label cxp-label-bg cxp-label-sm"> Region </label>
+
+                  <label class="cxp-label cxp-label-bg cxp-label-sm">
+                    Region
+                  </label>
 
                   <cxp-input-select
                     size="sm"
@@ -150,12 +244,16 @@
                     formControlName="regionId"
                     [options]="regionOptions"
                   ></cxp-input-select>
+
                 </div>
 
                 <!-- Province -->
 
                 <div class="cxp-input__wrap">
-                  <label class="cxp-label cxp-label-bg cxp-label-sm"> Province </label>
+
+                  <label class="cxp-label cxp-label-bg cxp-label-sm">
+                    Province
+                  </label>
 
                   <cxp-input-select
                     size="sm"
@@ -163,12 +261,16 @@
                     formControlName="provinceId"
                     [options]="provinceOptions"
                   ></cxp-input-select>
+
                 </div>
 
-                <!-- City / Municipality -->
+                <!-- City -->
 
                 <div class="cxp-input__wrap">
-                  <label class="cxp-label cxp-label-bg cxp-label-sm"> City / Municipality </label>
+
+                  <label class="cxp-label cxp-label-bg cxp-label-sm">
+                    City / Municipality
+                  </label>
 
                   <cxp-input-select
                     size="sm"
@@ -176,12 +278,16 @@
                     formControlName="cityId"
                     [options]="cityOptions"
                   ></cxp-input-select>
+
                 </div>
 
                 <!-- Barangay -->
 
                 <div class="cxp-input__wrap">
-                  <label class="cxp-label cxp-label-bg cxp-label-sm"> Barangay </label>
+
+                  <label class="cxp-label cxp-label-bg cxp-label-sm">
+                    Barangay
+                  </label>
 
                   <cxp-input-select
                     size="sm"
@@ -189,85 +295,158 @@
                     formControlName="barangayId"
                     [options]="barangayOptions"
                   ></cxp-input-select>
+
                 </div>
+
               } @else {
+
                 <!-- ========================================
-                     Foreign Address
+                     International Address
                      ======================================== -->
 
-                <!-- State / Province / Region -->
+                <!-- International Region -->
 
                 <div class="cxp-input__wrap">
+
                   <label class="cxp-label cxp-label-bg cxp-label-sm">
-                    State / Province / Region
+                    Region
                   </label>
 
                   <cxp-input-text
                     size="sm"
-                    placeholder="State / Province / Region"
-                    formControlName="foreignStateProvinceRegion"
+                    placeholder="Region"
+                    formControlName="internationalRegion"
                   ></cxp-input-text>
+
                 </div>
 
-                <!-- City / Municipality -->
+                <!-- International State -->
 
                 <div class="cxp-input__wrap">
-                  <label class="cxp-label cxp-label-bg cxp-label-sm"> City / Municipality </label>
+
+                  <label class="cxp-label cxp-label-bg cxp-label-sm">
+                    State
+                  </label>
 
                   <cxp-input-text
                     size="sm"
-                    placeholder="City / Municipality"
-                    formControlName="foreignCity"
+                    placeholder="State"
+                    formControlName="internationalStates"
                   ></cxp-input-text>
+
                 </div>
+
+                <!-- International Province -->
+
+                <div class="cxp-input__wrap">
+
+                  <label class="cxp-label cxp-label-bg cxp-label-sm">
+                    Province
+                  </label>
+
+                  <cxp-input-text
+                    size="sm"
+                    placeholder="Province"
+                    formControlName="internationalProvince"
+                  ></cxp-input-text>
+
+                </div>
+
+                <!-- International City -->
+
+                <div class="cxp-input__wrap">
+
+                  <label class="cxp-label cxp-label-bg cxp-label-sm">
+                    City
+                  </label>
+
+                  <cxp-input-text
+                    size="sm"
+                    placeholder="City"
+                    formControlName="internationalCity"
+                  ></cxp-input-text>
+
+                </div>
+
+                <!-- International Suburb -->
+
+                <div class="cxp-input__wrap">
+
+                  <label class="cxp-label cxp-label-bg cxp-label-sm">
+                    Suburb
+                  </label>
+
+                  <cxp-input-text
+                    size="sm"
+                    placeholder="Suburb"
+                    formControlName="internationalSuburb"
+                  ></cxp-input-text>
+
+                </div>
+
               }
 
               <!-- ========================================
-                   Common Address Fields
+                   Common Fields
                    ======================================== -->
 
               <!-- Address Line 1 -->
 
               <div class="cxp-input__wrap">
-                <label class="cxp-label cxp-label-bg cxp-label-sm"> Address Line 1 </label>
+
+                <label class="cxp-label cxp-label-bg cxp-label-sm">
+                  Address Line 1
+                </label>
 
                 <cxp-input-text
                   size="sm"
                   placeholder="Address Line 1"
                   formControlName="addressLine1"
                 ></cxp-input-text>
+
               </div>
 
               <!-- Address Line 2 -->
 
               <div class="cxp-input__wrap">
-                <label class="cxp-label cxp-label-bg cxp-label-sm"> Address Line 2 </label>
+
+                <label class="cxp-label cxp-label-bg cxp-label-sm">
+                  Address Line 2
+                </label>
 
                 <cxp-input-text
                   size="sm"
                   placeholder="Address Line 2"
                   formControlName="addressLine2"
                 ></cxp-input-text>
+
               </div>
 
-              <!-- ZIP / Postal Code -->
+              <!-- ZIP -->
 
               <div class="cxp-input__wrap">
-                <label class="cxp-label cxp-label-bg cxp-label-sm"> ZIP / Postal Code </label>
+
+                <label class="cxp-label cxp-label-bg cxp-label-sm">
+                  ZIP / Postal Code
+                </label>
 
                 <cxp-input-text
                   size="sm"
                   placeholder="ZIP / Postal Code"
                   formControlName="zipCode"
                 ></cxp-input-text>
+
               </div>
 
               <!-- ========================================
-                   Address Scope
+                   Scope
                    ======================================== -->
 
               <div class="cxp-input__wrap">
-                <label class="cxp-label cxp-label-bg cxp-label-sm"> Address Scope </label>
+
+                <label class="cxp-label cxp-label-bg cxp-label-sm">
+                  Address Scope
+                </label>
 
                 <cxp-input-select
                   size="sm"
@@ -275,6 +454,7 @@
                   formControlName="scopeId"
                   [options]="addressScopeOptions"
                 ></cxp-input-select>
+
               </div>
 
               <!-- ========================================
@@ -282,23 +462,39 @@
                    ======================================== -->
 
               <div class="cxp-input__wrap">
-                <label class="cxp-label cxp-label-bg cxp-label-sm"> Present Address? </label>
+
+                <label class="cxp-label cxp-label-bg cxp-label-sm">
+                  Present Address?
+                </label>
 
                 <label class="address__checkbox">
-                  <input type="checkbox" formControlName="isPresent" />
 
-                  <span> Yes </span>
+                  <input
+                    type="checkbox"
+                    formControlName="isPresent"
+                  />
+
+                  <span>
+                    Yes
+                  </span>
+
                 </label>
+
               </div>
 
               <!-- ========================================
-                   Delete Existing Address
+                   Delete
                    ======================================== -->
 
-              @if (selectedAddress && canDelete) {
+              @if (
+                selectedAddress &&
+                canDelete
+              ) {
+
                 <div class="address__delete">
+
                   <cxp-button
-                  class="cxp-button-delete"
+                    class="cxp-button-delete"
                     size="xs"
                     variant="secondary"
                     type="button"
@@ -307,11 +503,17 @@
                   >
                     Delete Address
                   </cxp-button>
+
                 </div>
+
               }
+
             }
+
           </div>
+
         </form>
+
       }
 
       <!-- ========================================
@@ -319,172 +521,320 @@
            ======================================== -->
 
       @else if (!isLoading) {
+
         <div class="address__body">
+
           <!-- ========================================
                Country
                ======================================== -->
 
           <div class="cxp-input__wrap">
-            <label class="cxp-label cxp-label-bg cxp-label-sm"> Country </label>
+
+            <label class="cxp-label cxp-label-bg cxp-label-sm">
+              Country
+            </label>
 
             <cxp-display-field
               size="sm"
-              [value]="getReferenceLabel(countryOptions, addressForm.controls.countryId.value)"
+              [value]="
+                getReferenceLabel(
+                  countryOptions,
+                  addressForm.controls.countryId.value
+                )
+              "
             ></cxp-display-field>
+
           </div>
 
-          <!-- ========================================
-               Country Selected
-               ======================================== -->
-
           @if (hasCountrySelected) {
+
             <!-- ========================================
-                 Philippine Address
+                 Philippine
                  ======================================== -->
 
             @if (isPhilippinesSelected) {
+
               <!-- Region -->
 
               <div class="cxp-input__wrap">
-                <label class="cxp-label cxp-label-bg cxp-label-sm"> Region </label>
+
+                <label class="cxp-label cxp-label-bg cxp-label-sm">
+                  Region
+                </label>
 
                 <cxp-display-field
                   size="sm"
-                  [value]="getReferenceLabel(regionOptions, addressForm.controls.regionId.value)"
+                  [value]="
+                    getReferenceLabel(
+                      regionOptions,
+                      addressForm.controls.regionId.value
+                    )
+                  "
                 ></cxp-display-field>
+
               </div>
 
               <!-- Province -->
 
               <div class="cxp-input__wrap">
-                <label class="cxp-label cxp-label-bg cxp-label-sm"> Province </label>
+
+                <label class="cxp-label cxp-label-bg cxp-label-sm">
+                  Province
+                </label>
 
                 <cxp-display-field
                   size="sm"
                   [value]="
-                    getReferenceLabel(provinceOptions, addressForm.controls.provinceId.value)
+                    getReferenceLabel(
+                      provinceOptions,
+                      addressForm.controls.provinceId.value
+                    )
                   "
                 ></cxp-display-field>
+
               </div>
 
-              <!-- City / Municipality -->
+              <!-- City -->
 
               <div class="cxp-input__wrap">
-                <label class="cxp-label cxp-label-bg cxp-label-sm"> City / Municipality </label>
+
+                <label class="cxp-label cxp-label-bg cxp-label-sm">
+                  City / Municipality
+                </label>
 
                 <cxp-display-field
                   size="sm"
-                  [value]="getReferenceLabel(cityOptions, addressForm.controls.cityId.value)"
+                  [value]="
+                    getReferenceLabel(
+                      cityOptions,
+                      addressForm.controls.cityId.value
+                    )
+                  "
                 ></cxp-display-field>
+
               </div>
 
               <!-- Barangay -->
 
               <div class="cxp-input__wrap">
-                <label class="cxp-label cxp-label-bg cxp-label-sm"> Barangay </label>
 
-                <cxp-display-field
-                  size="sm"
-                  [value]="
-                    getReferenceLabel(barangayOptions, addressForm.controls.barangayId.value)
-                  "
-                ></cxp-display-field>
-              </div>
-            } @else {
-              <!-- ========================================
-                   Foreign Address
-                   ======================================== -->
-
-              <!-- State / Province / Region -->
-
-              <div class="cxp-input__wrap">
                 <label class="cxp-label cxp-label-bg cxp-label-sm">
-                  State / Province / Region
+                  Barangay
                 </label>
 
                 <cxp-display-field
                   size="sm"
-                  [value]="addressForm.controls.foreignStateProvinceRegion.value || '—'"
+                  [value]="
+                    getReferenceLabel(
+                      barangayOptions,
+                      addressForm.controls.barangayId.value
+                    )
+                  "
                 ></cxp-display-field>
+
               </div>
 
-              <!-- City / Municipality -->
+            } @else {
+
+              <!-- ========================================
+                   International
+                   ======================================== -->
+
+              <!-- Region -->
 
               <div class="cxp-input__wrap">
-                <label class="cxp-label cxp-label-bg cxp-label-sm"> City / Municipality </label>
+
+                <label class="cxp-label cxp-label-bg cxp-label-sm">
+                  Region
+                </label>
 
                 <cxp-display-field
                   size="sm"
-                  [value]="addressForm.controls.foreignCity.value || '—'"
+                  [value]="
+                    addressForm.controls.internationalRegion.value || '—'
+                  "
                 ></cxp-display-field>
+
               </div>
+
+              <!-- State -->
+
+              <div class="cxp-input__wrap">
+
+                <label class="cxp-label cxp-label-bg cxp-label-sm">
+                  State
+                </label>
+
+                <cxp-display-field
+                  size="sm"
+                  [value]="
+                    addressForm.controls.internationalStates.value || '—'
+                  "
+                ></cxp-display-field>
+
+              </div>
+
+              <!-- Province -->
+
+              <div class="cxp-input__wrap">
+
+                <label class="cxp-label cxp-label-bg cxp-label-sm">
+                  Province
+                </label>
+
+                <cxp-display-field
+                  size="sm"
+                  [value]="
+                    addressForm.controls.internationalProvince.value || '—'
+                  "
+                ></cxp-display-field>
+
+              </div>
+
+              <!-- City -->
+
+              <div class="cxp-input__wrap">
+
+                <label class="cxp-label cxp-label-bg cxp-label-sm">
+                  City
+                </label>
+
+                <cxp-display-field
+                  size="sm"
+                  [value]="
+                    addressForm.controls.internationalCity.value || '—'
+                  "
+                ></cxp-display-field>
+
+              </div>
+
+              <!-- Suburb -->
+
+              <div class="cxp-input__wrap">
+
+                <label class="cxp-label cxp-label-bg cxp-label-sm">
+                  Suburb
+                </label>
+
+                <cxp-display-field
+                  size="sm"
+                  [value]="
+                    addressForm.controls.internationalSuburb.value || '—'
+                  "
+                ></cxp-display-field>
+
+              </div>
+
             }
 
             <!-- ========================================
-                 Common Address Fields
+                 Address Line 1
                  ======================================== -->
 
-            <!-- Address Line 1 -->
-
             <div class="cxp-input__wrap">
-              <label class="cxp-label cxp-label-bg cxp-label-sm"> Address Line 1 </label>
+
+              <label class="cxp-label cxp-label-bg cxp-label-sm">
+                Address Line 1
+              </label>
 
               <cxp-display-field
                 size="sm"
-                [value]="addressForm.controls.addressLine1.value || '—'"
+                [value]="
+                  addressForm.controls.addressLine1.value || '—'
+                "
               ></cxp-display-field>
-            </div>
 
-            <!-- Address Line 2 -->
-
-            <div class="cxp-input__wrap">
-              <label class="cxp-label cxp-label-bg cxp-label-sm"> Address Line 2 </label>
-
-              <cxp-display-field
-                size="sm"
-                [value]="addressForm.controls.addressLine2.value || '—'"
-              ></cxp-display-field>
-            </div>
-
-            <!-- ZIP / Postal Code -->
-
-            <div class="cxp-input__wrap">
-              <label class="cxp-label cxp-label-bg cxp-label-sm"> ZIP / Postal Code </label>
-
-              <cxp-display-field
-                size="sm"
-                [value]="addressForm.controls.zipCode.value || '—'"
-              ></cxp-display-field>
             </div>
 
             <!-- ========================================
-                 Address Scope
+                 Address Line 2
                  ======================================== -->
 
             <div class="cxp-input__wrap">
-              <label class="cxp-label cxp-label-bg cxp-label-sm"> Address Scope </label>
+
+              <label class="cxp-label cxp-label-bg cxp-label-sm">
+                Address Line 2
+              </label>
 
               <cxp-display-field
                 size="sm"
-                [value]="getReferenceLabel(addressScopeOptions, addressForm.controls.scopeId.value)"
+                [value]="
+                  addressForm.controls.addressLine2.value || '—'
+                "
               ></cxp-display-field>
+
             </div>
 
             <!-- ========================================
-                 Present Address
+                 ZIP
                  ======================================== -->
 
             <div class="cxp-input__wrap">
-              <label class="cxp-label cxp-label-bg cxp-label-sm"> Present Address? </label>
+
+              <label class="cxp-label cxp-label-bg cxp-label-sm">
+                ZIP / Postal Code
+              </label>
 
               <cxp-display-field
                 size="sm"
-                [value]="addressForm.controls.isPresent.value ? 'YES' : 'NO'"
+                [value]="
+                  addressForm.controls.zipCode.value || '—'
+                "
               ></cxp-display-field>
+
             </div>
+
+            <!-- ========================================
+                 Scope
+                 ======================================== -->
+
+            <div class="cxp-input__wrap">
+
+              <label class="cxp-label cxp-label-bg cxp-label-sm">
+                Address Scope
+              </label>
+
+              <cxp-display-field
+                size="sm"
+                [value]="
+                  getReferenceLabel(
+                    addressScopeOptions,
+                    addressForm.controls.scopeId.value
+                  )
+                "
+              ></cxp-display-field>
+
+            </div>
+
+            <!-- ========================================
+                 Present
+                 ======================================== -->
+
+            <div class="cxp-input__wrap">
+
+              <label class="cxp-label cxp-label-bg cxp-label-sm">
+                Present Address?
+              </label>
+
+              <cxp-display-field
+                size="sm"
+                [value]="
+                  addressForm.controls.isPresent.value
+                    ? 'YES'
+                    : 'NO'
+                "
+              ></cxp-display-field>
+
+            </div>
+
           }
+
         </div>
+
       }
+
     </div>
+
   }
+
 </section>

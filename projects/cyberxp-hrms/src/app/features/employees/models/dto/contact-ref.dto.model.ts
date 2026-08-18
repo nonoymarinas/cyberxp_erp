@@ -1,15 +1,15 @@
 import { ApiResponse } from "../../../../shared/models/api-response.model";
 
 export interface ContactTypeRefDto {
-  id: number;
-  code:string |null
+  id: string;
   typeName: string;
+  code:string |null
 }
 
 export interface ContactScopeRefDto {
-  id: number;
-  code:string |null
+  id: string;
   scopeName: string;
+  code:string |null
 }
 
 export interface ContactRefDto{
