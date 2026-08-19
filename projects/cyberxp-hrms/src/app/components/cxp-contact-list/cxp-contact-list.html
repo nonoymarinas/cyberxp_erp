@@ -1,0 +1,62 @@
+<div
+  class="contact-list"
+  [class.contact-list--xs]="size === 'xs'"
+  [class.contact-list--sm]="size === 'sm'"
+  [class.contact-list--md]="size === 'md'"
+  [class.contact-list--lg]="size === 'lg'"
+>
+
+  <!-- ========================================
+       Contact Type Icon
+       ======================================== -->
+
+  <div class="contact-list__type-icon">
+    <ng-content
+      select="[contacttypeicon]"
+    ></ng-content>
+  </div>
+
+
+  <!-- ========================================
+       Contact Scope
+       ======================================== -->
+
+  <div class="contact-list__scope">
+    <ng-content
+      select="[contactscopeicon]"
+    ></ng-content>
+  </div>
+
+
+  <!-- ========================================
+       Contact Value
+       ======================================== -->
+
+  <div class="contact-list__content">
+
+    <label class="contact-list__value">
+      {{ value || '—' }}
+    </label>
+
+  </div>
+
+
+  <!-- ========================================
+       Action
+       ======================================== -->
+
+  <div class="contact-list__action">
+
+    <cxp-button
+      size="xs"
+      variant="secondary"
+      type="button"
+      [disabled]="disabled"
+      (clicked)="onSelect()"
+    >
+      {{ buttonLabel }}
+    </cxp-button>
+
+  </div>
+
+</div>

@@ -23,53 +23,13 @@ export class ContactRefMockApi {
     },
     {
       id: '2',
-      typeName: 'Landline',
+      typeName: 'Phone',
       code: 'LANDLINE',
     },
     {
       id: '3',
       typeName: 'Email',
       code: 'EMAIL',
-    },
-    {
-      id: '4',
-      typeName: 'Messenger',
-      code: 'MESSENGER',
-    },
-    {
-      id: '5',
-      typeName: 'WhatsApp',
-      code: 'WHATSAPP',
-    },
-    {
-      id: '6',
-      typeName: 'Viber',
-      code: 'VIBER',
-    },
-    {
-      id: '7',
-      typeName: 'Telegram',
-      code: 'TELEGRAM',
-    },
-    {
-      id: '8',
-      typeName: 'Facebook',
-      code: 'FACEBOOK',
-    },
-    {
-      id: '9',
-      typeName: 'Instagram',
-      code: 'INSTAGRAM',
-    },
-    {
-      id: '10',
-      typeName: 'LinkedIn',
-      code: 'LINKEDIN',
-    },
-    {
-      id: '11',
-      typeName: 'Other',
-      code: 'OTHER',
     },
   ];
 

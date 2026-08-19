@@ -1,0 +1,36 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  color: currentColor;
+}
+
+.cxp-icon {
+  display: block;
+
+  width: 1em;
+  height: 1em;
+}
+
+:host-context(.cxp-icon-xs),
+:host([size='xs']) {
+  font-size: 16px;
+}
+
+:host-context(.cxp-icon-sm),
+:host([size='sm']) {
+  font-size: 20px;
+}
+
+:host-context(.cxp-icon-md),
+:host([size='md']) {
+  font-size: 24px;
+}
+
+:host-context(.cxp-icon-lg),
+:host([size='lg']) {
+  font-size: 32px;
+}

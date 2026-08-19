@@ -1,0 +1,32 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  color: currentColor;
+}
+
+.cxp-icon {
+  display: block;
+
+  width: 1em;
+  height: 1em;
+}
+
+:host([size='xs']) {
+  font-size: 16px;
+}
+
+:host([size='sm']) {
+  font-size: 20px;
+}
+
+:host([size='md']) {
+  font-size: 24px;
+}
+
+:host([size='lg']) {
+  font-size: 32px;
+}

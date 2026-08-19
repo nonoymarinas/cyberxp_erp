@@ -16,15 +16,14 @@ import {
 
 import {
   CxpButton,
-  CxpContactList,
   CxpDisplayField,
   CxpIconAddressNav,
-  CxpIconChevronApp,
-  CxpIconLockNav,
   CxpInputSelect,
   CxpInputText,
 } from 'cyberxp-ui';
-
+import { CxpContactList } from '../../../../../components/cxp-contact-list/cxp-contact-list';
+import { CxpIcon } from '../../../../../components/cxp-icon/cxp-icon';
+import { CxpIconScope } from '../../../../../components/cxp-icon-scope/cxp-icon-scope';
 import type {
   CxpSelectOption,
   CxpSelectPrimitive,
@@ -47,6 +46,7 @@ import {
   SaveContactRequest,
 } from '../../../models/domain/contact.model';
 
+
 @Component({
   selector: 'employee-contacts',
   standalone: true,
@@ -58,9 +58,9 @@ import {
     CxpContactList,
     CxpDisplayField,
 
+    CxpIcon,
+    CxpIconScope,
     CxpIconAddressNav,
-    CxpIconChevronApp,
-    CxpIconLockNav,
 
     CxpInputSelect,
     CxpInputText,
@@ -91,10 +91,12 @@ export class ContactsComponent
   private readonly injector =
     inject(Injector);
 
+
   constructor(
     public readonly employeeState:
       EmployeeState,
   ) {}
+
 
   // ========================================
   // Employee State
@@ -111,6 +113,7 @@ export class ContactsComponent
     );
   }
 
+
   get hasEmployeeGuid():
     boolean {
     return (
@@ -119,12 +122,14 @@ export class ContactsComponent
     );
   }
 
+
   // ========================================
   // Loaded Employee
   // ========================================
 
   private loadedEmployeeGuid:
     string | null = null;
+
 
   // ========================================
   // Contact State
@@ -161,6 +166,7 @@ export class ContactsComponent
   successMessage =
     '';
 
+
   // ========================================
   // Helpers
   // ========================================
@@ -173,6 +179,7 @@ export class ContactsComponent
     );
   }
 
+
   get isLoading():
     boolean {
     return (
@@ -181,12 +188,14 @@ export class ContactsComponent
     );
   }
 
+
   get contactToggleLabel():
     string {
     return this.showContactList
       ? 'Hide contacts'
       : 'Show contacts';
   }
+
 
   // ========================================
   // Select Options
@@ -197,6 +206,7 @@ export class ContactsComponent
 
   contactScopeOptions:
     CxpSelectOption[] = [];
+
 
   // ========================================
   // Form
@@ -261,6 +271,7 @@ export class ContactsComponent
         ),
     });
 
+
   // ========================================
   // Init
   // ========================================
@@ -285,6 +296,7 @@ export class ContactsComponent
       },
     );
   }
+
 
   // ========================================
   // Employee Change
@@ -344,6 +356,7 @@ export class ContactsComponent
     );
   }
 
+
   // ========================================
   // Load References
   // ========================================
@@ -358,12 +371,10 @@ export class ContactsComponent
       .subscribe({
         next: (options) => {
           this.contactTypeOptions =
-            options
-              .contactTypeOptions;
+            options.contactTypeOptions;
 
           this.contactScopeOptions =
-            options
-              .contactScopeOptions;
+            options.contactScopeOptions;
 
           this.isLoadingReferences =
             false;
@@ -396,6 +407,7 @@ export class ContactsComponent
       });
   }
 
+
   // ========================================
   // Load Contacts
   // ========================================
@@ -407,7 +419,9 @@ export class ContactsComponent
       true;
 
     this.contactService
-      .getContacts(employeeGuid)
+      .getContacts(
+        employeeGuid,
+      )
       .subscribe({
         next: (
           contacts:
@@ -457,6 +471,7 @@ export class ContactsComponent
       });
   }
 
+
   // ========================================
   // Toggle Contact List
   // ========================================
@@ -464,12 +479,7 @@ export class ContactsComponent
   toggleContactList():
     void {
     if (
-      !this.hasEmployeeGuid
-    ) {
-      return;
-    }
-
-    if (
+      !this.hasEmployeeGuid ||
       !this.hasContacts
     ) {
       return;
@@ -501,6 +511,7 @@ export class ContactsComponent
     }
   }
 
+
   // ========================================
   // Add Contact
   // ========================================
@@ -523,10 +534,8 @@ export class ContactsComponent
     }
 
     if (
-      this.contactTypeOptions
-        .length === 0 ||
-      this.contactScopeOptions
-        .length === 0
+      this.contactTypeOptions.length === 0 ||
+      this.contactScopeOptions.length === 0
     ) {
       this.errorMessage =
         'Contact reference data is not available.';
@@ -557,6 +566,7 @@ export class ContactsComponent
 
     this.cdr.detectChanges();
   }
+
 
   // ========================================
   // Select Contact
@@ -591,6 +601,7 @@ export class ContactsComponent
 
     this.cdr.detectChanges();
   }
+
 
   // ========================================
   // Edit Contact
@@ -635,6 +646,7 @@ export class ContactsComponent
     this.cdr.detectChanges();
   }
 
+
   // ========================================
   // Populate Contact
   // ========================================
@@ -646,12 +658,10 @@ export class ContactsComponent
     this.contactForm.patchValue(
       {
         contactTypeId:
-          contact
-            .contactTypeId,
+          contact.contactTypeId,
 
         contactScopeId:
-          contact
-            .contactScopeId,
+          contact.contactScopeId,
 
         value:
           contact.value,
@@ -672,6 +682,7 @@ export class ContactsComponent
       .markAsUntouched();
   }
 
+
   // ========================================
   // Cancel
   // ========================================
@@ -684,7 +695,6 @@ export class ContactsComponent
     this.successMessage =
       '';
 
-    // Existing contact
     if (
       this.selectedContact
     ) {
@@ -704,7 +714,6 @@ export class ContactsComponent
       return;
     }
 
-    // New contact
     this.resetForm();
 
     this.isEditing =
@@ -722,6 +731,7 @@ export class ContactsComponent
 
     this.cdr.detectChanges();
   }
+
 
   // ========================================
   // Save Contact
@@ -770,12 +780,10 @@ export class ContactsComponent
         contactId,
 
         contactTypeId:
-          formValue
-            .contactTypeId,
+          formValue.contactTypeId,
 
         contactScopeId:
-          formValue
-            .contactScopeId,
+          formValue.contactScopeId,
 
         value:
           formValue.value,
@@ -794,7 +802,9 @@ export class ContactsComponent
       '';
 
     this.contactService
-      .saveContact(request)
+      .saveContact(
+        request,
+      )
       .subscribe({
         next: (
           contacts:
@@ -849,6 +859,7 @@ export class ContactsComponent
         },
       });
   }
+
 
   // ========================================
   // Delete Contact
@@ -942,6 +953,7 @@ export class ContactsComponent
       });
   }
 
+
   // ========================================
   // Reset Form
   // ========================================
@@ -974,6 +986,7 @@ export class ContactsComponent
       .markAsUntouched();
   }
 
+
   // ========================================
   // Reset Feature
   // ========================================
@@ -990,6 +1003,9 @@ export class ContactsComponent
       false;
 
     this.isEditing =
+      false;
+
+    this.isLoadingReferences =
       false;
 
     this.isLoadingContacts =
@@ -1016,6 +1032,37 @@ export class ContactsComponent
     this.cdr.detectChanges();
   }
 
+
+  // ========================================
+  // Reference Option
+  // ========================================
+
+  private getReferenceOption(
+    options:
+      CxpSelectOption[],
+
+    selectedValue:
+      CxpSelectPrimitive |
+      null,
+  ): CxpSelectOption | null {
+    if (
+      selectedValue === null ||
+      selectedValue === undefined
+    ) {
+      return null;
+    }
+
+    return (
+      options.find(
+        (item) =>
+          String(item.value) ===
+          String(selectedValue),
+      ) ??
+      null
+    );
+  }
+
+
   // ========================================
   // Reference Label
   // ========================================
@@ -1028,24 +1075,10 @@ export class ContactsComponent
       CxpSelectPrimitive |
       null,
   ): string {
-    if (
-      selectedValue ===
-        null ||
-      selectedValue ===
-        undefined
-    ) {
-      return '—';
-    }
-
     const option =
-      options.find(
-        (item) =>
-          String(
-            item.value,
-          ) ===
-          String(
-            selectedValue,
-          ),
+      this.getReferenceOption(
+        options,
+        selectedValue,
       );
 
     return (
@@ -1053,6 +1086,41 @@ export class ContactsComponent
       '—'
     );
   }
+
+
+  // ========================================
+  // Reference Icon Name
+  // ========================================
+
+  private getReferenceIconName(
+    options:
+      CxpSelectOption[],
+
+    selectedValue:
+      CxpSelectPrimitive |
+      null,
+  ): string | null {
+    const option =
+      this.getReferenceOption(
+        options,
+        selectedValue,
+      );
+
+    if (
+      !option?.label
+    ) {
+      return null;
+    }
+
+    return option.label
+      .trim()
+      .toLowerCase()
+      .replace(
+        /\s+/g,
+        '-',
+      );
+  }
+
 
   // ========================================
   // Contact Type Label
@@ -1068,6 +1136,7 @@ export class ContactsComponent
     );
   }
 
+
   // ========================================
   // Contact Scope Label
   // ========================================
@@ -1077,6 +1146,36 @@ export class ContactsComponent
       EmployeeContact,
   ): string {
     return this.getReferenceLabel(
+      this.contactScopeOptions,
+      contact.contactScopeId,
+    );
+  }
+
+
+  // ========================================
+  // Contact Type Icon
+  // ========================================
+
+  getContactTypeIcon(
+    contact:
+      EmployeeContact,
+  ): string | null {
+    return this.getReferenceIconName(
+      this.contactTypeOptions,
+      contact.contactTypeId,
+    );
+  }
+
+
+  // ========================================
+  // Contact Scope Icon
+  // ========================================
+
+  getContactScopeIcon(
+    contact:
+      EmployeeContact,
+  ): string | null {
+    return this.getReferenceIconName(
       this.contactScopeOptions,
       contact.contactScopeId,
     );
