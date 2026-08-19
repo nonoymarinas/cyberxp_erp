@@ -1,9 +1,9 @@
 import { ApiResponse } from '../../../../shared/models/api-response.model';
 
-export interface AddressScope{
-  id:number,
-  scopeName:string
-  code:string |null
+export interface AddressScope {
+  id: string ;
+  scopeName: string;
+  code: string | null;
 }
 
 export interface Country {
@@ -34,7 +34,7 @@ export interface City {
 }
 
 export interface AddressReferences {
-  addressScopes:AddressScope[];
+  addressScopes: AddressScope[];
   countries: Country[];
   regions: Region[];
   provinces: Province[];
@@ -51,5 +51,3 @@ export interface Barangay {
 }
 
 export type BarangaysResponse = ApiResponse<Barangay[]>;
-
-

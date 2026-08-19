@@ -1,12 +1,10 @@
 import { Injectable, inject, signal } from '@angular/core';
+
 import { map, Observable, tap } from 'rxjs';
 
 import { AddressDataAccess } from '../../data/data-access/address.data-access';
 
-import {
-  EmployeeAddress,
-  SaveAddressRequest,
-} from '../../models/domain/address.model';
+import { EmployeeAddress, SaveAddressRequest } from '../../models/domain/address.model';
 
 @Injectable({
   providedIn: 'root',
@@ -16,112 +14,79 @@ export class AddressService {
   // Dependencies
   // ========================================
 
-  private readonly dataAccess =
-    inject(AddressDataAccess);
+  private readonly dataAccess = inject(AddressDataAccess);
 
   // ========================================
   // Address State
   // ========================================
 
-  private readonly _addresses =
-    signal<EmployeeAddress[]>([]);
-
-  readonly addresses =
-    this._addresses.asReadonly();
+  private readonly _addresses = signal<EmployeeAddress[]>([]);
+  readonly addresses = this._addresses.asReadonly();
 
   // ========================================
   // Get Addresses
   // ========================================
 
-  getAddresses(
-    employeeGuid: string,
-  ): Observable<EmployeeAddress[]> {
-    return this.dataAccess
-      .getAddresses(employeeGuid)
-      .pipe(
-        map((response) => {
-          if (!response.success) {
-            throw new Error(
-              response.message ??
-                'Unable to retrieve addresses.',
-            );
-          }
+  getAddresses(employeeGuid: string): Observable<EmployeeAddress[]> {
+    return this.dataAccess.getAddresses(employeeGuid).pipe(
+      map((response) => {
+        if (!response.success) {
+          throw new Error(response.message ?? 'Unable to retrieve addresses.');
+        }
 
-          return response.data;
-        }),
+        // response.data is EmployeeAddress[]
+        return response.data;
+      }),
 
-        tap((addresses) => {
-          this.setAddresses(addresses);
-        }),
-      );
+      tap((addresses) => {
+        // addresses is the entire array
+        this._addresses.set(addresses);
+      }),
+    );
   }
 
   // ========================================
   // Save Address
   // ========================================
 
-  saveAddress(
-    request: SaveAddressRequest,
-  ): Observable<EmployeeAddress[]> {
-    return this.dataAccess
-      .saveAddress(request)
-      .pipe(
-        map((response) => {
-          if (!response.success) {
-            throw new Error(
-              response.message ??
-                'Unable to save address.',
-            );
-          }
+  saveAddress(request: SaveAddressRequest): Observable<EmployeeAddress[]> {
+    return this.dataAccess.saveAddress(request).pipe(
+      map((response) => {
+        if (!response.success) {
+          throw new Error(response.message ?? 'Unable to save address.');
+        }
 
-          return response.data;
-        }),
+        // The API returned the employee's
+        // complete address array.
+        return response.data;
+      }),
 
-        tap((addresses) => {
-          this.setAddresses(addresses);
-        }),
-      );
+      tap((addresses) => {
+        // Replace the cached array with
+        // the latest array from the API.
+        this._addresses.set(addresses);
+      }),
+    );
   }
 
   // ========================================
   // Delete Address
   // ========================================
 
-  deleteAddress(
-    employeeGuid: string,
-    addressId: string,
-  ): Observable<EmployeeAddress[]> {
-    return this.dataAccess
-      .deleteAddress(
-        employeeGuid,
-        addressId,
-      )
-      .pipe(
-        map((response) => {
-          if (!response.success) {
-            throw new Error(
-              response.message ??
-                'Unable to delete address.',
-            );
-          }
+  deleteAddress(employeeGuid: string, addressId: string): Observable<EmployeeAddress[]> {
+    return this.dataAccess.deleteAddress(employeeGuid, addressId).pipe(
+      map((response) => {
+        if (!response.success) {
+          throw new Error(response.message ?? 'Unable to delete address.');
+        }
 
-          return response.data;
-        }),
+        return response.data;
+      }),
 
-        tap((addresses) => {
-          this.setAddresses(addresses);
-        }),
-      );
-  }
-
-  // ========================================
-  // Set Addresses
-  // ========================================
-
-  private setAddresses(
-    addresses: EmployeeAddress[],
-  ): void {
-    this._addresses.set(addresses);
+      tap((addresses) => {
+        this._addresses.set(addresses);
+      }),
+    );
   }
 
   // ========================================
@@ -136,15 +101,8 @@ export class AddressService {
   // Get Address By ID
   // ========================================
 
-  getAddressById(
-    addressId: string,
-  ): EmployeeAddress | null {
-    return (
-      this._addresses().find(
-        (address) =>
-          address.addressId === addressId,
-      ) ?? null
-    );
+  getAddressById(addressId: string): EmployeeAddress | null {
+    return this._addresses().find((address) => address.addressId === addressId) ?? null;
   }
 
   // ========================================
@@ -159,14 +117,8 @@ export class AddressService {
   // Get Present Address
   // ========================================
 
-  getPresentAddress():
-    EmployeeAddress | null {
-    return (
-      this._addresses().find(
-        (address) =>
-          address.isPresent === true,
-      ) ?? null
-    );
+  getPresentAddress(): EmployeeAddress | null {
+    return this._addresses().find((address) => address.isPresent === true) ?? null;
   }
 
   // ========================================

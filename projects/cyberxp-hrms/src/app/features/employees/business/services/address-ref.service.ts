@@ -1,21 +1,13 @@
 import { inject, Injectable } from '@angular/core';
-import {
-  map,
-  Observable,
-  of,
-  tap,
-} from 'rxjs';
+import { map, Observable, of, tap } from 'rxjs';
 
-import {
-  CxpSelectOption,
-} from 'cyberxp-ui';
+import { CxpSelectOption } from 'cyberxp-ui';
 
-import {
-  AddressRefDataAccess,
-} from '../../data/data-access/address-ref.data-access';
+import { AddressRefDataAccess } from '../../data/data-access/address-ref.data-access';
 
 import {
   AddressReferences,
+  AddressScope,
   Country,
   Region,
   Province,
@@ -28,6 +20,7 @@ import {
 // ========================================
 
 export interface AddressSelectOptionsReferences {
+  addressScopeOptions: CxpSelectOption[];
   countryOptions: CxpSelectOption[];
   regionOptions: CxpSelectOption[];
   provinceOptions: CxpSelectOption[];
@@ -42,43 +35,17 @@ export class AddressRefService {
   // Reference Cache
   // ========================================
 
-  private referencesCache:
-    | AddressReferences
-    | null = null;
+  private referencesCache: AddressReferences | null = null;
 
-  // ========================================
-  // Temporary Address Scope Options
-  // ========================================
+  private readonly dataAccess = inject(AddressRefDataAccess);
 
-  private readonly addressScopeOptions:
-    CxpSelectOption[] = [
-      {
-        value: 1,
-        label: 'HOME',
-      },
-      {
-        value: 2,
-        label: 'PROVINCIAL',
-      },
-    ];
-
-  // constructor(
-  //   private readonly dataAccess:
-  //     AddressRefDataAccess,
-  // ) {}
-private readonly dataAccess = inject(AddressRefDataAccess);
   // ========================================
   // Get References
   // ========================================
 
-  getReferences():
-    Observable<AddressReferences> {
-    if (
-      this.referencesCache !== null
-    ) {
-      return of(
-        this.referencesCache,
-      );
+  getReferences(): Observable<AddressReferences> {
+    if (this.referencesCache !== null) {
+      return of(this.referencesCache);
     }
 
     return this.refreshReferences();
@@ -88,50 +55,26 @@ private readonly dataAccess = inject(AddressRefDataAccess);
   // Get Reference Options
   // ========================================
 
-  getReferenceOptions():
-    Observable<AddressSelectOptionsReferences> {
+  getReferenceOptions(): Observable<AddressSelectOptionsReferences> {
     return this.getReferences().pipe(
-      map((references) =>
-        this.toReferenceOptions(
-          references,
-        ),
-      ),
+      map((references) => this.toReferenceOptions(references)),
     );
-  }
-
-  // ========================================
-  // Get Address Scope Options
-  // ========================================
-
-  getAddressScopeOptions():
-    CxpSelectOption[] {
-    return this.addressScopeOptions;
   }
 
   // ========================================
   // Refresh References
   // ========================================
 
-  refreshReferences():
-    Observable<AddressReferences> {
-    return this.dataAccess
-      .getReferences()
-      .pipe(
-        map(
-          (response) =>
-            response.data,
-        ),
+  refreshReferences(): Observable<AddressReferences> {
+    return this.dataAccess.getReferences().pipe(
+      map((response) => response.data),
 
-        tap((references) => {
-          this.referencesCache =
-            references;
+      tap((references) => {
+        this.referencesCache = references;
 
-          console.log(
-            'Address References:',
-            references,
-          );
-        }),
-      );
+        console.log('Address References:', references);
+      }),
+    );
   }
 
   // ========================================
@@ -141,38 +84,15 @@ private readonly dataAccess = inject(AddressRefDataAccess);
   getBarangaysByCity(
     cityId: number,
   ): Observable<BarangaysResponse> {
-    return this.dataAccess
-      .getBarangaysByCity(
-        cityId,
-      )
-      .pipe(
-        tap((response) => {
-          console.log(
-            'Barangays Response:',
-            response,
-          );
-
-          console.log(
-            'Barangays Data:',
-            response.data,
-          );
-
-          console.log(
-            'Barangays Success:',
-            response.success,
-          );
-
-          console.log(
-            'Barangays Message:',
-            response.message,
-          );
-
-          console.log(
-            'Barangays Error Code:',
-            response.errorCode,
-          );
-        }),
-      );
+    return this.dataAccess.getBarangaysByCity(cityId).pipe(
+      tap((response) => {
+        console.log('Barangays Response:', response);
+        console.log('Barangays Data:', response.data);
+        console.log('Barangays Success:', response.success);
+        console.log('Barangays Message:', response.message);
+        console.log('Barangays Error Code:', response.errorCode);
+      }),
+    );
   }
 
   // ========================================
@@ -188,10 +108,14 @@ private readonly dataAccess = inject(AddressRefDataAccess);
   // ========================================
 
   private toReferenceOptions(
-    references:
-      AddressReferences,
+    references: AddressReferences,
   ): AddressSelectOptionsReferences {
     return {
+      addressScopeOptions:
+        this.toAddressScopeOptions(
+          references.addressScopes,
+        ),
+
       countryOptions:
         this.toCountryOptions(
           references.countries,
@@ -215,22 +139,29 @@ private readonly dataAccess = inject(AddressRefDataAccess);
   }
 
   // ========================================
+  // Address Scope Options
+  // ========================================
+
+  private toAddressScopeOptions(
+    items: AddressScope[],
+  ): CxpSelectOption[] {
+    return items.map((item) => ({
+      value: item.id,
+      label: item.scopeName.toUpperCase(),
+    }));
+  }
+
+  // ========================================
   // Country Options
   // ========================================
 
   private toCountryOptions(
     items: Country[],
   ): CxpSelectOption[] {
-    return items.map(
-      (item) => ({
-        value:
-          item.id,
-
-        label:
-          item.countryName
-            .toUpperCase(),
-      }),
-    );
+    return items.map((item) => ({
+      value: item.id,
+      label: item.countryName.toUpperCase(),
+    }));
   }
 
   // ========================================
@@ -240,16 +171,10 @@ private readonly dataAccess = inject(AddressRefDataAccess);
   private toRegionOptions(
     items: Region[],
   ): CxpSelectOption[] {
-    return items.map(
-      (item) => ({
-        value:
-          item.id,
-
-        label:
-          item.regionName
-            .toUpperCase(),
-      }),
-    );
+    return items.map((item) => ({
+      value: item.id,
+      label: item.regionName.toUpperCase(),
+    }));
   }
 
   // ========================================
@@ -259,16 +184,10 @@ private readonly dataAccess = inject(AddressRefDataAccess);
   private toProvinceOptions(
     items: Province[],
   ): CxpSelectOption[] {
-    return items.map(
-      (item) => ({
-        value:
-          item.id,
-
-        label:
-          item.provinceName
-            .toUpperCase(),
-      }),
-    );
+    return items.map((item) => ({
+      value: item.id,
+      label: item.provinceName.toUpperCase(),
+    }));
   }
 
   // ========================================
@@ -278,16 +197,9 @@ private readonly dataAccess = inject(AddressRefDataAccess);
   private toCityOptions(
     items: City[],
   ): CxpSelectOption[] {
-    return items.map(
-      (item) => ({
-        value:
-          item.id,
-
-        label:
-          item
-            .cityOrMunicipalName
-            .toUpperCase(),
-      }),
-    );
+    return items.map((item) => ({
+      value: item.id,
+      label: item.cityOrMunicipalName.toUpperCase(),
+    }));
   }
 }

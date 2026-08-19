@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
-import { AddressReferenceApi } from '../api/employee-address.api';
+import { AddressReferenceApi } from '../api/address-ref.api';
 
 import {
   CountryDto,
@@ -9,6 +9,7 @@ import {
   ProvinceDto,
   CityDto,
   BarangayDto,
+  AddressScopeDto,
 } from '../../models/dto/address-ref.dto.model';
 
 import {
@@ -19,6 +20,7 @@ import {
   Barangay,
   AddressesReferencesResponse,
   BarangaysResponse,
+  AddressScope,
 } from '../../models/domain/address-ref.model';
 
 @Injectable({
@@ -37,22 +39,14 @@ export class AddressRefDataAccess {
         ...response,
 
         data: {
-          countries: this.mapCountries(
-            response.data.countries,
-          ),
+          countries: this.mapCountries(response.data.countries),
 
-          regions: this.mapRegions(
-            response.data.regions,
-          ),
+          regions: this.mapRegions(response.data.regions),
 
-          provinces: this.mapProvinces(
-            response.data.provinces,
-          ),
+          provinces: this.mapProvinces(response.data.provinces),
 
-          cities: this.mapCities(
-            response.data.cities,
-          ),
-          addressScopes:[],
+          cities: this.mapCities(response.data.cities),
+          addressScopes: this.mapAddressScope(response.data.addressScopes),
         },
       })),
     );
@@ -62,35 +56,35 @@ export class AddressRefDataAccess {
   // Get Barangays By City
   // ========================================
 
-  getBarangaysByCity(
-    cityId: number,
-  ): Observable<BarangaysResponse> {
-    return this.api
-      .getBarangaysByCity(cityId)
-      .pipe(
-        map(
-          (response): BarangaysResponse => ({
-            ...response,
+  getBarangaysByCity(cityId: number): Observable<BarangaysResponse> {
+    return this.api.getBarangaysByCity(cityId).pipe(
+      map((response): BarangaysResponse => ({
+        ...response,
 
-            data: this.mapBarangays(
-              response.data,
-            ),
-          }),
-        ),
-      );
+        data: this.mapBarangays(response.data),
+      })),
+    );
   }
 
+  // ========================================
+  // Map Address Scope
+  // ========================================
+  private mapAddressScope(items: AddressScopeDto[]): AddressScope[] {
+    return items.map((item) => ({
+      id: item.id,
+      scopeName: item.scopeName,
+      code: item.code,
+    }));
+  }
   // ========================================
   // Map Countries
   // ========================================
 
-  private mapCountries(
-    items: CountryDto[],
-  ): Country[] {
+  private mapCountries(items: CountryDto[]): Country[] {
     return items.map((item) => ({
       id: item.id,
       countryName: item.countryName,
-      code:item.code,
+      code: item.code,
     }));
   }
 
@@ -98,14 +92,12 @@ export class AddressRefDataAccess {
   // Map Regions
   // ========================================
 
-  private mapRegions(
-    items: RegionDto[],
-  ): Region[] {
+  private mapRegions(items: RegionDto[]): Region[] {
     return items.map((item) => ({
       id: item.id,
       countryId: item.countryId,
       regionName: item.regionName,
-      code:item.code,
+      code: item.code,
     }));
   }
 
@@ -113,14 +105,12 @@ export class AddressRefDataAccess {
   // Map Provinces
   // ========================================
 
-  private mapProvinces(
-    items: ProvinceDto[],
-  ): Province[] {
+  private mapProvinces(items: ProvinceDto[]): Province[] {
     return items.map((item) => ({
       id: item.id,
       regionId: item.regionId,
       provinceName: item.provinceName,
-      code:item.code,
+      code: item.code,
     }));
   }
 
@@ -128,15 +118,12 @@ export class AddressRefDataAccess {
   // Map Cities
   // ========================================
 
-  private mapCities(
-    items: CityDto[],
-  ): City[] {
+  private mapCities(items: CityDto[]): City[] {
     return items.map((item) => ({
       id: item.id,
       provinceId: item.provinceId,
-      cityOrMunicipalName:
-        item.cityOrMunicipalName,
-        code:item.code,
+      cityOrMunicipalName: item.cityOrMunicipalName,
+      code: item.code,
     }));
   }
 
@@ -144,14 +131,12 @@ export class AddressRefDataAccess {
   // Map Barangays
   // ========================================
 
-  private mapBarangays(
-    items: BarangayDto[],
-  ): Barangay[] {
+  private mapBarangays(items: BarangayDto[]): Barangay[] {
     return items.map((item) => ({
       id: item.id,
       cityId: item.cityId,
       barangayName: item.barangayName,
-      code:item.code,
+      code: item.code,
     }));
   }
 }
