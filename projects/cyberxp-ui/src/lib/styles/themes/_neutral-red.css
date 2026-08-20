@@ -433,6 +433,9 @@
      --color-section-action: var(--color-text-secondary);
      --color-section-action-hover: var(--color-hover-text);
 
+     --color-sub-section-background:var(--color-background-08-20t);
+     --color-section-list-background:var(--color-background-08-20t);
+
      /* ========================================
        Footer
        ======================================== */

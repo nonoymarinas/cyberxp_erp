@@ -1,46 +1,24 @@
 <section class="cxp-section">
   <div>
-
     <!-- ========================================
          Header
          ======================================== -->
 
     <header class="item-group-header cxp-section__header">
+      <cxp-icon-address-nav class="sub-header-icon" size="xs" fill="outline"></cxp-icon-address-nav>
 
-      <cxp-icon-address-nav
-        class="sub-header-icon"
-        size="xs"
-        fill="outline"
-      ></cxp-icon-address-nav>
-
-      <h3 class="cxp-section__title">
-        Contact Details
-      </h3>
-
+      <h3 class="cxp-section__title">Contact Details</h3>
 
       <!-- ========================================
            Show / Add Contact
            ======================================== -->
 
       <div class="contact_show_add">
-
-        @if (!hasEmployeeGuid) {
-
-          <label class="cxp-label__error">
-            Save personal information first.
-          </label>
-
-        } @else {
-
+        @if (hasEmployeeGuid) {
           <cxp-button
             size="xs"
             variant="secondary"
-            [disabled]="
-              !hasContacts ||
-              isEditing ||
-              isSaving ||
-              isDeleting
-            "
+            [disabled]="!hasContacts || isEditing || isSaving || isDeleting"
             (clicked)="toggleContactList()"
           >
             {{ contactToggleLabel }}
@@ -49,39 +27,25 @@
           <cxp-button
             size="xs"
             variant="secondary"
-            [disabled]="
-              isEditing ||
-              isSaving ||
-              isDeleting ||
-              isLoadingReferences
-            "
+            [disabled]="isEditing || isSaving || isDeleting || isLoadingReferences"
             (clicked)="addContact()"
           >
             Add contact
           </cxp-button>
-
         }
-
       </div>
-
 
       <!-- ========================================
            Header Actions
            ======================================== -->
 
       <div class="contact__actions">
-
         @if (hasEmployeeGuid) {
-
           @if (isEditing) {
-
             <cxp-button
               size="xs"
               variant="secondary"
-              [disabled]="
-                isSaving ||
-                isDeleting
-              "
+              [disabled]="isSaving || isDeleting"
               (clicked)="cancelEdit()"
             >
               Cancel
@@ -90,22 +54,12 @@
             <cxp-button
               size="xs"
               variant="primary"
-              [disabled]="
-                isSaving ||
-                isDeleting
-              "
+              [disabled]="isSaving || isDeleting"
               (clicked)="saveContact()"
             >
               Save
             </cxp-button>
-
-          }
-
-          @else if (
-            selectedContact &&
-            !showContactList
-          ) {
-
+          } @else if (selectedContact && !showContactList) {
             <cxp-button
               size="xs"
               variant="secondary"
@@ -114,202 +68,119 @@
             >
               Edit
             </cxp-button>
-
           }
-
         }
-
       </div>
-
     </header>
-
 
     <!-- ========================================
          Employee Available
          ======================================== -->
-
-    @if (hasEmployeeGuid) {
-
-
+    @if (!hasEmployeeGuid) {
+      <label class="cxp-label__error"> Save personal information first. </label>
+    } @else {
       <!-- ========================================
            Loading References
            ======================================== -->
 
       @if (isLoadingReferences) {
-
         <div class="contact-loading">
-          <label class="cxp-label">
-            Loading contact references...
-          </label>
+          <label class="cxp-label"> Loading contact references... </label>
         </div>
-
       }
-
 
       <!-- ========================================
            Loading Contacts
            ======================================== -->
 
       @if (isLoadingContacts) {
-
         <div class="contact-loading">
-          <label class="cxp-label">
-            Loading contacts...
-          </label>
+          <label class="cxp-label"> Loading contacts... </label>
         </div>
-
       }
-
 
       <!-- ========================================
            Error
            ======================================== -->
 
       @if (errorMessage) {
-
         <div class="contact-message">
           <label class="cxp-label__error">
             {{ errorMessage }}
           </label>
         </div>
-
       }
-
 
       <!-- ========================================
            Success
            ======================================== -->
 
       @if (successMessage) {
-
         <div class="contact-message">
           <label class="cxp-label">
             {{ successMessage }}
           </label>
         </div>
-
       }
-
 
       <!-- ========================================
            Contact List
            ======================================== -->
 
-      @if (
-        showContactList &&
-        !isEditing &&
-        !isLoadingContacts
-      ) {
-
-        <div class="contact-list-box">
-
-          @for (
-            contact of contacts;
-            track contact.contactId
-          ) {
-
-            <cxp-contact-list
-              size="sm"
-              [value]="
-                contact.value ||
-                '—'
-              "
-              buttonLabel="Select"
-              [disabled]="
-                isSaving ||
-                isDeleting
-              "
-              (selected)="
-                selectContact(contact)
-              "
-            >
-
-              <!-- ====================================
+      @if (showContactList && !isEditing && !isLoadingContacts) {
+        @if (hasContacts) {
+          <div class="contact-list-box cxp-sub-section">
+            @for (contact of contacts; track contact.contactId) {
+              <cxp-contact-list
+                size="sm"
+                [value]="contact.value || '—'"
+                buttonLabel="Select"
+                [disabled]="isSaving || isDeleting"
+                (selected)="selectContact(contact)"
+              >
+                <!-- ====================================
                    Contact Type
                    ==================================== -->
 
-              <cxp-icon
-                contacttypeicon
-                [name]="
-                  getContactTypeIcon(
-                    contact
-                  )
-                "
-              ></cxp-icon>
+                <cxp-icon contacttypeicon [name]="getContactTypeIcon(contact)"></cxp-icon>
 
-
-              <!-- ====================================
+                <!-- ====================================
                    Contact Scope
                    ==================================== -->
 
-              <cxp-icon-scope
-                contactscopeicon
-                [label]="
-                  getContactScopeLabel(
-                    contact
-                  )
-                "
-                [icon]="
-                  getContactScopeIcon(
-                    contact
-                  )
-                "
-              ></cxp-icon-scope>
-
-            </cxp-contact-list>
-
-          }
-
-        </div>
-
+                <cxp-icon-scope
+                  contactscopeicon
+                  [label]="getContactScopeLabel(contact)"
+                  [icon]="getContactScopeIcon(contact)"
+                ></cxp-icon-scope>
+              </cxp-contact-list>
+            }
+          </div>
+        }
       }
-
 
       <!-- ========================================
            No Contacts
            ======================================== -->
 
-      @if (
-        !hasContacts &&
-        !isEditing &&
-        !isLoadingContacts
-      ) {
-
+      @if (!hasContacts && !isEditing && !isLoadingContacts) {
         <div class="contact-message">
-          <label class="cxp-label">
-            No contacts available.
-          </label>
+          <label class="cxp-label"> No contacts available. </label>
         </div>
-
       }
-
 
       <!-- ========================================
            Edit / Add Form
            ======================================== -->
 
       @if (isEditing) {
-
-        <div
-          class="cxp-item-group-box"
-          [formGroup]="contactForm"
-        >
-
+        <div class="cxp-item-group-box" [formGroup]="contactForm">
           <!-- ====================================
                Contact Type
                ==================================== -->
 
           <div class="cxp-input__wrap">
-
-            <label
-              class="
-                cxp-label
-                cxp-label-bg
-                cxp-label-sm
-              "
-            >
-              Contact type
-            </label>
+            <label class="cxp-label cxp-label-bg cxp-label-sm"> Contact type </label>
 
             <cxp-input-select
               size="sm"
@@ -319,40 +190,19 @@
             ></cxp-input-select>
 
             @if (
-              contactForm
-                .controls
-                .contactTypeId
-                .touched &&
-              contactForm
-                .controls
-                .contactTypeId
-                .invalid
+              contactForm.controls.contactTypeId.touched &&
+              contactForm.controls.contactTypeId.invalid
             ) {
-
-              <label class="cxp-label__error">
-                Contact type is required.
-              </label>
-
+              <label class="cxp-label__error"> Contact type is required. </label>
             }
-
           </div>
-
 
           <!-- ====================================
                Contact Scope
                ==================================== -->
 
           <div class="cxp-input__wrap">
-
-            <label
-              class="
-                cxp-label
-                cxp-label-bg
-                cxp-label-sm
-              "
-            >
-              Contact scope
-            </label>
+            <label class="cxp-label cxp-label-bg cxp-label-sm"> Contact scope </label>
 
             <cxp-input-select
               size="sm"
@@ -362,40 +212,19 @@
             ></cxp-input-select>
 
             @if (
-              contactForm
-                .controls
-                .contactScopeId
-                .touched &&
-              contactForm
-                .controls
-                .contactScopeId
-                .invalid
+              contactForm.controls.contactScopeId.touched &&
+              contactForm.controls.contactScopeId.invalid
             ) {
-
-              <label class="cxp-label__error">
-                Contact scope is required.
-              </label>
-
+              <label class="cxp-label__error"> Contact scope is required. </label>
             }
-
           </div>
-
 
           <!-- ====================================
                Contact Value
                ==================================== -->
 
           <div class="cxp-input__wrap">
-
-            <label
-              class="
-                cxp-label
-                cxp-label-bg
-                cxp-label-sm
-              "
-            >
-              Value
-            </label>
+            <label class="cxp-label cxp-label-bg cxp-label-sm"> Value </label>
 
             <cxp-input-text
               size="sm"
@@ -403,218 +232,102 @@
               formControlName="value"
             ></cxp-input-text>
 
-            @if (
-              contactForm
-                .controls
-                .value
-                .touched &&
-              contactForm
-                .controls
-                .value
-                .invalid
-            ) {
-
-              <label class="cxp-label__error">
-                Contact value is required.
-              </label>
-
+            @if (contactForm.controls.value.touched && contactForm.controls.value.invalid) {
+              <label class="cxp-label__error"> Contact value is required. </label>
             }
-
           </div>
-
 
           <!-- ====================================
                Primary
                ==================================== -->
 
           <div class="cxp-input__wrap">
-
-            <label
-              class="
-                cxp-label
-                cxp-label-bg
-                cxp-label-sm
-              "
-            >
-              Primary contact?
-            </label>
+            <label class="cxp-label cxp-label-bg cxp-label-sm"> Primary contact? </label>
 
             <label class="contact__checkbox">
+              <input type="checkbox" formControlName="isPrimary" />
 
-              <input
-                type="checkbox"
-                formControlName="isPrimary"
-              />
-
-              <span>
-                Yes
-              </span>
-
+              <span> Yes </span>
             </label>
-
           </div>
-
 
           <!-- ====================================
                Delete
                ==================================== -->
 
-          @if (
-            selectedContact &&
-            selectedContact.contactId
-          ) {
-
+          @if (selectedContact && selectedContact.contactId) {
             <div class="contact__delete">
-
               <cxp-button
                 class="cxp-button-delete"
                 size="xs"
                 variant="secondary"
                 type="button"
-                [disabled]="
-                  isSaving ||
-                  isDeleting
-                "
+                [disabled]="isSaving || isDeleting"
                 (clicked)="deleteContact()"
               >
                 Delete contact
               </cxp-button>
-
             </div>
-
           }
-
         </div>
-
       }
-
 
       <!-- ========================================
            Individual Contact Display
            ======================================== -->
 
-      @else if (
-        selectedContact &&
-        !showContactList
-      ) {
-
+      @else if (selectedContact && !showContactList) {
         <div class="cxp-item-group-box">
-
           <!-- ====================================
                Contact Type
                ==================================== -->
 
           <div class="cxp-input__wrap">
-
-            <label
-              class="
-                cxp-label
-                cxp-label-bg
-                cxp-label-sm
-              "
-            >
-              Contact type
-            </label>
+            <label class="cxp-label cxp-label-bg cxp-label-sm"> Contact type </label>
 
             <cxp-display-field
               size="sm"
-              [value]="
-                getContactTypeLabel(
-                  selectedContact
-                )
-              "
+              [value]="getContactTypeLabel(selectedContact)"
             ></cxp-display-field>
-
           </div>
-
 
           <!-- ====================================
                Contact Scope
                ==================================== -->
 
           <div class="cxp-input__wrap">
-
-            <label
-              class="
-                cxp-label
-                cxp-label-bg
-                cxp-label-sm
-              "
-            >
-              Contact scope
-            </label>
+            <label class="cxp-label cxp-label-bg cxp-label-sm"> Contact scope </label>
 
             <cxp-display-field
               size="sm"
-              [value]="
-                getContactScopeLabel(
-                  selectedContact
-                )
-              "
+              [value]="getContactScopeLabel(selectedContact)"
             ></cxp-display-field>
-
           </div>
-
 
           <!-- ====================================
                Value
                ==================================== -->
 
           <div class="cxp-input__wrap">
+            <label class="cxp-label cxp-label-bg cxp-label-sm"> Value </label>
 
-            <label
-              class="
-                cxp-label
-                cxp-label-bg
-                cxp-label-sm
-              "
-            >
-              Value
-            </label>
-
-            <cxp-display-field
-              size="sm"
-              [value]="
-                selectedContact.value ||
-                '—'
-              "
-            ></cxp-display-field>
-
+            <cxp-display-field size="sm" [value]="selectedContact.value || '—'"></cxp-display-field>
           </div>
-
 
           <!-- ====================================
                Primary
                ==================================== -->
 
           <div class="cxp-input__wrap">
-
-            <label
-              class="
-                cxp-label
-                cxp-label-bg
-                cxp-label-sm
-              "
-            >
-              Primary contact?
-            </label>
+            <label class="cxp-label cxp-label-bg cxp-label-sm"> Primary contact? </label>
 
             <cxp-display-field
               size="sm"
-              [value]="
-                selectedContact.isPrimary
-                  ? 'YES'
-                  : 'NO'
-              "
+              [value]="selectedContact.isPrimary ? 'YES' : 'NO'"
             ></cxp-display-field>
-
           </div>
-
         </div>
-
       }
-
     }
-
   </div>
 </section>

@@ -7,6 +7,7 @@ export interface EmployeeContact {
   value: string | null;
   isPrimary: boolean | null;
 }
+
 export type EmployeeContactResponse = ApiResponse<EmployeeContact[]>;
 
 export interface SaveContactRequest {

@@ -67,7 +67,7 @@ export class AddressApi {
 
   deleteAddress(employeeGuid: string, addressId: string): Observable<EmployeeAddreResponseDto> {
     return this.http.delete<EmployeeAddreResponseDto>(
-      `${this.endpoint}/${addressId}`,
+      `${this.endpoint}/${employeeGuid}/${addressId}`,
     );
   }
 }

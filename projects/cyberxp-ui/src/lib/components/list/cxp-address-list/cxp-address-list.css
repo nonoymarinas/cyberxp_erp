@@ -17,22 +17,15 @@
 .address-list {
   display: flex;
   align-items: center;
-
   width: 100%;
   min-width: 0;
-
   color: var(--color-input-text);
-  background-color: transparent;
-
-  border: 1px solid var(--color-border-08);
-  border-radius: 0;
-
   box-sizing: border-box;
-
   transition:
     background-color 160ms ease,
     border-color 160ms ease;
 }
+
 
 
 /* ========================================

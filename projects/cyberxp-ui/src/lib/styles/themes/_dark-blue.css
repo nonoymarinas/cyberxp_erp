@@ -377,13 +377,15 @@
    ======================================== */
      --color-section-background: var(--color-background-09-20t);
      --color-section-border: transparent;
-     --color-section-header-background: var(--color-background-09-50t);
+     --color-section-header-background: var(--color-background-08-50t);
      --color-section-header-border: var(--color-divider-primary);
      --color-section-title: var(--color-text-primary);
      --color-section-text: var(--color-text-secondary);
      --color-section-action: var(--color-text-secondary);
      --color-section-action-hover: var(--color-hover-text);
 
+     --color-sub-section-background:var(--color-background-08-70t);
+--color-section-list-background:var(--color-background-08-70t);
      /* ========================================
        Footer
        ======================================== */
