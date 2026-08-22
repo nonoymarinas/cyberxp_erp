@@ -6,7 +6,7 @@ import { environment } from '../../../../../environments/environment';
 import {
   AddressRefResponseDto,
   BarangaysRefResponseDto,
-} from '../../models/dto/address-ref.dto.model';
+} from '../../models/new-employee/address/address-ref.dto.model';
 
 @Injectable({
   providedIn: 'root',

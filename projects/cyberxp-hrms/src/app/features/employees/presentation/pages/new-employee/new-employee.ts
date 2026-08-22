@@ -50,7 +50,7 @@ export class NewEmployeePage {
     );
   }
 
-  get canCreateBenefit(): boolean {
+  get canCreateGovernmentInfo(): boolean {
     return this.userAccessService.hasPermission(
       this.permissions.benefit.create,
     );

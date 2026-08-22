@@ -1,5 +1,6 @@
 export interface ReferenceItem<TValue = number> {
-  value: TValue;
-  label: string;
+  id: TValue;
+  name: string;
+  code:string |null
   disabled?: boolean;
 }

@@ -6,7 +6,7 @@ import {
 
 import {
   EmployeeData,
-} from '../models/domain/employee.model';
+} from '../models/new-employee/general/employee.model';
 
 @Injectable({
   providedIn: 'root',

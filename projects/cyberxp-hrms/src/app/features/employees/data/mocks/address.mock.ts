@@ -4,11 +4,11 @@ import { Observable, of } from 'rxjs';
 import {
   EmployeeAddressDto,
   EmployeeAddreResponseDto,
-} from '../../models/dto/address.dto.model';
+} from '../../models/new-employee/address/address.dto.model';
 
 import {
   SaveAddressRequest,
-} from '../../models/domain/address.model';
+} from '../../models/new-employee/address/address.model';
 
 @Injectable({
   providedIn: 'root',

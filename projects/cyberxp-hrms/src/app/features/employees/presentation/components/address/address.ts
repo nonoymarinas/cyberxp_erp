@@ -28,9 +28,9 @@ import {
   Region,
   Province,
   City,
-} from '../../../models/domain/address-ref.model';
+} from '../../../models/new-employee/address/address-ref.model';
 
-import { EmployeeAddress, SaveAddressRequest } from '../../../models/domain/address.model';
+import { EmployeeAddress, SaveAddressRequest } from '../../../models/new-employee/address/address.model';
 
 @Component({
   selector: 'employee-address',

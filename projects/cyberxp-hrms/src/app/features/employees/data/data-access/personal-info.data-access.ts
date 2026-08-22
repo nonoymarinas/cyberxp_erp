@@ -4,46 +4,22 @@ import { inject, Injectable } from '@angular/core';
 import { map, Observable, of, delay, tap } from 'rxjs';
 
 import { ReferenceItem } from '../../../../shared/models/reference-item.model';
-import { PersonalInfoReference } from '../../models/references/personal-info-reference.model';
-import { EmployeeReferenceApi } from '../api/personal-info.api';
-import { EmployeeReferenceDto } from '../../models/domain/personal-info.model';
+import { PersonalInfoRefs } from '../../models/new-employee/personal-info/personal-info-ref.model';
+import { PersonalInfoApi } from '../api/personal-info.api';
+import { PersonalRefItemDto } from '../../models/new-employee/personal-info/personal-info.model';
 import {  getPersonalInfoMock } from '../mocks/personal-info.mock';
 import {
   SavePersonalInfoRequest as PersonalInfoRequest,
-} from '../../models/domain/personal-info.model';
-import { EmployeeDataResponse,PersonalInfo } from '../../models/domain/employee.model';
-import { PersonalInfoDto } from '../../models/dto/personal-info.dto.model';
+} from '../../models/new-employee/personal-info/personal-info.model';
+import { EmployeeDataResponse } from '../../models/new-employee/general/employee.model';
+import { PersonalInfoDto } from '../../models/new-employee/personal-info/personal-info.dto.model';
+import { PersonalInfo } from '../../models/new-employee/personal-info/personal-info.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PersonalInfoDataAccess {
-  private readonly api = inject(EmployeeReferenceApi);
-
-  getReferences(): Observable<PersonalInfoReference> {
-    return this.api.getReferences().pipe(
-      // Raw API response
-      tap((response) => {
-        console.log('Personal Info References API Response:', response);
-        console.log('References API Data:', response.data);
-      }),
-
-      // Map API -> Application Model
-      map((response) => ({
-        genders: this.mapReferenceItems(response.data.genders),
-        civilStatuses: this.mapReferenceItems(response.data.civilStatuses),
-        suffixes: this.mapReferenceItems(response.data.suffixes),
-      })),
-
-      // Mapped references
-      tap((references) => {
-        console.log('Mapped Personal Info References:', references);
-        console.log('Genders:', references.genders);
-        console.log('Civil Statuses:', references.civilStatuses);
-        console.log('Suffixes:', references.suffixes);
-      }),
-    );
-  }
+  private readonly api = inject(PersonalInfoApi);
 
   savePersonalInfo(
   request: PersonalInfoRequest,
@@ -97,10 +73,12 @@ export class PersonalInfoDataAccess {
     return of(getPersonalInfoMock(employeeGuid));
   }
 
-  private mapReferenceItems(items: EmployeeReferenceDto[]): ReferenceItem<string>[] {
+  private mapReferenceItems(items: PersonalRefItemDto[]): ReferenceItem<string>[] {
     return items.map((item) => ({
-      value: item.publicId,
-      label: item.referenceName.toUpperCase(),
+      id: item.publicId,
+      name: item.referenceName.toUpperCase(),
+      code:null,
+      disabled:false
     }));
   }
 }

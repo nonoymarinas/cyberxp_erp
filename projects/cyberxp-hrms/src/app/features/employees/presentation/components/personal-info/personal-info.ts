@@ -16,6 +16,7 @@ import type { CxpSelectOption, CxpSelectPrimitive } from 'cyberxp-ui';
 import { EmployeeState } from '../../../state/employee-state.service';
 
 import { PersonalInfoService } from '../../../business/services/personal-info.service';
+import { PersonalInfoRefService } from '../../../business/services/personal-info-ref.service';
 
 import { UserAccessService } from '../../../../../core/authorization/services/user-access.services';
 
@@ -24,7 +25,7 @@ import { EMPLOYEE_PERMISSIONS } from '../../../../../core/authorization/permissi
 import {
   PersonalInfo,
   SavePersonalInfoRequest,
-} from '../../../models/domain/personal-info.model';
+} from '../../../models/new-employee/personal-info/personal-info.model';
 
 @Component({
   selector: 'personal-info',
@@ -49,6 +50,7 @@ export class PersonalInfoComponent implements OnInit {
   private readonly userAccessService = inject(UserAccessService);
 
   private readonly personalInfoService = inject(PersonalInfoService);
+  private readonly personalInfoRefService = inject(PersonalInfoRefService);
 
   public readonly employeeState = inject(EmployeeState);
 
@@ -267,7 +269,7 @@ export class PersonalInfoComponent implements OnInit {
     this.isLoading = true;
     this.errorMessage = '';
 
-    this.personalInfoService.getReferenceOptions().subscribe({
+    this.personalInfoRefService.getReferenceOptions().subscribe({
       next: (options) => {
         console.log('Personal Info Reference Options:', options);
 

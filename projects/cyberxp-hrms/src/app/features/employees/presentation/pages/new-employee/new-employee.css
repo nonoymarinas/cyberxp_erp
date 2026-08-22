@@ -61,6 +61,7 @@
     grid-template-columns: 200px auto 1fr;
     border: 1px solid var(--color-border-08);
     gap:.5rem;
+    padding:.5rem
 }
 
 .menu-divider{

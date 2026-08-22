@@ -5,11 +5,11 @@ import { ContactRefMockApi } from '../mocks/contact-ref.mock';
 
 import {
   ContactRefResponseDto,
-} from '../../models/dto/contact-ref.dto.model';
+} from '../../models/new-employee/contacts/contact-ref.dto.model';
 
 import {
   ContactRefResponse,
-} from '../../models/domain/contact-ref.model';
+} from '../../models/new-employee/contacts/contact-ref.model';
 
 @Injectable({
   providedIn: 'root',

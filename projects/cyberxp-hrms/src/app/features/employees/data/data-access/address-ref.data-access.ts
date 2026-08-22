@@ -10,7 +10,7 @@ import {
   CityDto,
   BarangayDto,
   AddressScopeDto,
-} from '../../models/dto/address-ref.dto.model';
+} from '../../models/new-employee/address/address-ref.dto.model';
 
 import {
   Country,
@@ -21,7 +21,7 @@ import {
   AddressesReferencesResponse,
   BarangaysResponse,
   AddressScope,
-} from '../../models/domain/address-ref.model';
+} from '../../models/new-employee/address/address-ref.model';
 
 @Injectable({
   providedIn: 'root',

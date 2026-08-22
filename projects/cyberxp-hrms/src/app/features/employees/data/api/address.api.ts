@@ -6,9 +6,9 @@ import { Observable,tap } from 'rxjs';
 
 import { environment } from '../../../../../environments/environment';
 
-import { EmployeeAddreResponseDto } from '../../models/dto/address.dto.model';
+import { EmployeeAddreResponseDto } from '../../models/new-employee/address/address.dto.model';
 
-import { SaveAddressRequest } from '../../models/domain/address.model';
+import { SaveAddressRequest } from '../../models/new-employee/address/address.model';
 
 @Injectable({
   providedIn: 'root',

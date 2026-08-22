@@ -1,7 +1,7 @@
 import {
   SavePersonalInfoRequest,
   SavePersonalInfoResponse,
-} from '../../models/domain/personal-info.model';
+} from '../../models/new-employee/personal-info/personal-info.model';
 
 let personalInfoDatabase: SavePersonalInfoResponse['data'] | null = null;
 

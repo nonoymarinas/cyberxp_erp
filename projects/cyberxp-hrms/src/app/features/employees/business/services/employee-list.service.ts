@@ -5,7 +5,7 @@ import { EmployeeListDataAccess } from '../../data/data-access/employeelist.data
 
 import {
   EmployeeListApiResponse,
-} from '../../models/domain/employee-list.model';
+} from '../../models/employee-list/employee-list.model';
 
 @Injectable({
   providedIn: 'root',

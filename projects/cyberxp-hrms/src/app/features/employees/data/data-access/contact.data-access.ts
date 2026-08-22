@@ -11,13 +11,13 @@ import {
 import {
   EmployeeContactDto,
   EmployeeContactResponseDto,
-} from '../../models/dto/contact.dto.model';
+} from '../../models/new-employee/contacts/contact.dto.model';
 
 import {
   EmployeeContact,
   EmployeeContactResponse,
   SaveContactRequest,
-} from '../../models/domain/contact.model';
+} from '../../models/new-employee/contacts/contact.model';
 
 @Injectable({
   providedIn: 'root',

@@ -9,7 +9,7 @@ import {
   ContactRef,
   ContactScopeRef,
   ContactTypeRef,
-} from '../../models/domain/contact-ref.model';
+} from '../../models/new-employee/contacts/contact-ref.model';
 
 export interface ContactSelectOptions {
   contactTypeOptions: CxpSelectOption[];

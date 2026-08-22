@@ -1,4 +1,4 @@
-import { ApiResponse } from '../../../../shared/models/api-response.model';
+import { ApiResponse } from '../../../../../shared/models/api-response.model';
 
 export interface EmployeeAddress {
   addressId: string;
@@ -24,7 +24,6 @@ export interface EmployeeAddress {
 
   isPresent: boolean | null;
 }
-
 export type EmployeeAddreResponse = ApiResponse<EmployeeAddress[]>;
 
 export interface SaveAddressRequest {

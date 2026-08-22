@@ -3,13 +3,13 @@ import { map, Observable } from 'rxjs';
 
 import { AddressApi } from '../api/address.api';
 
-import { EmployeeAddressDto, EmployeeAddreResponseDto } from '../../models/dto/address.dto.model';
+import { EmployeeAddressDto, EmployeeAddreResponseDto } from '../../models/new-employee/address/address.dto.model';
 
 import {
   EmployeeAddress,
   EmployeeAddreResponse as EmployeeAddresResponse,
   SaveAddressRequest,
-} from '../../models/domain/address.model';
+} from '../../models/new-employee/address/address.model';
 
 @Injectable({
   providedIn: 'root',

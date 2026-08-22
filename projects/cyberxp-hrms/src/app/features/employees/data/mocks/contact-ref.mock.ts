@@ -5,7 +5,7 @@ import {
   ContactRefResponseDto,
   ContactScopeRefDto,
   ContactTypeRefDto,
-} from '../../models/dto/contact-ref.dto.model';
+} from '../../models/new-employee/contacts/contact-ref.dto.model';
 
 @Injectable({
   providedIn: 'root',

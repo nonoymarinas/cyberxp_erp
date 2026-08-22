@@ -1,4 +1,4 @@
-import { ApiResponse } from '../../../../shared/models/api-response.model';
+import { ApiResponse } from '../../../../../shared/models/api-response.model';
 
 export interface EmployeeContact {
   contactId: string | null;

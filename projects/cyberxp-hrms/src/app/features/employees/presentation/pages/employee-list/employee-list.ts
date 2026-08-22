@@ -14,7 +14,7 @@ import {
 } from 'cyberxp-ui';
 
 import { EmployeeListService } from '../../../business/services/employee-list.service';
-import { EmployeeItem } from '../../../models/domain/employee-list.model';
+import { EmployeeItem } from '../../../models/employee-list/employee-list.model';
 
 import { UserAccessService } from '../../../../../core/authorization/services/user-access.services';
 import { EMPLOYEE_PERMISSIONS } from '../../../../../core/authorization/permissions/employee-permissions';

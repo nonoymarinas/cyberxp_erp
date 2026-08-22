@@ -1,5 +1,5 @@
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ApiResponse } from '../../../../shared/models/api-response.model';
+import { ApiResponse } from '../../../../../shared/models/api-response.model';
 
 export interface PersonalInfo {
   employeeNumber: string | null;
@@ -16,6 +16,7 @@ export interface PersonalInfo {
 
 export type SavePersonalInfoResponse = ApiResponse<PersonalInfo>;
 
+//for form data
 export interface PersonalInfoForm {
   firstName: FormControl<string>;
   middleName: FormControl<string>;
@@ -26,7 +27,7 @@ export interface PersonalInfoForm {
   civilStatusId: FormControl<string | null>;
   imageUrl: FormControl<string | null>;
 }
-
+//for parameter request
 export interface SavePersonalInfoRequest {
   employeeGuid: string | null;
   firstName: string;
@@ -40,23 +41,23 @@ export interface SavePersonalInfoRequest {
   userId:string | null;
 }
 
-export interface EmployeeReferenceDto {
+export interface PersonalRefItemDto {
   publicId: string;
   referenceName: string;
 }
 
 export interface EmployeeReferenceDataDto {
-  genders: EmployeeReferenceDto[];
-  civilStatuses: EmployeeReferenceDto[];
-  suffixes: EmployeeReferenceDto[];
-  departments: EmployeeReferenceDto[];
-  positions: EmployeeReferenceDto[];
-  employmentStatuses: EmployeeReferenceDto[];
-  addressTypes: EmployeeReferenceDto[];
-  contactMediumTypes: EmployeeReferenceDto[];
-  contactContextTypes: EmployeeReferenceDto[];
-  branches: EmployeeReferenceDto[];
+  genders: PersonalRefItemDto[];
+  civilStatuses: PersonalRefItemDto[];
+  suffixes: PersonalRefItemDto[];
+  departments: PersonalRefItemDto[];
+  positions: PersonalRefItemDto[];
+  employmentStatuses: PersonalRefItemDto[];
+  addressTypes: PersonalRefItemDto[];
+  contactMediumTypes: PersonalRefItemDto[];
+  contactContextTypes: PersonalRefItemDto[];
+  branches: PersonalRefItemDto[];
 }
 
-export type EmployeeReferenceResponseDto = ApiResponse<EmployeeReferenceDataDto>;
+export type PersonalInfoRefResponseDto = ApiResponse<EmployeeReferenceDataDto>;
 

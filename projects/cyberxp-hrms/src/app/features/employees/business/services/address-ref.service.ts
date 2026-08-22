@@ -13,7 +13,7 @@ import {
   Province,
   City,
   BarangaysResponse,
-} from '../../models/domain/address-ref.model';
+} from '../../models/new-employee/address/address-ref.model';
 
 // ========================================
 // Reference Select Options

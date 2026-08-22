@@ -4,7 +4,7 @@ import { map, Observable, tap } from 'rxjs';
 
 import { AddressDataAccess } from '../../data/data-access/address.data-access';
 
-import { EmployeeAddress, SaveAddressRequest } from '../../models/domain/address.model';
+import { EmployeeAddress, SaveAddressRequest } from '../../models/new-employee/address/address.model';
 
 @Injectable({
   providedIn: 'root',
