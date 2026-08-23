@@ -27,27 +27,6 @@
             [(value)]="emergencyContact.contactPerson"
           ></cxp-input-text>
         </div>
-
-        <div class="cxp-input__wrap">
-          <label class="cxp-label cxp-label-bg cxp-label-sm"> Contact Number </label>
-
-          <cxp-input-text
-            size="sm"
-            placeholder="Contact Number"
-            [(value)]="emergencyContact.contactNumber"
-          ></cxp-input-text>
-        </div>
-
-        <div class="cxp-input__wrap">
-          <label class="cxp-label cxp-label-bg cxp-label-sm"> Complete Address </label>
-
-          <cxp-input-text
-            size="sm"
-            placeholder="Complete Address"
-            [(value)]="emergencyContact.completeAddress"
-          ></cxp-input-text>
-        </div>
-
         <div class="cxp-input__wrap">
           <label class="cxp-label cxp-label-bg cxp-label-sm"> Relationship </label>
 
@@ -67,21 +46,6 @@
         </div>
 
         <div class="cxp-input__wrap">
-          <label class="cxp-label cxp-label-bg cxp-label-sm"> Contact Number </label>
-
-          <cxp-display-field size="sm" [value]="emergencyContact.contactNumber"></cxp-display-field>
-        </div>
-
-        <div class="cxp-input__wrap">
-          <label class="cxp-label cxp-label-bg cxp-label-sm"> Complete Address </label>
-
-          <cxp-display-field
-            size="sm"
-            [value]="emergencyContact.completeAddress"
-          ></cxp-display-field>
-        </div>
-
-        <div class="cxp-input__wrap">
           <label class="cxp-label cxp-label-bg cxp-label-sm"> Relationship </label>
 
           <cxp-display-field size="sm" [value]="emergencyContact.relationship"></cxp-display-field>
@@ -89,4 +53,5 @@
       </div>
     }
   </div>
+  <employee-address></employee-address>
 </section>

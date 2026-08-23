@@ -1,11 +1,6 @@
 import { Component } from '@angular/core';
-import {
-  CxpButton,
-  CxpDisplayField,
-  CxpIconAddressNav,
-  CxpInputText,
-} from 'cyberxp-ui';
-
+import { CxpButton, CxpDisplayField, CxpIconAddressNav, CxpInputText } from 'cyberxp-ui';
+import { AddressComponent } from '../address/address';
 export interface EmployeeEmergencyContact {
   contactPerson: string;
   contactNumber: string;
@@ -16,12 +11,7 @@ export interface EmployeeEmergencyContact {
 @Component({
   selector: 'emergency-contacts',
   standalone: true,
-  imports: [
-    CxpButton,
-    CxpDisplayField,
-    CxpIconAddressNav,
-    CxpInputText,
-  ],
+  imports: [CxpButton, CxpDisplayField, CxpIconAddressNav, CxpInputText, AddressComponent],
   templateUrl: './emergency-contacts.html',
   styleUrl: './emergency-contacts.css',
 })
