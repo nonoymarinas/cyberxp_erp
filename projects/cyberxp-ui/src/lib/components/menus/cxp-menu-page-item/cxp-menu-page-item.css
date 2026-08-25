@@ -26,6 +26,8 @@
     color .2s ease;
   background-color: var(--color-background-label);
   margin: inherit;
+  font-size: smaller;
+  color: #016318
 }
 
 /* ========================================
@@ -40,7 +42,7 @@
   flex: 0 0 auto;
 
   color: var(--color-nav-icon);
-  
+
 }
 
 /* ========================================
@@ -82,6 +84,7 @@
 .cxp-menu-sidebar__item:hover:not(.cxp-menu-sidebar__item--disabled) .cxp-menu-sidebar__icon {
   color: var(--color-text-page-sidebar-hover);
 }
+
 .cxp-menu-sidebar__item:hover:not(.cxp-menu-sidebar__item--disabled) .cxp-menu-sidebar__end {
   color: var(--color-text-page-sidebar-hover);
 }
@@ -94,10 +97,12 @@
   color: var(--color-text-sub-sibebar-active);
   background-color: var(--color-background-label-active);
 }
+
 .cxp-menu-sidebar__item--active:hover:not(.cxp-menu-sidebar__item--disabled) {
   color: var(--color-text-sub-sibebar-active-hover);
   background-color: var(--color-background-label-active);
 }
+
 .cxp-menu-sidebar__item--active .cxp-menu-sidebar__end {
   display: inline-flex;
   color: var(--color-text-01);

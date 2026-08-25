@@ -1,0 +1,64 @@
+<section class="cxp-page">
+  <header class="cxp-section__header">
+    <h2 class="cxp-section__title">Employee Details</h2>
+  </header>
+
+  <div class="new-employee-main-body">
+    <div class="sub-sidebar-box">
+      @if (canCreatePersonalInfo) {
+        <cxp-menu-page-item class="sub-sidebar-menu-item" route="personal-info">
+          <cxp-icon-user-nav start fill="outline" size="xxs"></cxp-icon-user-nav>
+          <span label>Personal Information</span>
+          <cxp-icon-chevron-app end> </cxp-icon-chevron-app>
+        </cxp-menu-page-item>
+      }
+
+      @if (canCreateAddress) {
+        <cxp-menu-page-item class="sub-sidebar-menu-item" route="address">
+          <span label>Addresses</span>
+          <cxp-icon-chevron-app end> </cxp-icon-chevron-app>
+        </cxp-menu-page-item>
+      }
+
+      @if (canCreateContact) {
+        <cxp-menu-page-item class="sub-sidebar-menu-item" route="contacts">
+          <span label>Contacts</span>
+          <cxp-icon-chevron-app end> </cxp-icon-chevron-app>
+        </cxp-menu-page-item>
+      }
+
+      @if (canCreateEmergencyContact) {
+        <cxp-menu-page-item class="sub-sidebar-menu-item" route="emergency-contacts">
+          <span label>Emergency Contacts</span>
+          <cxp-icon-chevron-app end> </cxp-icon-chevron-app>
+        </cxp-menu-page-item>
+      }
+
+      @if (canCreateGovernmentInfo) {
+        <cxp-menu-page-item class="sub-sidebar-menu-item" route="benefit">
+          <span label>Government Information</span>
+          <cxp-icon-chevron-app end> </cxp-icon-chevron-app>
+        </cxp-menu-page-item>
+      }
+
+      @if (canCreateEmployment) {
+        <cxp-menu-page-item class="sub-sidebar-menu-item" route="employment">
+          <span label>Employment Information</span>
+          <cxp-icon-chevron-app end> </cxp-icon-chevron-app>
+        </cxp-menu-page-item>
+      }
+
+      @if (canCreateCompensation) {
+        <cxp-menu-page-item class="sub-sidebar-menu-item" route="compensation">
+          <span label>Compensations</span>
+          <cxp-icon-chevron-app end> </cxp-icon-chevron-app>
+        </cxp-menu-page-item>
+      }
+    </div>
+
+    <!-- <hr class="menu-divider" /> -->
+    <div class="route-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</section>

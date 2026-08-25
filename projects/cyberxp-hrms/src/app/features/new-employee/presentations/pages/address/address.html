@@ -1,0 +1,17 @@
+@if (!hasEmployeeId) {
+  <section class="cxp-section">
+    <label class="cxp-label__error"> Save personal information first. </label>
+  </section>
+} @else {
+  <button type="button" (click)="testParent()">TEST PARENT</button>
+  <cxp-address
+    [addresses]="addresses"
+    [canCreate]="canCreate"
+    [canRead]="canRead"
+    [canUpdate]="canUpdate"
+    [canDelete]="canDelete"
+    [isSaving]="isSaving"
+    (saveRequested)="onSaveAddress($event)"
+    (deleteRequested)="onDeleteAddress($event)"
+  ></cxp-address>
+}

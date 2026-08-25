@@ -3,7 +3,7 @@ import { MainLayout } from './layouts/main-layout/main-layout';
 import { HomePage } from './features/home/pages/home-page/home-page';
 import { SettingsPage } from './features/settings/pages/settings-page/settings-page';
 import { DashboardPage } from './features/dashboard/dashboard';
-import { NewEmployeePage } from './features/employees/presentation/pages/new-employee/new-employee';
+import { NewEmployeePage } from './features/new-employee/presentations/pages/new-employee/new-employee';
 import { newEmployeeGuard } from './features/employees/guards/new-employee.guards';
 
 export const routes: Routes = [
@@ -33,7 +33,7 @@ export const routes: Routes = [
         path: 'new-employee',
         canActivate: [newEmployeeGuard],
         loadChildren: () =>
-          import('./features/employees/presentation/pages/new-employee/new-employee.routes')
+          import('./features/new-employee/presentations/pages/new-employee/new-employee.routes')
             .then(m => m.NEW_EMPLOYEE_ROUTES),
       },
       {

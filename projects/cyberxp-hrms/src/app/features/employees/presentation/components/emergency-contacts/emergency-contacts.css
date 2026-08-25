@@ -2,7 +2,19 @@
     display: block;
     width: 100%;
 }
+.emergency-basic-info-box{
+    margin-bottom: 1rem;
+}
+.emergency-address {
+    --color-section-background: none;
+    --padding-section: none;
+    margin-bottom: 1rem;
+}
 
+.emergency-contact {
+    --color-section-background: none;
+    --padding-section: none;
+}
 
 .emergency__actions {
     display: grid;
@@ -34,7 +46,7 @@ cxp-button {
     color: var(--color-icon-primary);
 }
 
-.cxp-input__wrap{
-    gap:.5rem;
-    margin-bottom:0
+.cxp-input__wrap {
+    gap: .5rem;
+    margin-bottom: 0
 }

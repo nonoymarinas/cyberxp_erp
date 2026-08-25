@@ -4,7 +4,9 @@
 /* ========================================
    Application
    ======================================== */
-
+:root{
+  --padding-section:.75rem
+}
 .cxp-app-layout {
   color: var(--color-app-text);
   background-color: var(--color-app-background);
@@ -288,11 +290,11 @@
   display: flex;
   flex-direction: column;
   min-height: 50px;
-  padding: 0.75rem;
+  padding: var(--padding-section);
   border: 1px solid var(--color-section-border);
   border-radius: var(--radius-md);
   color: var(--color-section-text);
-  background-color: var(--color-section-background);
+  /* background-color: var(--color-section-background); */
 }
 
 .cxp-sub-section {
@@ -300,7 +302,7 @@
   flex-direction: column;
   gap: .5rem;
   min-height: 50px;
-  padding: 0.75rem;
+  /* padding: 0.75rem; */
   border: 1px solid var(--color-section-border);
   border-radius: var(--radius-md);
   color: var(--color-section-text);

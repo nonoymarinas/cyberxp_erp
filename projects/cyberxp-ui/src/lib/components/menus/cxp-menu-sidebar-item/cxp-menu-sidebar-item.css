@@ -24,6 +24,8 @@
     background-color .2s ease,
     border-color .2s ease,
     color .2s ease;
+
+ 
 }
 
 /* ========================================
@@ -72,17 +74,12 @@
    Hover
    ======================================== */
 
-.cxp-menu-sidebar__item:hover:not(
-    .cxp-menu-sidebar__item--disabled
-  ) {
+.cxp-menu-sidebar__item:hover:not(.cxp-menu-sidebar__item--disabled) {
   background-color: var(--color-nav-hover-background);
   color: var(--color-nav-hover-text);
 }
 
-.cxp-menu-sidebar__item:hover:not(
-    .cxp-menu-sidebar__item--disabled
-  )
-  .cxp-menu-sidebar__icon {
+.cxp-menu-sidebar__item:hover:not(.cxp-menu-sidebar__item--disabled) .cxp-menu-sidebar__icon {
   color: var(--color-nav-hover-icon);
 }
 
