@@ -1,0 +1,81 @@
+/* _blue-neon.css */
+
+:root {
+
+  --blue-neon-000: #f5fdff;
+
+  --blue-neon-000-20t: rgba(245, 253, 255, 0.20);
+  --blue-neon-000-50t: rgba(245, 253, 255, 0.50);
+  --blue-neon-000-70t: rgba(245, 253, 255, 0.70);
+
+
+  --blue-neon-100: #e0faff;
+
+  --blue-neon-100-20t: rgba(224, 250, 255, 0.20);
+  --blue-neon-100-50t: rgba(224, 250, 255, 0.50);
+  --blue-neon-100-70t: rgba(224, 250, 255, 0.70);
+
+
+  --blue-neon-200: #b3f4ff;
+
+  --blue-neon-200-20t: rgba(179, 244, 255, 0.20);
+  --blue-neon-200-50t: rgba(179, 244, 255, 0.50);
+  --blue-neon-200-70t: rgba(179, 244, 255, 0.70);
+
+
+  --blue-neon-300: #80eeff;
+
+  --blue-neon-300-20t: rgba(128, 238, 255, 0.20);
+  --blue-neon-300-50t: rgba(128, 238, 255, 0.50);
+  --blue-neon-300-70t: rgba(128, 238, 255, 0.70);
+
+
+  --blue-neon-400: #40e8ff;
+
+  --blue-neon-400-20t: rgba(64, 232, 255, 0.20);
+  --blue-neon-400-50t: rgba(64, 232, 255, 0.50);
+  --blue-neon-400-70t: rgba(64, 232, 255, 0.70);
+
+
+  --blue-neon-500: #00e5ff;
+
+  --blue-neon-500-20t: rgba(0, 229, 255, 0.20);
+  --blue-neon-500-50t: rgba(0, 229, 255, 0.50);
+  --blue-neon-500-70t: rgba(0, 229, 255, 0.70);
+
+
+  --blue-neon-600: #00bdd6;
+
+  --blue-neon-600-20t: rgba(0, 189, 214, 0.20);
+  --blue-neon-600-50t: rgba(0, 189, 214, 0.50);
+  --blue-neon-600-70t: rgba(0, 189, 214, 0.70);
+
+
+  --blue-neon-700: #0093a8;
+
+  --blue-neon-700-20t: rgba(0, 147, 168, 0.20);
+  --blue-neon-700-50t: rgba(0, 147, 168, 0.50);
+  --blue-neon-700-70t: rgba(0, 147, 168, 0.70);
+
+
+  --blue-neon-800: #006b7a;
+
+  --blue-neon-800-20t: rgba(0, 107, 122, 0.20);
+  --blue-neon-800-50t: rgba(0, 107, 122, 0.50);
+  --blue-neon-800-70t: rgba(0, 107, 122, 0.70);
+
+
+  --blue-neon-900: #00434d;
+
+  --blue-neon-900-20t: rgba(0, 67, 77, 0.20);
+  --blue-neon-900-50t: rgba(0, 67, 77, 0.50);
+  --blue-neon-900-70t: rgba(0, 67, 77, 0.70);
+
+
+  --blue-neon-1000: #001d22;
+
+  --blue-neon-1000-20t: rgba(0, 29, 34, 0.20);
+  --blue-neon-1000-50t: rgba(0, 29, 34, 0.50);
+  --blue-neon-1000-70t: rgba(0, 29, 34, 0.70);
+
+}

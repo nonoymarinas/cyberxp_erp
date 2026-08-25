@@ -1,0 +1,132 @@
+/* ========================================
+   Input container
+   ======================================== */
+
+.input {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  width: 100%;
+  min-width: 0;
+
+  background-color: var(--color-input-background);
+  border: var(--width-line-04, 1px) solid var(--color-input-border);
+
+  transition:
+    background-color 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+/* ========================================
+   Native input field
+   ======================================== */
+
+.input__field {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+
+  padding: 0;
+
+  color: var(--color-input-text);
+  background-color: transparent;
+
+  border: none;
+  outline: none;
+
+  font: inherit;
+}
+
+.input__field::placeholder {
+  color: var(--color-input-placeholder);
+}
+
+/* ========================================
+   Prefix and suffix
+   ======================================== */
+
+.input__prefix,
+.input__suffix {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  color: var(--color-input-icon);
+}
+
+.input__prefix:empty,
+.input__suffix:empty {
+  display: none;
+}
+
+/* ========================================
+   Hover
+   ======================================== */
+
+.input:not(.input--disabled):not(.input--readonly):hover {
+  background-color: var(--color-input-hover-background);
+  border-color: var(--color-input-hover-border);
+}
+
+/* ========================================
+   Focus
+   ======================================== */
+
+.input:not(.input--disabled):focus-within {
+  background-color: var(--color-input-focus-background);
+  border-color: var(--color-input-focus-border);
+  box-shadow: 0 0 0 3px var(--color-input-focus-ring);
+}
+
+/* ========================================
+   Disabled
+   ======================================== */
+
+.input--disabled {
+  background-color: var(--color-input-disabled-background);
+  border-color: var(--color-input-disabled-border);
+}
+
+.input--disabled .input__field {
+  color: var(--color-input-disabled-text);
+  cursor: not-allowed;
+}
+
+.input--disabled .input__prefix,
+.input--disabled .input__suffix {
+  color: var(--color-input-disabled-icon);
+}
+
+/* ========================================
+   Readonly
+   ======================================== */
+
+.input--readonly {
+  background-color: var(--color-input-readonly-background);
+  border-color: var(--color-input-readonly-border);
+}
+
+.input--readonly .input__field {
+  color: var(--color-input-readonly-text);
+}
+
+/* ========================================
+   Invalid
+   ======================================== */
+
+.input--invalid {
+  background-color: var(--color-input-error-background);
+  border-color: var(--color-input-error-border);
+}
+
+.input--invalid .input__field {
+  color: var(--color-input-error-text);
+}
+
+.input--invalid:focus-within {
+  border-color: var(--color-input-error-border);
+}

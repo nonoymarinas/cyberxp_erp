@@ -1,22 +1,30 @@
-@import "./tokens/_colors.css";
-@import "./tokens/_borders.css";
-@import "./tokens/_reset.css";
-@import "./tokens/_spacing.css";
-@import "./tokens/_typography.css";
-@import "./tokens/_width.css";
 
-@import "./themes/_dark.css";
-@import "./themes/_light.css";
-@import "./themes/_dark-blue.css";
-@import "./themes/_neutral-red.css";
+@import "./variables/tokens/_reset.css";
+@import "./variables/tokens/_spacing.css";
+@import "./variables/tokens/_typography.css";
+@import "./variables/tokens/_width.css";
+@import "./variables/tokens/_misc.css";
 
-@import "./components/_input.css";
-@import "./components/_base.css";
-@import "./components/_icons.css";
-@import "./components/_button.css";
-@import "./components/_label.css";
+@import "./variables/colors/_grey-dark.css";
+@import "./variables/colors/_blue-dark.css";
+@import "./variables/colors/_blue-neon.css";
+@import "./variables/colors/_red-dark.css";
+@import "./variables/colors/_red-neon.css";
+@import "./variables/colors/_green-dark.css";
+@import "./variables/colors/_green-neon.css";
 
-@import "./layout/_app-layout.css";
+@import "./variables/themes/_dark.css";
+@import "./variables/themes/_light.css";
+@import "./variables/themes/_blue.css";
+@import "./variables/themes/_red.css";
+@import "./variables/themes/_green.css";
+
+@import "./classes/elements/_input.css";
+@import "./classes/elements/_icon.css";
+@import "./classes/elements/_button.css";
+@import "./classes/elements/_label.css";
+@import "./classes/elements/_layout.css";
+@import "./classes/effects/_neon.css";
 
 input:-webkit-autofill,
 textarea:-webkit-autofill,

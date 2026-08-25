@@ -7,7 +7,7 @@ import {
   CxpSelectOption,
 } from 'cyberxp-ui';
 
-type ThemeClass = 'theme-dark' | 'theme-light' | 'theme-dark-blue' | 'theme-neutral-red';
+type ThemeClass = 'theme-dark' | 'theme-light' | 'theme-blue' | 'theme-red'| 'theme-green';
 
 @Component({
   selector: 'ams-settings-page',
@@ -31,13 +31,18 @@ export class SettingsPage implements OnInit {
     },
     {
    
-      value: 'theme-dark-blue',
+      value: 'theme-blue',
       label: 'Dark Blue',
     },
     {
     
-      value: 'theme-neutral-red',
+      value: 'theme-red',
       label: 'Dark Red',
+    },
+     {
+    
+      value: 'theme-green',
+      label: 'Dark Green',
     },
   ];
 
@@ -46,8 +51,9 @@ export class SettingsPage implements OnInit {
   private readonly themeClasses: ThemeClass[] = [
     'theme-dark',
     'theme-light',
-    'theme-dark-blue',
-    'theme-neutral-red',
+    'theme-blue',
+    'theme-red',
+    'theme-green',
   ];
 
   ngOnInit(): void {

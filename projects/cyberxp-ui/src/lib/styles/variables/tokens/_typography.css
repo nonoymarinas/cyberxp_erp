@@ -57,4 +57,11 @@
    --text-weight-medium: 500;
    --text-weight-semibold: 600;
    --text-weight-bold: 700;
+
+   --color-text-primary: var(--color-text-00);
+   --color-text-secondary: var(--color-text-03);
+   --color-text-tertiary: var(--color-text-05);
+   --color-text-muted: var(--color-text-06);
+   --color-text-disabled: var(--color-text-08);
+   --color-text-inverse: var(--color-text-09);
 }

@@ -1,240 +1,168 @@
-/* #########################################################
-   DARK RED FOUNDATION PALETTE
-   000 = near white red
-   1000 = near black red
-   ######################################################### */
+.theme-green {
+     /* ========================================
+     Background Colors
+     ======================================== */
+     --color-background-10: var(--green-1000);
+     --color-background-10-20t: var(--green-1000-20t);
+     --color-background-10-50t: var(--green-1000-50t);
+     --color-background-10-70t: var(--green-1000-70t);
 
-:root {
-     --red-000: #fff8f8;
-     --red-100: #fce8e8;
-     --red-200: #f6caca;
-     --red-300: #eda3a3;
-     --red-400: #df7373;
-     --red-500: #c94a4a;
-     --red-600: #a83232;
-     --red-700: #812323;
-     --red-800: #5c1717;
-     --red-900: #360d0d;
-     --red-1000: #170505;
+     --color-background-09: var(--green-900);
+     --color-background-09-20t: var(--green-900-20t);
+     --color-background-09-50t: var(--green-900-50t);
+     --color-background-09-70t: var(--green-900-70t);
 
-     --red-000-20t: rgba(255, 248, 248, 0.20);
-     --red-000-50t: rgba(255, 248, 248, 0.50);
-     --red-000-70t: rgba(255, 248, 248, 0.70);
+     --color-background-08: var(--green-800);
+     --color-background-08-20t: var(--green-800-20t);
+     --color-background-08-50t: var(--green-800-50t);
+     --color-background-08-70t: var(--green-800-70t);
 
-     --red-100-20t: rgba(252, 232, 232, 0.20);
-     --red-100-50t: rgba(252, 232, 232, 0.50);
-     --red-100-70t: rgba(252, 232, 232, 0.70);
+     --color-background-07: var(--green-700);
+     --color-background-07-20t: var(--green-700-20t);
+     --color-background-07-50t: var(--green-700-50t);
+     --color-background-07-70t: var(--green-700-70t);
 
-     --red-200-20t: rgba(246, 202, 202, 0.20);
-     --red-200-50t: rgba(246, 202, 202, 0.50);
-     --red-200-70t: rgba(246, 202, 202, 0.70);
+     --color-background-06: var(--green-600);
+     --color-background-06-20t: var(--green-600-20t);
+     --color-background-06-50t: var(--green-600-50t);
+     --color-background-06-70t: var(--green-600-70t);
 
-     --red-300-20t: rgba(237, 163, 163, 0.20);
-     --red-300-50t: rgba(237, 163, 163, 0.50);
-     --red-300-70t: rgba(237, 163, 163, 0.70);
+     --color-background-05: var(--green-500);
+     --color-background-05-20t: var(--green-500-20t);
+     --color-background-05-50t: var(--green-500-50t);
+     --color-background-05-70t: var(--green-500-70t);
 
-     --red-400-20t: rgba(223, 115, 115, 0.20);
-     --red-400-50t: rgba(223, 115, 115, 0.50);
-     --red-400-70t: rgba(223, 115, 115, 0.70);
+     --color-background-04: var(--green-400);
+     --color-background-04-20t: var(--green-400-20t);
+     --color-background-04-50t: var(--green-400-50t);
+     --color-background-04-70t: var(--green-400-70t);
 
-     --red-500-20t: rgba(201, 74, 74, 0.20);
-     --red-500-50t: rgba(201, 74, 74, 0.50);
-     --red-500-70t: rgba(201, 74, 74, 0.70);
+     --color-background-03: var(--green-300);
+     --color-background-03-20t: var(--green-300-20t);
+     --color-background-03-50t: var(--green-300-50t);
+     --color-background-03-70t: var(--green-300-70t);
 
-     --red-600-20t: rgba(168, 50, 50, 0.20);
-     --red-600-50t: rgba(168, 50, 50, 0.50);
-     --red-600-70t: rgba(168, 50, 50, 0.70);
+     --color-background-02: var(--green-200);
+     --color-background-02-20t: var(--green-200-20t);
+     --color-background-02-50t: var(--green-200-50t);
+     --color-background-02-70t: var(--green-200-70t);
 
-     --red-700-20t: rgba(129, 35, 35, 0.20);
-     --red-700-50t: rgba(129, 35, 35, 0.50);
-     --red-700-70t: rgba(129, 35, 35, 0.70);
+     --color-background-01: var(--green-100);
+     --color-background-01-20t: var(--green-100-20t);
+     --color-background-01-50t: var(--green-100-50t);
+     --color-background-01-70t: var(--green-100-70t);
 
-     --red-800-20t: rgba(92, 23, 23, 0.20);
-     --red-800-50t: rgba(92, 23, 23, 0.50);
-     --red-800-70t: rgba(92, 23, 23, 0.70);
-
-     --red-900-20t: rgba(54, 13, 13, 0.20);
-     --red-900-50t: rgba(54, 13, 13, 0.50);
-     --red-900-70t: rgba(54, 13, 13, 0.70);
-
-     --red-1000-20t: rgba(23, 5, 5, 0.20);
-     --red-1000-50t: rgba(23, 5, 5, 0.50);
-     --red-1000-70t: rgba(23, 5, 5, 0.70);
-}
-
-.theme-neutral-red {
-     /* #########################################################
-       LAYER 1 — GLOBAL SEMANTIC TOKENS
-       ######################################################### */
+     --color-background-00: var(--green-000);
+     --color-background-00-20t: var(--green-000-20t);
+     --color-background-00-50t: var(--green-000-50t);
+     --color-background-00-70t: var(--green-000-70t);
 
      /* ========================================
-       Background
+       Label
        ======================================== */
-
-     /* ========================================
-   Background Colors
-======================================== */
-
-     --color-background-10: var(--red-1000);
-     --color-background-10-20t: var(--red-1000-20t);
-     --color-background-10-50t: var(--red-1000-50t);
-     --color-background-10-70t: var(--red-1000-70t);
-
-     --color-background-09: var(--red-900);
-     --color-background-09-20t: var(--red-900-20t);
-     --color-background-09-50t: var(--red-900-50t);
-     --color-background-09-70t: var(--red-900-70t);
-
-     --color-background-08: var(--red-800);
-     --color-background-08-20t: var(--red-800-20t);
-     --color-background-08-50t: var(--red-800-50t);
-     --color-background-08-70t: var(--red-800-70t);
-
-     --color-background-07: var(--red-700);
-     --color-background-07-20t: var(--red-700-20t);
-     --color-background-07-50t: var(--red-700-50t);
-     --color-background-07-70t: var(--red-700-70t);
-
-     --color-background-06: var(--red-600);
-     --color-background-06-20t: var(--red-600-20t);
-     --color-background-06-50t: var(--red-600-50t);
-     --color-background-06-70t: var(--red-600-70t);
-
-     --color-background-05: var(--red-500);
-     --color-background-05-20t: var(--red-500-20t);
-     --color-background-05-50t: var(--red-500-50t);
-     --color-background-05-70t: var(--red-500-70t);
-
-     --color-background-04: var(--red-400);
-     --color-background-04-20t: var(--red-400-20t);
-     --color-background-04-50t: var(--red-400-50t);
-     --color-background-04-70t: var(--red-400-70t);
-
-     --color-background-03: var(--red-300);
-     --color-background-03-20t: var(--red-300-20t);
-     --color-background-03-50t: var(--red-300-50t);
-     --color-background-03-70t: var(--red-300-70t);
-
-     --color-background-02: var(--red-200);
-     --color-background-02-20t: var(--red-200-20t);
-     --color-background-02-50t: var(--red-200-50t);
-     --color-background-02-70t: var(--red-200-70t);
-
-     --color-background-01: var(--red-100);
-     --color-background-01-20t: var(--red-100-20t);
-     --color-background-01-50t: var(--red-100-50t);
-     --color-background-01-70t: var(--red-100-70t);
-
-     --color-background-00: var(--red-000);
-     --color-background-00-20t: var(--red-000-20t);
-     --color-background-00-50t: var(--red-000-50t);
-     --color-background-00-70t: var(--red-000-70t);
-
-     /* ========================================
-       Lable
-       ======================================== */
-
      --color-background-label: var(--color-background-08-70t);
-     --color-text-sub-sibebar-active: var(--grey-300);
-     --color-background-label-active: var(--color-background-04-50t);
+     --color-background-label-active: var(--color-background-07);
+
      /* ========================================
        Text
        ======================================== */
-
-     --color-text-primary: var(--red-200);
-     --color-text-secondary: var(--red-400);
-     --color-text-tertiary: var(--red-500);
-     --color-text-muted: var(--red-600);
-     --color-text-disabled: var(--red-700);
-     --color-text-inverse: var(--red-1000);
-
-     --color-text-sub-sibebar-active-hover: var(--grey-100);
+     --color-text-primary: rgba(255, 255, 255, 0.96);
+     --color-text-secondary: rgba(255, 255, 255, 0.78);
+     --color-text-tertiary: rgba(255, 255, 255, 0.58);
+     --color-text-muted: rgba(255, 255, 255, 0.4);
+     --color-text-disabled: rgba(255, 255, 255, 0.25);
+     --color-text-inverse: var(--green-1000);
      --color-text-sub-sibebar-active: var(--grey-300);
+     --color-text-sub-sibebar-active-hover: var(--grey-200);
+     --color-text-page-sidebar-hover: var(--grey-300);
+
      /* ========================================
        Background
        ======================================== */
-     --color-background-primary: var(--red-1000);
-     --color-background-secondary: var(--red-900);
-     --color-background-tertiary: var(--red-800);
-     --color-background-elevated: var(--red-800);
-     --color-background-inverse: var(--red-100);
-
+     --color-background-primary: var(--green-1000);
+     --color-background-secondary: var(--green-900);
+     --color-background-tertiary: #122a19;
+     --color-background-elevated: #173622;
+     --color-background-inverse: var(--green-000);
 
      /* ========================================
        Surface
        ======================================== */
-     --color-surface-primary: var(--red-900);
-     --color-surface-secondary: var(--red-800);
-     --color-surface-tertiary: var(--red-700);
-     --color-surface-raised: var(--red-800);
-     --color-surface-sunken: var(--red-1000);
+     --color-surface-primary: var(--green-900);
+     --color-surface-secondary: #122a19;
+     --color-surface-tertiary: #173622;
+     --color-surface-raised: #1d452b;
+     --color-surface-sunken: #030a05;
 
      /* ========================================
        Border
        ======================================== */
-     --color-border-primary: var(--red-700);
-     --color-border-secondary: var(--red-800);
-     --color-border-subtle: var(--red-900);
-     --color-border-strong: var(--red-500);
-     --color-border-inverse: var(--red-300);
+     --color-border-primary: rgba(255, 255, 255, 0.08);
+     --color-border-secondary: rgba(255, 255, 255, 0.05);
+     --color-border-subtle: rgba(255, 255, 255, 0.03);
+     --color-border-strong: rgba(92, 139, 104, 0.40);
+     --color-border-inverse: rgba(255, 255, 255, 0.3);
+
+     --color-border-search-result: var(--color-background-03-70t);
 
      /* ========================================
        Icon
        ======================================== */
-     --color-icon-primary: var(--red-200);
-     --color-icon-secondary: var(--red-400);
-     --color-icon-tertiary: var(--red-500);
-     --color-icon-muted: var(--red-600);
-     --color-icon-disabled: var(--red-700);
-     --color-icon-inverse: var(--red-1000);
+     --color-icon-primary: rgba(255, 255, 255, 0.96);
+     --color-icon-secondary: rgba(255, 255, 255, 0.78);
+     --color-icon-tertiary: rgba(255, 255, 255, 0.58);
+     --color-icon-muted: rgba(255, 255, 255, 0.4);
+     --color-icon-disabled: rgba(255, 255, 255, 0.25);
+     --color-icon-inverse: var(--green-1000);
 
-     --color-muted-icon: var(--red-600);
+     --color-muted-icon: var(--green-700);
      --color-muted-background: transparent;
-     --color-muted-border: var(--color-border-primary);
+     --color-muted-border: var(--green-800);
 
      /* ========================================
-   Chart Colors - Dark Theme
-   ======================================== */
-
+     Chart Colors - Dark Green Theme
+     ======================================== */
 
      /* Data Series */
-     --color-chart-01: var(--red-100);
-     --color-chart-02: var(--red-300);
-     --color-chart-03: var(--red-500);
-     --color-chart-04: var(--red-700);
-     --color-chart-05: var(--red-900);
+     --color-chart-01: var(--green-100);
+     --color-chart-02: var(--green-300);
+     --color-chart-03: var(--green-500);
+     --color-chart-04: var(--green-700);
+     --color-chart-05: var(--green-900);
+
+     /* Optional Accent */
+     --color-chart-accent: var(--green-400);
 
      /* Chart UI */
      --color-chart-text: var(--color-text-primary);
      --color-chart-text-secondary: var(--color-text-secondary);
 
-     --color-chart-grid: var(--red-800);
+     --color-chart-grid: var(--green-800);
      --color-chart-border: var(--color-border-primary);
-
      --color-chart-background: transparent;
 
 
      /* ========================================
        Divider
        ======================================== */
-     --color-divider-primary: var(--red-800);
-     --color-divider-secondary: var(--red-900);
-     --color-divider-strong: var(--red-700);
-     --color-border-divider: var(--color-background-01-20t);
+     --color-divider-primary: rgba(255, 255, 255, 0.06);
+     --color-divider-secondary: rgba(255, 255, 255, 0.04);
+     --color-divider-strong: rgba(255, 255, 255, 0.1);
+     --color-border-divider: var(--color-background-02-70t);
 
      /* ========================================
        Overlay
        ======================================== */
-     --color-overlay-light: rgba(0, 0, 0, 0.25);
-     --color-overlay-medium: rgba(0, 0, 0, 0.5);
-     --color-overlay-strong: rgba(0, 0, 0, 0.75);
+     --color-overlay-light: rgba(2, 12, 5, 0.32);
+     --color-overlay-medium: rgba(2, 12, 5, 0.58);
+     --color-overlay-strong: rgba(2, 12, 5, 0.78);
 
      /* ========================================
        Shadow
        ======================================== */
-     --color-shadow-light: rgba(0, 0, 0, 0.2);
+     --color-shadow-light: rgba(0, 0, 0, 0.24);
      --color-shadow-medium: rgba(0, 0, 0, 0.4);
-     --color-shadow-strong: rgba(0, 0, 0, 0.65);
+     --color-shadow-strong: rgba(0, 0, 0, 0.58);
 
      /* #########################################################
        LAYER 2 — FUNCTIONAL STATE TOKENS
@@ -242,7 +170,7 @@
      /* ========================================
        Default
        ======================================== */
-     --color-default-background: var(--color-background-secondary);
+     --color-default-background: var(--color-background-primary);
      --color-default-border: var(--color-border-primary);
      --color-default-text: var(--color-text-primary);
      --color-default-icon: var(--color-icon-primary);
@@ -250,87 +178,87 @@
      /* ========================================
        Hover
        ======================================== */
-     --color-hover-background: rgba(214, 59, 59, 0.10);
-     --color-hover-border: var(--red-500);
-     --color-hover-text: var(--red-100);
-     --color-hover-icon: var(--red-100);
+     --color-hover-background: rgba(92, 139, 104, 0.10);
+     --color-hover-border: var(--green-400);
+     --color-hover-text: var(--green-000);
+     --color-hover-icon: var(--green-000);
 
      /* ========================================
        Active / Pressed
        ======================================== */
-     --color-active-background: rgba(214, 59, 59, 0.16);
-     --color-active-border: var(--red-400);
-     --color-active-text: var(--red-000);
-     --color-active-icon: var(--red-000);
+     --color-active-background: rgba(92, 139, 104, 0.17);
+     --color-active-border: var(--green-400);
+     --color-active-text: var(--green-000);
+     --color-active-icon: var(--green-000);
 
      /* ========================================
        Focus
        ======================================== */
-     --color-focus-background: var(--color-background-secondary);
-     --color-focus-border: var(--red-300);
+     --color-focus-background: var(--color-background-primary);
+     --color-focus-border: var(--green-400);
      --color-focus-text: var(--color-text-primary);
      --color-focus-icon: var(--color-icon-primary);
-     --color-focus-ring: rgba(235, 91, 91, 0.30);
+     --color-focus-ring: rgba(92, 139, 104, 0.42);
 
      /* ========================================
        Selected
        ======================================== */
-     --color-selected-background: rgba(214, 59, 59, 0.20);
-     --color-selected-border: var(--red-400);
-     --color-selected-text: var(--red-000);
-     --color-selected-icon: var(--red-000);
+     --color-selected-background: rgba(92, 139, 104, 0.22);
+     --color-selected-border: var(--green-400);
+     --color-selected-text: var(--green-000);
+     --color-selected-icon: var(--green-000);
 
      /* ========================================
        Disabled
        ======================================== */
-     --color-disabled-background: var(--red-900);
-     --color-disabled-border: var(--red-800);
-     --color-disabled-text: var(--red-700);
-     --color-disabled-icon: var(--red-700);
+     --color-disabled-background: rgba(255, 255, 255, 0.05);
+     --color-disabled-border: rgba(255, 255, 255, 0.08);
+     --color-disabled-text: rgba(255, 255, 255, 0.25);
+     --color-disabled-icon: rgba(255, 255, 255, 0.25);
 
      /* ========================================
        Readonly
        ======================================== */
-     --color-readonly-background: var(--red-1000);
-     --color-readonly-border: var(--red-800);
-     --color-readonly-text: var(--red-500);
-     --color-readonly-icon: var(--red-600);
+     --color-readonly-background: rgba(255, 255, 255, 0.04);
+     --color-readonly-border: rgba(255, 255, 255, 0.07);
+     --color-readonly-text: rgba(255, 255, 255, 0.62);
+     --color-readonly-icon: rgba(255, 255, 255, 0.48);
 
      /* ========================================
        Drag
        ======================================== */
-     --color-drag-background: rgba(214, 59, 59, 0.14);
-     --color-drag-border: var(--red-400);
-     --color-drag-text: var(--red-100);
-     --color-drag-handle: var(--red-500);
+     --color-drag-background: rgba(92, 139, 104, 0.12);
+     --color-drag-border: var(--green-400);
+     --color-drag-text: var(--green-000);
+     --color-drag-handle: var(--green-300);
 
      /* ========================================
        Drop Target
        ======================================== */
-     --color-drop-target-background: rgba(214, 59, 59, 0.16);
-     --color-drop-target-border: var(--red-300);
-     --color-drop-target-text: var(--red-100);
+     --color-drop-target-background: rgba(92, 139, 104, 0.18);
+     --color-drop-target-border: var(--green-400);
+     --color-drop-target-text: var(--green-000);
 
      /* ========================================
        Highlight
        ======================================== */
-     --color-highlight-background: rgba(214, 59, 59, 0.16);
-     --color-highlight-border: var(--red-500);
-     --color-highlight-text: var(--red-000);
+     --color-highlight-background: rgba(92, 139, 104, 0.14);
+     --color-highlight-border: var(--green-400);
+     --color-highlight-text: var(--green-000);
 
      /* ========================================
        Loading
        ======================================== */
-     --color-loading-background: var(--red-900);
-     --color-loading-track: var(--red-800);
-     --color-loading-indicator: var(--red-400);
+     --color-loading-background: rgba(255, 255, 255, 0.05);
+     --color-loading-track: rgba(255, 255, 255, 0.08);
+     --color-loading-indicator: var(--green-400);
 
      /* ========================================
        Placeholder
        ======================================== */
-     --color-placeholder-background: var(--red-900);
-     --color-placeholder-text: var(--red-600);
-     --color-placeholder-icon: var(--red-600);
+     --color-placeholder-background: rgba(255, 255, 255, 0.04);
+     --color-placeholder-text: rgba(255, 255, 255, 0.38);
+     --color-placeholder-icon: rgba(255, 255, 255, 0.38);
 
      /* #########################################################
        LAYER 3 — FEEDBACK AND STATUS TOKENS
@@ -342,42 +270,42 @@
      /* ========================================
        Information
        ======================================== */
-     --color-info-background: var(--red-900);
-     --color-info-border: var(--red-500);
-     --color-info-text: var(--red-200);
-     --color-info-icon: var(--red-300);
+     --color-info-background: rgba(63, 112, 77, 0.14);
+     --color-info-border: var(--green-400);
+     --color-info-text: var(--green-100);
+     --color-info-icon: var(--green-300);
 
      /* ========================================
        Success
        ======================================== */
-     --color-success-background: var(--red-900);
-     --color-success-border: var(--red-300);
-     --color-success-text: var(--red-100);
-     --color-success-icon: var(--red-200);
+     --color-success-background: rgba(255, 255, 255, 0.05);
+     --color-success-border: rgba(255, 255, 255, 0.2);
+     --color-success-text: var(--green-000);
+     --color-success-icon: var(--green-200);
 
      /* ========================================
        Warning
        ======================================== */
-     --color-warning-background: var(--red-800);
-     --color-warning-border: var(--red-400);
-     --color-warning-text: var(--red-100);
-     --color-warning-icon: var(--red-200);
+     --color-warning-background: rgba(255, 255, 255, 0.07);
+     --color-warning-border: rgba(255, 255, 255, 0.24);
+     --color-warning-text: var(--green-000);
+     --color-warning-icon: var(--green-200);
 
      /* ========================================
        Error / Danger
        ======================================== */
-     --color-error-background: var(--red-800);
-     --color-error-border: var(--red-200);
-     --color-error-text: var(--red-000);
-     --color-error-icon: var(--red-100);
+     --color-error-background: rgba(255, 255, 255, 0.08);
+     --color-error-border: rgba(255, 255, 255, 0.32);
+     --color-error-text: var(--green-000);
+     --color-error-icon: var(--green-100);
 
      /* ========================================
        Neutral
        ======================================== */
-     --color-neutral-background: var(--red-900);
-     --color-neutral-border: var(--red-700);
-     --color-neutral-text: var(--red-400);
-     --color-neutral-icon: var(--red-500);
+     --color-neutral-background: rgba(255, 255, 255, 0.05);
+     --color-neutral-border: rgba(255, 255, 255, 0.1);
+     --color-neutral-text: rgba(255, 255, 255, 0.68);
+     --color-neutral-icon: rgba(255, 255, 255, 0.52);
 
      /* #########################################################
        LAYER 4 — COMPONENT SEMANTIC TOKENS
@@ -403,7 +331,6 @@
        ======================================== */
      --color-popupmenu-background: var(--color-background-tertiary);
      --color-popupmenu-border: var(--color-border-primary);
-
      /* ========================================
        Sidebar
        ======================================== */
@@ -433,9 +360,8 @@
      --color-section-action: var(--color-text-secondary);
      --color-section-action-hover: var(--color-hover-text);
 
-     --color-sub-section-background:var(--color-background-08-20t);
-     --color-section-list-background:var(--color-background-08-20t);
-
+     --color-sub-section-background: var(--color-background-08-70t);
+     --color-section-list-background: var(--color-background-08-70t);
      /* ========================================
        Footer
        ======================================== */
@@ -443,7 +369,6 @@
      --color-footer-border: var(--color-border-primary);
      --color-footer-text: var(--color-text-secondary);
      --color-footer-icon: var(--color-icon-secondary);
-     --color-border-search-result: var(--color-background-08-50t);
 
      /* ========================================
        Navigation
@@ -507,7 +432,7 @@
      --color-table-header-text: var(--color-text-primary);
      --color-table-header-border: var(--color-border-primary);
      --color-table-row-background: transparent;
-     --color-table-row-alternate: rgba(214, 59, 59, 0.035);
+     --color-table-row-alternate: rgba(255, 255, 255, 0.025);
      --color-table-row-hover: var(--color-hover-background);
      --color-table-row-selected: var(--color-selected-background);
      --color-table-row-disabled: var(--color-disabled-background);
@@ -552,20 +477,20 @@
      /* ========================================
        Button Primary
        ======================================== */
-     --color-button-primary-background: var(--red-100);
-     --color-button-primary-border: var(--red-100);
-     --color-button-primary-text: var(--red-1000);
-     --color-button-primary-icon: var(--red-1000);
-     --color-button-primary-hover-background: var(--red-000);
-     --color-button-primary-hover-border: var(--red-000);
-     --color-button-primary-hover-text: var(--red-1000);
-     --color-button-primary-active-background: var(--red-300);
-     --color-button-primary-active-border: var(--red-300);
+     --color-button-primary-background: var(--green-500);
+     --color-button-primary-border: var(--green-500);
+     --color-button-primary-text: var(--green-000);
+     --color-button-primary-icon: var(--green-000);
+     --color-button-primary-hover-background: var(--green-400);
+     --color-button-primary-hover-border: var(--green-400);
+     --color-button-primary-hover-text: var(--green-000);
+     --color-button-primary-active-background: var(--green-600);
+     --color-button-primary-active-border: var(--green-600);
 
      /* ========================================
        Button Secondary
        ======================================== */
-     --color-button-secondary-background: var(--color-background-tertiary);
+     --color-button-secondary-background: var(--color-background-secondary);
      --color-button-secondary-border: var(--color-border-primary);
      --color-button-secondary-text: var(--color-text-primary);
      --color-button-secondary-icon: var(--color-icon-primary);
@@ -596,30 +521,30 @@
      /* ========================================
        Checkbox and Radio
        ======================================== */
-     --color-control-background: var(--color-background-secondary);
+     --color-control-background: var(--color-background-primary);
      --color-control-border: var(--color-border-primary);
-     --color-control-icon: var(--red-1000);
+     --color-control-icon: var(--green-000);
      --color-control-hover-border: var(--color-hover-border);
      --color-control-focus-ring: var(--color-focus-ring);
-     --color-control-checked-background: var(--red-100);
-     --color-control-checked-border: var(--red-100);
+     --color-control-checked-background: var(--green-500);
+     --color-control-checked-border: var(--green-500);
      --color-control-disabled-background: var(--color-disabled-background);
      --color-control-disabled-border: var(--color-disabled-border);
 
      /* ========================================
        Switch
        ======================================== */
-     --color-switch-track: var(--red-700);
-     --color-switch-thumb: var(--red-300);
-     --color-switch-track-checked: var(--red-200);
-     --color-switch-thumb-checked: var(--red-1000);
-     --color-switch-track-disabled: var(--red-800);
-     --color-switch-thumb-disabled: var(--red-600);
+     --color-switch-track: rgba(255, 255, 255, 0.18);
+     --color-switch-thumb: var(--green-000);
+     --color-switch-track-checked: var(--green-500);
+     --color-switch-thumb-checked: var(--green-000);
+     --color-switch-track-disabled: rgba(255, 255, 255, 0.08);
+     --color-switch-thumb-disabled: rgba(255, 255, 255, 0.28);
 
      /* ========================================
        Dropdown
        ======================================== */
-     --color-dropdown-background: var(--color-surface-primary);
+     --color-dropdown-background: var(--color-surface-raised);
      --color-dropdown-border: var(--color-border-primary);
      --color-dropdown-text: var(--color-text-primary);
      --color-dropdown-icon: var(--color-icon-secondary);
@@ -637,7 +562,7 @@
      --color-tab-hover-background: var(--color-hover-background);
      --color-tab-hover-text: var(--color-hover-text);
      --color-tab-active-background: transparent;
-     --color-tab-active-border: var(--red-200);
+     --color-tab-active-border: var(--green-400);
      --color-tab-active-text: var(--color-text-primary);
      --color-tab-active-icon: var(--color-icon-primary);
 
@@ -654,7 +579,7 @@
      /* ========================================
        Modal
        ======================================== */
-     --color-modal-background: var(--color-surface-primary);
+     --color-modal-background: var(--color-surface-raised);
      --color-modal-border: var(--color-border-primary);
      --color-modal-overlay: var(--color-overlay-strong);
      --color-modal-header-border: var(--color-divider-primary);
@@ -665,11 +590,11 @@
      --cxp-modal-height: auto;
      --cxp-modal-max-height: calc(100dvh - 3rem);
      --cxp-modal-min-height: 0;
-     --cxp-modal-offset-y: 0;
-     /* ========================================
+     --cxp-modal-offset-y: 0
+          /* ========================================
        Drawer
        ======================================== */
-     --color-drawer-background: var(--color-surface-primary);
+          --color-drawer-background: var(--color-surface-raised);
      --color-drawer-border: var(--color-border-primary);
      --color-drawer-overlay: var(--color-overlay-medium);
      --color-drawer-title: var(--color-text-primary);
@@ -677,9 +602,9 @@
      /* ========================================
        Tooltip
        ======================================== */
-     --color-tooltip-background: var(--red-200);
-     --color-tooltip-border: var(--red-200);
-     --color-tooltip-text: var(--red-1000);
+     --color-tooltip-background: var(--green-000);
+     --color-tooltip-border: var(--green-000);
+     --color-tooltip-text: var(--green-1000);
 
      /* ========================================
        Popover
@@ -701,20 +626,20 @@
      /* ========================================
        Badge
        ======================================== */
-     --color-badge-background: var(--red-700);
-     --color-badge-border: var(--red-600);
-     --color-badge-text: var(--red-100);
+     --color-badge-background: rgba(92, 139, 104, 0.16);
+     --color-badge-border: rgba(92, 139, 104, 0.32);
+     --color-badge-text: var(--green-100);
      --color-badge-outline-background: transparent;
-     --color-badge-outline-border: var(--red-600);
-     --color-badge-outline-text: var(--red-300);
+     --color-badge-outline-border: rgba(255, 255, 255, 0.2);
+     --color-badge-outline-text: rgba(255, 255, 255, 0.78);
 
      /* ========================================
        Tag / Chip
        ======================================== */
-     --color-chip-background: var(--red-800);
-     --color-chip-border: var(--red-700);
-     --color-chip-text: var(--red-300);
-     --color-chip-icon: var(--red-400);
+     --color-chip-background: rgba(255, 255, 255, 0.05);
+     --color-chip-border: rgba(255, 255, 255, 0.09);
+     --color-chip-text: rgba(255, 255, 255, 0.78);
+     --color-chip-icon: rgba(255, 255, 255, 0.6);
      --color-chip-hover-background: var(--color-hover-background);
 
      /* ========================================
@@ -739,16 +664,16 @@
      /* ========================================
        Scrollbar
        ======================================== */
-     --color-scrollbar-track: var(--red-1000);
-     --color-scrollbar-thumb: var(--red-700);
-     --color-scrollbar-thumb-hover: var(--red-600);
-     --color-scrollbar-thumb-active: var(--red-500);
+     --color-scrollbar-track: var(--green-1000);
+     --color-scrollbar-thumb: rgba(255, 255, 255, 0.14);
+     --color-scrollbar-thumb-hover: rgba(92, 139, 104, 0.34);
+     --color-scrollbar-thumb-active: rgba(92, 139, 104, 0.52);
 
      /* ========================================
        Skeleton
        ======================================== */
-     --color-skeleton-background: var(--red-900);
-     --color-skeleton-highlight: var(--red-800);
+     --color-skeleton-background: rgba(255, 255, 255, 0.05);
+     --color-skeleton-highlight: rgba(255, 255, 255, 0.09);
 
      /* ========================================
        Empty State
@@ -761,13 +686,13 @@
      /* ========================================
        Code
        ======================================== */
-     --color-code-background: var(--red-1000);
-     --color-code-border: var(--red-800);
-     --color-code-text: var(--red-300);
+     --color-code-background: #030a05;
+     --color-code-border: rgba(255, 255, 255, 0.07);
+     --color-code-text: var(--green-100);
 
      /* ========================================
        Selection
        ======================================== */
-     --color-text-selection-background: var(--red-600);
-     --color-text-selection-text: var(--red-000);
+     --color-text-selection-background: var(--green-500);
+     --color-text-selection-text: var(--green-000);
 }

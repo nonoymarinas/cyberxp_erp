@@ -1,0 +1,56 @@
+:root {
+    --grey-000: #FFFFFF;
+    --grey-000-20t: #FFFFFFCC;
+    --grey-000-50t: #FFFFFF80;
+    --grey-000-70t: #FFFFFF4D;
+
+    --grey-100: #F5F5F5;
+    --grey-100-20t: #F5F5F5CC;
+    --grey-100-50t: #F5F5F580;
+    --grey-100-70t: #F5F5F54D;
+
+    --grey-200: #E0E0E0;
+    --grey-200-20t: #E0E0E0CC;
+    --grey-200-50t: #E0E0E080;
+    --grey-200-70t: #E0E0E04D;
+
+    --grey-300: #C2C2C2;
+    --grey-300-20t: #C2C2C2CC;
+    --grey-300-50t: #C2C2C280;
+    --grey-300-70t: #C2C2C24D;
+
+    --grey-400: #999999;
+    --grey-400-20t: #999999CC;
+    --grey-400-50t: #99999980;
+    --grey-400-70t: #9999994D;
+
+    --grey-500: #737373;
+    --grey-500-20t: #737373CC;
+    --grey-500-50t: #73737380;
+    --grey-500-70t: #7373734D;
+
+    --grey-600: #595959;
+    --grey-600-20t: #595959CC;
+    --grey-600-50t: #59595980;
+    --grey-600-70t: #5959594D;
+
+    --grey-700: #404040;
+    --grey-700-20t: #404040CC;
+    --grey-700-50t: #40404080;
+    --grey-700-70t: #4040404D;
+
+    --grey-800: #2B2B2B;
+    --grey-800-20t: #2B2B2BCC;
+    --grey-800-50t: #2B2B2B80;
+    --grey-800-70t: #2B2B2B4D;
+
+    --grey-900: #1A1A1A;
+    --grey-900-20t: #1A1A1ACC;
+    --grey-900-50t: #1A1A1A80;
+    --grey-900-70t: #1A1A1A4D;
+
+    --grey-1000: #0A0A0A;
+    --grey-1000-20t: #0A0A0ACC;
+    --grey-1000-50t: #0A0A0A80;
+    --grey-1000-70t: #0A0A0A4D;
+}

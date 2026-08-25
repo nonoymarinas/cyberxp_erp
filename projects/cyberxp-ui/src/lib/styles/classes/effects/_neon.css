@@ -1,0 +1,128 @@
+/* _neon.css */
+
+/* ========================================
+   Neon Text Glow
+   ======================================== */
+
+.cxp-neon-text-sm {
+    text-shadow:
+        0 0 2px currentColor,
+        0 0 4px currentColor;
+}
+
+.cxp-neon-text-md {
+    text-shadow:
+        0 0 2px currentColor,
+        0 0 6px currentColor,
+        0 0 12px currentColor;
+}
+
+.cxp-neon-text-lg {
+    text-shadow:
+        0 0 2px currentColor,
+        0 0 6px currentColor,
+        0 0 12px currentColor,
+        0 0 24px currentColor;
+}
+
+
+/* ========================================
+   Neon Box Glow
+   ======================================== */
+
+.cxp-neon-box-sm {
+    box-shadow:
+        0 0 2px currentColor,
+        0 0 4px currentColor;
+}
+
+.cxp-neon-box-md {
+    box-shadow:
+        0 0 2px currentColor,
+        0 0 6px currentColor,
+        0 0 12px currentColor;
+}
+
+.cxp-neon-box-lg {
+    box-shadow:
+        0 0 2px currentColor,
+        0 0 6px currentColor,
+        0 0 12px currentColor,
+        0 0 24px currentColor;
+}
+
+
+/* ========================================
+   Neon Drop Glow
+   Useful for icons / SVG
+   ======================================== */
+
+.cxp-neon-drop-sm {
+    filter:
+        drop-shadow(0 0 2px currentColor) drop-shadow(0 0 4px currentColor);
+}
+
+.cxp-neon-drop-md {
+    filter:
+        drop-shadow(0 0 2px currentColor) drop-shadow(0 0 6px currentColor) drop-shadow(0 0 12px currentColor);
+}
+
+.cxp-neon-drop-lg {
+    filter:
+        drop-shadow(0 0 2px currentColor) drop-shadow(0 0 6px currentColor) drop-shadow(0 0 12px currentColor) drop-shadow(0 0 24px currentColor);
+}
+
+/* ========================================
+   Neon Color Class
+   For current color needed for other classes
+   ======================================== */
+
+/* ========================================
+   Neon Red
+   ======================================== */
+
+.cxp-neon-red-light {
+    color: var(--red-neon-300);
+}
+
+.cxp-neon-red-normal {
+    color: var(--red-neon-500);
+}
+
+.cxp-neon-red-dark {
+    color: var(--red-neon-700);
+}
+
+
+/* ========================================
+   Neon Blue
+   ======================================== */
+
+.cxp-neon-blue-light {
+    color: var(--blue-neon-300);
+}
+
+.cxp-neon-blue-normal {
+    color: var(--blue-neon-500);
+}
+
+.cxp-neon-blue-dark {
+    color: var(--blue-neon-700);
+}
+
+
+/* ========================================
+   Neon Green
+   ======================================== */
+
+.cxp-neon-green-light {
+    color: var(--green-neon-300);
+}
+
+.cxp-neon-green-normal {
+    color: var(--green-neon-500);
+}
+
+.cxp-neon-green-dark {
+    color: var(--green-neon-700);
+}

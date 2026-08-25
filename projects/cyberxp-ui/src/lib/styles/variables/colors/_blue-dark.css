@@ -1,0 +1,56 @@
+:root {
+    --blue-000: #FFFFFF;
+    --blue-000-20t: #FFFFFFCC;
+    --blue-000-50t: #FFFFFF80;
+    --blue-000-70t: #FFFFFF4D;
+
+    --blue-100: #E7F0FF;
+    --blue-100-20t: #E7F0FFCC;
+    --blue-100-50t: #E7F0FF80;
+    --blue-100-70t: #E7F0FF4D;
+
+    --blue-200: #C7DAFF;
+    --blue-200-20t: #C7DAFFCC;
+    --blue-200-50t: #C7DAFF80;
+    --blue-200-70t: #C7DAFF4D;
+
+    --blue-300: #94B7FF;
+    --blue-300-20t: #94B7FFCC;
+    --blue-300-50t: #94B7FF80;
+    --blue-300-70t: #94B7FF4D;
+
+    --blue-400: #5C8EFF;
+    --blue-400-20t: #5C8EFFCC;
+    --blue-400-50t: #5C8EFF80;
+    --blue-400-70t: #5C8EFF4D;
+
+    --blue-500: #2F6BFF;
+    --blue-500-20t: #2F6BFFCC;
+    --blue-500-50t: #2F6BFF80;
+    --blue-500-70t: #2F6BFF4D;
+
+    --blue-600: #1E4FCC;
+    --blue-600-20t: #1E4FCCCC;
+    --blue-600-50t: #1E4FCC80;
+    --blue-600-70t: #1E4FCC4D;
+
+    --blue-700: #173C99;
+    --blue-700-20t: #173C99CC;
+    --blue-700-50t: #173C9980;
+    --blue-700-70t: #173C994D;
+
+    --blue-800: #102962;
+    --blue-800-20t: #102962CC;
+    --blue-800-50t: #10296280;
+    --blue-800-70t: #1029624D;
+
+    --blue-900: #121820;
+    --blue-900-20t: #121820CC;
+    --blue-900-50t: #12182080;
+    --blue-900-70t: #1218204D;
+
+    --blue-1000: #020811;
+    --blue-1000-20t: #020811CC;
+    --blue-1000-50t: #02081180;
+    --blue-1000-70t: #0208114D;
+}

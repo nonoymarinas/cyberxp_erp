@@ -1,20 +1,4 @@
-/* ========================================
-   Label
-   ======================================== */
 
-:root {
-    --label-font-family: "Inter", sans-serif;
-
-    --label-font-weight-regular: 400;
-    --label-font-weight-medium: 500;
-    --label-font-weight-semibold: 600;
-
-    --label-size-xs: 10px;
-    --label-size-sm: 12px;
-    --label-size-md: 14px;
-    --label-size-lg: 16px;
-    --label-size-xl: 18px;
-}
 .cxp-label__error{
  color: var(--invalid-red);
  display: block; 
@@ -25,20 +9,15 @@
  display: block; 
  font-size: smaller;
 }
-/* Base */
 
 .cxp-label {
     display: inline-block;
-
     margin: 0;
     padding: 0;
-
     font-family: var(--label-font-family);
-    font-weight: var(--label-font-weight-medium);
+    font-weight: var(--text-weight-medium);
     line-height: 1.4;
-
     color: var(--color-text-secondary);
-
     user-select: none;
 }
 .cxp-label-bg{
@@ -53,23 +32,23 @@
 /* Sizes */
 
 .cxp-label-xs {
-    font-size: var(--label-size-xs);
+    font-size: var(--text-size-03);
 }
 
 .cxp-label-sm {
-    font-size: var(--label-size-sm);
+    font-size: var(--text-size-04);
 }
 
 .cxp-label-md {
-    font-size: var(--label-size-md);
+    font-size: var(--text-size-05);
 }
 
 .cxp-label-lg {
-    font-size: var(--label-size-lg);
+    font-size: var(--text-size-06);
 }
 
 .cxp-label-xl {
-    font-size: var(--label-size-xl);
+    font-size: var(--text-size-07);
 }
 
 /* Variants */
