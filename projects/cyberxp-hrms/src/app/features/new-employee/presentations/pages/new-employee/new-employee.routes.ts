@@ -1,21 +1,21 @@
 import { Routes } from '@angular/router';
 
 import { NewEmployeePage } from './new-employee';
-import { PersonalInfoComponent } from '../personal-info/personal-info';
-import { AddressComponent  } from '../address/address';
-import { ContactsComponent} from '../contacts/contacts';
+import { PersonalComponent } from '../personal/personal';
+import { AddressComponent } from '../address/address';
+import { ContactsComponent } from '../contacts/contacts';
 import { EmploymentComponent } from '../employment/employment';
-import { EmergencyContactsComponent } from '../emergency-contacts/emergency-contacts';
+import { EmergencyComponent } from '../emergency/emergency';
 export const NEW_EMPLOYEE_ROUTES: Routes = [
   {
     path: '',
     component: NewEmployeePage,
     children: [
       {
-        path: 'personal-info',
-        component: PersonalInfoComponent,
+        path: 'personal',
+        component: PersonalComponent,
       },
-      
+
       {
         path: 'address',
         component: AddressComponent,
@@ -25,8 +25,8 @@ export const NEW_EMPLOYEE_ROUTES: Routes = [
         component: ContactsComponent,
       },
       {
-        path: 'emergency-contacts',
-        component: EmergencyContactsComponent,
+        path: 'emergency',
+        component: EmergencyComponent,
       },
       {
         path: 'employment',

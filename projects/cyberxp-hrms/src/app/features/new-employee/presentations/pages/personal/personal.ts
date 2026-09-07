@@ -28,7 +28,7 @@ import {
 } from '../../../models/personal-info/personal-info.model';
 
 @Component({
-  selector: 'personal-info',
+  selector: 'personal',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -39,10 +39,10 @@ import {
     CxpInputSelect,
     CxpInputText,
   ],
-  templateUrl: './personal-info.html',
-  styleUrl: './personal-info.css',
+  templateUrl: './personal.html',
+  styleUrl: './personal.css',
 })
-export class PersonalInfoComponent implements OnInit {
+export class PersonalComponent implements OnInit {
   // ========================================
   // Dependencies
   // ========================================

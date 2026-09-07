@@ -10,13 +10,21 @@ export interface EmployeeEmergencyContact {
 }
 
 @Component({
-  selector: 'emergency-contacts',
+  selector: 'emergency',
   standalone: true,
-  imports: [CxpButton, CxpDisplayField, CxpIconAddressNav, CxpInputText, CxpAddress, ContactsComponent, CxpAddress],
-  templateUrl: './emergency-contacts.html',
-  styleUrl: './emergency-contacts.css',
+  imports: [
+    CxpButton,
+    CxpDisplayField,
+    CxpIconAddressNav,
+    CxpInputText,
+    CxpAddress,
+    ContactsComponent,
+    CxpAddress,
+  ],
+  templateUrl: './emergency.html',
+  styleUrl: './emergency.css',
 })
-export class EmergencyContactsComponent {
+export class EmergencyComponent {
   isEditing = false;
 
   emergencyContact: EmployeeEmergencyContact = {

@@ -47,10 +47,10 @@ export const EMPLOYEE_PERMISSIONS = {
   },
 
   personalInfo: {
-    create: 'hrms.employee.personalinfo.create',
-    read: 'hrms.employee.personalinfo.read',
-    update: 'hrms.employee.personalinfo.update',
-    delete: 'hrms.employee.personalinfo.delete',
+    create: 'hrms.employee.personal.create',
+    read: 'hrms.employee.personal.read',
+    update: 'hrms.employee.personal.update',
+    delete: 'hrms.employee.personal.delete',
   },
 
   address: {

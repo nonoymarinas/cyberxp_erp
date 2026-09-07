@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 
 import {
   CxpLayoutMain,
-  CxpIconCyberxpApp,
+  CxpIconAppNav,
   CxpIconHomeNav,
   CxpIconLogoutNav,
   CxpIconSettingsNav,
@@ -19,7 +19,7 @@ import { UserAccessService } from '../../core/authorization/services/user-access
   standalone: true,
   imports: [
     CxpLayoutMain,
-    CxpIconCyberxpApp,
+    CxpIconAppNav,
     CxpIconHomeNav,
     CxpIconLogoutNav,
     CxpIconSettingsNav,
