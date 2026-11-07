@@ -1,0 +1,61 @@
+
+:host {
+  display: block;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.cxp-chatbot-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  box-sizing: border-box;
+  /* border-top: 1px solid; */
+}
+
+.cxp-chatbot-footer__composer {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  /* border: 1px solid; */
+  border-radius: 0.875rem;
+}
+
+.cxp-chatbot-footer__textarea {
+  flex: 1;
+  min-width: 0;
+  min-height: 48px;
+  max-height: 160px;
+  padding: 0.5rem;
+  border: none;
+  outline: none;
+  resize: vertical;
+  font: inherit;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.cxp-chatbot-footer__send {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  padding: 0;
+  border: 1px solid;
+  border-radius: 0.625rem;
+  cursor: pointer;
+}
+
+.cxp-chatbot-footer__send:disabled {
+  cursor: not-allowed;
+}
+
+.cxp-chatbot-footer__disclaimer {
+  margin: 0;
+  font-size: 0.6875rem;
+  text-align: center;
+}

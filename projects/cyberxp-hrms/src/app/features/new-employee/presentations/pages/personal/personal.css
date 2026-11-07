@@ -82,7 +82,7 @@ cxp-button {
     width: 100%;
     aspect-ratio: 1 / 1;
 
-    border: 1px solid var(--color-border-06);
+    border: 1px solid var(--color-border-subtle);
 }
 
 .personal-info__user-icon {

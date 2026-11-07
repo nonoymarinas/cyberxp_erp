@@ -35,7 +35,7 @@
       </cxp-menu-sidebar-item>
 
       @if (userAccessService.hasPermission('hrms.employee.personal.create')) {
-        <cxp-menu-sidebar-item route="/app/new-employee/personal">
+        <cxp-menu-sidebar-item route="/app/new-employee/personal-info">
           <cxp-icon-user-nav start size="xs" fill="outline"></cxp-icon-user-nav>
           <span label>New Employee</span>
         </cxp-menu-sidebar-item>
@@ -66,3 +66,5 @@
     <label class="main-layout__footer__notes">© 2026 CyberXP ERP. All rights reserved.</label>
   </div>
 </cxp-layout-main>
+
+<cxp-chatbot-main/>

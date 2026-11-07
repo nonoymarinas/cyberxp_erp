@@ -1,0 +1,52 @@
+
+@if (windowState() === 'minimized') {
+
+  <!-- Minimized Launcher -->
+  <button
+    type="button"
+    class="cxp-chatbot-launcher"
+    title="Open SPEED-X AI"
+    aria-label="Open SPEED-X AI"
+    (click)="restore()">
+    AI
+  </button>
+
+} @else {
+
+  <!-- Chatbot Window -->
+  <section
+    class="cxp-chatbot-main"
+    aria-label="SPEED-X AI Chatbot"
+    [class.cxp-chatbot-main--fullscreen]="windowState() === 'fullscreen'"
+    [class.cxp-chatbot-main--medium]="windowState() === 'medium'">
+
+    <!-- Header -->
+    <cxp-chatbot-header
+      title="SPEED-X AI"
+      subtitle="Enterprise AI Assistant"
+      [windowState]="windowState()"
+      (newChatClicked)="newChat()"
+      (minimizeClicked)="minimize()"
+      (maximizeClicked)="maximize()"
+      (restoreClicked)="restore()"
+    />
+
+    <!-- Body -->
+    <div class="cxp-chatbot-main__body">
+
+      <!-- Conversation Messages -->
+      <cxp-chatbot-messages
+        [messages]="messages()"
+        [loading]="loading()"
+      />
+
+      <!-- Message Input / Send -->
+      <cxp-chatbot-footer
+        [sending]="loading()"
+        (messageSent)="onMessageSent($event)"
+      />
+
+    </div>
+
+  </section>
+}

@@ -5,7 +5,7 @@
    Application
    ======================================== */
 :root{
-  --padding-section:.75rem
+  --padding-section:0rem;
 }
 .cxp-app-layout {
   color: var(--color-app-text);
@@ -72,7 +72,7 @@
    Pop-up menu
    ======================================== */
 .cxp-popup-menu {
-  border: 1px solid var(--color-border-07);
+   border: 1px solid var(--color-popupmenu-border);
   color: var(--color-sidebar-text);
   background-color: var(--color-background-secondary);
 }
@@ -290,11 +290,9 @@
   display: flex;
   flex-direction: column;
   min-height: 50px;
-  padding: var(--padding-section);
   border: 1px solid var(--color-section-border);
   border-radius: var(--radius-md);
   color: var(--color-section-text);
-  /* background-color: var(--color-section-background); */
 }
 
 .cxp-sub-section {
@@ -362,7 +360,7 @@
   align-items: center;
   gap: 0.5rem;
   padding-top: 0.75rem;
-  border-top: 1px solid var(--color-section-footer-border);
+    border-top: 1px solid var(--color-divider-primary);
   margin-top: 0.75rem;
   color: var(--color-section-text);
   background-color: transparent;
@@ -679,4 +677,300 @@
 .cxp-modal {
   background: var(--color-modal-background);
   border: var(--width-line-04) solid var(--color-modal-border);
+}
+
+
+/* ========================================
+   Chatbot Header Colors
+   ======================================== */
+
+.cxp-chatbot-header {
+  color: var(--color-header-text);
+  background-color: var(--color-header-background);
+  border-bottom:1px solid var(--color-border-primary);
+}
+
+.cxp-chatbot-header__avatar {
+  color: var(--color-button-primary-text);
+  background-color: var(--color-button-primary-background);
+}
+
+.cxp-chatbot-header__title {
+  color: var(--color-text-primary);
+}
+
+.cxp-chatbot-header__subtitle {
+  color: var(--color-text-secondary);
+}
+
+/* ========================================
+   Action Colors
+   ======================================== */
+
+.cxp-chatbot-header__action {
+  color: var(--color-header-icon);
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.cxp-chatbot-header__action:hover:not(:disabled) {
+  color: var(--color-hover-icon);
+  background-color: var(--color-header-action-hover);
+}
+
+.cxp-chatbot-header__action:active:not(:disabled) {
+  color: var(--color-active-icon);
+  background-color: var(--color-header-action-active);
+}
+
+.cxp-chatbot-header__action:focus-visible {
+  outline: 2px solid var(--color-focus-border);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+.cxp-chatbot-header__action:disabled {
+  color: var(--color-disabled-icon);
+  background-color: var(--color-disabled-background);
+}
+
+
+/* ========================================
+   Chatbot Main
+   ======================================== */
+
+.cxp-chatbot-main {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-primary);
+  border:1px solid var(--color-border-primary);
+}
+
+.cxp-chatbot-main--medium {
+  box-shadow: 0 8px 32px var(--color-shadow-strong);
+}
+
+.cxp-chatbot-main__body {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-primary);
+}
+
+/* .cxp-chatbot-main__messages {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-primary);
+} */
+
+/* ========================================
+   Welcome
+   ======================================== */
+
+/* .cxp-chatbot-main__welcome {
+  color: var(--color-text-primary);
+} */
+
+/* .cxp-chatbot-main__welcome h2 {
+  color: var(--color-text-primary);
+} */
+
+/* .cxp-chatbot-main__welcome p {
+  color: var(--color-text-secondary);
+} */
+
+/* .cxp-chatbot-main__welcome-icon {
+  color: var(--color-button-primary-text);
+  background-color: var(--color-button-primary-background);
+} */
+
+/* ========================================
+   Chatbot Input
+   ======================================== */
+/* 
+.cxp-chatbot-main__input {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-primary);
+  border-color: var(--color-border-primary);
+}
+
+.cxp-chatbot-main__input input {
+  color: var(--color-input-text);
+  background-color: var(--color-input-background);
+  border-color: var(--color-input-border);
+}
+
+.cxp-chatbot-main__input input::placeholder {
+  color: var(--color-input-placeholder);
+}
+
+.cxp-chatbot-main__input button {
+  color: var(--color-button-primary-text);
+  background-color: var(--color-button-primary-background);
+  border-color: var(--color-button-primary-border);
+}
+
+.cxp-chatbot-main__input button:hover {
+  color: var(--color-button-primary-hover-text);
+  background-color: var(--color-button-primary-hover-background);
+} */
+
+
+/* Chatbot Launcher */
+
+.cxp-chatbot-launcher {
+  color: var(--color-button-primary-text);
+  background-color: var(--color-button-primary-background);
+  border-color: var(--color-button-primary-border);
+  box-shadow: 0 4px 16px var(--color-shadow-medium);
+}
+
+.cxp-chatbot-launcher:hover {
+  color: var(--color-button-primary-hover-text);
+  background-color: var(--color-button-primary-hover-background);
+  border-color: var(--color-button-primary-hover-border);
+}
+
+.cxp-chatbot-launcher:focus-visible {
+  outline: 2px solid var(--color-focus-border);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+/* Disabled Send Button */
+
+.cxp-chatbot-main__input button:disabled {
+  color: var(--color-button-disabled-text);
+  background-color: var(--color-button-disabled-background);
+  border-color: var(--color-button-disabled-border);
+}
+
+
+/* ========================================
+   Chatbot Messages
+   ======================================== */
+
+.cxp-chatbot-messages {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-primary);
+}
+
+/* Welcome Screen */
+
+.cxp-chatbot-messages__welcome {
+  color: var(--color-text-primary);
+}
+
+.cxp-chatbot-messages__welcome h2 {
+  color: var(--color-text-primary);
+}
+
+.cxp-chatbot-messages__welcome p {
+  color: var(--color-text-secondary);
+}
+
+.cxp-chatbot-messages__welcome-icon {
+  color: var(--color-button-primary-text);
+  background-color: var(--color-button-primary-background);
+}
+
+/* AI Avatar */
+
+.cxp-chatbot-messages__avatar {
+  color: var(--color-button-primary-text);
+  background-color: var(--color-button-primary-background);
+}
+
+/* User Message */
+
+.cxp-chatbot-messages__row--user
+.cxp-chatbot-messages__bubble {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-secondary);
+  border-color: var(--color-border-primary);
+}
+
+/* AI Message */
+
+.cxp-chatbot-messages__row--assistant
+.cxp-chatbot-messages__bubble {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-secondary);
+  border-color: var(--color-border-primary);
+}
+
+/* Timestamp */
+
+.cxp-chatbot-messages__time {
+  color: var(--color-text-tertiary);
+}
+
+/* Loading Indicator */
+
+.cxp-chatbot-messages__thinking {
+  color: var(--color-text-secondary);
+}
+
+/* Scrollbar */
+
+.cxp-chatbot-messages {
+  scrollbar-color:
+    var(--color-scrollbar-thumb)
+    var(--color-scrollbar-track);
+}
+
+
+
+/* ========================================
+   Chatbot Footer
+   ======================================== */
+
+.cxp-chatbot-footer {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-primary);
+  border-color: var(--color-border-primary);
+}
+
+/* Message Composer */
+
+.cxp-chatbot-footer__composer {
+  background-color: var(--color-input-background);
+  border:1px solid var(--color-border-primary);
+}
+
+.cxp-chatbot-footer__composer:focus-within {
+  border-color: var(--color-input-focus-border);
+  box-shadow: 0 0 0 3px var(--color-input-focus-ring);
+}
+
+/* Message Textarea */
+
+.cxp-chatbot-footer__textarea {
+  color: var(--color-input-text);
+  background-color: transparent;
+}
+
+.cxp-chatbot-footer__textarea::placeholder {
+  color: var(--color-input-placeholder);
+}
+
+/* Send Button */
+
+.cxp-chatbot-footer__send {
+  color: var(--color-button-primary-text);
+  background-color: var(--color-button-primary-background);
+  border-color: var(--color-button-primary-border);
+}
+
+.cxp-chatbot-footer__send:hover:not(:disabled) {
+  color: var(--color-button-primary-hover-text);
+  background-color: var(--color-button-primary-hover-background);
+}
+
+.cxp-chatbot-footer__send:disabled {
+  color: var(--color-button-disabled-text);
+  background-color: var(--color-button-disabled-background);
+  border-color: var(--color-button-disabled-border);
+}
+
+/* Disclaimer */
+
+.cxp-chatbot-footer__disclaimer {
+  color: var(--color-text-tertiary);
 }

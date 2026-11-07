@@ -13,6 +13,7 @@ import {
 import { HeaderAppsIcon } from './components/header-apps-icon/header-apps-icon';
 import { HeaderUserIcon } from './components/header-user-icon/header-user-icon';
 import { UserAccessService } from '../../core/authorization/services/user-access.services';
+import { CxpChatbotMain } from '../../components/chatbot/cxp-chatbot-main/cxp-chatbot-main';
 
 @Component({
   selector: 'main-layout',
@@ -28,6 +29,7 @@ import { UserAccessService } from '../../core/authorization/services/user-access
     HeaderAppsIcon,
     HeaderUserIcon,
     CxpIconChartNav,
+    CxpChatbotMain
   ],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.css',

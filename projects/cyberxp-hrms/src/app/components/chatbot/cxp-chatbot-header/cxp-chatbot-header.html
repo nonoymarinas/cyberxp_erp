@@ -1,0 +1,74 @@
+
+<header class="cxp-chatbot-header">
+
+  <!-- Chatbot Identity -->
+  <div class="cxp-chatbot-header__identity">
+
+    <div class="cxp-chatbot-header__avatar">
+      <span>AI</span>
+    </div>
+
+    <div class="cxp-chatbot-header__details">
+
+      <span class="cxp-chatbot-header__title">
+        {{ title() }}
+      </span>
+
+      <span class="cxp-chatbot-header__subtitle">
+        {{ subtitle() }}
+      </span>
+
+    </div>
+
+  </div>
+
+  <!-- Header Actions -->
+  <div class="cxp-chatbot-header__actions">
+
+    <!-- New Chat -->
+    <button
+      type="button"
+      class="cxp-chatbot-header__action"
+      title="New chat"
+      aria-label="New chat"
+      (click)="newChatClicked.emit()">
+      <span aria-hidden="true">+</span>
+    </button>
+
+    <!-- Minimize -->
+    <button
+      type="button"
+      class="cxp-chatbot-header__action"
+      title="Minimize"
+      aria-label="Minimize"
+      (click)="minimizeClicked.emit()">
+      <span aria-hidden="true">&minus;</span>
+    </button>
+
+    <!-- Fullscreen -->
+    @if (windowState() === 'medium') {
+      <button
+        type="button"
+        class="cxp-chatbot-header__action"
+        title="Fullscreen"
+        aria-label="Fullscreen"
+        (click)="maximizeClicked.emit()">
+        <span aria-hidden="true">&#x26F6;</span>
+      </button>
+    }
+
+    <!-- Restore Medium -->
+    @if (windowState() === 'fullscreen') {
+      <button
+        type="button"
+        class="cxp-chatbot-header__action"
+        title="Restore"
+        aria-label="Restore medium"
+        (click)="restoreClicked.emit()">
+        <span aria-hidden="true">&#x2750;</span>
+      </button>
+    }
+
+  </div>
+
+</header>

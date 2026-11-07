@@ -1,6 +1,18 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  OnInit,
+  inject,
+} from '@angular/core';
 
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import {
   CxpButton,
@@ -11,11 +23,15 @@ import {
   CxpInputText,
 } from 'cyberxp-ui';
 
-import type { CxpSelectOption, CxpSelectPrimitive } from 'cyberxp-ui';
+import type {
+  CxpSelectOption,
+  CxpSelectPrimitive,
+} from 'cyberxp-ui';
 
 import { EmployeeState } from '../../../../employees/state/employee-state.service';
 
 import { PersonalInfoService } from '../../../../employees/business/services/personal-info.service';
+
 import { PersonalInfoRefService } from '../../../../employees/business/services/personal-info-ref.service';
 
 import { UserAccessService } from '../../../../../core/authorization/services/user-access.services';
@@ -27,9 +43,14 @@ import {
   SavePersonalInfoRequest,
 } from '../../../models/personal-info/personal-info.model';
 
+import { NewEmployeeStateService } from '../../../business/sevices/new-employee-state.service';
+
+
+
 @Component({
   selector: 'personal',
   standalone: true,
+
   imports: [
     ReactiveFormsModule,
     CxpButton,
@@ -39,42 +60,74 @@ import {
     CxpInputSelect,
     CxpInputText,
   ],
+
   templateUrl: './personal.html',
   styleUrl: './personal.css',
+
+  // IMPORTANT:
+  // Do NOT provide NewEmployeeStateService here.
+  // It must come from NewEmployeePage.
 })
 export class PersonalComponent implements OnInit {
+
   // ========================================
   // Dependencies
   // ========================================
 
-  private readonly userAccessService = inject(UserAccessService);
+  private readonly destroyRef =
+    inject(DestroyRef);
 
-  private readonly personalInfoService = inject(PersonalInfoService);
-  private readonly personalInfoRefService = inject(PersonalInfoRefService);
+  private readonly userAccessService =
+    inject(UserAccessService);
 
-  public readonly employeeState = inject(EmployeeState);
+  private readonly personalInfoService =
+    inject(PersonalInfoService);
+
+  private readonly personalInfoRefService =
+    inject(PersonalInfoRefService);
+
+  private readonly newEmployeeState =
+    inject(NewEmployeeStateService);
+
+  public readonly employeeState =
+    inject(EmployeeState);
+
 
   // ========================================
   // Permissions
   // ========================================
 
-  readonly permissions = EMPLOYEE_PERMISSIONS.personalInfo;
+  readonly permissions =
+    EMPLOYEE_PERMISSIONS.personalInfo;
+
 
   get canCreate(): boolean {
-    return this.userAccessService.hasPermission(this.permissions.create);
+    return this.userAccessService.hasPermission(
+      this.permissions.create,
+    );
   }
+
 
   get canRead(): boolean {
-    return this.userAccessService.hasPermission(this.permissions.read);
+    return this.userAccessService.hasPermission(
+      this.permissions.read,
+    );
   }
+
 
   get canUpdate(): boolean {
-    return this.userAccessService.hasPermission(this.permissions.update);
+    return this.userAccessService.hasPermission(
+      this.permissions.update,
+    );
   }
 
+
   get canDelete(): boolean {
-    return this.userAccessService.hasPermission(this.permissions.delete);
+    return this.userAccessService.hasPermission(
+      this.permissions.delete,
+    );
   }
+
 
   // ========================================
   // Employee State
@@ -84,11 +137,16 @@ export class PersonalComponent implements OnInit {
     return !this.employeeState.employeeGuid();
   }
 
+
   get canModify(): boolean {
-    return this.isNewEmployee ? this.canCreate : this.canUpdate;
+    return this.isNewEmployee
+      ? this.canCreate
+      : this.canUpdate;
   }
 
+
   get canAccess(): boolean {
+
     if (this.isNewEmployee) {
       return this.canCreate || this.canRead;
     }
@@ -96,11 +154,13 @@ export class PersonalComponent implements OnInit {
     return this.canRead;
   }
 
+
   // ========================================
   // Reactive Form
   // ========================================
 
   readonly personalInfoForm = new FormGroup({
+
     firstName: new FormControl(
       {
         value: '',
@@ -108,7 +168,9 @@ export class PersonalComponent implements OnInit {
       },
       {
         nonNullable: true,
-        validators: [Validators.required],
+        validators: [
+          Validators.required,
+        ],
       },
     ),
 
@@ -129,7 +191,9 @@ export class PersonalComponent implements OnInit {
       },
       {
         nonNullable: true,
-        validators: [Validators.required],
+        validators: [
+          Validators.required,
+        ],
       },
     ),
 
@@ -145,7 +209,9 @@ export class PersonalComponent implements OnInit {
       },
       {
         nonNullable: true,
-        validators: [Validators.required],
+        validators: [
+          Validators.required,
+        ],
       },
     ),
 
@@ -155,7 +221,9 @@ export class PersonalComponent implements OnInit {
         disabled: false,
       },
       {
-        validators: [Validators.required],
+        validators: [
+          Validators.required,
+        ],
       },
     ),
 
@@ -165,7 +233,9 @@ export class PersonalComponent implements OnInit {
         disabled: false,
       },
       {
-        validators: [Validators.required],
+        validators: [
+          Validators.required,
+        ],
       },
     ),
 
@@ -175,6 +245,7 @@ export class PersonalComponent implements OnInit {
     }),
   });
 
+
   // ========================================
   // Reference Data
   // ========================================
@@ -182,596 +253,802 @@ export class PersonalComponent implements OnInit {
   private referencesLoaded = false;
 
   suffixOptions: CxpSelectOption[] = [];
+
   genderOptions: CxpSelectOption[] = [];
+
   civilStatusOptions: CxpSelectOption[] = [];
+
 
   // ========================================
   // Status
   // ========================================
 
   isLoading = false;
+
   isEditing = false;
+
   isSaving = false;
 
   successMessage = '';
+
   errorMessage = '';
+
 
   // ========================================
   // Original Employee Snapshot
   // ========================================
 
-  private originalEmployee: PersonalInfo | null = null;
+  private originalEmployee: PersonalInfo | null =
+    null;
+
 
   // ========================================
   // Employee Data
   // ========================================
 
   employee: PersonalInfo = {
+
     employeeNumber: null,
+
     employeeGuid: null,
 
     firstName: '',
+
     middleName: '',
+
     lastName: '',
 
     suffixId: null,
+
     dateOfBirth: '',
 
     genderId: null,
+
     civilStatusId: null,
 
     imageUrl: null,
   };
+
 
   // ========================================
   // Init
   // ========================================
 
   ngOnInit(): void {
-    this.personalInfoForm.disable();
 
-    console.log('PersonalInfo Init');
+    // Start disabled while reference
+    // data is loading.
+    this.personalInfoForm.disable({
+      emitEvent: false,
+    });
 
-    console.log('Employee Data:', this.employeeState.employeeData());
 
-    console.log('Employee ID:', this.employeeState.employeeNumber());
+    // Listen to every form value change.
+    this.watchFormValidity();
 
-    console.log('Employee GUID:', this.employeeState.employeeGuid());
 
-    console.log('Is New Employee:', this.isNewEmployee);
-
-    console.log('Can Create:', this.canCreate);
-
-    console.log('Can Read:', this.canRead);
-
-    console.log('Can Update:', this.canUpdate);
-
-    console.log('Can Modify:', this.canModify);
-
-    // ========================================
-    // Load References
-    // ========================================
-
-    this.loadReferences();
-
-    // ========================================
-    // Load From Employee State
-    // ========================================
-
+    // Load Personal Info state first.
     this.loadPersonalInfo();
+
+
+    // Load reference/select data.
+    this.loadReferences();
   }
+
+
+  // ========================================
+  // Watch Form Validity
+  // ========================================
+
+  private watchFormValidity(): void {
+
+    this.personalInfoForm.valueChanges
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe(() => {
+
+        if (!this.isNewEmployee) {
+          return;
+        }
+
+        this.syncWizardValidity();
+      });
+  }
+
+
+  // ========================================
+  // Synchronize Wizard Validity
+  // ========================================
+
+  private syncWizardValidity(): void {
+
+    if (!this.isNewEmployee) {
+      return;
+    }
+
+    const valid =
+      this.referencesLoaded &&
+      this.canModify &&
+      this.personalInfoForm.enabled &&
+      this.personalInfoForm.valid;
+
+
+    this.newEmployeeState.setValid(
+      'personal-info',
+      valid,
+    );
+
+
+    // Temporary debugging.
+    // Remove these logs after testing.
+    console.log(
+      'Personal form valid:',
+      this.personalInfoForm.valid,
+    );
+
+    console.log(
+      'Personal wizard valid:',
+      valid,
+    );
+
+    console.log({
+      firstName:
+        this.personalInfoForm.controls.firstName.valid,
+
+      middleName:
+        this.personalInfoForm.controls.middleName.valid,
+
+      lastName:
+        this.personalInfoForm.controls.lastName.valid,
+
+      suffixId:
+        this.personalInfoForm.controls.suffixId.valid,
+
+      dateOfBirth:
+        this.personalInfoForm.controls.dateOfBirth.valid,
+
+      genderId:
+        this.personalInfoForm.controls.genderId.valid,
+
+      civilStatusId:
+        this.personalInfoForm.controls.civilStatusId.valid,
+
+      imageUrl:
+        this.personalInfoForm.controls.imageUrl.valid,
+    });
+  }
+
 
   // ========================================
   // Reference Data
   // ========================================
 
   loadReferences(): void {
+
     this.isLoading = true;
+
     this.errorMessage = '';
 
-    this.personalInfoRefService.getReferenceOptions().subscribe({
-      next: (options) => {
-        console.log('Personal Info Reference Options:', options);
 
-        this.suffixOptions = options.suffixOptions ?? [];
+    this.personalInfoRefService
+      .getReferenceOptions()
+      .subscribe({
 
-        this.genderOptions = options.genderOptions ?? [];
+        next: (options) => {
 
-        this.civilStatusOptions = options.civilStatusOptions ?? [];
+          this.suffixOptions =
+            options.suffixOptions ?? [];
 
-        console.log('Suffix Options:', this.suffixOptions);
+          this.genderOptions =
+            options.genderOptions ?? [];
 
-        console.log('Gender Options:', this.genderOptions);
+          this.civilStatusOptions =
+            options.civilStatusOptions ?? [];
 
-        console.log('Civil Status Options:', this.civilStatusOptions);
 
-        // ========================================
-        // Suffix is Optional
-        // ========================================
+          // Suffix is optional.
+          // Gender and Civil Status
+          // reference data are required.
+          this.referencesLoaded =
+            this.genderOptions.length > 0 &&
+            this.civilStatusOptions.length > 0;
 
-        this.referencesLoaded = this.genderOptions.length > 0 && this.civilStatusOptions.length > 0;
 
-        console.log('References Loaded:', this.referencesLoaded);
+          this.isLoading = false;
 
-        this.isLoading = false;
 
-        this.updateFormState();
-      },
+          this.updateFormState();
 
-      error: (error) => {
-        console.error('Failed to load reference data:', error);
 
-        this.referencesLoaded = false;
-        this.isLoading = false;
+          // Synchronize after enabling
+          // the form.
+          this.syncWizardValidity();
+        },
 
-        this.errorMessage = 'Unable to load reference data.';
 
-        this.personalInfoForm.disable();
-      },
-    });
+        error: (error) => {
+
+          console.error(
+            'Failed to load reference data:',
+            error,
+          );
+
+
+          this.referencesLoaded = false;
+
+          this.isLoading = false;
+
+          this.errorMessage =
+            'Unable to load reference data.';
+
+
+          this.personalInfoForm.disable({
+            emitEvent: false,
+          });
+
+
+          if (this.isNewEmployee) {
+
+            this.newEmployeeState.setValid(
+              'personal-info',
+              false,
+            );
+          }
+        },
+      });
   }
+
 
   // ========================================
   // Form State
   // ========================================
 
   private updateFormState(): void {
-    console.log('Update Form State:', {
-      referencesLoaded: this.referencesLoaded,
 
-      isEditing: this.isEditing,
+    if (
+      this.referencesLoaded &&
+      this.isEditing &&
+      this.canModify
+    ) {
 
-      canModify: this.canModify,
-    });
+      this.personalInfoForm.enable({
+        emitEvent: false,
+      });
 
-    if (this.referencesLoaded && this.isEditing && this.canModify) {
-      this.personalInfoForm.enable();
+      this.personalInfoForm.updateValueAndValidity({
+        emitEvent: false,
+      });
 
       return;
     }
 
-    this.personalInfoForm.disable();
+
+    this.personalInfoForm.disable({
+      emitEvent: false,
+    });
   }
+
 
   // ========================================
   // Edit / Save
+  // Existing Employee
   // ========================================
 
   onEditSave(): void {
-    console.log('onEditSave called');
 
-    console.log('isEditing:', this.isEditing);
+    // New Employee is controlled by
+    // Previous / Next in the parent.
+    if (this.isNewEmployee) {
+      return;
+    }
 
-    console.log('isNewEmployee:', this.isNewEmployee);
-
-    console.log('canCreate:', this.canCreate);
-
-    console.log('canUpdate:', this.canUpdate);
-
-    console.log('canModify:', this.canModify);
-
-    console.log('referencesLoaded:', this.referencesLoaded);
 
     if (!this.canModify) {
-      this.personalInfoForm.disable();
+
+      this.personalInfoForm.disable({
+        emitEvent: false,
+      });
 
       this.isEditing = false;
 
-      this.errorMessage = this.isNewEmployee
-        ? 'You do not have permission to create personal information.'
-        : 'You do not have permission to update personal information.';
+      this.errorMessage =
+        'You do not have permission to update personal information.';
 
       return;
     }
 
+
     if (this.isEditing) {
+
       this.savePersonalInfo();
 
       return;
     }
 
+
     this.startEdit();
   }
 
+
   // ========================================
   // Start Edit
+  // Existing Employee
   // ========================================
 
   startEdit(): void {
-    console.log('startEdit called');
-
-    console.log({
-      canCreate: this.canCreate,
-
-      canUpdate: this.canUpdate,
-
-      canModify: this.canModify,
-
-      isNewEmployee: this.isNewEmployee,
-
-      referencesLoaded: this.referencesLoaded,
-
-      genderOptions: this.genderOptions,
-
-      civilStatusOptions: this.civilStatusOptions,
-
-      suffixOptions: this.suffixOptions,
-    });
 
     if (!this.canModify) {
-      this.personalInfoForm.disable();
+
+      this.personalInfoForm.disable({
+        emitEvent: false,
+      });
 
       this.isEditing = false;
 
-      this.errorMessage = this.isNewEmployee
-        ? 'You do not have permission to create personal information.'
-        : 'You do not have permission to update personal information.';
+      this.errorMessage =
+        this.isNewEmployee
+          ? 'You do not have permission to create personal information.'
+          : 'You do not have permission to update personal information.';
 
       return;
     }
+
 
     if (!this.referencesLoaded) {
-      this.personalInfoForm.disable();
+
+      this.personalInfoForm.disable({
+        emitEvent: false,
+      });
 
       this.isEditing = false;
 
-      this.errorMessage = 'Reference data is not yet available.';
-
-      console.error('Cannot enter edit mode because referencesLoaded is false.');
+      this.errorMessage =
+        'Reference data is not yet available.';
 
       return;
     }
 
+
     this.errorMessage = '';
+
     this.successMessage = '';
 
-    // ========================================
-    // Save Snapshot
-    // ========================================
 
     this.originalEmployee = {
       ...this.employee,
     };
 
-    // ========================================
-    // Enter Edit Mode
-    // ========================================
 
     this.isEditing = true;
 
-    this.personalInfoForm.enable();
 
-    console.log('isEditing changed to:', this.isEditing);
+    this.personalInfoForm.enable({
+      emitEvent: false,
+    });
+
+
+    this.personalInfoForm.updateValueAndValidity({
+      emitEvent: false,
+    });
   }
+
 
   // ========================================
   // Cancel Edit
+  // Existing Employee
   // ========================================
 
   cancelEdit(): void {
-    if (this.originalEmployee) {
-      this.personalInfoForm.reset({
-        firstName: this.originalEmployee.firstName,
 
-        middleName: this.originalEmployee.middleName ?? '',
-
-        lastName: this.originalEmployee.lastName,
-
-        suffixId: this.originalEmployee.suffixId,
-
-        dateOfBirth: this.originalEmployee.dateOfBirth ?? '',
-
-        genderId: this.originalEmployee.genderId,
-
-        civilStatusId: this.originalEmployee.civilStatusId,
-
-        imageUrl: this.originalEmployee.imageUrl,
-      });
-    } else {
-      this.personalInfoForm.reset({
-        firstName: '',
-        middleName: '',
-        lastName: '',
-
-        suffixId: null,
-        dateOfBirth: '',
-
-        genderId: null,
-        civilStatusId: null,
-
-        imageUrl: null,
-      });
+    if (this.isNewEmployee) {
+      return;
     }
+
+
+    if (this.originalEmployee) {
+
+      this.personalInfoForm.reset(
+        {
+          firstName:
+            this.originalEmployee.firstName,
+
+          middleName:
+            this.originalEmployee.middleName ?? '',
+
+          lastName:
+            this.originalEmployee.lastName,
+
+          suffixId:
+            this.originalEmployee.suffixId,
+
+          dateOfBirth:
+            this.originalEmployee.dateOfBirth ?? '',
+
+          genderId:
+            this.originalEmployee.genderId,
+
+          civilStatusId:
+            this.originalEmployee.civilStatusId,
+
+          imageUrl:
+            this.originalEmployee.imageUrl,
+        },
+        {
+          emitEvent: false,
+        },
+      );
+    }
+
 
     this.personalInfoForm.markAsPristine();
 
     this.personalInfoForm.markAsUntouched();
 
+
     this.isEditing = false;
 
-    this.personalInfoForm.disable();
+
+    this.personalInfoForm.disable({
+      emitEvent: false,
+    });
+
 
     this.errorMessage = '';
-    this.successMessage = '';
 
-    console.log('Edit cancelled. isEditing:', this.isEditing);
+    this.successMessage = '';
   }
+
 
   // ========================================
   // Save Personal Information
+  // Existing Employee
   // ========================================
 
   savePersonalInfo(): void {
-    // ========================================
-    // Permission
-    // ========================================
+
+    // New Employee does not save
+    // Personal Info directly here.
+    if (this.isNewEmployee) {
+      return;
+    }
+
 
     if (!this.canModify) {
-      this.personalInfoForm.disable();
+
+      this.personalInfoForm.disable({
+        emitEvent: false,
+      });
 
       this.isEditing = false;
 
-      this.errorMessage = this.isNewEmployee
-        ? 'You do not have permission to create personal information.'
-        : 'You do not have permission to update personal information.';
+      this.errorMessage =
+        'You do not have permission to update personal information.';
 
       return;
     }
 
-    // ========================================
-    // Prevent Duplicate Save
-    // ========================================
 
     if (this.isSaving) {
       return;
     }
 
-    // ========================================
-    // Validation
-    // ========================================
 
     this.personalInfoForm.markAllAsTouched();
 
+
     if (this.personalInfoForm.invalid) {
-      this.errorMessage = 'Please fill in all required fields before saving.';
+
+      this.errorMessage =
+        'Please fill in all required fields before saving.';
 
       return;
     }
 
+
     this.errorMessage = '';
+
     this.successMessage = '';
 
     this.isSaving = true;
 
-    // ========================================
-    // Form Value
-    // ========================================
 
-    const formValue = this.personalInfoForm.getRawValue();
+    const formValue =
+      this.personalInfoForm.getRawValue();
 
-    // ========================================
-    // Build Request
-    // ========================================
 
     const request: SavePersonalInfoRequest = {
-      employeeGuid: this.employeeState.employeeGuid(),
-      firstName: formValue.firstName,
-      middleName: formValue.middleName,
-      lastName: formValue.lastName,
-      suffixId: formValue.suffixId,
-      dateOfBirth: formValue.dateOfBirth,
-      genderId: formValue.genderId,
-      civilStatusId: formValue.civilStatusId,
-      imageUrl: formValue.imageUrl,
+
+      employeeGuid:
+        this.employeeState.employeeGuid(),
+
+      firstName:
+        formValue.firstName,
+
+      middleName:
+        formValue.middleName,
+
+      lastName:
+        formValue.lastName,
+
+      suffixId:
+        formValue.suffixId,
+
+      dateOfBirth:
+        formValue.dateOfBirth,
+
+      genderId:
+        formValue.genderId,
+
+      civilStatusId:
+        formValue.civilStatusId,
+
+      imageUrl:
+        formValue.imageUrl,
+
       userId: null,
     };
 
-    console.log('Save Personal Info Request:', request);
 
-    // ========================================
-    // Save
-    // ========================================
+    this.personalInfoService
+      .savePersonalInfo(request)
+      .subscribe({
 
-    this.personalInfoService.savePersonalInfo(request).subscribe({
-      next: (response) => {
-        this.isSaving = false;
+        next: (response) => {
 
-        console.log('Save Personal Info Response:', response);
+          this.isSaving = false;
 
-        if (!response.success) {
-          this.errorMessage = response.message ?? 'Unable to save personal information.';
 
-          return;
-        }
+          if (!response.success) {
 
-        // ========================================
-        // EmployeeData Response
-        // ========================================
+            this.errorMessage =
+              response.message ??
+              'Unable to save personal information.';
 
-        const personalInfo = response.data.personalInfo;
+            return;
+          }
 
-        console.log('Saved Personal Info:', personalInfo);
 
-        // ========================================
-        // EmployeeState Was Updated
-        // By PersonalInfoService
-        // ========================================
+          const personalInfo =
+            response.data.personalInfo;
 
-        console.log('Employee State:', this.employeeState.employeeData());
 
-        console.log('Employee ID:', this.employeeState.employeeNumber());
+          this.setPersonalInfo(
+            personalInfo,
+          );
 
-        console.log('Employee GUID:', this.employeeState.employeeGuid());
 
-        // ========================================
-        // Update Local Component
-        // ========================================
+          this.successMessage =
+            response.message ??
+            'Personal information saved successfully.';
+        },
 
-        this.setPersonalInfo(personalInfo);
 
-        // ========================================
-        // Success
-        // ========================================
+        error: (error) => {
 
-        this.successMessage = response.message ?? 'Personal information saved successfully.';
-      },
+          this.isSaving = false;
 
-      error: (error) => {
-        this.isSaving = false;
+          this.errorMessage =
+            'An unexpected error occurred while saving.';
 
-        this.errorMessage = 'An unexpected error occurred while saving.';
 
-        console.error('Failed to save personal information:', error);
-      },
-    });
+          console.error(
+            'Failed to save personal information:',
+            error,
+          );
+        },
+      });
   }
+
 
   // ========================================
   // Load Personal Information
   // ========================================
 
   private loadPersonalInfo(): void {
-    const personalInfo = this.employeeState.employeeData()?.personalInfo;
+
+    const personalInfo =
+      this.employeeState
+        .employeeData()
+        ?.personalInfo;
+
 
     // ========================================
     // New Employee
     // ========================================
 
     if (!personalInfo) {
-      console.log('No Personal Info in EmployeeState.');
 
       this.employee = {
+
         employeeNumber: null,
+
         employeeGuid: null,
 
         firstName: '',
+
         middleName: '',
+
         lastName: '',
 
         suffixId: null,
+
         dateOfBirth: '',
 
         genderId: null,
+
         civilStatusId: null,
 
         imageUrl: null,
       };
 
+
       this.originalEmployee = null;
 
-      this.personalInfoForm.reset({
-        firstName: '',
-        middleName: '',
-        lastName: '',
 
-        suffixId: null,
-        dateOfBirth: '',
+      this.personalInfoForm.reset(
+        {
+          firstName: '',
 
-        genderId: null,
-        civilStatusId: null,
+          middleName: '',
 
-        imageUrl: null,
-      });
+          lastName: '',
+
+          suffixId: null,
+
+          dateOfBirth: '',
+
+          genderId: null,
+
+          civilStatusId: null,
+
+          imageUrl: null,
+        },
+        {
+          emitEvent: false,
+        },
+      );
+
 
       this.personalInfoForm.markAsPristine();
 
       this.personalInfoForm.markAsUntouched();
 
-      this.isEditing = false;
 
-      this.personalInfoForm.disable();
+      // New Employee opens immediately
+      // in create/edit mode.
+      this.isEditing = true;
+
+
+      // At this point reference data may
+      // not be loaded yet.
+      this.updateFormState();
+
+
+      // New Personal Info starts invalid.
+      this.newEmployeeState.setValid(
+        'personal-info',
+        false,
+      );
+
 
       return;
     }
 
+
     // ========================================
-    // Permission
+    // Existing Employee
     // ========================================
 
     if (!this.canRead) {
+
       this.isEditing = false;
 
-      this.personalInfoForm.disable();
 
-      this.errorMessage = 'You do not have permission to read personal information.';
+      this.personalInfoForm.disable({
+        emitEvent: false,
+      });
+
+
+      this.errorMessage =
+        'You do not have permission to read personal information.';
 
       return;
     }
 
-    console.log('Personal Info Loaded From EmployeeState:', personalInfo);
 
-    this.setPersonalInfo(personalInfo);
+    this.setPersonalInfo(
+      personalInfo,
+    );
   }
+
 
   // ========================================
   // Set Personal Information
+  // Existing Employee
   // ========================================
 
-  private setPersonalInfo(personalInfo: PersonalInfo): void {
-    // ========================================
-    // Local Employee
-    // ========================================
+  private setPersonalInfo(
+    personalInfo: PersonalInfo,
+  ): void {
 
     this.employee = {
       ...personalInfo,
     };
 
-    // ========================================
-    // Populate Form
-    // ========================================
 
-    this.personalInfoForm.patchValue({
-      firstName: personalInfo.firstName,
+    this.personalInfoForm.patchValue(
+      {
+        firstName:
+          personalInfo.firstName,
 
-      middleName: personalInfo.middleName ?? '',
+        middleName:
+          personalInfo.middleName ?? '',
 
-      lastName: personalInfo.lastName,
+        lastName:
+          personalInfo.lastName,
 
-      suffixId: personalInfo.suffixId,
+        suffixId:
+          personalInfo.suffixId,
 
-      dateOfBirth: personalInfo.dateOfBirth,
+        dateOfBirth:
+          personalInfo.dateOfBirth,
 
-      genderId: personalInfo.genderId,
+        genderId:
+          personalInfo.genderId,
 
-      civilStatusId: personalInfo.civilStatusId,
+        civilStatusId:
+          personalInfo.civilStatusId,
 
-      imageUrl: personalInfo.imageUrl,
-    });
+        imageUrl:
+          personalInfo.imageUrl,
+      },
+      {
+        emitEvent: false,
+      },
+    );
 
-    // ========================================
-    // Original Snapshot
-    // ========================================
 
     this.originalEmployee = {
       ...personalInfo,
     };
 
-    // ========================================
-    // Form State
-    // ========================================
 
     this.personalInfoForm.markAsPristine();
 
     this.personalInfoForm.markAsUntouched();
 
-    // ========================================
-    // View Mode
-    // ========================================
 
+    // Existing Employee starts
+    // in display/view mode.
     this.isEditing = false;
 
-    this.personalInfoForm.disable();
+
+    this.personalInfoForm.disable({
+      emitEvent: false,
+    });
   }
+
 
   // ========================================
   // Reference Label Helper
   // ========================================
 
-  getReferenceLabel(options: CxpSelectOption[], selectedValue: CxpSelectPrimitive | null): string {
+  getReferenceLabel(
+    options: CxpSelectOption[],
+    selectedValue: CxpSelectPrimitive | null,
+  ): string {
+
     if (selectedValue === null) {
       return '—';
     }
 
-    return options.find((option) => option.value === selectedValue)?.label ?? '—';
+
+    return (
+      options.find(
+        option =>
+          option.value === selectedValue,
+      )?.label ?? '—'
+    );
   }
 }

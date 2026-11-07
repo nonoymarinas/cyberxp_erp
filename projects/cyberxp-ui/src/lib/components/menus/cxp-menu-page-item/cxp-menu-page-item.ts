@@ -4,11 +4,15 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 @Component({
   selector: 'cxp-menu-page-item',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive],
+  imports: [
+    RouterLink,
+    RouterLinkActive,
+  ],
   templateUrl: './cxp-menu-page-item.html',
   styleUrl: './cxp-menu-page-item.css',
 })
 export class CxpMenuPageItem {
+
   @Input({ required: true })
   route = '';
 
@@ -20,6 +24,7 @@ export class CxpMenuPageItem {
 
   @Input()
   ariaLabel?: string;
+
 
   handleClick(event: MouseEvent): void {
     if (!this.disabled) {

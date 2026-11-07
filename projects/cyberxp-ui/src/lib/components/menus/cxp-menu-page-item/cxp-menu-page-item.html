@@ -5,6 +5,9 @@
   [routerLinkActiveOptions]="{ exact: exact }"
   [class.cxp-menu-sidebar__item--disabled]="disabled"
   [attr.aria-disabled]="disabled"
+  [attr.aria-label]="ariaLabel"
+  [attr.tabindex]="disabled ? -1 : 0"
+  (click)="handleClick($event)"
 >
   <span class="cxp-menu-sidebar__icon">
     <ng-content select="[start]"></ng-content>

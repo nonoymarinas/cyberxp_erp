@@ -36,6 +36,7 @@
 .sub-sidebar-box{
     display: flex;
     gap: .5rem;
+    height:max-content;
 }
 /* .route-content {
   display: grid;
@@ -58,13 +59,15 @@
     /* height: calc(100dvh - 50px - 50px); */
 }
 .new-employee-main-body{
-    display: grid;
-    grid-template-rows: auto 1fr;
+    display: flex;
+    flex-direction: column;
     border: 1px solid var(--color-border-08);
     gap:.5rem;
     padding:.5rem
 }
-
+.cxp-section__footer{
+    justify-content: flex-start;
+}
 .menu-divider{
     width: 1px;
     border:1px groove var(--color-border-08);

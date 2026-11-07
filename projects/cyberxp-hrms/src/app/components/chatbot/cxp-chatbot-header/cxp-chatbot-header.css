@@ -1,0 +1,226 @@
+
+/* ========================================
+   Chatbot Header Host
+   ======================================== */
+
+:host {
+  display: block;
+  flex-shrink: 0;
+  width: 100%;
+  min-width: 0;
+}
+
+/* ========================================
+   Chatbot Header
+   ======================================== */
+
+.cxp-chatbot-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  min-height: 64px;
+  padding: 0.75rem 1rem;
+  gap: 1rem;
+
+  box-sizing: border-box;
+  /* border-bottom: 1px solid; */
+}
+
+/* ========================================
+   Identity Container
+   ======================================== */
+
+.cxp-chatbot-header__identity {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+/* ========================================
+   AI Avatar
+   ======================================== */
+
+.cxp-chatbot-header__avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+
+  border-radius: 0.75rem;
+
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1;
+
+  user-select: none;
+}
+
+/* ========================================
+   Title and Subtitle Container
+   ======================================== */
+
+.cxp-chatbot-header__details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  flex: 1;
+  min-width: 0;
+  gap: 0.2rem;
+}
+
+/* ========================================
+   Title
+   ======================================== */
+
+.cxp-chatbot-header__title {
+  display: block;
+
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ========================================
+   Subtitle
+   ======================================== */
+
+.cxp-chatbot-header__subtitle {
+  display: block;
+
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1rem;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ========================================
+   Header Actions Container
+   ======================================== */
+
+.cxp-chatbot-header__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  flex-shrink: 0;
+  gap: 0.25rem;
+}
+
+/* ========================================
+   Header Action Button
+   ======================================== */
+
+.cxp-chatbot-header__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  min-height: 34px;
+
+  padding: 0;
+  box-sizing: border-box;
+
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+
+  font: inherit;
+  line-height: 1;
+
+  cursor: pointer;
+  user-select: none;
+
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+/* ========================================
+   Action Icon
+   ======================================== */
+
+.cxp-chatbot-header__action span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 20px;
+  height: 20px;
+
+  font-size: 1.25rem;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* ========================================
+   Disabled Action
+   ======================================== */
+
+.cxp-chatbot-header__action:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ========================================
+   Responsive - Small Screens
+   ======================================== */
+
+@media (max-width: 480px) {
+
+  .cxp-chatbot-header {
+    min-height: 56px;
+    padding: 0.5rem 0.75rem;
+    gap: 0.5rem;
+  }
+
+  .cxp-chatbot-header__identity {
+    gap: 0.5rem;
+  }
+
+  .cxp-chatbot-header__avatar {
+    width: 34px;
+    height: 34px;
+    flex-basis: 34px;
+    border-radius: 0.625rem;
+  }
+
+  .cxp-chatbot-header__actions {
+    gap: 0.125rem;
+  }
+
+  .cxp-chatbot-header__action {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
+  }
+
+}
+
+/* ========================================
+   Reduced Motion
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .cxp-chatbot-header__action {
+    transition: none;
+  }
+}

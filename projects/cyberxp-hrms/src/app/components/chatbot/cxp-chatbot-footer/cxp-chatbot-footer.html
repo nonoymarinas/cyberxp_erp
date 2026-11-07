@@ -1,0 +1,32 @@
+
+<footer class="cxp-chatbot-footer">
+
+  <div class="cxp-chatbot-footer__composer">
+
+    <textarea
+      class="cxp-chatbot-footer__textarea"
+      rows="2"
+      placeholder="Ask SPEED-X AI anything..."
+      aria-label="Message SPEED-X AI"
+      [value]="message()"
+      (input)="onMessageInput($event)"
+      (keydown)="onKeydown($event)">
+    </textarea>
+
+    <button
+      type="button"
+      class="cxp-chatbot-footer__send"
+      title="Send message"
+      aria-label="Send message"
+      [disabled]="!canSend()"
+      (click)="sendMessage()">
+      <span aria-hidden="true">&#8593;</span>
+    </button>
+
+  </div>
+
+  <p class="cxp-chatbot-footer__disclaimer">
+    SPEED-X AI can make mistakes. Verify important information.
+  </p>
+
+</footer>
