@@ -124,12 +124,6 @@
             }
           },
           "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular/build:unit-test",
-          "options": {
-            "tsConfig": "projects/cyberxp-styles/tsconfig.spec.json"
-          }
         }
       }
     },
@@ -215,10 +209,16 @@
           "options": {
             "browser": "projects/cyberxp-hrms/src/main.ts",
             "tsConfig": "projects/cyberxp-hrms/tsconfig.app.json",
+
             "assets": [
               {
                 "glob": "**/*",
                 "input": "projects/cyberxp-hrms/public"
+              },
+              {
+                "glob": "**/*",
+                "input": "projects/cyberxp-hrms/src/assets",
+                "output": "/assets"
               }
             ],
             "styles": ["projects/cyberxp-hrms/src/styles.css"]

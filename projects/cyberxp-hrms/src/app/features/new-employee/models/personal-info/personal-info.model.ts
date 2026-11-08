@@ -41,23 +41,3 @@ export interface SavePersonalInfoRequest {
   userId:string | null;
 }
 
-export interface PersonalRefItemDto {
-  publicId: string;
-  referenceName: string;
-}
-
-export interface EmployeeReferenceDataDto {
-  genders: PersonalRefItemDto[];
-  civilStatuses: PersonalRefItemDto[];
-  suffixes: PersonalRefItemDto[];
-  departments: PersonalRefItemDto[];
-  positions: PersonalRefItemDto[];
-  employmentStatuses: PersonalRefItemDto[];
-  addressTypes: PersonalRefItemDto[];
-  contactMediumTypes: PersonalRefItemDto[];
-  contactContextTypes: PersonalRefItemDto[];
-  branches: PersonalRefItemDto[];
-}
-
-export type PersonalInfoRefResponseDto = ApiResponse<EmployeeReferenceDataDto>;
-

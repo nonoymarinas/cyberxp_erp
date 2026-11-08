@@ -115,17 +115,30 @@
          Wizard Navigation
          ======================================== -->
 
-    <div class="cxp-section__footer">
+    
+<!-- ========================================
+     Wizard Navigation
+     ======================================== -->
 
-      <cxp-button
-        size="sm"
-        variant="secondary"
-        [disabled]="!canPrevious"
-        (clicked)="previous()"
-      >
-        Previous
-      </cxp-button>
+@if (!isScreeningPage) {
 
+  <div class="cxp-section__footer">
+
+    <!-- Previous Button -->
+
+    <cxp-button
+      size="sm"
+      variant="secondary"
+      [disabled]="!canPrevious"
+      (clicked)="previous()"
+    >
+      Previous
+    </cxp-button>
+
+
+    <!-- Next Button and Match Warning -->
+
+    <div class="wizard-next-actions">
 
       <cxp-button
         size="sm"
@@ -136,7 +149,28 @@
         Next
       </cxp-button>
 
+
+      @if (
+        currentStep === 'personal-info' &&
+        hasPossibleMatch()
+      ) {
+
+        <button
+          type="button"
+          class="possible-match-link"
+          (click)="openPossibleMatches()"
+        >
+          Possible Match — Cannot Proceed
+        </button>
+
+      }
+
     </div>
+
+  </div>
+
+}
+
 
   </div>
 

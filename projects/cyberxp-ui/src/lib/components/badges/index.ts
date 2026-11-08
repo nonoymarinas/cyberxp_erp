@@ -1,0 +1,1 @@
+export * from './cxp-classification-badge/cxp-classification-badge'

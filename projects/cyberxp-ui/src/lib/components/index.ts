@@ -6,3 +6,4 @@ export * from './layouts/index';
 export * from './menus/index';
 export * from './modals/index';
 export * from './list/index';
+export * from './badges/index';

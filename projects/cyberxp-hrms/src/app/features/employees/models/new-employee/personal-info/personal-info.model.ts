@@ -1,5 +1,6 @@
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApiResponse } from '../../../../../shared/models/api-response.model';
+import { ReferenceItemDto } from '../../../../../shared/models/reference-item.dto.model';
 
 export interface PersonalInfo {
   employeeNumber: string | null;
@@ -41,22 +42,17 @@ export interface SavePersonalInfoRequest {
   userId:string | null;
 }
 
-export interface PersonalRefItemDto {
-  publicId: string;
-  referenceName: string;
-}
-
 export interface EmployeeReferenceDataDto {
-  genders: PersonalRefItemDto[];
-  civilStatuses: PersonalRefItemDto[];
-  suffixes: PersonalRefItemDto[];
-  departments: PersonalRefItemDto[];
-  positions: PersonalRefItemDto[];
-  employmentStatuses: PersonalRefItemDto[];
-  addressTypes: PersonalRefItemDto[];
-  contactMediumTypes: PersonalRefItemDto[];
-  contactContextTypes: PersonalRefItemDto[];
-  branches: PersonalRefItemDto[];
+  genders: ReferenceItemDto[];
+  civilStatuses: ReferenceItemDto[];
+  suffixes: ReferenceItemDto[];
+  departments: ReferenceItemDto[];
+  positions: ReferenceItemDto[];
+  employmentStatuses: ReferenceItemDto[];
+  addressTypes: ReferenceItemDto[];
+  contactMediumTypes: ReferenceItemDto[];
+  contactContextTypes: ReferenceItemDto[];
+  branches: ReferenceItemDto[];
 }
 
 export type PersonalInfoRefResponseDto = ApiResponse<EmployeeReferenceDataDto>;

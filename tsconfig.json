@@ -38,12 +38,6 @@
       "path": "./projects/cyberxp-ui/tsconfig.spec.json"
     },
     {
-      "path": "./projects/cyberxp-styles/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/cyberxp-styles/tsconfig.spec.json"
-    },
-    {
       "path": "./projects/cyberxp-atms/tsconfig.app.json"
     },
     {

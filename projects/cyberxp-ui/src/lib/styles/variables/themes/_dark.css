@@ -95,11 +95,11 @@
      /* ========================================
        Surface
        ======================================== */
-     --color-surface-primary: var(--grey-900);
-     --color-surface-secondary: var(--grey-800);
-     --color-surface-tertiary: var(--grey-700);
-     --color-surface-raised: var(--grey-800);
-     --color-surface-sunken: var(--grey-1000);
+     --color-surface-primary: var(--grey-900-20t);
+     --color-surface-secondary: var(--grey-800-20t);
+     --color-surface-tertiary: var(--grey-700-20t);
+     --color-surface-raised: var(--grey-800-20t);
+     --color-surface-sunken: var(--grey-1000-20t);
 
      /* ========================================
        Border
@@ -701,4 +701,39 @@
        ======================================== */
      --color-text-selection-background: var(--grey-600);
      --color-text-selection-text: var(--grey-000);
+
+
+/* ========================================
+   Badge — Dark Theme
+   ======================================== */
+
+/* Primary */
+--color-badge-background-primary: var(--blue-neon-300-20t);
+--color-badge-border-primary: var(--blue-neon-500-70t);
+--color-badge-text-primary: var(--blue-neon-300);
+
+/* Secondary */
+--color-badge-background-secondary: var(--grey-700-50t);
+--color-badge-border-secondary: var(--grey-500-70t);
+--color-badge-text-secondary: var(--grey-200);
+
+/* Success */
+--color-badge-background-success: var(--green-neon-300-20t);
+--color-badge-border-success: var(--green-neon-500-70t);
+--color-badge-text-success: var(--green-neon-300);
+
+/* Danger */
+--color-badge-background-danger: var(--red-neon-300-20t);
+--color-badge-border-danger: var(--red-neon-500-70t);
+--color-badge-text-danger: var(--red-neon-300);
+
+/* Info */
+--color-badge-background-info: var(--blue-neon-300-20t);
+--color-badge-border-info: var(--blue-neon-500-70t);
+--color-badge-text-info: var(--blue-neon-300);
+
+/* Neutral */
+--color-badge-background-neutral: var(--grey-800);
+--color-badge-border-neutral: var(--grey-600);
+--color-badge-text-neutral: var(--grey-300);
 }

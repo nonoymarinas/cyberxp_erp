@@ -1,4 +1,9 @@
-import { Component, inject } from '@angular/core';
+
+import {
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 
 import {
   Router,
@@ -12,13 +17,17 @@ import {
   CxpButton,
 } from 'cyberxp-ui';
 
-import { UserAccessService } from '../../../../../core/authorization/services/user-access.services';
+import { UserAccessService } from
+  '../../../../../core/authorization/services/user-access.services';
 
-import { EMPLOYEE_PERMISSIONS } from '../../../../../core/authorization/permissions/employee-permissions';
+import { EMPLOYEE_PERMISSIONS } from
+  '../../../../../core/authorization/permissions/employee-permissions';
 
-import { NewEmployeeStateService } from '../../../business/sevices/new-employee-state.service';
+import { NewEmployeeStateService } from
+  '../../../state/new-employee-state.service';
 
-import { NewEmployeeStep } from '../../../models/general/new-employee-step.model';
+import { NewEmployeeStep } from
+  '../../../models/general/new-employee-step.model';
 
 
 @Component({
@@ -54,6 +63,14 @@ export class NewEmployeePage {
 
   readonly newEmployeeState =
     inject(NewEmployeeStateService);
+
+
+  // ========================================
+  // UI Simulation State
+  // ========================================
+
+  readonly hasPossibleMatch =
+    signal(false);
 
 
   // ========================================
@@ -194,7 +211,6 @@ export class NewEmployeePage {
   // ========================================
 
   get canPrevious(): boolean {
-
     return this.currentStepIndex > 0;
   }
 
@@ -209,6 +225,13 @@ export class NewEmployeePage {
       this.currentStep;
 
     if (!currentStep) {
+      return false;
+    }
+
+    if (
+      currentStep === 'personal-info' &&
+      this.hasPossibleMatch()
+    ) {
       return false;
     }
 
@@ -235,6 +258,19 @@ export class NewEmployeePage {
 
 
   // ========================================
+  // Screening Route
+  // ========================================
+
+  get isScreeningPage(): boolean {
+
+    return this.router.url
+      .split('?')[0]
+      .split('/')
+      .includes('screening');
+  }
+
+
+  // ========================================
   // Previous
   // ========================================
 
@@ -249,9 +285,7 @@ export class NewEmployeePage {
         this.currentStepIndex - 1
       ];
 
-    this.navigateToStep(
-      previousStep,
-    );
+    this.navigateToStep(previousStep);
   }
 
 
@@ -264,44 +298,67 @@ export class NewEmployeePage {
     const currentStep =
       this.currentStep;
 
-    if (!currentStep) {
+    if (!currentStep || !this.canNext) {
+      return;
+    }
+
+    // ======================================
+    // Personal Info Screening Simulation
+    // ======================================
+
+    if (currentStep === 'personal-info') {
+
+      // Simulate a possible employee match.
+      this.hasPossibleMatch.set(true);
+
+      // Do not verify the step.
+      this.newEmployeeState.setVerified(
+        'personal-info',
+        false,
+      );
+
+      // Do not navigate to Address.
       return;
     }
 
 
-    // Current step must be valid.
-    if (
-      !this.newEmployeeState.isValid(
-        currentStep,
-      )
-    ) {
-      return;
-    }
+    // ======================================
+    // Other Wizard Steps
+    // ======================================
 
-
-    // Step has now been completed.
     this.newEmployeeState.setVerified(
       currentStep,
       true,
     );
 
-
-    // Final step will later perform
-    // Create Employee instead of navigating.
     if (this.isLastStep) {
       return;
     }
-
 
     const nextStep =
       this.steps[
         this.currentStepIndex + 1
       ];
 
+    this.navigateToStep(nextStep);
+  }
 
-    this.navigateToStep(
-      nextStep,
-    );
+
+  // ========================================
+  // Open Possible Matches
+  // ========================================
+
+  openPossibleMatches(): void {
+
+    if (!this.hasPossibleMatch()) {
+      return;
+    }
+
+    this.router.navigate([
+      '/app',
+      'new-employee',
+      'screening',
+    ]);
   }
 
 

@@ -88,11 +88,11 @@
      /* ========================================
        Surface
        ======================================== */
-     --color-surface-primary: var(--green-900);
-     --color-surface-secondary: #122a19;
-     --color-surface-tertiary: #173622;
-     --color-surface-raised: #1d452b;
-     --color-surface-sunken: #030a05;
+     --color-surface-primary: var(--green-900-20t);
+     --color-surface-secondary: var(--green-800-20t);
+     --color-surface-tertiary:var(--green-600-20t);
+     --color-surface-raised: var(--green-300-20t);
+     --color-surface-sunken: var(--green-100-20t);
 
      /* ========================================
        Border
@@ -695,4 +695,38 @@
        ======================================== */
      --color-text-selection-background: var(--green-500);
      --color-text-selection-text: var(--green-000);
+
+     /* ========================================
+   Badge — Green Theme
+   ======================================== */
+
+/* Primary */
+--color-badge-background-primary: var(--green-neon-500-20t);
+--color-badge-border-primary: var(--green-neon-500);
+--color-badge-text-primary: var(--green-neon-300);
+
+/* Secondary */
+--color-badge-background-secondary: var(--green-700-50t);
+--color-badge-border-secondary: var(--green-400);
+--color-badge-text-secondary: var(--green-100);
+
+/* Success */
+--color-badge-background-success: var(--green-neon-500-20t);
+--color-badge-border-success: var(--green-neon-500);
+--color-badge-text-success: var(--green-neon-300);
+
+/* Danger */
+--color-badge-background-danger: var(--red-neon-500-20t);
+--color-badge-border-danger: var(--red-neon-500);
+--color-badge-text-danger: var(--red-neon-300);
+
+/* Info */
+--color-badge-background-info: var(--blue-neon-500-20t);
+--color-badge-border-info: var(--blue-neon-500);
+--color-badge-text-info: var(--blue-neon-300);
+
+/* Neutral */
+--color-badge-background-neutral: var(--green-800);
+--color-badge-border-neutral: var(--green-600);
+--color-badge-text-neutral: var(--green-200);
 }

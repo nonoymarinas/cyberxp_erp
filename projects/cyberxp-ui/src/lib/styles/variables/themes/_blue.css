@@ -89,11 +89,11 @@
      /* ========================================
        Surface
        ======================================== */
-     --color-surface-primary: var(--blue-900);
-     --color-surface-secondary: #0c1c38;
-     --color-surface-tertiary: #102245;
-     --color-surface-raised: #132952;
-     --color-surface-sunken: #01050d;
+     --color-surface-primary: var(--blue-900-20t);
+     --color-surface-secondary:var(--blue-800-20t);
+     --color-surface-tertiary: var(--blue-700-20t);
+     --color-surface-raised: var(--blue-300-20t);
+     --color-surface-sunken: var(--blue-1000-20t);
 
      /* ========================================
        Border
@@ -696,4 +696,38 @@
        ======================================== */
      --color-text-selection-background: var(--blue-500);
      --color-text-selection-text: var(--blue-000);
+
+     /* ========================================
+   Badge — Blue Theme
+   ======================================== */
+
+/* Primary */
+--color-badge-background-primary: var(--blue-neon-500-20t);
+--color-badge-border-primary: var(--blue-neon-500);
+--color-badge-text-primary: var(--blue-neon-300);
+
+/* Secondary */
+--color-badge-background-secondary: var(--blue-700-50t);
+--color-badge-border-secondary: var(--blue-400);
+--color-badge-text-secondary: var(--blue-100);
+
+/* Success */
+--color-badge-background-success: var(--green-neon-500-20t);
+--color-badge-border-success: var(--green-neon-500);
+--color-badge-text-success: var(--green-neon-300);
+
+/* Danger */
+--color-badge-background-danger: var(--red-neon-500-20t);
+--color-badge-border-danger: var(--red-neon-500);
+--color-badge-text-danger: var(--red-neon-300);
+
+/* Info */
+--color-badge-background-info: var(--blue-neon-500-20t);
+--color-badge-border-info: var(--blue-neon-500);
+--color-badge-text-info: var(--blue-neon-300);
+
+/* Neutral */
+--color-badge-background-neutral: var(--blue-800);
+--color-badge-border-neutral: var(--blue-600);
+--color-badge-text-neutral: var(--blue-200);
 }

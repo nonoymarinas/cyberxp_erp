@@ -1,0 +1,10 @@
+
+<span
+  class="cxp-classification-badge"
+  [class.cxp-classification-badge--high]="classification() === 'high'"
+  [class.cxp-classification-badge--medium]="classification() === 'medium'"
+  [class.cxp-classification-badge--low]="classification() === 'low'"
+  [class.cxp-classification-badge--neutral]="classification() === 'neutral'"
+>
+  {{ displayLabel() }}
+</span>

@@ -5,7 +5,7 @@ import { map, Observable, of, delay, tap } from 'rxjs';
 import { ReferenceItem } from '../../../../shared/models/reference-item.model';
 import { PersonalInfoRefs } from '../../models/new-employee/personal-info/personal-info-ref.model';
 import { PersonalInfoRefApi } from '../api/personal-info-ref.api';
-import { PersonalRefItemDto } from '../../models/new-employee/personal-info/personal-info.model';
+import { ReferenceItemDto } from '../../../../shared/models/reference-item.dto.model';
 
 @Injectable({
   providedIn: 'root',
@@ -38,7 +38,7 @@ export class PersonalInfoRefDataAccess {
     );
   }
 
-  private mapReferenceItems(items: PersonalRefItemDto[]): ReferenceItem<string>[] {
+  private mapReferenceItems(items: ReferenceItemDto[]): ReferenceItem<string>[] {
     return items.map((item) => ({
       id: item.publicId,
       name: item.referenceName.toUpperCase(),

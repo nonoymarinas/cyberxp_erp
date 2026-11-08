@@ -1,0 +1,610 @@
+
+/* ========================================
+   Component Host
+   ======================================== */
+
+:host {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+
+/* ========================================
+   Main Page
+   ======================================== */
+
+.compare-page {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    width: 100%;
+    min-width: 0;
+    padding: 1rem;
+
+    box-sizing: border-box;
+
+    color: var(--color-text-primary);
+}
+
+
+/* ========================================
+   Header
+   ======================================== */
+
+.compare-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.compare-heading {
+    display: flex;
+    flex-direction: column;
+    gap: .375rem;
+    min-width: 0;
+}
+
+.compare-heading h2 {
+    margin: 0;
+
+    color: var(--color-text-primary);
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.compare-heading p {
+    margin: 0;
+
+    color: var(--color-text-secondary);
+    font-size: .875rem;
+    line-height: 1.5;
+}
+
+
+/* ========================================
+   Two Independent Person Boxes
+   ======================================== */
+
+.compare-profiles {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+
+    width: 100%;
+    min-width: 0;
+
+    align-items: stretch;
+}
+
+.compare-profile {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+    overflow: hidden;
+
+    background: var(--color-card-background, #181818);
+    border: 1px solid var(--color-card-border, #333);
+    border-radius: 0;
+}
+
+.compare-profile-label {
+    margin: 0;
+    padding: 1rem;
+
+    color: var(--color-text-secondary);
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .05em;
+
+    border-bottom: 1px solid
+        var(--color-card-border, #333);
+}
+
+
+/* ========================================
+   Profile Header
+   ======================================== */
+
+.compare-profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .75rem;
+
+    padding: 1.5rem 1rem;
+
+    text-align: center;
+
+    border-bottom: 1px solid
+        var(--color-card-border, #333);
+}
+
+.compare-photo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 112px;
+    height: 112px;
+
+    flex-shrink: 0;
+    overflow: hidden;
+
+    background: var(--color-background-tertiary, #292929);
+    border: 1px solid var(--color-card-border, #333);
+    border-radius: 50%;
+}
+
+.compare-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.compare-photo-placeholder {
+    color: var(--color-text-secondary);
+    font-size: .75rem;
+}
+
+.compare-profile-name {
+    color: var(--color-text-primary);
+
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+
+    overflow-wrap: anywhere;
+}
+
+.compare-profile-number {
+    color: var(--color-text-secondary);
+
+    font-size: .75rem;
+    line-height: 1.5;
+}
+
+
+/* ========================================
+   Person Data
+   ======================================== */
+
+.compare-profile-data {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.compare-data-row {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+
+    padding: 1rem 1.25rem;
+
+    border-bottom: 1px solid
+        var(--color-card-border, #333);
+}
+
+.compare-data-row:last-child {
+    border-bottom: none;
+}
+
+.compare-data-label {
+    color: var(--color-text-secondary);
+
+    font-size: .75rem;
+    font-weight: 500;
+}
+
+.compare-data-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
+.compare-data-value {
+    color: var(--color-text-primary);
+
+    font-size: .875rem;
+    font-weight: 600;
+    line-height: 1.5;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* ========================================
+   Field Comparison Badges
+   ======================================== */
+
+.compare-result {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: .25rem .625rem;
+
+    border: 1px solid transparent;
+    border-radius: 0;
+
+    font-size: .75rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-transform: capitalize;
+    white-space: nowrap;
+}
+
+.compare-result--match {
+    color: var(--color-badge-text-success);
+    background: var(--color-badge-background-success);
+    border-color: var(--color-badge-border-success);
+}
+
+.compare-result--different {
+    color: var(--color-badge-text-danger);
+    background: var(--color-badge-background-danger);
+    border-color: var(--color-badge-border-danger);
+}
+
+.compare-result--missing {
+    color: var(--color-badge-text-neutral);
+    background: var(--color-badge-background-neutral);
+    border-color: var(--color-badge-border-neutral);
+}
+
+
+/* ========================================
+   Similarity Score
+   ======================================== */
+
+.compare-similarity {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+
+    padding: 1.25rem;
+
+    background: var(--color-card-background, #181818);
+    border: 1px solid var(--color-card-border, #333);
+    border-radius: 0;
+}
+
+.compare-similarity-value {
+    flex-shrink: 0;
+
+    color: var(--color-text-primary);
+
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.compare-similarity-details {
+    display: flex;
+    flex-direction: column;
+    gap: .375rem;
+    min-width: 0;
+}
+
+.compare-similarity-title {
+    color: var(--color-text-primary);
+    font-size: .875rem;
+    font-weight: 600;
+}
+
+.compare-similarity-description {
+    color: var(--color-text-secondary);
+    font-size: .75rem;
+    line-height: 1.5;
+}
+
+
+/* ========================================
+   Verification Section
+   ======================================== */
+
+.compare-verification {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+
+    padding: 1.5rem;
+
+    background: var(--color-card-background, #181818);
+    border: 1px solid var(--color-card-border, #333);
+    border-radius: 0;
+}
+
+.compare-verification-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.compare-verification-heading h3 {
+    margin: 0 0 .375rem;
+
+    color: var(--color-text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.compare-verification-heading p {
+    margin: 0;
+
+    color: var(--color-text-secondary);
+    font-size: .8125rem;
+    line-height: 1.5;
+}
+
+.compare-verification-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: .375rem .625rem;
+
+    color: var(--color-badge-text-neutral);
+    background: var(--color-badge-background-neutral);
+    border: 1px solid var(--color-badge-border-neutral);
+
+    font-size: .6875rem;
+    font-weight: 700;
+    letter-spacing: .03em;
+    white-space: nowrap;
+}
+
+
+/* ========================================
+   Verification Action Buttons
+   ======================================== */
+
+.compare-verification-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .75rem;
+}
+
+
+/* ========================================
+   Verification Decision Form
+   ======================================== */
+
+.compare-decision-form {
+    display: flex;
+    flex-direction: column;
+    gap: .875rem;
+
+    padding: 1.25rem;
+
+    background: var(--color-background-tertiary, #242424);
+    border: 1px solid var(--color-card-border, #333);
+    border-radius: 0;
+}
+
+.compare-decision-form h4 {
+    margin: 0;
+
+    color: var(--color-text-primary);
+    font-size: .9375rem;
+    font-weight: 600;
+}
+
+.compare-decision-form p {
+    margin: 0;
+
+    color: var(--color-text-secondary);
+    font-size: .8125rem;
+    line-height: 1.5;
+}
+
+.compare-reason-label {
+    color: var(--color-text-primary);
+    font-size: .8125rem;
+    font-weight: 600;
+}
+
+.compare-reason-input {
+    display: block;
+
+    width: 100%;
+    min-height: 100px;
+    padding: .75rem;
+
+    box-sizing: border-box;
+    resize: vertical;
+
+    color: var(--color-text-primary);
+    background: var(--color-card-background, #181818);
+
+    border: 1px solid var(--color-card-border, #444);
+    border-radius: 0;
+
+    font: inherit;
+    font-size: .875rem;
+    line-height: 1.5;
+}
+
+.compare-reason-input::placeholder {
+    color: var(--color-text-secondary);
+}
+
+.compare-reason-input:focus {
+    outline: 2px solid
+        var(--color-badge-border-primary, #3b82f6);
+    outline-offset: 1px;
+}
+
+.compare-reason-error {
+    margin: 0;
+
+    color: var(--color-badge-text-danger, #ff6565) !important;
+
+    font-size: .75rem !important;
+    font-weight: 600;
+}
+
+.compare-decision-form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: .75rem;
+}
+
+
+/* ========================================
+   Decision Feedback
+   ======================================== */
+
+.compare-decision-message {
+    padding: .875rem 1rem;
+
+    color: var(--color-badge-text-neutral);
+    background: var(--color-badge-background-neutral);
+    border: 1px solid var(--color-badge-border-neutral);
+
+    font-size: .8125rem;
+    line-height: 1.5;
+}
+
+
+/* ========================================
+   Empty State
+   ======================================== */
+
+.compare-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+
+    min-height: 160px;
+    padding: 2rem;
+
+    box-sizing: border-box;
+    text-align: center;
+
+    background: var(--color-card-background, #181818);
+    border: 1px solid var(--color-card-border, #333);
+    border-radius: 0;
+}
+
+.compare-empty h3 {
+    margin: 0;
+
+    color: var(--color-text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.compare-empty p {
+    margin: 0;
+
+    color: var(--color-text-secondary);
+    font-size: .875rem;
+    line-height: 1.5;
+}
+
+
+/* ========================================
+   Navigation Footer
+   ======================================== */
+
+.compare-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: .75rem;
+
+    padding-top: 1rem;
+
+    border-top: 1px solid
+        var(--color-card-border, #333);
+}
+
+
+/* ========================================
+   Responsive Layout
+   ======================================== */
+
+@media (max-width: 768px) {
+
+    .compare-page {
+        padding: .75rem;
+        gap: 1rem;
+    }
+
+    .compare-profiles {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .compare-photo {
+        width: 96px;
+        height: 96px;
+    }
+
+    .compare-similarity {
+        flex-wrap: wrap;
+        gap: .75rem;
+    }
+
+    .compare-verification {
+        padding: 1rem;
+    }
+
+    .compare-verification-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .compare-verification-actions cxp-button {
+        width: 100%;
+    }
+
+    .compare-decision-form {
+        padding: 1rem;
+    }
+
+    .compare-decision-form-actions {
+        justify-content: flex-start;
+    }
+
+    .compare-footer {
+        justify-content: flex-start;
+    }
+
+}
+
+
+/* ========================================
+   Reduced Motion
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .compare-reason-input {
+        scroll-behavior: auto;
+    }
+
+}

@@ -1,0 +1,171 @@
+
+/* ========================================
+   Component Host
+   ======================================== */
+
+:host {
+    display: block;
+    width: 100%;
+    min-width: 0;
+}
+
+
+/* ========================================
+   Match Item
+   ======================================== */
+
+.match-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    width: 100%;
+    min-width: 0;
+    padding: 1rem;
+
+    border: 1px solid var(--color-border-primary);
+    border-radius: 0;
+
+    background: var(--color-card-background);
+    color: var(--color-text-primary);
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        border-color .15s ease,
+        background-color .15s ease;
+}
+
+.match-item:hover {
+    background: var(--color-card-hover-background);
+    border-color: var(--color-card-hover-border);
+}
+
+.match-item:focus-visible {
+    outline: 2px solid var(--color-focus-border);
+    outline-offset: 2px;
+}
+
+
+/* ========================================
+   Avatar
+   ======================================== */
+
+.match-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: var(--color-background-tertiary);
+    color: var(--color-text-primary);
+
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+
+/* ========================================
+   Person Details
+   ======================================== */
+
+.match-details {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .25rem;
+
+    min-width: 0;
+}
+
+.match-person-name {
+    color: var(--color-text-primary);
+    font-size: .875rem;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.match-person-number,
+.match-person-dob {
+    color: var(--color-text-secondary);
+    font-size: .75rem;
+}
+
+/* ========================================
+   Classification Badge
+   ======================================== */
+
+.match-details cxp-classification-badge {
+    margin-top: .375rem;
+    max-width: 100%;
+}
+
+
+/* ========================================
+   Similarity Score
+   ======================================== */
+
+.match-score {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: .25rem;
+
+    flex-shrink: 0;
+}
+
+.match-score-value {
+    color: var(--color-text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.match-score-label {
+    color: var(--color-text-tertiary);
+    font-size: .6875rem;
+}
+
+
+/* ========================================
+   Navigation Arrow
+   ======================================== */
+
+.match-arrow {
+    color: var(--color-icon-secondary);
+    font-size: 2rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+
+/* ========================================
+   Responsive Layout
+   ======================================== */
+
+@media (max-width: 640px) {
+
+    .match-item {
+        padding: .75rem;
+        gap: .75rem;
+    }
+
+    .match-avatar {
+        width: 36px;
+        height: 36px;
+    }
+
+    .match-score-value {
+        font-size: .875rem;
+    }
+
+    .match-arrow {
+        font-size: 1.5rem;
+    }
+}

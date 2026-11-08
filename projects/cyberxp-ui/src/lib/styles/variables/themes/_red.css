@@ -96,10 +96,10 @@
      /* ========================================
        Surface
        ======================================== */
-     --color-surface-primary: var(--red-900);
-     --color-surface-secondary: var(--red-800);
-     --color-surface-tertiary: var(--red-700);
-     --color-surface-raised: var(--red-800);
+     --color-surface-primary: var(--red-900-20t);
+     --color-surface-secondary: var(--red-800-20t);
+     --color-surface-tertiary: var(--red-700-20t);
+     --color-surface-raised: var(--red-800-20t);
      --color-surface-sunken: var(--red-1000);
 
      /* ========================================
@@ -403,7 +403,7 @@
      /* ========================================
        Card
        ======================================== */
-     --color-card-background: var(--color-surface-primary);
+     --color-card-background: var(--color-surface-tertiary);
      --color-card-border: var(--color-border-primary);
      --color-card-title: var(--color-text-primary);
      --color-card-text: var(--color-text-secondary);
@@ -703,4 +703,38 @@
        ======================================== */
      --color-text-selection-background: var(--red-600);
      --color-text-selection-text: var(--red-000);
+
+     /* ========================================
+   Badge — Red Theme
+   ======================================== */
+
+/* Primary */
+--color-badge-background-primary: var(--red-neon-500-20t);
+--color-badge-border-primary: var(--red-neon-500);
+--color-badge-text-primary: var(--red-neon-300);
+
+/* Secondary */
+--color-badge-background-secondary: var(--red-700-50t);
+--color-badge-border-secondary: var(--red-400);
+--color-badge-text-secondary: var(--red-100);
+
+/* Success */
+--color-badge-background-success: var(--green-neon-500-20t);
+--color-badge-border-success: var(--green-neon-500);
+--color-badge-text-success: var(--green-neon-300);
+
+/* Danger */
+--color-badge-background-danger: var(--red-neon-500-20t);
+--color-badge-border-danger: var(--red-neon-500);
+--color-badge-text-danger: var(--red-neon-300);
+
+/* Info */
+--color-badge-background-info: var(--blue-neon-500-20t);
+--color-badge-border-info: var(--blue-neon-500);
+--color-badge-text-info: var(--blue-neon-300);
+
+/* Neutral */
+--color-badge-background-neutral: var(--red-800);
+--color-badge-border-neutral: var(--red-600);
+--color-badge-text-neutral: var(--red-200);
 }

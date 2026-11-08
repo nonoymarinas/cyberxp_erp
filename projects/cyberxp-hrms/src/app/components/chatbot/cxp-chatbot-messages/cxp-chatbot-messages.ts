@@ -6,6 +6,7 @@ import {
   ElementRef,
   viewChild
 } from '@angular/core';
+import { CxpIconUserCircle } from 'cyberxp-ui';
 
 export interface ChatbotMessage {
   id: string;
@@ -17,7 +18,7 @@ export interface ChatbotMessage {
 @Component({
   selector: 'cxp-chatbot-messages',
   standalone: true,
-  imports: [],
+  imports: [CxpIconUserCircle],
   templateUrl: './cxp-chatbot-messages.html',
   styleUrl: './cxp-chatbot-messages.css'
 })

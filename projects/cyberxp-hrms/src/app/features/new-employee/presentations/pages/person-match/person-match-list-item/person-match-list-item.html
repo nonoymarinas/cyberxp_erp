@@ -1,0 +1,93 @@
+
+<!-- ========================================
+     Person Match List Item
+     ======================================== -->
+
+<button
+  type="button"
+  class="match-item"
+  (click)="selectPerson()"
+>
+
+  <!-- ========================================
+       Avatar
+       ======================================== -->
+
+  <div class="match-avatar">
+
+    @if (person().imageUrl) {
+
+      <img
+        class="match-avatar-image"
+        [src]="person().imageUrl"
+        [alt]="fullName()"
+        loading="lazy"
+      />
+
+    } @else {
+
+      {{ initials() }}
+
+    }
+
+  </div>
+
+
+  <!-- ========================================
+       Person Information
+       ======================================== -->
+
+  <div class="match-details">
+
+    <span class="match-person-name">
+      {{ fullName() }}
+    </span>
+
+    <span class="match-person-number">
+      {{ person().personNumber }}
+    </span>
+
+    <span class="match-person-dob">
+      Date of Birth:
+      {{ person().dateOfBirth }}
+    </span>
+
+    <!-- Classification Badge -->
+
+    <cxp-classification-badge
+      [classification]="person().matchClassification"
+      [label]="person().matchType"
+    />
+
+  </div>
+
+
+  <!-- ========================================
+       Similarity
+       ======================================== -->
+
+  <div class="match-score">
+
+    <span class="match-score-value">
+      {{ person().matchScore }}%
+    </span>
+
+    <span class="match-score-label">
+      Similarity
+    </span>
+
+  </div>
+
+
+  <!-- ========================================
+       Navigation Arrow
+       ======================================== -->
+
+  <span
+    class="match-arrow"
+    aria-hidden="true"
+  >
+    ›
+  </span>
+
+</button>

@@ -1,0 +1,67 @@
+
+:host {
+    display: inline-flex;
+    max-width: 100%;
+    vertical-align: middle;
+}
+
+.cxp-classification-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    max-width: 100%;
+    padding: .25rem .625rem;
+
+    border: 1px solid transparent;
+    border-radius: 0;
+
+    font-size: .65rem;
+    font-weight: 500;
+    line-height: 1.4;
+    white-space: nowrap;
+    min-width: 110px;
+}
+
+/* ========================================
+   High Classification
+   Danger / Neon Red
+   ======================================== */
+
+.cxp-classification-badge--high {
+    color: var(--color-badge-text-danger);
+    background-color: var(--color-badge-background-danger);
+    border-color: var(--color-badge-border-danger);
+}
+
+/* ========================================
+   Medium Classification
+   Primary / Theme Accent (temporary)
+   ======================================== */
+
+.cxp-classification-badge--medium {
+    color: var(--color-badge-text-primary);
+    background-color: var(--color-badge-background-primary);
+    border-color: var(--color-badge-border-primary);
+}
+
+/* ========================================
+   Low Classification
+   Success / Neon Green
+   ======================================== */
+
+.cxp-classification-badge--low {
+    color: var(--color-badge-text-success);
+    background-color: var(--color-badge-background-success);
+    border-color: var(--color-badge-border-success);
+}
+
+/* ========================================
+   Neutral Classification
+   ======================================== */
+
+.cxp-classification-badge--neutral {
+    color: var(--color-badge-text-neutral);
+    background-color: var(--color-badge-background-neutral);
+    border-color: var(--color-badge-border-neutral);
+}

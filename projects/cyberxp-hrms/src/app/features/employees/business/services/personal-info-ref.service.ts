@@ -46,9 +46,7 @@ export class PersonalInfoRefService {
   private mapToReferenceOptions(references: PersonalInfoRefs): CxpSelectOptionsRefs {
     return {
       suffixOptions: this.toSelectOptions(references.suffixes),
-
       genderOptions: this.toSelectOptions(references.genders),
-
       civilStatusOptions: this.toSelectOptions(references.civilStatuses),
     };
   }

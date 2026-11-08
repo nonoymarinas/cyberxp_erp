@@ -1,6 +1,17 @@
-import { Injectable, signal } from '@angular/core';
 
-import { NewEmployeeStep } from '../../models/general/new-employee-step.model';
+import {
+  Injectable,
+  signal,
+} from '@angular/core';
+
+import {
+  NewEmployeeStep,
+} from '../models/general/new-employee-step.model';
+
+import {
+  PersonalInfo,
+} from '../models/personal-info/personal-info.model';
+
 
 @Injectable()
 export class NewEmployeeStateService {
@@ -28,6 +39,17 @@ export class NewEmployeeStateService {
 
 
   // ========================================
+  // Personal Information Draft
+  // ========================================
+
+  private readonly _personalDraft =
+    signal<PersonalInfo | null>(null);
+
+  readonly personalDraft =
+    this._personalDraft.asReadonly();
+
+
+  // ========================================
   // Set Step Validity
   // ========================================
 
@@ -37,20 +59,22 @@ export class NewEmployeeStateService {
   ): void {
 
     this._validSteps.update(current => {
+
       const updated = new Set(current);
 
       if (valid) {
         updated.add(step);
       } else {
         updated.delete(step);
-
-        // If the step becomes invalid,
-        // it can no longer be considered verified.
-        this.setVerified(step, false);
       }
 
       return updated;
     });
+
+    // Invalid steps cannot remain verified.
+    if (!valid) {
+      this.setVerified(step, false);
+    }
   }
 
 
@@ -75,7 +99,13 @@ export class NewEmployeeStateService {
     verified: boolean,
   ): void {
 
+    // Prevent verification of invalid steps.
+    if (verified && !this.isValid(step)) {
+      return;
+    }
+
     this._verifiedSteps.update(current => {
+
       const updated = new Set(current);
 
       if (verified) {
@@ -102,6 +132,48 @@ export class NewEmployeeStateService {
 
 
   // ========================================
+  // Set Personal Draft
+  // ========================================
+
+  setPersonalDraft(
+    data: PersonalInfo,
+  ): void {
+
+    const previous = this._personalDraft();
+
+    const identifyingDataChanged =
+      previous !== null &&
+      (
+        previous.firstName !== data.firstName ||
+        previous.middleName !== data.middleName ||
+        previous.lastName !== data.lastName ||
+        previous.suffixId !== data.suffixId ||
+        previous.dateOfBirth !== data.dateOfBirth
+      );
+
+    this._personalDraft.set({ ...data });
+
+    // Screening is no longer valid if
+    // identifying information changes.
+    if (identifyingDataChanged) {
+      this.setVerified('personal-info', false);
+    }
+  }
+
+
+  // ========================================
+  // Clear Personal Draft
+  // ========================================
+
+  clearPersonalDraft(): void {
+
+    this._personalDraft.set(null);
+
+    this.setVerified('personal-info', false);
+  }
+
+
+  // ========================================
   // Reset New Employee Workflow
   // ========================================
 
@@ -110,5 +182,7 @@ export class NewEmployeeStateService {
     this._validSteps.set(new Set());
 
     this._verifiedSteps.set(new Set());
+
+    this._personalDraft.set(null);
   }
 }

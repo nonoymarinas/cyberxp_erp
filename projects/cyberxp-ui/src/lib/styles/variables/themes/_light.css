@@ -93,10 +93,10 @@
      /* ========================================
        Surface
        ======================================== */
-     --color-surface-primary: var(--grey-100);
-     --color-surface-secondary: var(--grey-300);
-     --color-surface-tertiary: var(--grey-500);
-     --color-surface-raised: var(--grey-000);
+     --color-surface-primary: var(--grey-100-20t);
+     --color-surface-secondary: var(--grey-300-20t);
+     --color-surface-tertiary: var(--grey-500-20t);
+     --color-surface-raised: var(--grey-000-20t);
      --color-surface-sunken: var(--grey-100);
 
      /* ========================================
@@ -697,4 +697,38 @@
        ======================================== */
      --color-text-selection-background: var(--grey-700);
      --color-text-selection-text: var(--grey-000);
+
+     /* ========================================
+   Badge — Light Theme
+   ======================================== */
+
+/* Primary */
+--color-badge-background-primary: var(--blue-neon-100);
+--color-badge-border-primary: var(--blue-neon-600);
+--color-badge-text-primary: var(--blue-neon-900);
+
+/* Secondary */
+--color-badge-background-secondary: var(--grey-200);
+--color-badge-border-secondary: var(--grey-400);
+--color-badge-text-secondary: var(--grey-800);
+
+/* Success */
+--color-badge-background-success: var(--green-neon-100);
+--color-badge-border-success: var(--green-neon-700);
+--color-badge-text-success: var(--green-neon-900);
+
+/* Danger */
+--color-badge-background-danger: var(--red-neon-100);
+--color-badge-border-danger: var(--red-neon-600);
+--color-badge-text-danger: var(--red-neon-900);
+
+/* Info */
+--color-badge-background-info: var(--blue-neon-100);
+--color-badge-border-info: var(--blue-neon-600);
+--color-badge-text-info: var(--blue-neon-900);
+
+/* Neutral */
+--color-badge-background-neutral: var(--grey-100);
+--color-badge-border-neutral: var(--grey-300);
+--color-badge-text-neutral: var(--grey-700);
 }

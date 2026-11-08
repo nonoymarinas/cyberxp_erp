@@ -133,14 +133,27 @@
   flex-direction: column;
   gap: 0.375rem;
 
-  max-width: 80%;
+  /* max-width: 80%; */
   min-width: 0;
+  width:100%;
 
-  padding: 0.75rem 1rem;
+  padding: 0.5rem 1rem;
   border: 1px solid transparent;
-  border-radius: 0.875rem;
+  /* border-radius: 0.875rem; */
 }
+.cxp-chatbot-messages_bubble-icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
 .cxp-chatbot-messages__content {
   font-size: 0.875rem;
   line-height: 1.6;
@@ -173,4 +186,82 @@
   .cxp-chatbot-messages__list {
     gap: 1rem;
   }
+}
+
+
+/* ========================================
+   Chatbot Messages
+   ======================================== */
+
+.cxp-chatbot-messages {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-primary);
+}
+
+/* Welcome Screen */
+
+.cxp-chatbot-messages__welcome {
+  color: var(--color-text-primary);
+}
+
+.cxp-chatbot-messages__welcome h2 {
+  color: var(--color-text-primary);
+}
+
+.cxp-chatbot-messages__welcome p {
+  color: var(--color-text-secondary);
+}
+
+.cxp-chatbot-messages__welcome-icon {
+  color: var(--color-button-primary-text);
+  background-color: var(--color-button-primary-background);
+}
+
+/* AI Avatar */
+
+.cxp-chatbot-messages__avatar {
+  color: var(--color-button-primary-text);
+  background-color: var(--color-button-primary-background);
+}
+
+/* User Message */
+
+.cxp-chatbot-messages__row--user
+.cxp-chatbot-messages__bubble {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-secondary);
+  border-color: var(--color-border-primary);
+}
+
+/* AI Message */
+
+.cxp-chatbot-messages__row--assistant
+.cxp-chatbot-messages__bubble {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-secondary);
+  border-color: var(--color-border-primary);
+}
+
+/* Timestamp */
+
+.cxp-chatbot-messages__time {
+  color: var(--color-text-tertiary);
+}
+
+/* Loading Indicator */
+
+.cxp-chatbot-messages__thinking {
+  color: var(--color-text-secondary);
+}
+
+/* Scrollbar */
+
+.cxp-chatbot-messages {
+  scrollbar-color:
+    var(--color-scrollbar-thumb)
+    var(--color-scrollbar-track);
+}
+.cxp-chatbot-messages__bubble-header{
+  display:grid;
+  grid-template-columns: 1fr auto;
 }

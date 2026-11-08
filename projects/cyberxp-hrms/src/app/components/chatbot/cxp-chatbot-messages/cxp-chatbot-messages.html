@@ -1,88 +1,61 @@
-
 <div
   #scrollContainer
   class="cxp-chatbot-messages"
   role="log"
   aria-label="Chat conversation"
-  aria-live="polite">
-
+  aria-live="polite"
+>
   @if (messages().length === 0 && !loading()) {
-
     <!-- Welcome Screen -->
     <div class="cxp-chatbot-messages__welcome">
-
-      <div class="cxp-chatbot-messages__welcome-icon">
-        AI
-      </div>
+      <div class="cxp-chatbot-messages__welcome-icon">AI</div>
 
       <h2>Welcome to SPEED-X AI</h2>
 
       <p>How can I assist you today?</p>
-
     </div>
-
   } @else {
-
     <!-- Conversation Messages -->
     <div class="cxp-chatbot-messages__list">
-
       @for (message of messages(); track message.id) {
-
         @if (message.role !== 'system') {
-
           <div
             class="cxp-chatbot-messages__row"
             [class.cxp-chatbot-messages__row--user]="message.role === 'user'"
-            [class.cxp-chatbot-messages__row--assistant]="message.role === 'assistant'">
-
+            [class.cxp-chatbot-messages__row--assistant]="message.role === 'assistant'"
+          >
             @if (message.role === 'assistant') {
-              <div class="cxp-chatbot-messages__avatar">
-                AI
-              </div>
+              <div class="cxp-chatbot-messages__avatar">AI</div>
             }
 
             <div class="cxp-chatbot-messages__bubble">
+              <div class="cxp-chatbot-messages__bubble-header">
+                <cxp-icon-user-circle class="cxp-chatbot-messages_bubble-icon" size="sm"></cxp-icon-user-circle>
+                <time class="cxp-chatbot-messages__time">
+                  {{
+                    message.createdAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                  }}
+                </time>
+              </div>
 
               <div class="cxp-chatbot-messages__content">
                 {{ message.content }}
               </div>
-
-              <time class="cxp-chatbot-messages__time">
-                {{ message.createdAt.toLocaleTimeString(
-                    [], { hour: '2-digit', minute: '2-digit' }
-                ) }}
-              </time>
-
             </div>
-
           </div>
-
         }
-
       }
 
       <!-- AI Loading Indicator -->
       @if (loading()) {
-
-        <div class="cxp-chatbot-messages__row
-                    cxp-chatbot-messages__row--assistant">
-
-          <div class="cxp-chatbot-messages__avatar">
-            AI
-          </div>
+        <div class="cxp-chatbot-messages__row cxp-chatbot-messages__row--assistant">
+          <div class="cxp-chatbot-messages__avatar">AI</div>
 
           <div class="cxp-chatbot-messages__bubble">
-            <span class="cxp-chatbot-messages__thinking">
-              SPEED-X AI is thinking...
-            </span>
+            <span class="cxp-chatbot-messages__thinking"> SPEED-X AI is thinking... </span>
           </div>
-
         </div>
-
       }
-
     </div>
-
   }
-
 </div>

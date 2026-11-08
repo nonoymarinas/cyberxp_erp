@@ -20,6 +20,10 @@
 
   min-width: 0;
   min-height: 0;
+   color: var(--color-text-primary);
+  background-color: var(--color-background-tertiary);
+  border:1px solid var(--color-border-primary);
+  /* border-radius: 1.25rem; */
 }
 
 /* ========================================
@@ -51,7 +55,7 @@
   width: min(480px, calc(100vw - 32px));
   height: min(650px, calc(100dvh - 48px));
 
-  border-radius: 0.875rem;
+  /* border-radius: 0.875rem; */
 
   z-index: 900;
 }
@@ -140,3 +144,47 @@
   }
 
 }
+
+
+/* ========================================
+   Chatbot Main
+   ======================================== */
+
+.cxp-chatbot-main--medium {
+  box-shadow: 0 8px 32px var(--color-shadow-strong);
+}
+
+.cxp-chatbot-main__body {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-primary);
+}
+
+/* Chatbot Launcher */
+
+.cxp-chatbot-launcher {
+  color: var(--color-button-primary-text);
+  background-color: var(--color-button-primary-background);
+  border-color: var(--color-button-primary-border);
+  box-shadow: 0 4px 16px var(--color-shadow-medium);
+}
+
+.cxp-chatbot-launcher:hover {
+  color: var(--color-button-primary-hover-text);
+  background-color: var(--color-button-primary-hover-background);
+  border-color: var(--color-button-primary-hover-border);
+}
+
+.cxp-chatbot-launcher:focus-visible {
+  outline: 2px solid var(--color-focus-border);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+/* Disabled Send Button */
+
+.cxp-chatbot-main__input button:disabled {
+  color: var(--color-button-disabled-text);
+  background-color: var(--color-button-disabled-background);
+  border-color: var(--color-button-disabled-border);
+}
+

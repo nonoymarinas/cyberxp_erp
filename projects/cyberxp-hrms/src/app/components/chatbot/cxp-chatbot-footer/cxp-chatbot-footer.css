@@ -20,7 +20,7 @@
   gap: 0.5rem;
   padding: 0.5rem;
   /* border: 1px solid; */
-  border-radius: 0.875rem;
+  /* border-radius: 1rem; */
 }
 
 .cxp-chatbot-footer__textarea {
@@ -46,7 +46,7 @@
   flex-shrink: 0;
   padding: 0;
   border: 1px solid;
-  border-radius: 0.625rem;
+  border-radius: 50%;
   cursor: pointer;
 }
 
@@ -57,5 +57,64 @@
 .cxp-chatbot-footer__disclaimer {
   margin: 0;
   font-size: 0.6875rem;
-  text-align: center;
+  text-align: left;
+}
+
+
+/* ========================================
+   Chatbot Footer
+   ======================================== */
+
+.cxp-chatbot-footer {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-primary);
+  border-color: var(--color-border-primary);
+}
+
+/* Message Composer */
+
+.cxp-chatbot-footer__composer {
+  background-color: var(--color-input-background);
+  border:1px solid var(--color-border-primary);
+}
+
+.cxp-chatbot-footer__composer:focus-within {
+  border-color: var(--color-input-focus-border);
+  box-shadow: 0 0 0 3px var(--color-input-focus-ring);
+}
+
+/* Message Textarea */
+
+.cxp-chatbot-footer__textarea {
+  color: var(--color-input-text);
+  background-color: transparent;
+}
+
+.cxp-chatbot-footer__textarea::placeholder {
+  color: var(--color-input-placeholder);
+}
+
+/* Send Button */
+
+.cxp-chatbot-footer__send {
+  color: var(--color-button-primary-text);
+  background-color: var(--color-button-primary-background);
+  border-color: var(--color-button-primary-border);
+}
+
+.cxp-chatbot-footer__send:hover:not(:disabled) {
+  color: var(--color-button-primary-hover-text);
+  background-color: var(--color-button-primary-hover-background);
+}
+
+.cxp-chatbot-footer__send:disabled {
+  color: var(--color-button-disabled-text);
+  background-color: var(--color-button-disabled-background);
+  border-color: var(--color-button-disabled-border);
+}
+
+/* Disclaimer */
+
+.cxp-chatbot-footer__disclaimer {
+  color: var(--color-text-tertiary);
 }

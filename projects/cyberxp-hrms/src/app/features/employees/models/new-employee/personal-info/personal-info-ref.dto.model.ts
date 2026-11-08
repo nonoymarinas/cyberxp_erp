@@ -58,5 +58,5 @@ export interface EmployeeReferenceDataDto {
   branches: EmployeeReferenceDto[];
 }
 
-export type EmployeeReferenceResponseDto = ApiResponse<EmployeeReferenceDataDto>;
+export type ReferenceItemDto = ApiResponse<EmployeeReferenceDataDto>;
 
