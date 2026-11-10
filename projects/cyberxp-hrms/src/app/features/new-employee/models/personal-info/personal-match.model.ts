@@ -1,9 +1,6 @@
+export type PersonMatchStatus = 'CLEAR' | 'REVIEW' | 'HOLD';
 
-export type PersonMatchClassification =
-  | 'high'
-  | 'medium'
-  | 'low'
-  | 'neutral';
+export type PersonMatchClassification = 'high' | 'medium' | 'low' | 'neutral';
 
 export interface PersonMatch {
   personGuid: string;
