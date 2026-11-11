@@ -1,15 +1,10 @@
-
-import {
-  PersonMatch,
-} from '../../models/personal-info/personal-match.model';
-
+import { PersonMatch } from '../../models/personal-info/person-match.model';
 
 /* ========================================
    Person Match Mock Data
    ======================================== */
 
 export const PERSON_MATCH_MOCKS: PersonMatch[] = [
-
   // ========================================
   // Person 001 — High Similarity
   // ========================================
@@ -72,5 +67,4 @@ export const PERSON_MATCH_MOCKS: PersonMatch[] = [
     matchType: 'Review Required',
     matchClassification: 'medium',
   },
-
 ];

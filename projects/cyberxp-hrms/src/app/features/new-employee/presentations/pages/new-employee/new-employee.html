@@ -1,177 +1,157 @@
 <section class="cxp-page">
+  <!-- ========================================
+       Header
+       ======================================== -->
 
   <header class="cxp-section__header">
-    <h2 class="cxp-section__title">
-      Employee Details
-    </h2>
+    <h2 class="cxp-section__title">Employee Details</h2>
   </header>
 
+  <!-- ========================================
+       Main Body
+       ======================================== -->
 
   <div class="new-employee-main-body">
-
     <!-- ========================================
          Step Navigation
          ======================================== -->
 
     <div class="sub-sidebar-box">
+      <!-- Personal Information -->
 
       @if (canCreatePersonalInfo) {
-
-        <cxp-menu-page-item
-          class="sub-sidebar-menu-item"
-          route="personal-info"
-        >
-          <span label>
-            Personals
-          </span>
-
-          <cxp-icon-chevron-app end>
-          </cxp-icon-chevron-app>
+        <cxp-menu-page-item class="sub-sidebar-menu-item" route="personal-info">
+          <span label>Personals</span>
+          <cxp-icon-chevron-app end />
         </cxp-menu-page-item>
-
       }
 
+      <!-- Address -->
 
       @if (canCreateAddress) {
-
-        <cxp-menu-page-item
-          class="sub-sidebar-menu-item"
-          route="address"
-        >
-          <span label>
-            Addresses
-          </span>
-
-          <cxp-icon-chevron-app end>
-          </cxp-icon-chevron-app>
+        <cxp-menu-page-item class="sub-sidebar-menu-item" route="address">
+          <span label>Addresses</span>
+          <cxp-icon-chevron-app end />
         </cxp-menu-page-item>
-
       }
 
+      <!-- Contacts -->
 
       @if (canCreateContact) {
-
-        <cxp-menu-page-item
-          class="sub-sidebar-menu-item"
-          route="contacts"
-        >
-          <span label>
-            Contacts
-          </span>
-
-          <cxp-icon-chevron-app end>
-          </cxp-icon-chevron-app>
+        <cxp-menu-page-item class="sub-sidebar-menu-item" route="contacts">
+          <span label>Contacts</span>
+          <cxp-icon-chevron-app end />
         </cxp-menu-page-item>
-
       }
 
+      <!-- Emergency Contacts -->
 
       @if (canCreateEmergencyContact) {
-
-        <cxp-menu-page-item
-          class="sub-sidebar-menu-item"
-          route="emergency"
-        >
-          <span label>
-            Emergencies
-          </span>
-
-          <cxp-icon-chevron-app end>
-          </cxp-icon-chevron-app>
+        <cxp-menu-page-item class="sub-sidebar-menu-item" route="emergency-contacts">
+          <span label>Emergencies</span>
+          <cxp-icon-chevron-app end />
         </cxp-menu-page-item>
-
       }
 
+      <!-- Employment -->
 
       @if (canCreateEmployment) {
-
-        <cxp-menu-page-item
-          class="sub-sidebar-menu-item"
-          route="employment"
-        >
-          <span label>
-            Employments
-          </span>
-
-          <cxp-icon-chevron-app end>
-          </cxp-icon-chevron-app>
+        <cxp-menu-page-item class="sub-sidebar-menu-item" route="employment">
+          <span label>Employments</span>
+          <cxp-icon-chevron-app end />
         </cxp-menu-page-item>
-
       }
-
     </div>
 
-
     <!-- ========================================
-         Current Step
+         Current Wizard Step
          ======================================== -->
 
     <div class="route-content">
-      <router-outlet></router-outlet>
+      <router-outlet />
     </div>
-
 
     <!-- ========================================
          Wizard Navigation
          ======================================== -->
 
-    
-<!-- ========================================
-     Wizard Navigation
-     ======================================== -->
+    @if (!isScreeningPage) {
+      <div class="cxp-section__footer">
+        <!-- ====================================
+             Previous Button
+             ==================================== -->
 
-@if (!isScreeningPage) {
+        <cxp-button size="sm" variant="secondary" [disabled]="!canPrevious" (clicked)="previous()">
+          Previous
+        </cxp-button>
 
-  <div class="cxp-section__footer">
+        <!-- ====================================
+             Next Button and Screening Actions
+             ==================================== -->
 
-    <!-- Previous Button -->
+        <div class="wizard-next-actions">
+          <!-- Next Button -->
 
-    <cxp-button
-      size="sm"
-      variant="secondary"
-      [disabled]="!canPrevious"
-      (clicked)="previous()"
-    >
-      Previous
-    </cxp-button>
+          <cxp-button size="sm" variant="secondary" [disabled]="!canNext" (clicked)="next()">
+            @if (isChecking()) {
+              Checking...
+            } @else if (isLastStep) {
+              Create
+            } @else {
+              Next
+            }
+          </cxp-button>
 
+          <!-- ==================================
+               Screening Actions
+               ================================== -->
 
-    <!-- Next Button and Match Warning -->
+          @if (
+            currentStep === 'personal-info' &&
+            (newEmployeeState.personMatchStatus() === 'REVIEW' ||
+              newEmployeeState.personMatchStatus() === 'HOLD')
+          ) {
+            <!-- Possible Matches / Screening Hold -->
 
-    <div class="wizard-next-actions">
+            <button
+              type="button"
+              class="possible-match-link"
+              (click)="openPossibleMatches()"
+              aria-label="View employee screening results"
+            >
+              @if (newEmployeeState.personMatchStatus() === 'HOLD' && !hasPossibleMatch()) {
+                Screening On Hold
+              } @else {
+                Possible Matches
+              }
+            </button>
 
-      <cxp-button
-        size="sm"
-        variant="secondary"
-        [disabled]="!canNext"
-        (clicked)="next()"
-      >
-        Next
-      </cxp-button>
+            <!-- ==================================
+                 Try Again Button
+                 ================================== -->
 
+            <button
+              type="button"
+              class="screening-try-again-button"
+              [disabled]="isChecking()"
+              (click)="tryAgain()"
+              aria-label="Edit personal information and retry screening"
+            >
+              Try Again
+            </button>
+          }
 
-      @if (
-        currentStep === 'personal-info' &&
-        hasPossibleMatch()
-      ) {
+          <!-- ==================================
+               Screening Error
+               ================================== -->
 
-        <button
-          type="button"
-          class="possible-match-link"
-          (click)="openPossibleMatches()"
-        >
-          Possible Match — Cannot Proceed
-        </button>
-
-      }
-
-    </div>
-
+          @if (errorMessage) {
+            <span class="wizard-error" role="alert">
+              {{ errorMessage }}
+            </span>
+          }
+        </div>
+      </div>
+    }
   </div>
-
-}
-
-
-  </div>
-
 </section>

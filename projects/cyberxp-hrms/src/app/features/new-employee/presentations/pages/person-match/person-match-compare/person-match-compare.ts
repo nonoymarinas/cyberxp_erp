@@ -1,54 +1,26 @@
+import { Component, ChangeDetectionStrategy, computed, inject, signal } from '@angular/core';
 
-import {
-  Component,
-  computed,
-  inject,
-  signal,
-} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-
-import {
-  CxpButton,
-  CxpClassificationBadge,
-} from 'cyberxp-ui';
+import { CxpButton, CxpClassificationBadge } from 'cyberxp-ui';
 
 // ========================================
 // Models
 // ========================================
 
-import {
-  PersonMatch,
-} from '../../../../models/personal-info/personal-match.model';
-
-// ========================================
-// Business Service
-// ========================================
-
-import {
-  PersonMatchService,
-} from "../../../../business/sevices/person-match.services";
+import { PersonMatch } from '../../../../models/personal-info/person-match.model';
 
 // ========================================
 // Wizard State
 // ========================================
 
-import {
-  NewEmployeeStateService,
-} from '../../../../../new-employee/state/new-employee-state.service';
-
+import { NewEmployeeStateService } from '../../../../state/new-employee-state.service';
 
 // ========================================
 // Types
 // ========================================
 
-type ComparisonResult =
-  | 'match'
-  | 'different'
-  | 'missing';
+type ComparisonResult = 'match' | 'different' | 'missing';
 
 interface ComparisonRow {
   label: string;
@@ -57,10 +29,7 @@ interface ComparisonRow {
   result: ComparisonResult;
 }
 
-type MatchDecision =
-  | 'CONFIRMED'
-  | 'DISMISSED'
-  | 'ESCALATED';
+type MatchDecision = 'CONFIRMED' | 'DISMISSED' | 'ESCALATED';
 
 interface PendingDecision {
   type: MatchDecision;
@@ -68,117 +37,98 @@ interface PendingDecision {
   description: string;
 }
 
+// ========================================
+// Component
+// ========================================
 
 @Component({
   selector: 'cxp-person-match-compare',
   standalone: true,
 
-  imports: [
-    CxpButton,
-    CxpClassificationBadge,
-  ],
+  imports: [CxpButton, CxpClassificationBadge],
 
   templateUrl: './person-match-compare.html',
   styleUrl: './person-match-compare.css',
+
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonMatchCompareComponent {
-
   // ========================================
-  // Dependency Injection
+  // Dependencies
   // ========================================
 
   private readonly route = inject(ActivatedRoute);
+
   private readonly router = inject(Router);
 
-  private readonly matchService =
-    inject(PersonMatchService);
-
-  private readonly wizardState =
-    inject(NewEmployeeStateService);
-
+  private readonly wizardState = inject(NewEmployeeStateService);
 
   // ========================================
   // Selected Person GUID
   // ========================================
 
-  readonly personGuid =
-    this.route.snapshot.paramMap.get('personGuid');
-
+  readonly personGuid = this.route.snapshot.paramMap.get('personGuid');
 
   // ========================================
   // Existing Person
   // ========================================
 
   readonly existingPerson = computed<PersonMatch | null>(() => {
-
     if (!this.personGuid) {
       return null;
     }
 
-    return this.matchService.getMatchByGuid(
-      this.personGuid
-    );
+    // Read the reactive match list so the
+    // computed value updates if screening
+    // results are replaced or cleared.
+    const matches = this.wizardState.personMatches();
 
+    return matches.find((person) => person.personGuid === this.personGuid) ?? null;
   });
-
 
   // ========================================
   // New Employee Draft
   // ========================================
 
-  readonly newPerson =
-    this.wizardState.personalDraft;
-
+  readonly newPerson = this.wizardState.personalDraft;
 
   // ========================================
   // Full Names
   // ========================================
 
   readonly newFullName = computed(() => {
-
     const person = this.newPerson();
 
     if (!person) {
       return '';
     }
 
-    return [
-      person.firstName,
-      person.middleName,
-      person.lastName,
-    ]
+    return [person.firstName, person.middleName, person.lastName]
+      .map((value) => value?.trim())
       .filter(Boolean)
       .join(' ');
-
   });
 
-
   readonly existingFullName = computed(() => {
-
     const person = this.existingPerson();
 
     if (!person) {
       return '';
     }
 
-    return [
-      person.firstName,
-      person.middleName,
-      person.lastName,
-    ]
+    return [person.firstName, person.middleName, person.lastName]
+      .map((value) => value?.trim())
       .filter(Boolean)
       .join(' ');
-
   });
-
 
   // ========================================
   // Field-by-Field Comparison
   // ========================================
 
   readonly comparisonRows = computed<ComparisonRow[]>(() => {
-
     const newPerson = this.newPerson();
+
     const existingPerson = this.existingPerson();
 
     if (!newPerson || !existingPerson) {
@@ -186,33 +136,15 @@ export class PersonMatchCompareComponent {
     }
 
     return [
-      this.createComparisonRow(
-        'First Name',
-        newPerson.firstName,
-        existingPerson.firstName
-      ),
+      this.createComparisonRow('First Name', newPerson.firstName, existingPerson.firstName),
 
-      this.createComparisonRow(
-        'Middle Name',
-        newPerson.middleName,
-        existingPerson.middleName
-      ),
+      this.createComparisonRow('Middle Name', newPerson.middleName, existingPerson.middleName),
 
-      this.createComparisonRow(
-        'Last Name',
-        newPerson.lastName,
-        existingPerson.lastName
-      ),
+      this.createComparisonRow('Last Name', newPerson.lastName, existingPerson.lastName),
 
-      this.createComparisonRow(
-        'Date of Birth',
-        newPerson.dateOfBirth,
-        existingPerson.dateOfBirth
-      ),
+      this.createComparisonRow('Date of Birth', newPerson.dateOfBirth, existingPerson.dateOfBirth),
     ];
-
   });
-
 
   // ========================================
   // Comparison Helper
@@ -223,27 +155,18 @@ export class PersonMatchCompareComponent {
     newValue: string | null | undefined,
     existingValue: string | null | undefined,
   ): ComparisonRow {
-
     const newText = String(newValue ?? '').trim();
+
     const existingText = String(existingValue ?? '').trim();
 
     let result: ComparisonResult;
 
     if (!newText || !existingText) {
-
       result = 'missing';
-
-    } else if (
-      newText.toLocaleLowerCase() ===
-      existingText.toLocaleLowerCase()
-    ) {
-
+    } else if (newText.toLowerCase() === existingText.toLowerCase()) {
       result = 'match';
-
     } else {
-
       result = 'different';
-
     }
 
     return {
@@ -252,87 +175,64 @@ export class PersonMatchCompareComponent {
       existingValue: existingText || '—',
       result,
     };
-
   }
 
-
   // ========================================
-  // Verification State
+  // Decision State
   // ========================================
 
-  readonly pendingDecision =
-    signal<PendingDecision | null>(null);
+  readonly pendingDecision = signal<PendingDecision | null>(null);
 
   readonly decisionReason = signal('');
 
   readonly decisionError = signal('');
 
-  readonly decision =
-    signal<MatchDecision | null>(null);
+  readonly decision = signal<MatchDecision | null>(null);
 
   readonly decisionMessage = signal('');
-
 
   // ========================================
   // Confirm Match
   // ========================================
 
   confirmMatch(): void {
-
     this.openDecision(
       'CONFIRMED',
       'Confirm Match',
-      'Confirm that the new employee and the existing person are the same individual. Employee creation must remain blocked.'
+      'Confirm that the new employee and the existing person are the same individual. Employee creation must remain blocked.',
     );
-
   }
-
 
   // ========================================
   // Dismiss Match
   // ========================================
 
   dismissMatch(): void {
-
     this.openDecision(
       'DISMISSED',
       'Dismiss Match',
-      'Confirm that these records represent different individuals. Other possible matches must still be reviewed.'
+      'Confirm that these records represent different individuals. Other possible matches must still be reviewed.',
     );
-
   }
-
 
   // ========================================
   // Escalate Match
   // ========================================
 
   escalateMatch(): void {
-
     this.openDecision(
       'ESCALATED',
       'Escalate for Review',
-      'Refer this possible match to an authorized reviewer. Employee creation must remain on hold.'
+      'Refer this possible match to an authorized reviewer. Employee creation must remain on hold.',
     );
-
   }
 
-
   // ========================================
-  // Open Verification Form
+  // Open Decision Form
   // ========================================
 
-  private openDecision(
-    type: MatchDecision,
-    title: string,
-    description: string,
-  ): void {
-
-    if (
-      !this.existingPerson() ||
-      !this.newPerson() ||
-      this.decision()
-    ) {
+  private openDecision(type: MatchDecision, title: string, description: string): void {
+    if (!this.existingPerson() || !this.newPerson() || this.decision()) {
       return;
     }
 
@@ -344,114 +244,101 @@ export class PersonMatchCompareComponent {
       title,
       description,
     });
-
   }
 
-
   // ========================================
-  // Update Verification Reason
+  // Update Decision Reason
   // ========================================
 
   updateDecisionReason(value: string): void {
-
     this.decisionReason.set(value);
     this.decisionError.set('');
-
   }
 
-
   // ========================================
-  // Cancel Verification
+  // Cancel Decision
   // ========================================
 
   cancelDecision(): void {
-
     this.pendingDecision.set(null);
     this.decisionReason.set('');
     this.decisionError.set('');
-
   }
 
-
   // ========================================
-  // Submit Verification Decision
+  // Submit Decision
   // ========================================
 
   submitDecision(): void {
-
     const pending = this.pendingDecision();
+
     const existing = this.existingPerson();
+
     const draft = this.newPerson();
 
-    if (
-      !pending ||
-      !existing ||
-      !draft ||
-      this.decision()
-    ) {
+    if (!pending || !existing || !draft || this.decision()) {
       return;
     }
+
+    // ======================================
+    // Validate Decision Reason
+    // ======================================
 
     const reason = this.decisionReason().trim();
 
     if (reason.length < 10) {
-
-      this.decisionError.set(
-        'Verification reason must contain at least 10 characters.'
-      );
+      this.decisionError.set('Verification reason must contain at least 10 characters.');
 
       return;
     }
 
-    // ========================================
-    // UI Prototype Only
+    // ======================================
+    // Prototype Decision
+    // ======================================
     //
-    // Future:
-    // Submit decision to ASP.NET Core API.
-    // Store screening ID, person GUID,
-    // decision, reason and audit history.
+    // This decision is local to this
+    // component and is NOT an authorized
+    // screening resolution.
     //
-    // Never unlock employee creation
-    // from the frontend alone.
-    // ========================================
+    // Future implementation:
+    // - Submit screening decision to API
+    // - Validate reviewer permissions
+    // - Persist decision and reason
+    // - Record reviewer and timestamp
+    // - Recalculate screening clearance
+    //
+    // Do not mark personal-info verified
+    // or unlock employee creation here.
+    // ======================================
 
     this.decision.set(pending.type);
 
     this.decisionMessage.set(
-      'Decision recorded locally for demonstration. ' +
-      'No server verification has occurred.'
+      'Decision recorded locally for demonstration. ' + 'No server verification has occurred.',
     );
+
+    // ======================================
+    // Reset Decision Form
+    // ======================================
 
     this.pendingDecision.set(null);
     this.decisionReason.set('');
     this.decisionError.set('');
-
   }
 
-
   // ========================================
-  // Navigation
+  // Back to Matches
   // ========================================
 
   backToMatches(): void {
-
-    void this.router.navigate([
-      '/app',
-      'new-employee',
-      'screening',
-    ]);
-
+    void this.router.navigate(['/app', 'new-employee', 'screening']);
   }
 
+  // ========================================
+  // Back to Personal Information
+  // ========================================
 
   backToPersonalInfo(): void {
-
-    void this.router.navigate([
-      '/app',
-      'new-employee',
-      'personal-info',
-    ]);
-
+    void this.router.navigate(['/app', 'new-employee', 'personal-info']);
   }
-
 }

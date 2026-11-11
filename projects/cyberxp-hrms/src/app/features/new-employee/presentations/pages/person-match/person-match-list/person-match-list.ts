@@ -1,119 +1,102 @@
+import { Component, inject, computed } from '@angular/core';
 
-import {
-  Component,
-  inject,
-} from '@angular/core';
+import { Router } from '@angular/router';
 
-import {
-  Router,
-} from '@angular/router';
+// ========================================
+// UI Components
+// ========================================
 
-import {
-  PersonMatchListItemComponent,
-} from '../person-match-list-item/person-match-list-item';
+import { CxpButton } from 'cyberxp-ui';
 
-import {
-  PersonMatch,
-} from '../../../../models/personal-info/personal-match.model';
+import { PersonMatchListItemComponent } from '../person-match-list-item/person-match-list-item';
 
-import {
-  CxpButton,
-} from 'cyberxp-ui';
+// ========================================
+// Models
+// ========================================
+
+import { PersonMatch } from '../../../../models/personal-info/person-match.model';
+
+// ========================================
+// State
+// ========================================
+
+import { NewEmployeeStateService } from '../../../../state/new-employee-state.service';
+
+// ========================================
+// Component
+// ========================================
 
 @Component({
   selector: 'cxp-person-match-list',
   standalone: true,
 
-  imports: [
-    PersonMatchListItemComponent,
-    CxpButton,
-  ],
+  imports: [PersonMatchListItemComponent, CxpButton],
 
   templateUrl: './person-match-list.html',
   styleUrl: './person-match-list.css',
 })
 export class PersonMatchListComponent {
-
   // ========================================
   // Dependencies
   // ========================================
 
-  private readonly router =
-    inject(Router);
+  private readonly router = inject(Router);
 
+  private readonly newEmployeeState = inject(NewEmployeeStateService);
 
   // ========================================
-  // Temporary UI Data
+  // Person Match State
   // ========================================
 
-  readonly matches: PersonMatch[] = [
+  readonly matches = this.newEmployeeState.personMatches;
 
-    {
-      personGuid: 'mock-person-001',
-      personNumber: 'PER000123',
-      firstName: 'Juan',
-      middleName: 'Santos',
-      lastName: 'Dela Cruz',
-      dateOfBirth: '1990-05-15',
-      matchScore: 96,
-      matchType: 'High Similarity',
-      matchClassification: 'high',
-    },
+  readonly matchStatus = this.newEmployeeState.personMatchStatus;
 
-    {
-      personGuid: 'mock-person-002',
-      personNumber: 'PER000287',
-      firstName: 'Juan',
-      middleName: '',
-      lastName: 'Dela Cruz',
-      dateOfBirth: '1990-05-15',
-      matchScore: 88,
-      matchType: 'Possible Duplicate',
-      matchClassification: 'high',
-    },
+  readonly hasPossibleMatch = this.newEmployeeState.hasPossibleMatch;
 
-    {
-      personGuid: 'mock-person-003',
-      personNumber: 'PER000415',
-      firstName: 'Juan',
-      middleName: 'S',
-      lastName: 'Cruz',
-      dateOfBirth: '1991-05-15',
-      matchScore: 74,
-      matchType: 'Review Required',
-      matchClassification: 'medium',
-    },
-  ];
+  readonly hasBlocklistMatch = this.newEmployeeState.hasBlocklistMatch;
 
+  // ========================================
+  // Match Summary
+  // ========================================
+
+  readonly totalMatches = computed(() => this.matches().length);
+
+  readonly hasMatches = computed(() => this.totalMatches() > 0);
 
   // ========================================
   // Select Person for Comparison
   // ========================================
 
-  compare(
-    person: PersonMatch,
-  ): void {
+  compare(person: PersonMatch): void {
+    // ======================================
+    // Verify Selected Match
+    // ======================================
 
-    this.router.navigate([
+    const existingMatch = this.newEmployeeState.getPersonMatchByGuid(person.personGuid);
+
+    if (!existingMatch) {
+      return;
+    }
+
+    // ======================================
+    // Navigate to Comparison
+    // ======================================
+
+    void this.router.navigate([
       '/app',
       'new-employee',
       'screening',
       'compare',
-      person.personGuid,
+      existingMatch.personGuid,
     ]);
   }
-
 
   // ========================================
   // Back to Personal Information
   // ========================================
 
   back(): void {
-
-    this.router.navigate([
-      '/app',
-      'new-employee',
-      'personal-info',
-    ]);
+    void this.router.navigate(['/app', 'new-employee', 'personal-info']);
   }
 }

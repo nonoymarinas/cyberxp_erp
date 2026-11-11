@@ -6,13 +6,13 @@ import { Observable, map } from 'rxjs';
 // Application Models
 // ========================================
 
-import { PersonMatchResponse } from '../../models/personal-info/personal-match-response.model';
+import { PersonMatchResponse } from '../../models/personal-info/person-match-response.model';
 
 // ========================================
 // DTO Models
 // ========================================
 
-import { PersonMatchApiResponseDto } from '../../models/personal-info/personal-match-response.dto.model';
+import { PersonMatchApiResponseDto } from '../../models/personal-info/person-match-response.dto.model';
 
 // ========================================
 // Mock API
@@ -20,7 +20,7 @@ import { PersonMatchApiResponseDto } from '../../models/personal-info/personal-m
 
 import { checkPersonMatchMockApi } from '../mocks/person-match.mock-api';
 
-import { PersonMatchSearchRequest } from '../mocks/person-match.matcher';
+import { PersonMatchSearchRequest } from '../../models/personal-info/person-match-request.model';
 
 // ========================================
 // Data Access

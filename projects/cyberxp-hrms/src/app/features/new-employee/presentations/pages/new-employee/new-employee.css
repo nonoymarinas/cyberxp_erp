@@ -1,223 +1,327 @@
-
 /* ========================================
    Main Page Layout
    ======================================== */
 
 .cxp-page {
-    display: grid;
-    grid-template-rows: auto 1fr;
-    height: 100%;
-    min-height: 0;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+  min-height: 0;
 }
 
 .cxp-section__title {
-    align-self: flex-start;
+  align-self: flex-start;
 }
-
 
 /* ========================================
    Basic Information
    ======================================== */
 
 .basic-info-box {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 1rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
 }
 
 .item-group-box {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .cxp-label {
-    align-self: center;
+  align-self: center;
 }
 
 .user-icon {
-    align-self: center;
-    justify-self: center;
+  align-self: center;
+  justify-self: center;
 }
-
 
 /* ========================================
    Item Group Header
    ======================================== */
 
 .item-group-header {
-    display: grid;
-    grid-template-columns: auto auto 1fr auto auto;
-    margin-bottom: 1rem;
-    gap: 1rem;
-    background-color: transparent;
+  display: grid;
+  grid-template-columns: auto auto 1fr auto auto;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  background-color: transparent;
 }
-
 
 /* ========================================
    Sub Sidebar Navigation
    ======================================== */
 
 .sub-sidebar-box {
-    display: flex;
-    gap: .5rem;
-    height: max-content;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  height: max-content;
 }
 
 .employee-sub-menu {
-    border-right: 1px groove var(--color-border-05);
-    margin-right: 1rem;
+  border-right: 1px groove var(--color-border-05);
+  margin-right: 1rem;
 }
 
 .menu-divider {
-    width: 1px;
-    border: 1px groove var(--color-border-08);
-    margin: 0;
+  width: 1px;
+  border: 1px groove var(--color-border-08);
+  margin: 0;
 }
 
 .sub-header-icon {
-    align-self: center;
+  align-self: center;
 }
-
 
 /* ========================================
    New Employee Main Body
    ======================================== */
 
 .new-employee-main-body {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid var(--color-border-08);
-    gap: .5rem;
-    padding: .5rem;
-    min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 0;
+  padding: 0.5rem;
+  border: 1px solid var(--color-border-08);
 }
-
 
 /* ========================================
    Routed Component Content
    ======================================== */
 
 .route-content {
-    flex: 1 1 auto;
-    min-height: 0;
-    min-width: 0;
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
 }
-
 
 /* ========================================
    Input Layout
    ======================================== */
 
 .cxp-input__wrap {
-    margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 
 .cxp-input__wrap:last-child {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
-
 
 /* ========================================
    Employee Image
    ======================================== */
 
 .user-image-box {
-    align-self: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    aspect-ratio: 1 / 1;
-    height: 100%;
-    border: 1px solid var(--color-border-06);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  height: 100%;
+  border: 1px solid var(--color-border-06);
+  aspect-ratio: 1 / 1;
 }
-
 
 /* ========================================
    Wizard Footer
    ======================================== */
 
 .cxp-section__footer {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 1rem;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
 }
-
 
 /* ========================================
    Next Button and Match Warning
    ======================================== */
 
 .wizard-next-actions {
-    display: flex;
-    align-items: center;
-    gap: .75rem;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-
 /* ========================================
-   Possible Match Warning
+   Possible Match Warning Button
    ======================================== */
 
 .possible-match-link {
-    display: inline-flex;
-    align-items: center;
-
-    padding: 0;
-    margin: 0;
-
-    border: none;
-    background: transparent;
-
-    color: #d97706;
-    font-size: .8125rem;
-    font-weight: 500;
-    line-height: 1.5;
-
-    text-decoration: underline;
-    text-underline-offset: 3px;
-
-    cursor: pointer;
-
-    transition: color .15s ease;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.4rem 0.875rem;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-radius: 0;
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.5;
+  text-decoration: none;
+  white-space: nowrap;
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.04);
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+  animation: possible-match-breathe 2.4s ease-in-out infinite;
+  cursor: pointer;
+  appearance: none;
 }
+
+/* ========================================
+   Possible Match Hover
+   ======================================== */
 
 .possible-match-link:hover {
-    color: #b45309;
+  border-color: rgba(239, 68, 68, 0.9);
+  color: #dc2626;
+  background: rgba(239, 68, 68, 0.12);
+  animation-play-state: paused;
 }
+
+/* ========================================
+   Possible Match Keyboard Focus
+   ======================================== */
 
 .possible-match-link:focus-visible {
-    outline: 2px solid currentColor;
-    outline-offset: 4px;
-    border-radius: 2px;
+  outline: 2px solid #ef4444;
+  outline-offset: 3px;
 }
 
+/* ========================================
+   Smooth Breathing Animation
+   ======================================== */
+
+@keyframes possible-match-breathe {
+  0%,
+  100% {
+    border-color: rgba(239, 68, 68, 0.25);
+    background-color: rgba(239, 68, 68, 0.03);
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+  }
+
+  50% {
+    border-color: rgba(239, 68, 68, 0.85);
+    background-color: rgba(239, 68, 68, 0.1);
+    box-shadow: 0 0 0 5px rgba(239, 68, 68, 0.07);
+  }
+}
+
+/* ========================================
+   Wizard Error Message
+   ======================================== */
+
+.wizard-error {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #dc2626;
+}
 
 /* ========================================
    Responsive Layout
    ======================================== */
 
 @media (max-width: 768px) {
+  .basic-info-box {
+    grid-template-columns: 1fr;
+  }
 
-    .basic-info-box {
-        grid-template-columns: 1fr;
-    }
+  .item-group-header {
+    grid-template-columns: auto 1fr auto;
+  }
 
-    .item-group-header {
-        grid-template-columns: auto 1fr auto;
-    }
+  .cxp-section__footer {
+    gap: 0.75rem;
+  }
 
-    .cxp-section__footer {
-        gap: .75rem;
-    }
+  .wizard-next-actions {
+    gap: 0.5rem;
+  }
 
-    .wizard-next-actions {
-        gap: .5rem;
-    }
+  .possible-match-link {
+    padding: 0.35rem 0.625rem;
+    font-size: 0.75rem;
+  }
+}
 
-    .possible-match-link {
-        font-size: .75rem;
-    }
+/* ========================================
+   Reduced Motion Accessibility
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .possible-match-link {
+    animation: none;
+  }
+}
+
+/* ========================================
+   Try Again Button - Neon Green
+   ======================================== */
+
+.screening-try-again-button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  justify-content: center;
+  align-items: center;
+  padding: 0.4rem 0.875rem;
+  border: 1px solid #1c6b0e;
+  border-radius: 0;
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: nowrap;
+  color: #4de231;
+  background-color: rgba(57, 255, 20, 0.08);
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+  cursor: pointer;
+  appearance: none;
+}
+
+/* ========================================
+   Try Again Hover
+   ======================================== */
+
+.screening-try-again-button:hover:not(:disabled) {
+  border-color: #39ff14;
+  background-color: rgba(57, 255, 20, 0.16);
+  box-shadow: 0 0 8px rgba(57, 255, 20, 0.3);
+}
+
+/* ========================================
+   Try Again Keyboard Focus
+   ======================================== */
+
+.screening-try-again-button:focus-visible {
+  outline: 2px solid #39ff14;
+  outline-offset: 3px;
+}
+
+/* ========================================
+   Try Again Disabled
+   ======================================== */
+
+.screening-try-again-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ========================================
+   Try Again Responsive
+   ======================================== */
+
+@media (max-width: 768px) {
+  .screening-try-again-button {
+    padding: 0.35rem 0.625rem;
+    font-size: 0.75rem;
+  }
 }

@@ -1,16 +1,20 @@
 import { Observable, defer, of, delay } from 'rxjs';
 
 // ========================================
-// Models
+// DTO Models
 // ========================================
 
-import { PersonMatch } from '../../models/personal-info/personal-match.model';
+import {
+  PersonMatchApiResponseDto,
+  PersonMatchResponseDto,
+} from '../../models/personal-info/person-match-response.dto.model';
 
 // ========================================
 // Mock Matcher
 // ========================================
 
-import { findPersonMatches, PersonMatchSearchRequest } from './person-match.matcher';
+import { findPersonMatches } from './person-match.matcher';
+import { PersonMatchSearchRequest } from '../../models/personal-info/person-match-request.model';
 
 // ========================================
 // Configuration
@@ -24,12 +28,29 @@ const MOCK_API_DELAY = 500;
 
 export function checkPersonMatchMockApi(
   request: PersonMatchSearchRequest,
-): Observable<PersonMatch[]> {
+): Observable<PersonMatchApiResponseDto> {
   return defer(() => {
-    // Simulate PostgreSQL matching logic
+    // Execute matching algorithm
     const matches = findPersonMatches(request);
 
-    // Simulate API response
-    return of(matches);
+    // Build DTO
+    const data: PersonMatchResponseDto = {
+      status: matches.length > 0 ? 'REVIEW' : 'CLEAR',
+
+      hasPossibleMatch: matches.length > 0,
+      hasBlocklistMatch: false,
+      totalMatches: matches.length,
+      matches,
+    };
+
+    // Build API response
+    const response: PersonMatchApiResponseDto = {
+      success: true,
+      message: 'Person matching completed successfully.',
+      errorCode: null,
+      data,
+    };
+
+    return of(response);
   }).pipe(delay(MOCK_API_DELAY));
 }

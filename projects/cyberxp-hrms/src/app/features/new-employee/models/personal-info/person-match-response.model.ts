@@ -1,6 +1,6 @@
-import { PersonMatch } from './personal-match.model';
+import { PersonMatch } from './person-match.model';
 import { ApiResponse } from '../../../../shared/models/api-response.model';
-import { PersonMatchStatus } from './personal-match.model';
+import { PersonMatchStatus } from './person-match.model';
 
 export interface PersonMatchResponse {
   status: PersonMatchStatus;

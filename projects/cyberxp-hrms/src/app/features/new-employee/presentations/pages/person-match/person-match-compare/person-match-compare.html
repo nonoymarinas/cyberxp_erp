@@ -1,105 +1,73 @@
-
 <!-- ========================================
      Person Match Comparison
      ======================================== -->
 
 <section class="compare-page">
-
   <!-- ========================================
        Header
        ======================================== -->
 
   <header class="compare-header">
-
     <div class="compare-heading">
-
       <h2>Person Match Comparison</h2>
 
-      <p>
-        Compare the new employee information
-        against the selected existing person.
-      </p>
-
+      <p>Compare the new employee information against the selected existing person.</p>
     </div>
 
     @if (existingPerson(); as person) {
-
       <cxp-classification-badge
         [classification]="person.matchClassification"
         [label]="person.matchType"
       />
-
     }
-
   </header>
 
+  <!-- ========================================
+       Person Match Comparison
+       ======================================== -->
 
   @if (existingPerson(); as person) {
-
     @if (newPerson(); as draft) {
-
-      <!-- ========================================
+      <!-- ======================================
            Person Profiles
-           ======================================== -->
+           ====================================== -->
 
       <div class="compare-profiles">
-
-        <!-- ==================================
-             New Employee Box
-             ================================== -->
+        <!-- ====================================
+             New Employee Profile
+             ==================================== -->
 
         <section class="compare-profile">
-
-          <h3 class="compare-profile-label">
-            NEW EMPLOYEE
-          </h3>
+          <h3 class="compare-profile-label">NEW EMPLOYEE</h3>
 
           <div class="compare-profile-header">
-
             <div class="compare-photo">
-
               @if (draft.imageUrl) {
-
-                <img
-                  [src]="draft.imageUrl"
-                  [alt]="newFullName()"
-                />
-
+                <img [src]="draft.imageUrl" [alt]="newFullName()" />
               } @else {
-
-                <span class="compare-photo-placeholder">
-                  No Photo
-                </span>
-
+                <span class="compare-photo-placeholder"> No Photo </span>
               }
-
             </div>
 
             <span class="compare-profile-name">
               {{ newFullName() }}
             </span>
 
-            <span class="compare-profile-number">
-              Unsaved Personal Information
-            </span>
-
+            <span class="compare-profile-number"> Unsaved Personal Information </span>
           </div>
 
-
-          <!-- New Employee Data -->
+          <!-- ==================================
+               New Employee Data
+               ================================== -->
 
           <div class="compare-profile-data">
-
             @for (row of comparisonRows(); track row.label) {
-
               <div class="compare-data-row">
-
                 <span class="compare-data-label">
                   {{ row.label }}
                 </span>
 
                 <div class="compare-data-content">
-
                   <span class="compare-data-value">
                     {{ row.newValue }}
                   </span>
@@ -112,47 +80,26 @@
                   >
                     {{ row.result }}
                   </span>
-
                 </div>
-
               </div>
-
             }
-
           </div>
-
         </section>
 
-
-        <!-- ==================================
-             Existing Person Box
-             ================================== -->
+        <!-- ====================================
+             Existing Person Profile
+             ==================================== -->
 
         <section class="compare-profile">
-
-          <h3 class="compare-profile-label">
-            EXISTING PERSON
-          </h3>
+          <h3 class="compare-profile-label">EXISTING PERSON</h3>
 
           <div class="compare-profile-header">
-
             <div class="compare-photo">
-
               @if (person.imageUrl) {
-
-                <img
-                  [src]="person.imageUrl"
-                  [alt]="existingFullName()"
-                />
-
+                <img [src]="person.imageUrl" [alt]="existingFullName()" />
               } @else {
-
-                <span class="compare-photo-placeholder">
-                  No Photo
-                </span>
-
+                <span class="compare-photo-placeholder"> No Photo </span>
               }
-
             </div>
 
             <span class="compare-profile-name">
@@ -162,24 +109,20 @@
             <span class="compare-profile-number">
               {{ person.personNumber }}
             </span>
-
           </div>
 
-
-          <!-- Existing Person Data -->
+          <!-- ==================================
+               Existing Person Data
+               ================================== -->
 
           <div class="compare-profile-data">
-
             @for (row of comparisonRows(); track row.label) {
-
               <div class="compare-data-row">
-
                 <span class="compare-data-label">
                   {{ row.label }}
                 </span>
 
                 <div class="compare-data-content">
-
                   <span class="compare-data-value">
                     {{ row.existingValue }}
                   </span>
@@ -192,77 +135,62 @@
                   >
                     {{ row.result }}
                   </span>
-
                 </div>
-
               </div>
-
             }
-
           </div>
-
         </section>
-
       </div>
 
-
-      <!-- ========================================
+      <!-- ======================================
            Similarity Score
-           ======================================== -->
+           ====================================== -->
 
       <div class="compare-similarity">
-
-        <div class="compare-similarity-value">
-          {{ person.matchScore }}%
-        </div>
+        <div class="compare-similarity-value">{{ person.matchScore }}%</div>
 
         <div class="compare-similarity-details">
-
-          <span class="compare-similarity-title">
-            Mock Similarity Score
-          </span>
+          <span class="compare-similarity-title"> Estimated Similarity Score </span>
 
           <span class="compare-similarity-description">
-            Demonstration score only.
-            Not calculated from the current draft.
+            Estimated similarity based on the submitted personal information. This score is
+            generated by the mock matching algorithm and requires further verification.
           </span>
-
         </div>
-
       </div>
 
-
-      <!-- ========================================
+      <!-- ======================================
            Verification Decision
-           ======================================== -->
+           ====================================== -->
 
       <section class="compare-verification">
-
         <div class="compare-verification-heading">
-
           <div>
-
             <h3>Verification Decision</h3>
 
             <p>
-              Determine whether the new employee
-              and existing person represent
-              the same individual.
+              Determine whether the new employee and existing person represent the same individual.
             </p>
-
           </div>
 
-          <span class="compare-verification-status">
-            {{ decision() ?? 'PENDING REVIEW' }}
-          </span>
+          <!-- ==================================
+               Decision Status
+               ================================== -->
 
+          <span class="compare-verification-status">
+            @if (decision(); as result) {
+              {{ result }} — MOCK ONLY
+            } @else {
+              PENDING REVIEW
+            }
+          </span>
         </div>
 
-
-        <!-- Verification Actions -->
+        <!-- ======================================
+             Verification Actions
+             ====================================== -->
 
         <div class="compare-verification-actions">
-
           <cxp-button
             type="button"
             variant="primary"
@@ -289,18 +217,14 @@
           >
             Escalate for Review
           </cxp-button>
-
         </div>
 
-
-        <!-- ========================================
+        <!-- ======================================
              Decision Confirmation Form
-             ======================================== -->
+             ====================================== -->
 
         @if (pendingDecision(); as pending) {
-
           <div class="compare-decision-form">
-
             <h4>
               {{ pending.title }}
             </h4>
@@ -309,10 +233,11 @@
               {{ pending.description }}
             </p>
 
-            <label
-              class="compare-reason-label"
-              for="match-decision-reason"
-            >
+            <!-- ================================
+                 Verification Reason
+                 ================================ -->
+
+            <label class="compare-reason-label" for="match-decision-reason">
               Verification Reason
             </label>
 
@@ -326,122 +251,76 @@
               placeholder="Explain the evidence supporting your decision..."
             ></textarea>
 
+            <!-- ================================
+                 Validation Error
+                 ================================ -->
 
             @if (decisionError()) {
-
-              <p
-                class="compare-reason-error"
-                role="alert"
-              >
+              <p class="compare-reason-error" role="alert">
                 {{ decisionError() }}
               </p>
-
             }
 
+            <!-- ================================
+                 Decision Form Actions
+                 ================================ -->
 
             <div class="compare-decision-form-actions">
-
-              <cxp-button
-                type="button"
-                variant="secondary"
-                (click)="cancelDecision()"
-              >
+              <cxp-button type="button" variant="secondary" (click)="cancelDecision()">
                 Cancel
               </cxp-button>
 
-              <cxp-button
-                type="button"
-                variant="primary"
-                (click)="submitDecision()"
-              >
+              <cxp-button type="button" variant="primary" (click)="submitDecision()">
                 Submit Decision
               </cxp-button>
-
             </div>
-
           </div>
-
         }
 
-
-        <!-- ========================================
+        <!-- ======================================
              Decision Feedback
-             ======================================== -->
+             ====================================== -->
 
         @if (decisionMessage()) {
-
-          <div
-            class="compare-decision-message"
-            role="status"
-          >
+          <div class="compare-decision-message" role="status">
             {{ decisionMessage() }}
           </div>
-
         }
-
       </section>
-
     } @else {
-
-      <!-- ========================================
+      <!-- ======================================
            Missing New Employee Draft
-           ======================================== -->
+           ====================================== -->
 
       <div class="compare-empty">
-
         <h3>Personal Information Unavailable</h3>
 
-        <p>
-          Return to Personal Information
-          and enter the employee details.
-        </p>
-
+        <p>Return to Personal Information and enter the employee details.</p>
       </div>
-
     }
-
   } @else {
-
     <!-- ========================================
          Existing Person Not Found
          ======================================== -->
 
     <div class="compare-empty">
-
       <h3>Person Not Found</h3>
 
-      <p>
-        The selected person could not
-        be found in the screening records.
-      </p>
-
+      <p>The selected person could not be found in the screening records.</p>
     </div>
-
   }
-
 
   <!-- ========================================
        Navigation Footer
        ======================================== -->
 
   <footer class="compare-footer">
-
-    <cxp-button
-      type="button"
-      variant="secondary"
-      (click)="backToMatches()"
-    >
+    <cxp-button type="button" variant="secondary" (click)="backToMatches()">
       Back to Matches
     </cxp-button>
 
-    <cxp-button
-      type="button"
-      variant="secondary"
-      (click)="backToPersonalInfo()"
-    >
+    <cxp-button type="button" variant="secondary" (click)="backToPersonalInfo()">
       Back to Personal Information
     </cxp-button>
-
   </footer>
-
 </section>

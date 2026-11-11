@@ -24,13 +24,21 @@
   <div class="match-summary">
     <div class="match-summary-content">
       <span class="match-summary-count">
-        {{ matches.length }}
+        {{ totalMatches() }}
       </span>
 
       <span> Possible matching person records found </span>
     </div>
 
-    <span class="match-summary-status"> Review Required </span>
+    <!-- ======================================
+         Screening Status
+         ====================================== -->
+
+    @if (matchStatus() === 'REVIEW') {
+      <span class="match-summary-status"> Review Required </span>
+    } @else if (matchStatus() === 'HOLD') {
+      <span class="match-summary-status"> On Hold </span>
+    }
   </div>
 
   <!-- ========================================
@@ -38,7 +46,7 @@
        ======================================== -->
 
   <div class="match-list">
-    @for (person of matches; track person.personGuid) {
+    @for (person of matches(); track person.personGuid) {
       <cxp-person-match-list-item [person]="person" (selected)="compare($event)" />
     } @empty {
       <div class="match-empty">No possible matching persons found.</div>
@@ -50,6 +58,10 @@
        ======================================== -->
 
   <div class="match-notice">
-    Registration cannot proceed until the possible matches have been reviewed.
+    @if (matchStatus() === 'HOLD') {
+      Registration is currently on hold. An authorized review is required before proceeding.
+    } @else {
+      Registration cannot proceed until the possible matches have been reviewed and resolved.
+    }
   </div>
 </section>

@@ -1,17 +1,11 @@
-import { PersonMatch } from '../../models/personal-info/personal-match.model';
+import { PersonMatch } from '../../models/personal-info/person-match.model';
+import { PersonMatchSearchRequest } from '../../models/personal-info/person-match-request.model';
 
 import { PERSON_MATCH_MOCKS } from './person-match.mock-data';
 
 /* ========================================
    Request Model
    ======================================== */
-
-export interface PersonMatchSearchRequest {
-  firstName: string;
-  middleName?: string | null;
-  lastName: string;
-  dateOfBirth: string;
-}
 
 /* ========================================
    Configuration
