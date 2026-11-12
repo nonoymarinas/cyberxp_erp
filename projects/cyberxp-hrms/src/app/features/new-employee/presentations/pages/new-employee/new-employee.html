@@ -1,4 +1,4 @@
-<section class="cxp-page">
+<div class="cxp-page">
   <!-- ========================================
        Header
        ======================================== -->
@@ -11,7 +11,7 @@
        Main Body
        ======================================== -->
 
-  <div class="new-employee-main-body">
+  <section class="new-employee-main-body">
     <!-- ========================================
          Step Navigation
          ======================================== -->
@@ -90,7 +90,9 @@
              ==================================== -->
 
         <div class="wizard-next-actions">
-          <!-- Next Button -->
+          <!-- ==================================
+               Next / Create Button
+               ================================== -->
 
           <cxp-button size="sm" variant="secondary" [disabled]="!canNext" (clicked)="next()">
             @if (isChecking()) {
@@ -111,34 +113,36 @@
             (newEmployeeState.personMatchStatus() === 'REVIEW' ||
               newEmployeeState.personMatchStatus() === 'HOLD')
           ) {
-            <!-- Possible Matches / Screening Hold -->
+            <!-- ==================================
+                 Possible Matches / Screening Hold
+                 ================================== -->
 
-            <button
-              type="button"
-              class="possible-match-link"
-              (click)="openPossibleMatches()"
-              aria-label="View employee screening results"
+            <cxp-action-alert-button
+              variant="danger"
+              size="sm"
+              [pulse]="true"
+              [disabled]="isChecking()"
+              (clicked)="openPossibleMatches()"
             >
               @if (newEmployeeState.personMatchStatus() === 'HOLD' && !hasPossibleMatch()) {
                 Screening On Hold
               } @else {
                 Possible Matches
               }
-            </button>
+            </cxp-action-alert-button>
 
             <!-- ==================================
                  Try Again Button
                  ================================== -->
 
-            <button
-              type="button"
-              class="screening-try-again-button"
+            <cxp-action-alert-button
+              variant="success"
+              size="sm"
               [disabled]="isChecking()"
-              (click)="tryAgain()"
-              aria-label="Edit personal information and retry screening"
+              (clicked)="tryAgain()"
             >
               Try Again
-            </button>
+            </cxp-action-alert-button>
           }
 
           <!-- ==================================
@@ -153,5 +157,5 @@
         </div>
       </div>
     }
-  </div>
-</section>
+  </section>
+</div>

@@ -12,35 +12,27 @@
 
 .button {
   display: inline-flex;
-  align-items: center;
   justify-content: center;
-  width: var(--cxp-button-width);
-
+  align-items: center;
   gap: 0.5rem;
-
+  width: var(--cxp-button-width);
   min-width: 0;
-
+  border-width: var(--width-line-04, 1px);
+  border-style: solid;
+  border-radius: var(--border-radius-button);
   margin: 0;
-
   font-family: inherit;
   font-weight: 500;
   line-height: 1;
-
-  border-style: solid;
-  border-width: var(--width-line-04, 1px);
-  /* border-radius: 4px; */
-
-  cursor: pointer;
-
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-
   transition:
     background-color 0.2s,
     border-color 0.2s,
     color 0.2s,
     box-shadow 0.2s,
     transform 0.1s;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* ========================================
@@ -49,11 +41,9 @@
 
 .button__label {
   display: inline-flex;
-  align-items: center;
   justify-content: center;
-
+  align-items: center;
   min-width: 0;
-
   white-space: nowrap;
 }
 
@@ -64,10 +54,9 @@
 .button__prefix,
 .button__suffix {
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
   flex: 0 0 auto;
+  justify-content: center;
+  align-items: center;
 }
 
 .button__prefix:empty,
@@ -80,13 +69,9 @@
    ======================================== */
 
 .button--primary {
+  border-color: var(--color-button-primary-border);
   color: var(--color-button-primary-text);
-
-  background-color:
-    var(--color-button-primary-background);
-
-  border-color:
-    var(--color-button-primary-border);
+  background-color: var(--color-button-primary-background);
 }
 
 .button--primary .button__prefix,
@@ -95,22 +80,14 @@
 }
 
 .button--primary:not(:disabled):hover {
-  color:
-    var(--color-button-primary-hover-text);
-
-  background-color:
-    var(--color-button-primary-hover-background);
-
-  border-color:
-    var(--color-button-primary-hover-border);
+  border-color: var(--color-button-primary-hover-border);
+  color: var(--color-button-primary-hover-text);
+  background-color: var(--color-button-primary-hover-background);
 }
 
 .button--primary:not(:disabled):active {
-  background-color:
-    var(--color-button-primary-active-background);
-
-  border-color:
-    var(--color-button-primary-active-border);
+  border-color: var(--color-button-primary-active-border);
+  background-color: var(--color-button-primary-active-background);
 }
 
 /* ========================================
@@ -118,13 +95,9 @@
    ======================================== */
 
 .button--secondary {
+  border-color: var(--color-button-secondary-border);
   color: var(--color-button-secondary-text);
-
-  background-color:
-    var(--color-button-secondary-background);
-
-  border-color:
-    var(--color-button-secondary-border);
+  background-color: var(--color-button-secondary-background);
 }
 
 .button--secondary .button__prefix,
@@ -133,19 +106,13 @@
 }
 
 .button--secondary:not(:disabled):hover {
-  background-color:
-    var(--color-button-secondary-hover-background);
-
-  border-color:
-    var(--color-button-secondary-hover-border);
+  border-color: var(--color-button-secondary-hover-border);
+  background-color: var(--color-button-secondary-hover-background);
 }
 
 .button--secondary:not(:disabled):active {
-  background-color:
-    var(--color-button-secondary-active-background);
-
-  border-color:
-    var(--color-button-secondary-active-border);
+  border-color: var(--color-button-secondary-active-border);
+  background-color: var(--color-button-secondary-active-background);
 }
 
 /* ========================================
@@ -153,13 +120,9 @@
    ======================================== */
 
 .button--ghost {
+  border-color: var(--color-button-ghost-border);
   color: var(--color-button-ghost-text);
-
-  background-color:
-    var(--color-button-ghost-background);
-
-  border-color:
-    var(--color-button-ghost-border);
+  background-color: var(--color-button-ghost-background);
 }
 
 .button--ghost .button__prefix,
@@ -168,17 +131,13 @@
 }
 
 .button--ghost:not(:disabled):hover {
-  color:
-    var(--color-button-ghost-hover-text);
-
-  background-color:
-    var(--color-button-ghost-hover-background);
+  color: var(--color-button-ghost-hover-text);
+  background-color: var(--color-button-ghost-hover-background);
 }
 
 .button--ghost:not(:disabled):hover .button__prefix,
 .button--ghost:not(:disabled):hover .button__suffix {
-  color:
-    var(--color-button-ghost-hover-icon);
+  color: var(--color-button-ghost-hover-icon);
 }
 
 /* ========================================
@@ -186,10 +145,8 @@
    ======================================== */
 
 .button:focus-visible {
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
   outline: none;
-
-  box-shadow:
-    0 0 0 3px var(--color-focus-ring);
 }
 
 /* ========================================
@@ -205,16 +162,11 @@
    ======================================== */
 
 .button:disabled {
+  border-color: var(--color-button-disabled-border);
   color: var(--color-button-disabled-text);
-
-  background-color:
-    var(--color-button-disabled-background);
-
-  border-color:
-    var(--color-button-disabled-border);
-
-  cursor: not-allowed;
+  background-color: var(--color-button-disabled-background);
   opacity: 1;
+  cursor: not-allowed;
 }
 
 .button:disabled .button__prefix,
@@ -227,53 +179,43 @@
    ======================================== */
 
 .button--xs {
-  min-height: 26px;
-  min-width: 44px;
-  padding-inline: 8px;
-
   gap: 6px;
-
+  min-width: 44px;
+  min-height: 26px;
   font-size: 12px;
+  padding-inline: 8px;
 }
 
 .button--sm {
-  min-height: 32px;
-  min-width: 60px;
-  padding-inline: 8px;
-
   gap: 6px;
-
+  min-width: 60px;
+  min-height: 32px;
   font-size: 12px;
+  padding-inline: 8px;
 }
 
 .button--md {
-  min-height: 36px;
-  min-width: 66px;
-  padding-inline: 10px;
-
   gap: 8px;
-
+  min-width: 66px;
+  min-height: 36px;
   font-size: 14px;
+  padding-inline: 10px;
 }
 
 .button--lg {
-  min-height: 40px;
-  min-width: 76px;
-  padding-inline: 12px;
-
   gap: 10px;
-
+  min-width: 76px;
+  min-height: 40px;
   font-size: 16px;
+  padding-inline: 12px;
 }
 
 .button--xl {
-  min-height: 44px;
-  min-width: 94px;
-  padding-inline: 14px;
-
   gap: 12px;
-
+  min-width: 94px;
+  min-height: 44px;
   font-size: 18px;
+  padding-inline: 14px;
 }
 
 /* ========================================
@@ -293,16 +235,13 @@
 }
 
 .button__spinner {
+  flex: 0 0 auto;
   width: 1em;
   height: 1em;
-
-  flex: 0 0 auto;
-
   border: 2px solid currentColor;
-  border-right-color: transparent;
   border-radius: 50%;
-
   animation: button-spin 0.7s linear infinite;
+  border-right-color: transparent;
 }
 
 @keyframes button-spin {

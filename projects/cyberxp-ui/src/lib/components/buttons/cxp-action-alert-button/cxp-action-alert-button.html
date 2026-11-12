@@ -1,0 +1,20 @@
+<button
+  type="button"
+  class="cxp-action-alert-button"
+  [class.variant-danger]="variant() === 'danger'"
+  [class.variant-success]="variant() === 'success'"
+  [class.variant-info]="variant() === 'info'"
+  [class.variant-warning]="variant() === 'warning'"
+  [class.variant-neutral]="variant() === 'neutral'"
+  [class.size-xs]="size() === 'xs'"
+  [class.size-sm]="size() === 'sm'"
+  [class.size-md]="size() === 'md'"
+  [class.size-lg]="size() === 'lg'"
+  [class.is-pulsing]="pulse() && !isDisabled()"
+  [class.is-loading]="loading()"
+  [disabled]="isDisabled()"
+  [attr.aria-busy]="loading() ? 'true' : null"
+  (click)="onClick()"
+>
+  <ng-content />
+</button>

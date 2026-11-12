@@ -4,7 +4,7 @@ import { Router, RouterOutlet } from '@angular/router';
 
 import { finalize, take } from 'rxjs';
 
-import { CxpIconChevronApp, CxpMenuPageItem, CxpButton } from 'cyberxp-ui';
+import { CxpIconChevronApp, CxpMenuPageItem, CxpButton, CxpActionAlertButton } from 'cyberxp-ui';
 
 // ========================================
 // Authorization
@@ -42,7 +42,7 @@ import { PersonMatchSearchRequest } from '../../../models/personal-info/person-m
   selector: 'cxp-new-employee',
   standalone: true,
 
-  imports: [CxpMenuPageItem, RouterOutlet, CxpIconChevronApp, CxpButton],
+  imports: [CxpMenuPageItem, RouterOutlet, CxpIconChevronApp, CxpButton, CxpActionAlertButton],
 
   templateUrl: './new-employee.html',
   styleUrl: './new-employee.css',

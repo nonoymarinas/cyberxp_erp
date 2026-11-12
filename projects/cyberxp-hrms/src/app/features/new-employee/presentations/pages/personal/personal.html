@@ -1,122 +1,79 @@
 <section class="cxp-section">
-
   @if (canAccess) {
-
-    <form
-      [formGroup]="personalInfoForm"
-      autocomplete="off"
-    >
-
+    <form [formGroup]="personalInfoForm" autocomplete="off">
       <div class="cxp-item-group-box personal-info">
-
         <!-- ========================================
              Section Header
              ======================================== -->
 
         <header class="item-group-header cxp-section__header">
-
           <cxp-icon-user-nav
             class="personal-info__icon"
             size="xs"
             fill="outline"
           ></cxp-icon-user-nav>
 
-          <h2 class="cxp-section__title">
-            Personal Information
-          </h2>
-
+          <h2 class="cxp-section__title">Personal Information</h2>
 
           <!-- ========================================
                Existing Employee Actions Only
                ======================================== -->
 
           @if (!isNewEmployee) {
-
             <div class="personal-info__actions">
-
               @if (isEditing && canModify) {
-
-                <cxp-button
-                  size="xs"
-                  variant="secondary"
-                  type="button"
-                  (clicked)="cancelEdit()"
-                >
+                <cxp-button size="xs" variant="secondary" type="button" (clicked)="cancelEdit()">
                   Cancel
                 </cxp-button>
-
               }
 
-
               @if (canModify) {
-
                 <cxp-button
                   size="xs"
                   [variant]="isEditing ? 'primary' : 'secondary'"
                   type="button"
                   (clicked)="onEditSave()"
                 >
-
                   @if (isEditing) {
                     Save
                   } @else {
                     Edit
                   }
-
                 </cxp-button>
-
               }
-
             </div>
-
           }
-
         </header>
-
 
         <!-- ========================================
              Create / Edit Mode
              ======================================== -->
 
         @if (isEditing && canModify) {
-
           <div class="personal-info__body">
-
-
             <!-- ========================================
                  Employee Image
                  ======================================== -->
 
             <div class="personal-info__box">
-
-              <div class="personal-info__image">
-
+              <section class="personal-info__image">
                 <cxp-icon-user-circle
                   class="personal-info__user-icon"
                   size="6xl"
                   fill="filled"
                 ></cxp-icon-user-circle>
-
-              </div>
-
+              </section>
             </div>
-
 
             <!-- ========================================
                  Input Fields
                  ======================================== -->
 
             <div class="cxp-item-group-box">
-
-
               <!-- First Name -->
 
               <div class="cxp-input__wrap">
-
-                <label
-                  class="cxp-label cxp-label-bg cxp-label-sm"
-                  for="firstName"
-                >
+                <label class="cxp-label cxp-label-bg cxp-label-sm" for="firstName">
                   First Name
                 </label>
 
@@ -131,18 +88,12 @@
                     personalInfoForm.controls.firstName.touched
                   "
                 ></cxp-input-text>
-
               </div>
-
 
               <!-- Middle Name -->
 
               <div class="cxp-input__wrap">
-
-                <label
-                  class="cxp-label cxp-label-bg cxp-label-sm"
-                  for="middleName"
-                >
+                <label class="cxp-label cxp-label-bg cxp-label-sm" for="middleName">
                   Middle Name
                 </label>
 
@@ -153,18 +104,12 @@
                   placeholder="Middle Name (Optional)"
                   autocomplete="new-password"
                 ></cxp-input-text>
-
               </div>
-
 
               <!-- Last Name -->
 
               <div class="cxp-input__wrap">
-
-                <label
-                  class="cxp-label cxp-label-bg cxp-label-sm"
-                  for="lastName"
-                >
+                <label class="cxp-label cxp-label-bg cxp-label-sm" for="lastName">
                   Last Name
                 </label>
 
@@ -179,20 +124,12 @@
                     personalInfoForm.controls.lastName.touched
                   "
                 ></cxp-input-text>
-
               </div>
-
 
               <!-- Suffix -->
 
               <div class="cxp-input__wrap">
-
-                <label
-                  class="cxp-label cxp-label-bg cxp-label-sm"
-                  for="suffix"
-                >
-                  Suffix
-                </label>
+                <label class="cxp-label cxp-label-bg cxp-label-sm" for="suffix"> Suffix </label>
 
                 <cxp-input-select
                   formControlName="suffixId"
@@ -201,18 +138,12 @@
                   placeholder="Select"
                   [options]="suffixOptions"
                 ></cxp-input-select>
-
               </div>
-
 
               <!-- Date of Birth -->
 
               <div class="cxp-input__wrap">
-
-                <label
-                  class="cxp-label cxp-label-bg cxp-label-sm"
-                  for="dateOfBirth"
-                >
+                <label class="cxp-label cxp-label-bg cxp-label-sm" for="dateOfBirth">
                   Date of Birth
                 </label>
 
@@ -226,20 +157,12 @@
                     personalInfoForm.controls.dateOfBirth.touched
                   "
                 ></cxp-input-text>
-
               </div>
-
 
               <!-- Gender -->
 
               <div class="cxp-input__wrap">
-
-                <label
-                  class="cxp-label cxp-label-bg cxp-label-sm"
-                  for="gender"
-                >
-                  Gender
-                </label>
+                <label class="cxp-label cxp-label-bg cxp-label-sm" for="gender"> Gender </label>
 
                 <cxp-input-select
                   formControlName="genderId"
@@ -252,18 +175,12 @@
                     personalInfoForm.controls.genderId.touched
                   "
                 ></cxp-input-select>
-
               </div>
-
 
               <!-- Civil Status -->
 
               <div class="cxp-input__wrap">
-
-                <label
-                  class="cxp-label cxp-label-bg cxp-label-sm"
-                  for="civilStatus"
-                >
+                <label class="cxp-label cxp-label-bg cxp-label-sm" for="civilStatus">
                   Civil Status
                 </label>
 
@@ -278,183 +195,99 @@
                     personalInfoForm.controls.civilStatusId.touched
                   "
                 ></cxp-input-select>
-
               </div>
-
             </div>
-
           </div>
-
         } @else {
-
-
           <!-- ========================================
                View Mode
                Existing Employee
                ======================================== -->
 
           <div class="personal-info__body">
-
-
             <!-- ========================================
                  Employee Image
                  ======================================== -->
 
             <div class="personal-info__box">
-
-              <div class="personal-info__image">
-
+              <section class="personal-info__image">
                 <cxp-icon-user-circle
                   class="personal-info__user-icon"
                   size="6xl"
                   fill="filled"
                 ></cxp-icon-user-circle>
-
-              </div>
-
+              </section>
             </div>
-
 
             <!-- ========================================
                  Display Fields
                  ======================================== -->
 
             <div class="cxp-item-group-box">
-
-
               <!-- First Name -->
 
               <div class="cxp-input__wrap">
-
-                <label
-                  class="cxp-label cxp-label-bg cxp-label-sm"
-                >
-                  First Name
-                </label>
+                <label class="cxp-label cxp-label-bg cxp-label-sm"> First Name </label>
 
                 <cxp-display-field size="sm">
-                  {{
-                    personalInfoForm.controls.firstName.value ||
-                    '—'
-                  }}
+                  {{ personalInfoForm.controls.firstName.value || '—' }}
                 </cxp-display-field>
-
               </div>
-
 
               <!-- Middle Name -->
 
               <div class="cxp-input__wrap">
-
-                <label
-                  class="cxp-label cxp-label-bg cxp-label-sm"
-                >
-                  Middle Name
-                </label>
+                <label class="cxp-label cxp-label-bg cxp-label-sm"> Middle Name </label>
 
                 <cxp-display-field size="sm">
-                  {{
-                    personalInfoForm.controls.middleName.value ||
-                    '—'
-                  }}
+                  {{ personalInfoForm.controls.middleName.value || '—' }}
                 </cxp-display-field>
-
               </div>
-
 
               <!-- Last Name -->
 
               <div class="cxp-input__wrap">
-
-                <label
-                  class="cxp-label cxp-label-bg cxp-label-sm"
-                >
-                  Last Name
-                </label>
+                <label class="cxp-label cxp-label-bg cxp-label-sm"> Last Name </label>
 
                 <cxp-display-field size="sm">
-                  {{
-                    personalInfoForm.controls.lastName.value ||
-                    '—'
-                  }}
+                  {{ personalInfoForm.controls.lastName.value || '—' }}
                 </cxp-display-field>
-
               </div>
-
 
               <!-- Suffix -->
 
               <div class="cxp-input__wrap">
-
-                <label
-                  class="cxp-label cxp-label-bg cxp-label-sm"
-                >
-                  Suffix
-                </label>
+                <label class="cxp-label cxp-label-bg cxp-label-sm"> Suffix </label>
 
                 <cxp-display-field size="sm">
-                  {{
-                    getReferenceLabel(
-                      suffixOptions,
-                      personalInfoForm.controls.suffixId.value
-                    )
-                  }}
+                  {{ getReferenceLabel(suffixOptions, personalInfoForm.controls.suffixId.value) }}
                 </cxp-display-field>
-
               </div>
-
 
               <!-- Date of Birth -->
 
               <div class="cxp-input__wrap">
-
-                <label
-                  class="cxp-label cxp-label-bg cxp-label-sm"
-                >
-                  Date of Birth
-                </label>
+                <label class="cxp-label cxp-label-bg cxp-label-sm"> Date of Birth </label>
 
                 <cxp-display-field size="sm">
-                  {{
-                    personalInfoForm.controls.dateOfBirth.value ||
-                    '—'
-                  }}
+                  {{ personalInfoForm.controls.dateOfBirth.value || '—' }}
                 </cxp-display-field>
-
               </div>
-
 
               <!-- Gender -->
 
               <div class="cxp-input__wrap">
-
-                <label
-                  class="cxp-label cxp-label-bg cxp-label-sm"
-                >
-                  Gender
-                </label>
+                <label class="cxp-label cxp-label-bg cxp-label-sm"> Gender </label>
 
                 <cxp-display-field size="sm">
-                  {{
-                    getReferenceLabel(
-                      genderOptions,
-                      personalInfoForm.controls.genderId.value
-                    )
-                  }}
+                  {{ getReferenceLabel(genderOptions, personalInfoForm.controls.genderId.value) }}
                 </cxp-display-field>
-
               </div>
-
 
               <!-- Civil Status -->
 
               <div class="cxp-input__wrap">
-
-                <label
-                  class="cxp-label cxp-label-bg cxp-label-sm"
-                >
-                  Civil Status
-                </label>
+                <label class="cxp-label cxp-label-bg cxp-label-sm"> Civil Status </label>
 
                 <cxp-display-field size="sm">
                   {{
@@ -464,19 +297,11 @@
                     )
                   }}
                 </cxp-display-field>
-
               </div>
-
             </div>
-
           </div>
-
         }
-
       </div>
-
     </form>
-
   }
-
 </section>

@@ -1,32 +1,32 @@
 <main class="cxp-page">
-  <section >
-    <header class="cxp-section__header">
+  <section>
+    <header class="dashboard-header cxp-section__header">
       <h2 class="cxp-section__title">Dashboard Overview</h2>
     </header>
     <div class="page-content cxp-section">
-    <div class="dashboard-item-group ">
-      <div class="dashboard-item-chart cxp-section">
-        <h3 class="chart-title">Employee Summary</h3>
-        <cxp-chart-donut-app
-          [items]="employeeSummary"
-          centerLabel="Employees"
-          [centerValueFontSize]="30"
-          [centerLabelFontSize]="14"
-        ></cxp-chart-donut-app>
+      <div class="dashboard-item-group">
+        <div class="dashboard-item-chart cxp-section">
+          <h3 class="chart-title">Employee Summary</h3>
+          <cxp-chart-donut-app
+            [items]="employeeSummary"
+            centerLabel="Employees"
+            [centerValueFontSize]="30"
+            [centerLabelFontSize]="14"
+          ></cxp-chart-donut-app>
+        </div>
+        <div class="dashboard-item-chart cxp-section">
+          <h3 class="chart-title">Attendance Summary</h3>
+          <cxp-chart-bar-app
+            [data]="attendanceData"
+            [stacked]="true"
+            [visibleBars]="10"
+            [barSpacing]="0.2"
+            [maximumBarWidth]="10"
+            [stackGap]="2"
+            [navigationStep]="7"
+          ></cxp-chart-bar-app>
+        </div>
       </div>
-      <div class="dashboard-item-chart cxp-section">
-        <h3 class="chart-title">Attendance Summary</h3>
-        <cxp-chart-bar-app
-          [data]="attendanceData"
-          [stacked]="true"
-          [visibleBars]="10"
-          [barSpacing]="0.2"
-          [maximumBarWidth]="10"
-          [stackGap]="2"
-          [navigationStep]="7"
-        ></cxp-chart-bar-app>
-      </div>
-    </div>
     </div>
   </section>
 </main>

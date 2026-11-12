@@ -1,0 +1,239 @@
+/* ========================================
+   Host
+   ======================================== */
+
+:host {
+  display: inline-flex;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+/* ========================================
+   Base Button
+   ======================================== */
+
+.cxp-action-alert-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  max-width: 100%;
+  border: 1px solid var(--alert-border);
+  border-radius: var(--border-radius-button);
+  margin: 0;
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: nowrap;
+  color: var(--alert-text);
+  background-color: var(--alert-background);
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+  cursor: pointer;
+  appearance: none;
+  --alert-background: var(--color-badge-background-danger);
+  --alert-border: var(--color-badge-border-danger);
+  --alert-text: var(--color-badge-text-danger);
+}
+
+/* ========================================
+   Danger
+   ======================================== */
+
+.variant-danger {
+  --alert-background: var(--color-badge-background-danger);
+  --alert-border: var(--color-badge-border-danger);
+  --alert-text: var(--color-badge-text-danger);
+}
+
+/* ========================================
+   Success
+   ======================================== */
+
+.variant-success {
+  --alert-background: var(--color-badge-background-success);
+  --alert-border: var(--color-badge-border-success);
+  --alert-text: var(--color-badge-text-success);
+}
+
+/* ========================================
+   Info
+   ======================================== */
+
+.variant-info {
+  --alert-background: var(--color-badge-background-info);
+  --alert-border: var(--color-badge-border-info);
+  --alert-text: var(--color-badge-text-info);
+}
+
+/* ========================================
+   Warning
+   ======================================== */
+
+.variant-warning {
+  --alert-background: var(--color-warning-background);
+  --alert-border: var(--color-warning-border);
+  --alert-text: var(--color-warning-text);
+}
+
+/* ========================================
+   Neutral
+   ======================================== */
+
+.variant-neutral {
+  --alert-background: var(--color-badge-background-neutral);
+  --alert-border: var(--color-badge-border-neutral);
+  --alert-text: var(--color-badge-text-neutral);
+}
+
+/* ========================================
+   Small
+   ======================================== */
+
+.size-xs {
+  gap: 6px;
+  min-width: 44px;
+  min-height: 26px;
+  font-size: 12px;
+  padding-inline: 8px;
+}
+
+/* ========================================
+   Small
+   ======================================== */
+
+.size-sm {
+  gap: 6px;
+  min-width: 60px;
+  min-height: 32px;
+  font-size: 12px;
+  padding-inline: 8px;
+}
+
+/* ========================================
+   Medium
+   ======================================== */
+
+.size-md {
+  gap: 8px;
+  min-width: 66px;
+  min-height: 36px;
+  font-size: 14px;
+  padding-inline: 10px;
+}
+
+/* ========================================
+   Large
+   ======================================== */
+
+.size-lg {
+  gap: 10px;
+  min-width: 76px;
+  min-height: 40px;
+  font-size: 16px;
+  padding-inline: 12px;
+}
+
+/* ========================================
+   Hover
+   ======================================== */
+
+.cxp-action-alert-button:hover:not(:disabled):not(.is-pulsing) {
+  border-color: var(--alert-border);
+  background-color: color-mix(in srgb, var(--alert-border) 20%, var(--alert-background));
+  box-shadow: 0 0 8px color-mix(in srgb, var(--alert-border) 25%, transparent);
+}
+
+/* ========================================
+   Active
+   ======================================== */
+
+.cxp-action-alert-button:active:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+/* ========================================
+   Keyboard Focus
+   ======================================== */
+
+.cxp-action-alert-button:focus-visible {
+  outline: 2px solid var(--alert-border);
+  outline-offset: 3px;
+}
+
+/* ========================================
+   Optional Breathing Animation
+   ======================================== */
+
+.cxp-action-alert-button.is-pulsing:not(:disabled) {
+  animation: cxp-action-alert-breathe 2.2s ease-in-out infinite;
+}
+
+/* ========================================
+   Breathing Keyframes
+   ======================================== */
+
+@keyframes cxp-action-alert-breathe {
+  0%,
+  100% {
+    border-color: var(--alert-border);
+    background-color: var(--alert-background);
+    box-shadow:
+      0 0 0 0 transparent,
+      0 0 0 transparent;
+  }
+
+  50% {
+    border-color: var(--alert-text);
+    background-color: color-mix(in srgb, var(--alert-border) 30%, var(--alert-background));
+    box-shadow:
+      0 0 0 5px color-mix(in srgb, var(--alert-border) 25%, transparent),
+      0 0 14px color-mix(in srgb, var(--alert-border) 55%, transparent);
+  }
+}
+
+/* ========================================
+   Disabled
+   ======================================== */
+
+.cxp-action-alert-button:disabled {
+  border-color: var(--color-button-disabled-border);
+  color: var(--color-button-disabled-text);
+  background-color: var(--color-button-disabled-background);
+  opacity: 0.55;
+  box-shadow: none;
+  animation: none;
+  cursor: not-allowed;
+}
+
+/* ========================================
+   Loading
+   ======================================== */
+
+.cxp-action-alert-button.is-loading {
+  cursor: wait;
+}
+
+/* ========================================
+   Reduced Motion Accessibility
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .cxp-action-alert-button.is-pulsing {
+    animation: none;
+  }
+}
+
+/* ========================================
+   Responsive Layout
+   ======================================== */
+
+@media (max-width: 768px) {
+  .size-sm {
+    padding: 0.35rem 0.625rem;
+    font-size: 0.75rem;
+  }
+}

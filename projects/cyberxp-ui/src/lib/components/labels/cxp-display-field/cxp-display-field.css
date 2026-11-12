@@ -19,7 +19,7 @@
   width: 100%;
   min-width: 0;
   border: 1px solid var(--color-border-subtle);
-  border-radius: 0;
+  border-radius: var(--border-radius-label);
   color: var(--color-input-text);
   background-color: transparent;
   transition:

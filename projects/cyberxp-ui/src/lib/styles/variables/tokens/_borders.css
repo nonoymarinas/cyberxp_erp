@@ -1,3 +1,30 @@
+/* ========================================
+   CyberXP Global Border Tokens
+   ======================================== */
+
 :root {
+  /* Border Colors */
   --color-border-dark-default: var(--grey-500);
+
+  /* Global Radius */
+  --border-radius-default: 4px;
+  --border-radius-structural: 10px;
+
+  /* Component Radius */
+  --border-radius-button: var(--border-radius-default);
+  --border-radius-input: var(--border-radius-default);
+  --border-radius-label: var(--border-radius-default);
+
+  /* Structural Radius */
+  --border-radius-header: var(--border-radius-structural);
+  --border-radius-section: var(--border-radius-structural);
+  --border-radius-card: var(--border-radius-structural);
+  --border-radius-panel: var(--border-radius-structural);
+  --border-radius-modal: var(--border-radius-structural);
+
+  /* HTML Element Radius */
+  --border-radius-a: 0px;
+  --border-radius-ul: 0px;
+  --border-radius-p: 0px;
+  --border-radius-h: 0px;
 }

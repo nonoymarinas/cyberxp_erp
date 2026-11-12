@@ -15,16 +15,12 @@
 .input {
   display: flex;
   align-items: center;
-
   width: 100%;
   min-width: 0;
-
-  background-color: var(--color-input-background);
   border: 1px solid var(--color-input-border);
-  border-radius: 0;
-
+  border-radius: var(--border-radius-input);
   color: var(--color-input-text);
-
+  background-color: var(--color-input-background);
   transition:
     background-color 160ms ease,
     border-color 160ms ease,
@@ -42,25 +38,19 @@ input[type='date']::-webkit-datetime-edit {
 
 .input__field {
   flex: 1 1 auto;
-
   width: 100%;
   min-width: 0;
-
   padding: 0;
-  margin: 0;
-
-  color: var(--color-input-text);
-  background-color: transparent;
-
   border: 0;
-  outline: 0;
-
+  margin: 0;
   font-family: inherit;
   font-size: inherit;
   font-weight: inherit;
   line-height: inherit;
-
+  color: var(--color-input-text);
+  background-color: transparent;
   appearance: none;
+  outline: 0;
 }
 
 .input__field::placeholder {
@@ -73,13 +63,10 @@ input[type='date']::-webkit-datetime-edit {
 .input__field:-webkit-autofill,
 .input__field:-webkit-autofill:hover,
 .input__field:-webkit-autofill:focus {
+  box-shadow: 0 0 0 1000px var(--color-input-background) inset;
+  transition: background-color 9999s ease-out;
   -webkit-text-fill-color: var(--color-input-text);
   caret-color: var(--color-input-text);
-
-  box-shadow:
-    0 0 0 1000px var(--color-input-background) inset;
-
-  transition: background-color 9999s ease-out;
 }
 
 /* Remove browser number controls */
@@ -108,11 +95,9 @@ input[type='date']::-webkit-datetime-edit {
 .input__prefix,
 .input__suffix {
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
   flex: 0 0 auto;
-
+  justify-content: center;
+  align-items: center;
   color: var(--color-input-icon);
 }
 
@@ -126,37 +111,31 @@ input[type='date']::-webkit-datetime-edit {
    ======================================== */
 
 .input--sm {
-    min-height: 32px;
-    padding-inline: 10px;
-
-    gap: 6px;
-
-    font-size: 16px;
+  gap: 6px;
+  min-height: 32px;
+  font-size: 16px;
+  padding-inline: 10px;
 }
 
 .input--md {
-    min-height: 40px;
-    padding-inline: 12px;
-    gap: 8px;
-    font-size: 17px;
+  gap: 8px;
+  min-height: 40px;
+  font-size: 17px;
+  padding-inline: 12px;
 }
 
 .input--lg {
-    min-height: 48px;
-    padding-inline: 14px;
-
-    gap: 10px;
-
-    font-size: 18px;
+  gap: 10px;
+  min-height: 48px;
+  font-size: 18px;
+  padding-inline: 14px;
 }
 
 .input--xl {
-    min-height: 56px;
-    padding-inline: 16px;
-
-    gap: 12px;
-
-    font-size: 20px;
+  gap: 12px;
+  min-height: 56px;
+  font-size: 20px;
+  padding-inline: 16px;
 }
 
 /* ========================================
@@ -164,8 +143,8 @@ input[type='date']::-webkit-datetime-edit {
    ======================================== */
 
 .input:not(.input--disabled):not(.input--readonly):hover {
-  background-color: var(--color-input-hover-background);
   border-color: var(--color-input-hover-border);
+  background-color: var(--color-input-hover-background);
 }
 
 /* ========================================
@@ -173,11 +152,9 @@ input[type='date']::-webkit-datetime-edit {
    ======================================== */
 
 .input:not(.input--disabled):focus-within {
-  background-color: var(--color-input-focus-background);
   border-color: var(--color-input-focus-border);
-
-  box-shadow:
-    0 0 0 3px var(--color-input-focus-ring);
+  background-color: var(--color-input-focus-background);
+  box-shadow: 0 0 0 3px var(--color-input-focus-ring);
 }
 
 /* ========================================
@@ -185,15 +162,13 @@ input[type='date']::-webkit-datetime-edit {
    ======================================== */
 
 .input--disabled {
-  background-color: var(--color-input-disabled-background);
   border-color: var(--color-input-disabled-border);
-
+  background-color: var(--color-input-disabled-background);
   cursor: not-allowed;
 }
 
 .input--disabled .input__field {
   color: var(--color-input-disabled-text);
-
   cursor: not-allowed;
 }
 
@@ -211,13 +186,12 @@ input[type='date']::-webkit-datetime-edit {
    ======================================== */
 
 .input--readonly {
-  background-color: var(--color-input-readonly-background);
   border-color: var(--color-input-readonly-border);
+  background-color: var(--color-input-readonly-background);
 }
 
 .input--readonly .input__field {
   color: var(--color-input-readonly-text);
-
   cursor: default;
 }
 
@@ -226,8 +200,8 @@ input[type='date']::-webkit-datetime-edit {
    ======================================== */
 
 .input--invalid {
-  background-color: var(--color-input-error-background);
   border-color: var(--color-input-error-border);
+  background-color: var(--color-input-error-background);
 }
 
 .input--invalid .input__field {
