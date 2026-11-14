@@ -1,0 +1,48 @@
+
+<!-- ========================================
+     Menu Home SVG
+     ======================================== -->
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+
+  class="cxp-icon-menu-home"
+
+  [class.cxp-icon-menu-home--xs]="size === 'xs'"
+  [class.cxp-icon-menu-home--sm]="size === 'sm'"
+  [class.cxp-icon-menu-home--md]="size === 'md'"
+  [class.cxp-icon-menu-home--lg]="size === 'lg'"
+  [class.cxp-icon-menu-home--xl]="size === 'xl'"
+
+  [attr.stroke]="color"
+  [attr.stroke-width]="effectiveStrokeWidth"
+
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  fill="none"
+
+  aria-hidden="true"
+>
+
+  <!-- ======================================
+       House Outline
+       ====================================== -->
+
+  <path
+    d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"
+    [attr.fill]="fill === 'filled' ? color : 'none'"
+  />
+
+  <!-- ======================================
+       Door
+       ====================================== -->
+
+  <path
+    d="M9 21v-8h6v8"
+    [attr.stroke]="fill === 'filled'
+      ? 'var(--color-icon-on-fill, var(--color-nav-background))'
+      : color"
+  />
+
+</svg>

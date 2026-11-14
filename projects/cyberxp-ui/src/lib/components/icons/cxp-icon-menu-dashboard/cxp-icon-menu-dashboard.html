@@ -1,0 +1,54 @@
+
+<!-- ========================================
+     Dashboard SVG
+     ======================================== -->
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+
+  class="cxp-icon-menu-dashboard"
+
+  [class.cxp-icon-menu-dashboard--xs]="size === 'xs'"
+  [class.cxp-icon-menu-dashboard--sm]="size === 'sm'"
+  [class.cxp-icon-menu-dashboard--md]="size === 'md'"
+  [class.cxp-icon-menu-dashboard--lg]="size === 'lg'"
+  [class.cxp-icon-menu-dashboard--xl]="size === 'xl'"
+
+  [attr.stroke]="color"
+  [attr.stroke-width]="effectiveStrokeWidth"
+
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  fill="none"
+  aria-hidden="true"
+>
+
+  <!-- ======================================
+       Dashboard Frame
+       ====================================== -->
+
+  <rect
+    x="2.5"
+    y="3"
+    width="19"
+    height="18"
+    rx="2"
+    [attr.fill]="fill === 'filled' ? color : 'none'"
+  />
+
+  <!-- ======================================
+       Dashboard Chart
+       ====================================== -->
+
+  <g
+    [attr.stroke]="fill === 'filled'
+      ? 'var(--color-nav-background, white)'
+      : color"
+  >
+    <path d="M7 16v-3"/>
+    <path d="M12 16V9"/>
+    <path d="M17 16V7"/>
+  </g>
+
+</svg>

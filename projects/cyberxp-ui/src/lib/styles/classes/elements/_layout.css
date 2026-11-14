@@ -323,6 +323,7 @@
   padding-block: .3rem;
   color: var(--color-section-text);
   background-color: var(--color-section-header-background);
+  border-radius: var(--border-radius-header, 0px);
 }
 
 .cxp-section__title {

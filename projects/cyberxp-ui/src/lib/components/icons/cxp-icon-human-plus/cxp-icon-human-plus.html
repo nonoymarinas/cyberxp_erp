@@ -1,0 +1,71 @@
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+
+  viewBox="0 0 24 24"
+
+  class="cxp-icon-human-plus"
+
+  [class.cxp-icon-human-plus--xs]="size === 'xs'"
+  [class.cxp-icon-human-plus--sm]="size === 'sm'"
+  [class.cxp-icon-human-plus--md]="size === 'md'"
+  [class.cxp-icon-human-plus--lg]="size === 'lg'"
+  [class.cxp-icon-human-plus--xl]="size === 'xl'"
+
+  [class.cxp-icon-human-plus--filled]="fill === 'filled'"
+
+  [attr.stroke]="color"
+  [attr.stroke-width]="effectiveStrokeWidth"
+
+  stroke-linecap="round"
+  stroke-linejoin="round"
+
+  fill="none"
+
+  aria-hidden="true"
+>
+
+  <!-- ======================================
+       Human Head
+       ====================================== -->
+
+  <circle
+    cx="9"
+    cy="7"
+    r="3"
+    [attr.fill]="fill === 'filled' ? color : 'none'"
+  />
+
+  <!-- ======================================
+       Human Body
+       ====================================== -->
+
+  <path
+    d="M3.5 20v-2.5A5.5 5.5 0 0 1 9 12h1.5"
+  />
+
+  <!-- ======================================
+       Plus Circle
+       ====================================== -->
+
+  <circle
+    cx="17"
+    cy="16"
+    r="5.5"
+    [attr.fill]="fill === 'filled' ? color : 'none'"
+  />
+
+  <!-- ======================================
+       Plus Sign
+       ====================================== -->
+
+  <path
+    d="M17 13v6M14 16h6"
+    [attr.stroke]="
+      fill === 'filled'
+        ? 'var(--color-nav-background)'
+        : color
+    "
+  />
+
+</svg>

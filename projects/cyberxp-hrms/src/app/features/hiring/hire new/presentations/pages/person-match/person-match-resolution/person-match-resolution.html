@@ -1,0 +1,254 @@
+<div class="cxp-person-match-resolution">
+  <!-- ========================================
+       Header
+       ======================================== -->
+
+  <header class="resolution-header">
+    <div class="resolution-header__content">
+      <h2 class="resolution-title">Person Match Resolution</h2>
+
+      <p class="resolution-description">
+        Review the selected person's employment status and choose an available action.
+      </p>
+    </div>
+  </header>
+
+  <!-- ========================================
+       Loading
+       ======================================== -->
+
+  @if (isLoading()) {
+    <div class="resolution-message" role="status">Loading person resolution...</div>
+  }
+
+  <!-- ========================================
+       Error
+       ======================================== -->
+
+  @else if (errorMessage()) {
+    <div class="resolution-error" role="alert">
+      {{ errorMessage() }}
+    </div>
+
+    <div class="resolution-actions">
+      <cxp-button variant="secondary" (clicked)="loadResolution()"> Try Again </cxp-button>
+
+      <cxp-button variant="secondary" (clicked)="backToMatches()"> Back to Match List </cxp-button>
+    </div>
+  }
+
+  <!-- ========================================
+       Resolution
+       ======================================== -->
+
+  @else if (resolution(); as person) {
+    <!-- ========================================
+         Selected Person
+         ======================================== -->
+
+    <section class="resolution-card">
+      <header class="resolution-card__header">
+        <h3>Selected Existing Person</h3>
+
+        <span class="resolution-confirmed-badge"> PERSON SELECTED </span>
+      </header>
+
+      <div class="resolution-card__body">
+        <div class="resolution-grid">
+          <!-- Person Number -->
+
+          <div class="resolution-field">
+            <span class="resolution-label"> Person Number </span>
+
+            <span class="resolution-value">
+              {{ person.personNumber }}
+            </span>
+          </div>
+
+          <!-- Full Name -->
+
+          <div class="resolution-field">
+            <span class="resolution-label"> Full Name </span>
+
+            <span class="resolution-value">
+              {{ person.fullName }}
+            </span>
+          </div>
+
+          <!-- Employment Status -->
+
+          <div class="resolution-field">
+            <span class="resolution-label"> Employment Status </span>
+
+            <cxp-classification-badge
+              [classification]="
+                person.employmentStatus === 'ACTIVE'
+                  ? 'low'
+                  : person.employmentStatus === 'TERMINATED'
+                    ? 'high'
+                    : 'medium'
+              "
+              [label]="person.employmentStatus"
+            />
+          </div>
+
+          <!-- Blocklist Status -->
+
+          <div class="resolution-field">
+            <span class="resolution-label"> Blocklist Status </span>
+
+            <cxp-classification-badge
+              [classification]="person.isBlocklisted ? 'high' : 'low'"
+              [label]="person.isBlocklisted ? 'BLOCKLISTED' : 'CLEAR'"
+            />
+          </div>
+
+          <!-- Screening Reference -->
+
+          <div class="resolution-field">
+            <span class="resolution-label"> Screening Reference </span>
+
+            <span class="resolution-value">
+              {{ person.screeningId }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================
+         Blocklist Warning
+         ======================================== -->
+
+    @if (person.isBlocklisted) {
+      <div class="resolution-warning" role="alert">
+        <strong> Employment Restricted </strong>
+
+        <p>
+          This person is currently blocklisted. Rehire, Reactivate, and Hire Existing Person are
+          unavailable until the restriction is cleared through an authorized review.
+        </p>
+      </div>
+    }
+
+    <!-- ========================================
+         Active Employee Information
+         ======================================== -->
+
+    @if (person.employmentStatus === 'ACTIVE' && !person.isBlocklisted) {
+      <div class="resolution-information">
+        <strong> Existing Active Employee </strong>
+
+        <p>
+          This person already has an active employment record. Rehire is not available. Open the
+          existing employee record instead.
+        </p>
+      </div>
+    }
+
+    <!-- ========================================
+         Available Actions
+         ======================================== -->
+
+    <section class="resolution-card">
+      <header class="resolution-card__header">
+        <h3>Available Actions</h3>
+      </header>
+
+      <div class="resolution-card__body">
+        <div class="resolution-action-list">
+          <!-- ==================================
+               Rehire
+               ================================== -->
+
+          @if (canRehire()) {
+            <cxp-button variant="secondary" class="resolution-action-item" (clicked)="rehire()">
+              Rehire
+            </cxp-button>
+          }
+
+          <!-- ==================================
+               Reactivate
+               ================================== -->
+
+          @if (canReactivate()) {
+            <cxp-button variant="secondary" class="resolution-action-item" (clicked)="reactivate()">
+              Reactivate
+            </cxp-button>
+          }
+
+          <!-- ==================================
+               Hire Existing Person
+               ================================== -->
+
+          @if (canHireExisting()) {
+            <cxp-button
+              variant="secondary"
+              class="resolution-action-item"
+              (clicked)="hireExisting()"
+            >
+              Hire Existing Person
+            </cxp-button>
+          }
+
+          <!-- ==================================
+               View Employee
+               ================================== -->
+
+          @if (canViewEmployee()) {
+            <cxp-button
+              variant="secondary"
+              class="resolution-action-item"
+              (clicked)="viewEmployee()"
+            >
+              View Employee
+            </cxp-button>
+          }
+
+          <!-- ==================================
+               Review Blocklist
+               ================================== -->
+
+          @if (canReviewBlocklist()) {
+            <button type="button" class="resolution-action-item" (click)="reviewBlocklist()">
+              Review Blocklist
+            </button>
+          }
+
+          <!-- ==================================
+               No Employment Actions
+               ================================== -->
+
+          @if (!hasAvailableActions()) {
+            <p class="resolution-empty">
+              No employment actions are currently available for this person.
+            </p>
+          }
+
+          <!-- ==================================
+               Back to Match List
+               ================================== -->
+          <div class="resolution-action-list__back-container resolution-action-item">
+            <cxp-button
+              variant="secondary"
+              (clicked)="backToMatches()"
+            >
+              Back to Match List
+            </cxp-button>
+
+            <!-- ==================================
+               Back to New Employee
+               ================================== -->
+
+            <cxp-button
+              variant="secondary"
+              (clicked)="backToNewEmployee()"
+            >
+              Back to New Employee
+            </cxp-button>
+          </div>
+        </div>
+      </div>
+    </section>
+  }
+</div>

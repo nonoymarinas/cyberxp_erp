@@ -1,0 +1,293 @@
+
+/* ========================================
+   Person Match Resolution
+   ======================================== */
+
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.cxp-person-match-resolution {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  min-width: 0;
+  padding: 1rem;
+
+  color: var(--color-text-primary);
+}
+
+/* ========================================
+   Header
+   ======================================== */
+
+.resolution-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.resolution-title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.resolution-description {
+  margin: 0.5rem 0 0;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+/* ========================================
+   Card
+   ======================================== */
+
+.resolution-card {
+  overflow: hidden;
+
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-card, 0px);
+
+  background-color: var(--color-card-background, transparent);
+  color: var(--color-card-text, inherit);
+}
+
+.resolution-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+
+.resolution-card__header h3 {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.resolution-card__body {
+  padding: 1rem;
+}
+
+/* ========================================
+   Identity Grid
+   ======================================== */
+
+.resolution-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.resolution-field {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 0.375rem;
+}
+
+.resolution-label {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+.resolution-value {
+  font-size: 1.25rem;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+  color: var(--color-text-primary);
+}
+.resolution-action-list__back-container{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    
+    width: fit-content;
+}
+/* ========================================
+   Status
+   ======================================== */
+
+.resolution-status,
+.resolution-confirmed-badge {
+  display: inline-flex;
+  align-self: flex-start;
+  width: fit-content;
+
+  padding: 0.25rem 0.5rem;
+
+  border: 1px solid var(--color-badge-border-neutral);
+  border-radius: var(--border-radius-label, 0px);
+
+  background-color: var(--color-badge-background-neutral);
+  color: var(--color-badge-text-neutral);
+
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.resolution-status--success,
+.resolution-confirmed-badge {
+  border-color: var(--color-badge-border-success);
+  background-color: var(--color-badge-background-success);
+  color: var(--color-badge-text-success);
+}
+
+.resolution-status--danger {
+  border-color: var(--color-badge-border-danger);
+  background-color: var(--color-badge-background-danger);
+  color: var(--color-badge-text-danger);
+}
+
+/* ========================================
+   Warning / Information
+   ======================================== */
+
+.resolution-warning,
+.resolution-information {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  padding: 1rem;
+  border-radius: var(--border-radius-card, 0px);
+}
+
+.resolution-warning {
+  border: 1px solid var(--color-badge-border-danger);
+  background-color: var(--color-badge-background-danger);
+  color: var(--color-badge-text-danger);
+}
+
+.resolution-information {
+  border: 1px solid var(--color-badge-border-info);
+  background-color: var(--color-badge-background-info);
+  color: var(--color-badge-text-info);
+}
+
+.resolution-warning strong,
+.resolution-information strong {
+  font-size: 0.875rem;
+}
+
+.resolution-warning p,
+.resolution-information p {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+/* ========================================
+   Available Action List
+   ======================================== */
+
+.resolution-action-list {
+  display: flex;
+  /* flex-direction: column; */
+  gap: .5rem;
+}
+
+.resolution-action-item {
+
+} 
+
+.resolution-action-item:last-child {
+  margin-left: auto;
+  border-bottom: none;
+}
+
+.resolution-action-item:hover {
+  background-color: var(--color-badge-background-info);
+  color: var(--color-badge-text-info);
+}
+
+.resolution-action-item:focus-visible {
+  outline: 2px solid var(--color-badge-border-info);
+  outline-offset: -2px;
+}
+
+.resolution-action-item:active {
+  background-color: var(--color-badge-background-neutral);
+}
+
+/* ========================================
+   Actions / Empty State
+   ======================================== */
+
+.resolution-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.resolution-empty {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+/* ========================================
+   Messages
+   ======================================== */
+
+.resolution-message,
+.resolution-error {
+  padding: 1rem;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-card, 0px);
+  font-size: 0.875rem;
+}
+
+.resolution-error {
+  border-color: var(--color-badge-border-danger);
+  background-color: var(--color-badge-background-danger);
+  color: var(--color-badge-text-danger);
+}
+
+/* ========================================
+   Responsive
+   ======================================== */
+
+@media (max-width: 768px) {
+
+  .cxp-person-match-resolution {
+    padding: 0.75rem;
+  }
+
+  .resolution-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .resolution-action-list {
+    width: 100%;
+  }
+
+  .resolution-action-item {
+    padding: 0.75rem;
+  }
+
+  .resolution-actions {
+    gap: 0.5rem;
+  }
+}
+
+/* ========================================
+   Reduced Motion
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .resolution-action-item {
+    transition: none;
+  }
+}

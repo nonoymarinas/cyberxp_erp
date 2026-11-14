@@ -1,0 +1,72 @@
+
+<!-- ========================================
+     Menu Records SVG
+     ======================================== -->
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+
+  class="cxp-icon-menu-records"
+
+  [class.cxp-icon-menu-records--xs]="size === 'xs'"
+  [class.cxp-icon-menu-records--sm]="size === 'sm'"
+  [class.cxp-icon-menu-records--md]="size === 'md'"
+  [class.cxp-icon-menu-records--lg]="size === 'lg'"
+  [class.cxp-icon-menu-records--xl]="size === 'xl'"
+
+  [attr.stroke]="color"
+  [attr.stroke-width]="effectiveStrokeWidth"
+
+  stroke-linecap="round"
+  stroke-linejoin="round"
+
+  fill="none"
+  aria-hidden="true"
+>
+
+  <!-- ======================================
+       Document Outline
+       ====================================== -->
+
+  <path
+    d="M6 2.5h8l4 4V21H6a2 2 0 0 1-2-2V4.5a2 2 0 0 1 2-2z"
+    [attr.fill]="fill === 'filled' ? color : 'none'"
+  />
+
+  <!-- ======================================
+       Folded Corner
+       ====================================== -->
+
+  <path
+    d="M14 2.5V7h4"
+    [attr.stroke]="fill === 'filled'
+      ? 'var(--color-icon-on-fill, var(--color-nav-background))'
+      : color"
+  />
+
+  <!-- ======================================
+       Employee Head
+       ====================================== -->
+
+  <circle
+    cx="11"
+    cy="11"
+    r="2"
+    [attr.stroke]="fill === 'filled'
+      ? 'var(--color-icon-on-fill, var(--color-nav-background))'
+      : color"
+  />
+
+  <!-- ======================================
+       Employee Shoulders
+       ====================================== -->
+
+  <path
+    d="M7.5 17a3.5 3.5 0 0 1 7 0"
+    [attr.stroke]="fill === 'filled'
+      ? 'var(--color-icon-on-fill, var(--color-nav-background))'
+      : color"
+  />
+
+</svg>

@@ -1,0 +1,59 @@
+
+<!-- ========================================
+     Human New SVG
+     ======================================== -->
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+
+  class="cxp-icon-human-new"
+
+  [class.cxp-icon-human-new--xs]="size === 'xs'"
+  [class.cxp-icon-human-new--sm]="size === 'sm'"
+  [class.cxp-icon-human-new--md]="size === 'md'"
+  [class.cxp-icon-human-new--lg]="size === 'lg'"
+  [class.cxp-icon-human-new--xl]="size === 'xl'"
+
+  [class.cxp-icon-human-new--filled]="fill === 'filled'"
+
+  [attr.stroke]="color"
+  [attr.stroke-width]="effectiveStrokeWidth"
+
+  stroke-linecap="round"
+  stroke-linejoin="round"
+
+  fill="none"
+
+  aria-hidden="true"
+>
+
+  <!-- ======================================
+       Human Head
+       ====================================== -->
+
+  <circle
+    cx="9"
+    cy="7"
+    r="3"
+    [attr.fill]="fill === 'filled' ? color : 'none'"
+  />
+
+  <!-- ======================================
+       Human Body
+       ====================================== -->
+
+  <path
+    d="M3 20v-2.5A5.5 5.5 0 0 1 8.5 12h1A5.5 5.5 0 0 1 15 17.5V20"
+  />
+
+  <!-- ======================================
+       New / Sparkle Indicator
+       ====================================== -->
+
+  <path
+    d="M18 3l.9 2.6L21.5 6.5l-2.6.9L18 10l-.9-2.6-2.6-.9 2.6-.9L18 3z"
+    [attr.fill]="fill === 'filled' ? color : 'none'"
+  />
+
+</svg>

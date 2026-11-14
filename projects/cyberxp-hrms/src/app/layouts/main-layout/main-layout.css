@@ -1,43 +1,273 @@
-.main-layout {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+
+/* ========================================
+   Main Layout Host
+   ======================================== */
+
+:host {
+  display: block;
+
+  width: 100%;
   height: 100vh;
+  height: 100dvh;
+
+  min-width: 0;
+  min-height: 0;
+
+  box-sizing: border-box;
+
   --header-height: 50px;
   --footer-height: 50px;
 }
 
+/* ========================================
+   CyberXP Main Layout
+   ======================================== */
+
+cxp-layout-main {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  min-width: 0;
+  min-height: 0;
+}
+
+/* ========================================
+   Header
+   ======================================== */
+
 .main-layout__header {
   display: grid;
-  grid-template-columns: auto 1fr auto auto;
+
+  grid-template-columns:
+    auto
+    minmax(0, 1fr)
+    auto
+    auto;
+
+  align-items: center;
+
   column-gap: 0.5rem;
+
+  width: 100%;
+  min-width: 0;
   height: var(--header-height);
+
   padding: 0 1rem;
+
+  box-sizing: border-box;
+
   border-bottom: 1px groove var(--color-border-08);
+}
+
+/* ========================================
+   Header Icons
+   ======================================== */
+
+.header-apps-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 0;
+}
+
+.cyberxp-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+}
+
+.icon-user-nav,
+.icon-app-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .burger-menu {
   display: none;
 }
-.header-apps-icon{
-  display: flex;
-  align-items: center;
-}
-.cyberxp-logo {
-  display: flex;
-  align-items: center;
+
+/* ========================================
+   Module Name
+   ======================================== */
+
+.module-name {
+  align-self: center;
+
+  min-width: 0;
+  padding-left: 1rem;
+
+  font-weight: 600;
+
+  user-select: none;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.company-logo-img {
-  align-self: center;
-  max-height: 60px;
-  padding-inline: 1rem;
+.module-name-span {
+  font-weight: inherit;
 }
+
+/* ========================================
+   Sidebar
+   ======================================== */
+
+.main-layout__body__sidebar {
+  position: relative;
+
+  display: grid;
+  grid-template-rows:
+    auto
+    minmax(0, 1fr)
+    auto;
+
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+
+  box-sizing: border-box;
+
+  border-right: 1px groove var(--color-border-09);
+
+  overflow: hidden;
+}
+
+/* ========================================
+   Sidebar Header
+   ======================================== */
 
 .sidebar__header {
   display: flex;
+  align-items: center;
   justify-content: center;
+
+  width: 100%;
+  min-width: 0;
+
   padding: 1rem;
+
+  box-sizing: border-box;
 }
+
+/* ========================================
+   Company Logo
+   ======================================== */
+
+.company-logo-img {
+  display: block;
+
+  width: auto;
+  max-width: 100%;
+  max-height: 60px;
+
+  object-fit: contain;
+}
+
+/* ========================================
+   Sidebar Navigation
+   ======================================== */
+
+.sidebar__menu {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  gap: 0.25rem;
+
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+
+  margin: 0;
+  padding: 0.5rem;
+
+  box-sizing: border-box;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  overscroll-behavior: contain;
+
+  scrollbar-width: thin;
+  scrollbar-color:
+    var(--color-nav-border)
+    transparent;
+}
+
+/* ========================================
+   Sidebar Navigation Items
+   ======================================== */
+
+.sidebar__menu > cxp-menu-sidebar-item {
+  display: block;
+
+  width: 100%;
+  min-width: 0;
+
+  flex: 0 0 auto;
+}
+
+/* ========================================
+   Sidebar Scrollbar
+   ======================================== */
+
+.sidebar__menu::-webkit-scrollbar {
+  width: 5px;
+}
+
+.sidebar__menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar__menu::-webkit-scrollbar-thumb {
+  background: var(--color-nav-border);
+  border-radius: 0;
+}
+
+/* ========================================
+   Sidebar Footer
+   ======================================== */
+
+.sidebar__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  gap: 0.25rem;
+
+  width: 100%;
+  min-width: 0;
+
+  margin: 0;
+  padding: 0.5rem;
+
+  box-sizing: border-box;
+
+  border-top: 1px solid var(--color-border-09);
+}
+
+/* ========================================
+   Sidebar Footer Items
+   ======================================== */
+
+.sidebar__footer > cxp-menu-sidebar-item {
+  display: block;
+
+  width: 100%;
+  min-width: 0;
+}
+
+/* ========================================
+   Sidebar Labels
+   ======================================== */
 
 .sidebar__label {
   font-size: large;
@@ -45,133 +275,6 @@
 
 .sidebar__label__footer {
   font-size: medium;
-}
-
-.module-name {
-  align-self: center;
-  padding-left: 1rem;
-  font-weight: 600;
-  user-select: none;
-}
-
-.icon-user-nav {
-  display: flex;
-  align-items: center;
-}
-
-.main-layout__body {
-  position: relative;
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  grid-template-columns: minmax(240px, 280px) 1fr;
-  padding: 0;
-  isolation: isolate;
-}
-
-.main-layout__body__sidebar {
-  position: relative;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  min-width: 72px;
-  height: 100%;
-  border-right: 1px groove var(--color-border-09);
-}
-
-.icon-cyberxp {
-  display: flex;
-  justify-content: center;
-  padding: 1rem;
-  margin-top: 0.5rem;
-  background-color: var(--color-background-09);
-  margin-inline: 0.5rem;
-}
-
-.sidebar__menu {
-  display: flex;
-  flex-direction: column;
-  margin-top: 1rem;
-}
-
-.sidebar__menu a {
-  display: inline-flex;
-  align-items: center;
-  gap: 1rem;
-  font-weight: 500;
-  color: var(--color-text-04); /* background-color: red; */
-  padding-inline: 1rem;
-  padding-block: 0.5rem;
-}
-
-.sidebar__footer {
-  display: flex;
-  flex-direction: column; /* border-top: 1px solid var(--color-border-09); */
-  margin-top: 1rem;
-}
-
-.sidebar__footer a {
-  display: inline-flex;
-  align-items: center;
-  gap: 1rem;
-  font-size: medium;
-  font-weight: 500;
-  color: var(--color-text-04); /* background-color: red; */
-  padding-inline: 1rem;
-  padding-block: 0.5rem;
-}
-
-.main-layout__body__resize-handle {
-  position: absolute;
-  top: 0;
-  right: -3px;
-  z-index: 100;
-  width: 6px;
-  height: 100%;
-  background: transparent;
-  transition: background 0.15s ease;
-  cursor: col-resize;
-}
-
-.main-layout__body__resize-handle:hover {
-  background: rgba(59, 130, 246, 0.3); /* background: var(--color-primary); */ /* opacity: .25; */
-}
-
-.main-layout__body__content {
-  overflow: auto;
-  flex: 1;
-}
-
-.main-layout__footer {
-  display: grid;
-  height: var(--footer-height);
-  padding: 0.5rem 1rem;
-  border-top: 1px groove var(--color-border-09);
-  text-align: center;
-}
-
-.main-layout__footer__notes {
-  align-self: center;
-  font-size: var(--text-size-05);
-  color: var(--color-text-07);
-  justify-self: self-start;
-}
-
-.icon-app-menu {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.home-sample-label {
-  align-self: self-end;
-  max-height: max-content;
-  font-size: x-large;
-  color: #4007e8;
-  justify-self: center;
-}
-
-.sidebar-overlay {
-  display: none;
 }
 
 .cxp-sidebar__label {
@@ -183,16 +286,68 @@
   stroke-width: var(--width-line-08);
 }
 
+/* ========================================
+   Sidebar Branding
+   ======================================== */
+
+.icon-cyberxp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 0.5rem;
+  margin-inline: 0.5rem;
+
+  padding: 1rem;
+
+  background-color: var(--color-background-09);
+}
+
+/* ========================================
+   Main Footer Notes
+   ======================================== */
+
+.main-layout__footer__notes {
+  display: block;
+
+  align-self: center;
+
+  color: var(--color-text-07);
+  font-size: var(--text-size-05);
+}
+
+/* ========================================
+   Optional Home Label
+   ======================================== */
+
+.home-sample-label {
+  align-self: end;
+  justify-self: center;
+
+  max-height: max-content;
+
+  color: var(--color-text-primary);
+  font-size: x-large;
+}
+
+/* ========================================
+   Mobile Layout
+   ======================================== */
+
 @media (max-width: 768px) {
-  .main-layout__body {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr;
-  }
+
+  /* ======================================
+     Header
+     ====================================== */
 
   .main-layout__header {
-    display: grid;
-    grid-template-columns: auto 1fr auto auto;
+    grid-template-columns:
+      auto
+      minmax(0, 1fr)
+      auto
+      auto;
+
+    padding: 0 0.5rem;
   }
 
   .burger-menu {
@@ -200,65 +355,56 @@
     align-items: center;
   }
 
-  .main-layout__body__sidebar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    visibility: hidden;
-    width: 100%;
-    max-width: 280px;
-    transition:
-      transform 0.25s ease,
-      visibility 0.25s ease;
-    transform: translateX(-100%);
-  }
-
-  .main-layout__body__sidebar--open {
-    visibility: visible;
-    transform: translateX(0);
-  }
+  /* ======================================
+     Module Name
+     ====================================== */
 
   .module-name {
-    align-self: center;
-    padding-left: 1rem;
+    min-width: 0;
+
+    padding-left: 0.5rem;
+
     font-size: var(--text-size-06);
-    font-weight: 600;
-    user-select: none;
   }
 
   .module-name-span {
     display: none;
   }
 
+  /* ======================================
+     Sidebar
+     ====================================== */
+
+  .main-layout__body__sidebar {
+    min-width: 0;
+    min-height: 0;
+
+    overflow: hidden;
+  }
+
+  .sidebar__menu {
+    min-height: 0;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  /* ======================================
+     Footer Notes
+     ====================================== */
+
   .main-layout__footer__notes {
     font-size: var(--text-size-04);
   }
+}
 
-  .main-layout__body {
-    padding: 0;
-  }
+/* ========================================
+   Reduced Motion
+   ======================================== */
 
-  .sidebar-overlay {
-    position: fixed;
-    top: var(--header-height);
-    right: 0;
-    bottom: var(--footer-height);
-    left: 0;
-    z-index: 999;
-    display: block;
-    visibility: hidden;
-    background-color: rgba(0, 0, 0, 0.45);
-    opacity: 0;
-    transition:
-      opacity 0.25s ease,
-      visibility 0.25s ease;
-    pointer-events: none;
-  }
+@media (prefers-reduced-motion: reduce) {
 
-  .sidebar-overlay--show {
-    visibility: visible;
-    opacity: 1;
-    pointer-events: auto;
+  .sidebar__menu {
+    scroll-behavior: auto;
   }
 }

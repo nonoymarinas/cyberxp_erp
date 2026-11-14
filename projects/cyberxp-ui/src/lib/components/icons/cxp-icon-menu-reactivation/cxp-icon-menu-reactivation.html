@@ -1,0 +1,59 @@
+
+<!-- ========================================
+     Menu Reactivation SVG
+     ======================================== -->
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+
+  class="cxp-icon-menu-reactivation"
+
+  [class.cxp-icon-menu-reactivation--xs]="size === 'xs'"
+  [class.cxp-icon-menu-reactivation--sm]="size === 'sm'"
+  [class.cxp-icon-menu-reactivation--md]="size === 'md'"
+  [class.cxp-icon-menu-reactivation--lg]="size === 'lg'"
+  [class.cxp-icon-menu-reactivation--xl]="size === 'xl'"
+
+  [attr.stroke]="color"
+  [attr.stroke-width]="effectiveStrokeWidth"
+
+  stroke-linecap="round"
+  stroke-linejoin="round"
+
+  fill="none"
+  aria-hidden="true"
+>
+
+  <!-- ======================================
+       Employee Head
+       ====================================== -->
+
+  <circle
+    cx="8"
+    cy="7"
+    r="3"
+    [attr.fill]="fill === 'filled' ? color : 'none'"
+  />
+
+  <!-- ======================================
+       Employee Body
+       ====================================== -->
+
+  <path
+    d="M2.5 19v-1.5A5.5 5.5 0 0 1 8 12h2"
+  />
+
+  <!-- ======================================
+       Reactivation / Restart Arrow
+       ====================================== -->
+
+  <path
+    d="M20 14a5.5 5.5 0 1 0 .5 4"
+  />
+
+  <path
+    d="M20 10v4h-4"
+  />
+
+</svg>

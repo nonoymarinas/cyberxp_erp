@@ -1,0 +1,78 @@
+
+<!-- ========================================
+     Menu Pending SVG
+     ======================================== -->
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+
+  class="cxp-icon-menu-pending"
+
+  [class.cxp-icon-menu-pending--xs]="size === 'xs'"
+  [class.cxp-icon-menu-pending--sm]="size === 'sm'"
+  [class.cxp-icon-menu-pending--md]="size === 'md'"
+  [class.cxp-icon-menu-pending--lg]="size === 'lg'"
+  [class.cxp-icon-menu-pending--xl]="size === 'xl'"
+
+  [attr.stroke]="color"
+  [attr.stroke-width]="effectiveStrokeWidth"
+
+  stroke-linecap="round"
+  stroke-linejoin="round"
+
+  fill="none"
+  aria-hidden="true"
+>
+
+  <!-- ======================================
+       Document Outline
+       ====================================== -->
+
+  <path
+    d="M5 2.5h9l4 4V11"
+  />
+
+  <path
+    d="M5 2.5v18h7"
+  />
+
+  <!-- ======================================
+       Folded Corner
+       ====================================== -->
+
+  <path
+    d="M14 2.5V7h4"
+  />
+
+  <!-- ======================================
+       Document Lines
+       ====================================== -->
+
+  <path
+    d="M8 10h5M8 13h3"
+  />
+
+  <!-- ======================================
+       Pending Clock
+       ====================================== -->
+
+  <circle
+    cx="17"
+    cy="17"
+    r="5"
+    [attr.fill]="fill === 'filled' ? color : 'none'"
+  />
+
+  <!-- ======================================
+       Clock Hands
+       ====================================== -->
+
+  <path
+    d="M17 14v3l2 1.2"
+    [attr.stroke]="fill === 'filled'
+      ? 'var(--color-icon-on-fill, var(--color-nav-background))'
+      : color"
+  />
+
+</svg>

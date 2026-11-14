@@ -1,20 +1,100 @@
-<a
-  class="cxp-menu-sidebar__item"
-  [routerLink]="route"
-  routerLinkActive="cxp-menu-sidebar__item--active"
-  [routerLinkActiveOptions]="{ exact: exact }"
-  [class.cxp-menu-sidebar__item--disabled]="disabled"
-  [attr.aria-disabled]="disabled"
+
+<!-- ========================================
+     Sidebar Menu Container
+     ======================================== -->
+
+<div
+  class="cxp-menu-sidebar"
+  [class.cxp-menu-sidebar--group]="group"
+  [class.cxp-menu-sidebar--expanded]="group && isExpanded()"
 >
-  <span class="cxp-menu-sidebar__icon">
-    <ng-content select="[start]"></ng-content>
-  </span>
 
-  <span class="cxp-menu-sidebar__content">
-    <ng-content select="[label]"></ng-content>
-  </span>
+  <!-- ======================================
+       Menu Header
+       ====================================== -->
 
-  <span class="cxp-menu-sidebar__end">
-    <ng-content select="[end]"></ng-content>
-  </span>
-</a>
+  <a
+    class="cxp-menu-sidebar__item"
+
+    [routerLink]="group || disabled ? null : route"
+
+    routerLinkActive="cxp-menu-sidebar__item--active"
+    [routerLinkActiveOptions]="{ exact: exact }"
+
+    [class.cxp-menu-sidebar__item--group]="group"
+    [class.cxp-menu-sidebar__item--disabled]="disabled"
+
+    [attr.role]="group ? 'button' : null"
+    [attr.tabindex]="disabled ? -1 : group ? 0 : null"
+
+    [attr.aria-label]="ariaLabel || null"
+    [attr.aria-disabled]="disabled ? 'true' : null"
+    [attr.aria-expanded]="group ? isExpanded() : null"
+
+    (click)="handleClick($event)"
+    (keydown)="handleKeydown($event)"
+  >
+
+    <!-- ==================================
+         Start Icon
+         ================================== -->
+
+    <span class="cxp-menu-sidebar__icon">
+      <ng-content select="[start]"></ng-content>
+    </span>
+
+    <!-- ==================================
+         Label
+         ================================== -->
+
+    <span class="cxp-menu-sidebar__content">
+      <ng-content select="[label]"></ng-content>
+    </span>
+
+    <!-- ==================================
+         End Content
+         ================================== -->
+
+    <span class="cxp-menu-sidebar__end">
+
+      <ng-content select="[end]"></ng-content>
+
+      @if (group) {
+        <span
+          class="cxp-menu-sidebar__chevron"
+          aria-hidden="true"
+        ></span>
+      }
+
+    </span>
+
+  </a>
+
+  <!-- ======================================
+       Animated Submenu
+       ====================================== -->
+
+  <div
+    class="cxp-menu-sidebar__submenu"
+
+    [class.cxp-menu-sidebar__submenu--expanded]="
+      group && isExpanded()
+    "
+
+    [attr.inert]="group && isExpanded() ? null : ''"
+    [attr.aria-hidden]="
+      group && isExpanded() ? null : 'true'
+    "
+  >
+
+    <div class="cxp-menu-sidebar__submenu-inner">
+
+      <ng-content
+        select="cxp-menu-sidebar-item"
+      ></ng-content>
+
+    </div>
+
+  </div>
+
+</div>

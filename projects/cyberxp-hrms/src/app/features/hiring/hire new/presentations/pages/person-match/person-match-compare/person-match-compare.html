@@ -1,0 +1,393 @@
+
+<!-- ========================================
+     Person Match Comparison
+     ======================================== -->
+
+<section class="compare-page">
+
+  <!-- ========================================
+       Header
+       ======================================== -->
+
+  <header class="compare-header">
+
+    <div class="compare-heading">
+
+      <h2>Person Match Comparison</h2>
+
+      <p>
+        Compare the new employee information
+        against the selected existing person.
+      </p>
+
+    </div>
+
+    @if (existingPerson(); as person) {
+
+      <cxp-classification-badge
+        [classification]="person.matchClassification"
+        [label]="person.matchType"
+      />
+
+    }
+
+  </header>
+
+  <!-- ========================================
+       Person Match Comparison
+       ======================================== -->
+
+  @if (existingPerson(); as person) {
+
+    @if (newPerson(); as draft) {
+
+      <!-- ======================================
+           Person Profiles
+           ====================================== -->
+
+      <div class="compare-profiles">
+
+        <!-- ====================================
+             New Employee Profile
+             ==================================== -->
+
+        <section class="compare-profile">
+
+          <h3 class="compare-profile-label">
+            NEW EMPLOYEE
+          </h3>
+
+          <div class="compare-profile-header">
+
+            <div class="compare-photo">
+
+              @if (draft.imageUrl) {
+
+                <img
+                  [src]="draft.imageUrl"
+                  [alt]="newFullName()"
+                />
+
+              } @else {
+
+                <span class="compare-photo-placeholder">
+                  No Photo
+                </span>
+
+              }
+
+            </div>
+
+            <span class="compare-profile-name">
+              {{ newFullName() }}
+            </span>
+
+            <span class="compare-profile-number">
+              Unsaved Personal Information
+            </span>
+
+          </div>
+
+          <!-- ==================================
+               New Employee Data
+               ================================== -->
+
+          <div class="compare-profile-data">
+
+            @for (
+              row of comparisonRows();
+              track row.label
+            ) {
+
+              <div class="compare-data-row">
+
+                <span class="compare-data-label">
+                  {{ row.label }}
+                </span>
+
+                <div class="compare-data-content">
+
+                  <span class="compare-data-value">
+                    {{ row.newValue }}
+                  </span>
+
+                  <cxp-classification-badge
+                    [classification]="
+                      row.result === 'match'
+                        ? 'low'
+                        : row.result === 'different'
+                          ? 'high'
+                          : 'medium'
+                    "
+                    [label]="row.result"
+                  />
+
+                </div>
+
+              </div>
+
+            }
+
+          </div>
+
+        </section>
+
+        <!-- ====================================
+             Existing Person Profile
+             ==================================== -->
+
+        <section class="compare-profile">
+
+          <h3 class="compare-profile-label">
+            EXISTING PERSON
+          </h3>
+
+          <div class="compare-profile-header">
+
+            <div class="compare-photo">
+
+              @if (person.imageUrl) {
+
+                <img
+                  [src]="person.imageUrl"
+                  [alt]="existingFullName()"
+                />
+
+              } @else {
+
+                <span class="compare-photo-placeholder">
+                  No Photo
+                </span>
+
+              }
+
+            </div>
+
+            <span class="compare-profile-name">
+              {{ existingFullName() }}
+            </span>
+
+            <span class="compare-profile-number">
+              {{ person.personNumber }}
+            </span>
+
+          </div>
+
+          <!-- ==================================
+               Existing Person Data
+               ================================== -->
+
+          <div class="compare-profile-data">
+
+            @for (
+              row of comparisonRows();
+              track row.label
+            ) {
+
+              <div class="compare-data-row">
+
+                <span class="compare-data-label">
+                  {{ row.label }}
+                </span>
+
+                <div class="compare-data-content">
+
+                  <span class="compare-data-value">
+                    {{ row.existingValue }}
+                  </span>
+
+                  <cxp-classification-badge
+                    [classification]="
+                      row.result === 'match'
+                        ? 'low'
+                        : row.result === 'different'
+                          ? 'high'
+                          : 'medium'
+                    "
+                    [label]="row.result"
+                  />
+
+                </div>
+
+              </div>
+
+            }
+
+          </div>
+
+        </section>
+
+      </div>
+
+      <!-- ======================================
+           Similarity Score
+           ====================================== -->
+
+      <div class="compare-similarity">
+
+        <div class="compare-similarity-value">
+          {{ person.matchScore }}%
+        </div>
+
+        <div class="compare-similarity-details">
+
+          <span class="compare-similarity-title">
+            Estimated Similarity Score
+          </span>
+
+          <span class="compare-similarity-description">
+            Estimated similarity based on the
+            submitted personal information.
+            This score is generated by the mock
+            matching algorithm and requires
+            further verification.
+          </span>
+
+        </div>
+
+      </div>
+
+      <!-- ======================================
+           Screening Actions
+           ====================================== -->
+
+      <section class="compare-verification">
+
+        <div class="compare-verification-heading">
+
+          <div>
+
+            <h3>Person Match Review</h3>
+
+            <p>
+              Select an existing person, dismiss
+              this candidate, or flag the match
+              for administrator review.
+            </p>
+
+          </div>
+
+          <span
+            class="compare-verification-status"
+            role="status"
+          >
+            {{ isEscalated()
+                ? 'REQUIRES REVIEW'
+                : 'PENDING REVIEW' }}
+          </span>
+
+        </div>
+
+        <!-- ======================================
+             Review Actions
+             ====================================== -->
+
+        <div class="compare-verification-actions">
+
+          <cxp-button
+            type="button"
+            variant="primary"
+            (clicked)="confirmMatch()"
+          >
+            Confirm Match
+          </cxp-button>
+
+          <cxp-button
+            type="button"
+            variant="secondary"
+            (clicked)="dismissMatch()"
+          >
+            Dismiss Match
+          </cxp-button>
+
+          <cxp-button
+            type="button"
+            variant="secondary"
+            [disabled]="isEscalated()"
+            (clicked)="escalateMatch()"
+          >
+            Escalate for Review
+          </cxp-button>
+
+        </div>
+
+        <!-- ======================================
+             Screening Feedback
+             ====================================== -->
+
+        @if (screeningMessage()) {
+
+          <div
+            class="compare-decision-message"
+            role="status"
+          >
+            {{ screeningMessage() }}
+          </div>
+
+        }
+
+      </section>
+
+    } @else {
+
+      <!-- ======================================
+           Missing New Employee Draft
+           ====================================== -->
+
+      <div class="compare-empty">
+
+        <h3>Personal Information Unavailable</h3>
+
+        <p>
+          Return to Personal Information
+          and enter the employee details.
+        </p>
+
+      </div>
+
+    }
+
+  } @else {
+
+    <!-- ========================================
+         Existing Person Not Found
+         ======================================== -->
+
+    <div class="compare-empty">
+
+      <h3>Person Not Found</h3>
+
+      <p>
+        The selected person could not be found
+        in the screening records.
+      </p>
+
+    </div>
+
+  }
+
+  <!-- ========================================
+       Navigation Footer
+       ======================================== -->
+
+  <footer class="compare-footer">
+
+    <cxp-button
+      type="button"
+      variant="secondary"
+      (clicked)="backToMatches()"
+    >
+      Back to Matches
+    </cxp-button>
+
+    <cxp-button
+      type="button"
+      variant="secondary"
+      (clicked)="backToPersonalInfo()"
+    >
+      Back to Personal Information
+    </cxp-button>
+
+  </footer>
+
+</section>

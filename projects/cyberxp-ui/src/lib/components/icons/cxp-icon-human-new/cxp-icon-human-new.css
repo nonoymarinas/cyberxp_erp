@@ -1,0 +1,87 @@
+
+/* ========================================
+   Component Host
+   ======================================== */
+
+:host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: max-content;
+  height: max-content;
+
+  color: inherit;
+
+  line-height: 0;
+  vertical-align: middle;
+}
+
+/* ========================================
+   SVG Base
+   ======================================== */
+
+.cxp-icon-human-new {
+  display: block;
+
+  width: 16px;
+  height: 16px;
+
+  flex: 0 0 auto;
+
+  color: inherit;
+
+  overflow: visible;
+
+  transition: color 200ms ease;
+}
+
+/* ========================================
+   Sizes
+   ======================================== */
+
+.cxp-icon-human-new--xs {
+  width: 16px;
+  height: 16px;
+}
+
+.cxp-icon-human-new--sm {
+  width: 20px;
+  height: 20px;
+}
+
+.cxp-icon-human-new--md {
+  width: 24px;
+  height: 24px;
+}
+
+.cxp-icon-human-new--lg {
+  width: 32px;
+  height: 32px;
+}
+
+.cxp-icon-human-new--xl {
+  width: 40px;
+  height: 40px;
+}
+
+/* ========================================
+   Filled Mode
+   ======================================== */
+
+.cxp-icon-human-new--filled {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ========================================
+   Reduced Motion
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .cxp-icon-human-new {
+    transition: none;
+  }
+}

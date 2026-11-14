@@ -1,0 +1,331 @@
+
+.rehire-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  background: var(--color-background, #ffffff);
+  color: var(--color-text, #20242c);
+  font-family: inherit;
+}
+
+.rehire-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  border-bottom: 1px solid var(--color-border, #e1e4e8);
+}
+
+.rehire-header h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.rehire-header p {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--color-text-secondary, #6b7280);
+}
+
+.mock-badge {
+  padding: 6px 10px;
+  font-size: 11px;
+  border: 1px solid var(--color-border, #d1d5db);
+  border-radius: 3px;
+}
+
+.employee-summary {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--color-border, #e1e4e8);
+}
+
+.employee-avatar {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface, #eef2f7);
+  border: 1px solid var(--color-border, #d1d5db);
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.employee-summary-info {
+  flex: 1;
+}
+
+.employee-summary-info h2 {
+  margin: 0 0 5px;
+  font-size: 17px;
+}
+
+.employee-summary-info p {
+  margin: 0 0 6px;
+  color: var(--color-text-secondary, #6b7280);
+  font-size: 13px;
+}
+
+.employee-status {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.employee-summary-date {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  text-align: right;
+  font-size: 12px;
+}
+
+.employee-summary-date span {
+  color: var(--color-text-secondary, #6b7280);
+}
+
+.rehire-steps {
+  display: flex;
+  padding: 18px 24px;
+  gap: 12px;
+  border-bottom: 1px solid var(--color-border, #e1e4e8);
+}
+
+.rehire-step {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 12px;
+  border: 1px solid var(--color-border, #d1d5db);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  border-radius: 0;
+}
+
+.rehire-step.active {
+  border-color: var(--color-primary, #2563eb);
+  color: var(--color-primary, #2563eb);
+}
+
+.rehire-step.completed {
+  opacity: 0.8;
+}
+
+.rehire-step:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+  border: 1px solid currentColor;
+  font-size: 12px;
+}
+
+.step-label {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.rehire-content {
+  flex: 1;
+  padding: 24px;
+}
+
+.rehire-panel {
+  border: 1px solid var(--color-border, #e1e4e8);
+  padding: 24px;
+  background: var(--color-surface, #ffffff);
+}
+
+.panel-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.panel-heading h2 {
+  margin: 0 0 6px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.panel-heading p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--color-text-secondary, #6b7280);
+}
+
+.status-badge {
+  padding: 6px 12px;
+  font-size: 12px;
+  border: 1px solid var(--color-border, #d1d5db);
+}
+
+.status-success {
+  color: var(--color-success, #16803c);
+  border-color: var(--color-success, #16803c);
+}
+
+.detail-grid,
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px 28px;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+
+.detail-item label,
+.form-field label {
+  font-size: 12px;
+  color: var(--color-text-secondary, #6b7280);
+}
+
+.detail-item strong {
+  font-size: 14px;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.info-message {
+  margin-top: 28px;
+  padding: 14px;
+  border: 1px solid var(--color-border, #d1d5db);
+  font-size: 13px;
+}
+
+.verification-box {
+  margin-top: 28px;
+  padding: 16px;
+  border: 1px solid var(--color-border, #d1d5db);
+}
+
+.verification-box label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 12px;
+  font: inherit;
+  font-size: 13px;
+  border: 1px solid var(--color-border, #d1d5db);
+  border-radius: 0;
+  background: var(--color-background, #ffffff);
+  color: var(--color-text, #20242c);
+}
+
+.form-field textarea {
+  resize: vertical;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.rehire-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-top: 1px solid var(--color-border, #e1e4e8);
+}
+
+.rehire-footer button,
+.success-panel button {
+  padding: 10px 20px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--color-primary, #2563eb);
+  color: #ffffff;
+  border: 1px solid var(--color-primary, #2563eb);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: inherit;
+  border: 1px solid var(--color-border, #d1d5db);
+}
+
+.rehire-footer button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.success-panel {
+  text-align: center;
+}
+
+.success-panel h2 {
+  margin-top: 0;
+}
+
+.success-panel p {
+  color: var(--color-text-secondary, #6b7280);
+}
+
+@media (max-width: 768px) {
+  .rehire-header,
+  .employee-summary {
+    flex-wrap: wrap;
+  }
+
+  .rehire-steps {
+    overflow-x: auto;
+  }
+
+  .rehire-step {
+    flex-shrink: 0;
+  }
+
+  .detail-grid,
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rehire-content {
+    padding: 16px;
+  }
+
+  .rehire-panel {
+    padding: 16px;
+  }
+
+  .employee-summary-date {
+    text-align: left;
+  }
+}

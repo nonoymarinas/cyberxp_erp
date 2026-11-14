@@ -1,42 +1,122 @@
+
 import { Component, inject } from '@angular/core';
 
+// ========================================
+// CyberXP UI Components
+// ========================================
+
 import {
+  // Layout
   CxpLayoutMain,
-  CxpIconAppNav,
-  CxpIconHomeNav,
-  CxpIconLogoutNav,
-  CxpIconSettingsNav,
-  CxpIconUserNav,
   CxpMenuSidebarItem,
-  CxpIconChartNav,
+
+  // Header Icon
+  CxpIconAppNav,
+
+  // Main Menu Icons
+  CxpIconMenuDashboard,
+  CxpIconMenuHome,
+  CxpIconMenuEmployees,
+  CxpIconHumanPlus,
+  CxpIconMenuRehire,
+  CxpIconMenuReactivation,
+
+  // Submenu Icons
+  CxpIconMenuRecords,
+  CxpIconHumanNew,
+  CxpIconMenuHistory,
+  CxpIconMenuPending,
+
+  // Footer Icons
+  CxpIconSettingsNav,
+  CxpIconLogoutNav,
 } from 'cyberxp-ui';
-import { HeaderAppsIcon } from './components/header-apps-icon/header-apps-icon';
-import { HeaderUserIcon } from './components/header-user-icon/header-user-icon';
-import { UserAccessService } from '../../core/authorization/services/user-access.services';
-import { CxpChatbotMain } from '../../components/chatbot/cxp-chatbot-main/cxp-chatbot-main';
+
+// ========================================
+// Header Components
+// ========================================
+
+import {
+  HeaderAppsIcon,
+} from './components/header-apps-icon/header-apps-icon';
+
+import {
+  HeaderUserIcon,
+} from './components/header-user-icon/header-user-icon';
+
+// ========================================
+// Authorization
+// ========================================
+
+import {
+  UserAccessService,
+} from '../../core/authorization/services/user-access.services';
+
+// ========================================
+// Chatbot
+// ========================================
+
+import {
+  CxpChatbotMain,
+} from '../../components/chatbot/cxp-chatbot-main/cxp-chatbot-main';
+
+// ========================================
+// Main Layout
+// ========================================
 
 @Component({
   selector: 'main-layout',
   standalone: true,
+
   imports: [
+    // Layout
     CxpLayoutMain,
-    CxpIconAppNav,
-    CxpIconHomeNav,
-    CxpIconLogoutNav,
-    CxpIconSettingsNav,
-    CxpIconUserNav,
     CxpMenuSidebarItem,
+
+    // Header
+    CxpIconAppNav,
     HeaderAppsIcon,
     HeaderUserIcon,
-    CxpIconChartNav,
-    CxpChatbotMain
+
+    // Main Menu Icons
+    CxpIconMenuDashboard,
+    CxpIconMenuHome,
+    CxpIconMenuEmployees,
+    CxpIconHumanPlus,
+    CxpIconMenuRehire,
+    CxpIconMenuReactivation,
+
+    // Submenu Icons
+    CxpIconMenuRecords,
+    CxpIconHumanNew,
+    CxpIconMenuHistory,
+    CxpIconMenuPending,
+
+    // Footer Icons
+    CxpIconSettingsNav,
+    CxpIconLogoutNav,
+
+    // Chatbot
+    CxpChatbotMain,
   ],
+
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.css',
 })
 export class MainLayout {
+
+  // ========================================
+  // Sidebar State
+  // ========================================
+
   sidebarOpen = false;
+
   sidebarWidth = 260;
 
-  public readonly userAccessService = inject(UserAccessService);
+  // ========================================
+  // Authorization
+  // ========================================
+
+  public readonly userAccessService =
+    inject(UserAccessService);
 }

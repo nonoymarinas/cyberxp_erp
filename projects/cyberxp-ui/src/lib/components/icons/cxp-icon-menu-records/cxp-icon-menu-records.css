@@ -1,0 +1,78 @@
+
+/* ========================================
+   Component Host
+   ======================================== */
+
+:host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: max-content;
+  height: max-content;
+
+  color: inherit;
+
+  line-height: 0;
+  vertical-align: middle;
+}
+
+/* ========================================
+   SVG Base
+   ======================================== */
+
+.cxp-icon-menu-records {
+  display: block;
+
+  width: 20px;
+  height: 20px;
+
+  flex: 0 0 auto;
+
+  color: inherit;
+
+  overflow: visible;
+
+  transition: color 200ms ease;
+}
+
+/* ========================================
+   Sizes
+   ======================================== */
+
+.cxp-icon-menu-records--xs {
+  width: 16px;
+  height: 16px;
+}
+
+.cxp-icon-menu-records--sm {
+  width: 20px;
+  height: 20px;
+}
+
+.cxp-icon-menu-records--md {
+  width: 24px;
+  height: 24px;
+}
+
+.cxp-icon-menu-records--lg {
+  width: 32px;
+  height: 32px;
+}
+
+.cxp-icon-menu-records--xl {
+  width: 40px;
+  height: 40px;
+}
+
+/* ========================================
+   Reduced Motion
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .cxp-icon-menu-records {
+    transition: none;
+  }
+}

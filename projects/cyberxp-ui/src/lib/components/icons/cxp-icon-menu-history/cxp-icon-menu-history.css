@@ -1,0 +1,88 @@
+
+/* ========================================
+   Component Host
+   ======================================== */
+
+:host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: max-content;
+  height: max-content;
+
+  color: inherit;
+
+  line-height: 0;
+  vertical-align: middle;
+}
+
+/* ========================================
+   SVG Base
+   ======================================== */
+
+.cxp-icon-menu-history {
+  display: block;
+
+  width: 16px;
+  height: 16px;
+
+  flex: 0 0 auto;
+
+  color: inherit;
+
+  overflow: visible;
+
+  transition: color 200ms ease;
+}
+
+/* ========================================
+   Sizes
+   ======================================== */
+
+.cxp-icon-menu-history--xs {
+  width: 16px;
+  height: 16px;
+}
+
+.cxp-icon-menu-history--sm {
+  width: 20px;
+  height: 20px;
+}
+
+.cxp-icon-menu-history--md {
+  width: 24px;
+  height: 24px;
+}
+
+.cxp-icon-menu-history--lg {
+  width: 32px;
+  height: 32px;
+}
+
+.cxp-icon-menu-history--xl {
+  width: 40px;
+  height: 40px;
+}
+
+/* ========================================
+   Filled Mode
+   ======================================== */
+
+.cxp-icon-menu-history--filled {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ========================================
+   Reduced Motion
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .cxp-icon-menu-history {
+    transition: none;
+  }
+}
