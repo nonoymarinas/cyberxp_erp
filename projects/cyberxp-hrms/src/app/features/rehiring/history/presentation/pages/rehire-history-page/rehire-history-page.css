@@ -1,0 +1,622 @@
+
+/* ========================================
+   Host
+   ======================================== */
+
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 100%;
+
+  color: var(--color-text-primary);
+}
+
+/* ========================================
+   Rehire History Page
+   ======================================== */
+
+.rehire-history-page {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  min-width: 0;
+  min-height: 100%;
+
+  box-sizing: border-box;
+
+  background: var(--color-background-primary);
+  color: var(--color-text-primary);
+
+  font-family: inherit;
+}
+
+/* ========================================
+   Header
+   ======================================== */
+
+.history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 1rem;
+  padding: 1.5rem;
+
+  background: var(--color-background-secondary);
+
+  border-bottom: 1px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-header);
+}
+
+.history-header h1 {
+  margin: 0;
+
+  font-size: 1.5rem;
+  font-weight: 600;
+
+  color: var(--color-text-primary);
+}
+
+.history-header p {
+  margin: 0.375rem 0 0;
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
+
+  color: var(--color-text-secondary);
+}
+
+/* ========================================
+   Mock Badge
+   ======================================== */
+
+.mock-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  padding: 0.375rem 0.625rem;
+
+  background: var(--color-background-primary);
+  color: var(--color-text-secondary);
+
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-card);
+
+  font-size: 0.6875rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ========================================
+   Summary Cards
+   ======================================== */
+
+.history-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.5rem;
+  min-width: 0;
+  padding: 1rem;
+
+  background: var(--color-background-secondary);
+  color: var(--color-text-primary);
+
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-card);
+}
+
+.summary-item span {
+  font-size: 0.75rem;
+  font-weight: 500;
+
+  color: var(--color-text-secondary);
+}
+
+.summary-item strong {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+
+  color: var(--color-text-primary);
+}
+
+/* ========================================
+   Main Content
+   ======================================== */
+
+.history-content {
+  flex: 1 1 auto;
+
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+
+  padding: 0 1.5rem 1.5rem;
+
+  background: var(--color-background-primary);
+}
+
+/* ========================================
+   History Panel
+   ======================================== */
+
+.history-panel {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+
+  padding: 1.5rem;
+
+  background: var(--color-background-secondary);
+  color: var(--color-text-primary);
+
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-section);
+}
+
+/* ========================================
+   Panel Heading
+   ======================================== */
+
+.panel-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.panel-heading h2 {
+  margin: 0 0 0.375rem;
+
+  font-size: 1.125rem;
+  font-weight: 600;
+
+  color: var(--color-text-primary);
+}
+
+.panel-heading p {
+  margin: 0;
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
+
+  color: var(--color-text-secondary);
+}
+
+/* ========================================
+   Search and Filters
+   ======================================== */
+
+.history-filters {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+
+  align-items: end;
+
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+
+  overflow: visible;
+}
+
+/* ========================================
+   Filter Fields
+   ======================================== */
+
+.filter-field {
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.5rem;
+  min-width: 0;
+
+  overflow: visible;
+}
+
+.filter-field label {
+  font-size: 0.75rem;
+  font-weight: 500;
+
+  color: var(--color-text-secondary);
+}
+
+/* ========================================
+   CyberXP Shared Input Components
+   ======================================== */
+
+.filter-field cxp-input-search,
+.filter-field cxp-input-select {
+  display: block;
+
+  width: 100%;
+  min-width: 0;
+}
+
+/* ========================================
+   Table Wrapper
+   ======================================== */
+
+.history-table-wrapper {
+  width: 100%;
+  min-width: 0;
+
+  overflow-x: auto;
+  overflow-y: auto;
+
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-card);
+}
+
+/* ========================================
+   History Table
+   ======================================== */
+
+.history-table {
+  width: 100%;
+  min-width: 900px;
+
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
+
+  color: var(--color-text-primary);
+}
+
+/* ========================================
+   Table Header and Cells
+   ======================================== */
+
+.history-table th,
+.history-table td {
+  padding: 0.875rem 1rem;
+
+  text-align: left;
+  vertical-align: middle;
+
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+
+.history-table th {
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  white-space: nowrap;
+
+  color: var(--color-text-secondary);
+  background: var(--color-background-primary);
+}
+
+.history-table td {
+  color: var(--color-text-primary);
+}
+
+/* ========================================
+   Table Rows
+   ======================================== */
+
+.history-table tbody tr {
+  transition: background-color 160ms ease;
+}
+
+.history-table tbody tr:hover {
+  background: var(--color-background-primary);
+}
+
+.history-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ========================================
+   Request Number
+   ======================================== */
+
+.history-table td > strong {
+  font-size: 0.8125rem;
+  font-weight: 600;
+
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+/* ========================================
+   Employee Cell
+   ======================================== */
+
+.employee-cell {
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.employee-cell strong {
+  font-size: 0.8125rem;
+  font-weight: 500;
+
+  color: var(--color-text-primary);
+}
+
+.employee-cell span {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+/* ========================================
+   Status Badge - Base
+   ======================================== */
+
+.history-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.375rem 0.625rem;
+
+  background: var(--color-background-primary);
+  color: var(--color-text-primary);
+
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-card);
+
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.25;
+
+  white-space: nowrap;
+}
+
+/* ========================================
+   Status - Pending Approval
+   ======================================== */
+
+.status-pending {
+  background: var(--color-background-primary);
+  color: var(--color-text-secondary);
+
+  border-color: var(--color-border-primary);
+}
+
+/* ========================================
+   Status - Approved
+   ======================================== */
+
+.status-approved {
+  background: var(--color-badge-background-success);
+  color: var(--color-badge-text-success);
+
+  border-color: var(--color-badge-border-success);
+}
+
+/* ========================================
+   Status - Completed
+   ======================================== */
+
+.status-completed {
+  background: var(--color-badge-background-success);
+  color: var(--color-badge-text-success);
+
+  border-color: var(--color-badge-border-success);
+}
+
+/* ========================================
+   Status - Rejected
+   ======================================== */
+
+.status-rejected {
+  background: var(--color-badge-background-danger);
+  color: var(--color-badge-text-danger);
+
+  border-color: var(--color-badge-border-danger);
+}
+
+/* ========================================
+   Status - Offer Sent / Accepted
+   ======================================== */
+
+/*
+   The current HTML applies the base
+   .history-status class to OFFER_SENT and
+   OFFER_ACCEPTED.
+
+   These remain neutral until dedicated
+   semantic badge tokens are established.
+*/
+
+/* ========================================
+   Table Action Buttons
+   ======================================== */
+
+.history-table td cxp-button {
+  display: inline-flex;
+  flex: 0 0 auto;
+}
+
+/* ========================================
+   Empty State
+   ======================================== */
+
+.history-table .empty-state {
+  padding: 2.5rem 1rem;
+
+  text-align: center;
+
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+
+  background: var(--color-background-secondary);
+}
+
+/* ========================================
+   Table Footer
+   ======================================== */
+
+.history-table-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  gap: 0.75rem;
+  padding-top: 1rem;
+
+  font-size: 0.75rem;
+  line-height: 1.5;
+
+  color: var(--color-text-secondary);
+}
+
+.history-table-footer span {
+  color: var(--color-text-secondary);
+}
+
+.history-table-footer cxp-button {
+  display: inline-flex;
+  flex: 0 0 auto;
+}
+
+/* ========================================
+   Responsive - Tablet
+   ======================================== */
+
+@media (max-width: 1024px) {
+
+  .history-header {
+    padding: 1.25rem;
+  }
+
+  .history-summary {
+    gap: 0.75rem;
+    padding: 1.25rem;
+  }
+
+  .history-content {
+    padding: 0 1.25rem 1.25rem;
+  }
+
+  .history-panel {
+    padding: 1.25rem;
+  }
+
+  .history-filters {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  }
+}
+
+/* ========================================
+   Responsive - Mobile
+   ======================================== */
+
+@media (max-width: 768px) {
+
+  .history-header {
+    flex-wrap: wrap;
+
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  .history-header h1 {
+    font-size: 1.25rem;
+  }
+
+  .history-summary {
+    grid-template-columns: 1fr;
+
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  .summary-item {
+    padding: 0.875rem;
+  }
+
+  .summary-item strong {
+    font-size: 1.375rem;
+  }
+
+  .history-content {
+    padding: 0 1rem 1rem;
+  }
+
+  .history-panel {
+    padding: 1rem;
+  }
+
+  .panel-heading {
+    margin-bottom: 1.25rem;
+  }
+
+  .history-filters {
+    grid-template-columns: 1fr;
+
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .history-table {
+    min-width: 900px;
+  }
+
+  .history-table th,
+  .history-table td {
+    padding: 0.75rem;
+  }
+
+  .history-table-footer {
+    align-items: flex-start;
+  }
+}
+
+/* ========================================
+   Responsive - Small Mobile
+   ======================================== */
+
+@media (max-width: 480px) {
+
+  .history-header {
+    align-items: flex-start;
+  }
+
+  .mock-badge {
+    font-size: 0.625rem;
+  }
+
+  .history-table-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .history-table-footer cxp-button {
+    align-self: flex-start;
+  }
+}
+
+/* ========================================
+   Reduced Motion
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .history-table tbody tr {
+    transition: none;
+  }
+}

@@ -1,8 +1,12 @@
 
 <div class="rehire-page">
 
-  <!-- Header -->
+  <!-- ========================================
+       Header
+       ======================================== -->
+
   <header class="rehire-header">
+
     <div>
       <h1>Rehire Employee</h1>
       <p>
@@ -11,425 +15,695 @@
       </p>
     </div>
 
-    <span class="mock-badge">MOCK DATA</span>
+    <span class="mock-badge">
+      MOCK DATA
+    </span>
+
   </header>
 
-  <!-- Employee Summary -->
-  <section class="employee-summary">
+  <!-- ========================================
+       Loading State
+       ======================================== -->
 
-    <div class="employee-avatar">
-      {{ employee.firstName[0] }}{{ employee.lastName[0] }}
-    </div>
+  @if (loading()) {
 
-    <div class="employee-summary-info">
-      <h2>{{ fullName() }}</h2>
-      <p>
-        {{ employee.employeeNumber }}
-        · {{ employee.previousPosition }}
-      </p>
-      <span class="employee-status">
-        {{ employee.employmentStatus }}
-      </span>
-    </div>
+    <main class="rehire-content">
 
-    <div class="employee-summary-date">
-      <span>Last Separation</span>
-      <strong>{{ employee.separationDate }}</strong>
-    </div>
+      <section class="rehire-panel">
 
-  </section>
+        <p>
+          Loading employee information...
+        </p>
 
-  <!-- Steps -->
-  <nav class="rehire-steps">
+      </section>
 
-    @for (step of steps; track step.id; let i = $index) {
+    </main>
 
-      <button
-        type="button"
-        class="rehire-step"
-        [class.active]="currentStepIndex() === i"
-        [class.completed]="i < currentStepIndex()"
-        [disabled]="i > currentStepIndex()"
-        (click)="goToStep(i)"
-      >
-        <span class="step-number">{{ i + 1 }}</span>
-        <span class="step-label">{{ step.label }}</span>
-      </button>
+  } @else if (!employeeFound()) {
+
+    <!-- ======================================
+         Employee Not Found
+         ====================================== -->
+
+    <main class="rehire-content">
+
+      <section class="rehire-panel">
+
+        <h2>Employee Not Found</h2>
+
+        <p>
+          {{ error() || 'No employee was selected.' }}
+        </p>
+
+        <cxp-button
+          (click)="backToSearch()"
+        >
+          Back to Search
+        </cxp-button>
+
+      </section>
+
+    </main>
+
+  } @else {
+
+    <!-- ======================================
+         Employee Summary
+         ====================================== -->
+
+    @if (employee(); as emp) {
+
+      <section class="employee-summary">
+
+        <div class="employee-avatar">
+          {{ emp.firstName.charAt(0) }}{{ emp.lastName.charAt(0) }}
+        </div>
+
+        <div class="employee-summary-info">
+
+          <h2>{{ fullName() }}</h2>
+
+          <p>
+            {{ emp.employeeNumber }}
+            · {{ emp.previousPosition }}
+          </p>
+
+          <span class="employee-status">
+            {{ getEmploymentStatusLabel(emp.employmentStatus) }}
+          </span>
+
+        </div>
+
+        <div class="employee-summary-date">
+
+          <span>Last Separation</span>
+
+          <strong>
+            {{ emp.separationDate ?? '—' }}
+          </strong>
+
+        </div>
+
+      </section>
 
     }
 
-  </nav>
+    <!-- ======================================
+         Wizard Navigation
+         ====================================== -->
 
-  <!-- Content -->
-  <main class="rehire-content">
+    <nav class="rehire-steps">
 
-    @if (submitted()) {
+      @for (step of steps; track step.id; let i = $index) {
 
-      <section class="rehire-panel success-panel">
-        <h2>Rehire Request Submitted</h2>
-        <p>
-          Mock submission completed successfully.
-          No actual employee records were modified.
-        </p>
+        <div
+          class="rehire-step"
+          [class.active]="currentStepIndex() === i"
+          [class.completed]="i < currentStepIndex()"
+        >
 
-        <button type="button" (click)="reset()">
-          Reset Test
-        </button>
-      </section>
+          <cxp-button
+            [disabled]="busy() || submitted()"
+            (click)="goToStep(i)"
+          >
+            {{ i + 1 }}. {{ step.label }}
+          </cxp-button>
 
-    } @else {
+        </div>
 
-      @switch (currentStep()) {
+      }
 
-        <!-- Eligibility -->
-        @case ('eligibility') {
+    </nav>
 
-          <section class="rehire-panel">
+    <!-- ======================================
+         Error Message
+         ====================================== -->
 
-            <div class="panel-heading">
-              <div>
-                <h2>Rehire Eligibility</h2>
-                <p>
-                  Review previous employment status
-                  and eligibility restrictions.
-                </p>
+    @if (error()) {
+
+      <div class="info-message" role="alert">
+        {{ error() }}
+      </div>
+
+    }
+
+    <!-- ======================================
+         Main Content
+         ====================================== -->
+
+    <main class="rehire-content">
+
+      @if (submitted()) {
+
+        <!-- ==================================
+             Submission Success
+             ================================== -->
+
+        <section class="rehire-panel success-panel">
+
+          <h2>Rehire Request Submitted</h2>
+
+          <p>
+            The rehire request was submitted successfully
+            and is pending approval.
+          </p>
+
+          @if (submissionResult(); as result) {
+
+            <div class="detail-grid">
+
+              <div class="detail-item">
+
+                <label>Request Number</label>
+
+                <strong>
+                  {{ result.data.rehireRequestNumber }}
+                </strong>
+
               </div>
 
-              <span
-                class="status-badge"
-                [class.status-success]="employee.eligible"
+              <div class="detail-item">
+
+                <label>Request Status</label>
+
+                <strong>
+                  {{ result.data.status }}
+                </strong>
+
+              </div>
+
+            </div>
+
+          }
+
+          <cxp-button
+            (click)="backToSearch()"
+          >
+            Back to Search
+          </cxp-button>
+
+        </section>
+
+      } @else {
+
+        @switch (currentStep()) {
+
+          <!-- ==================================
+               Eligibility
+               ================================== -->
+
+          @case ('eligibility') {
+
+            <section class="rehire-panel">
+
+              <div class="panel-heading">
+
+                <div>
+                  <h2>Rehire Eligibility</h2>
+                  <p>
+                    Review previous employment status
+                    and eligibility restrictions.
+                  </p>
+                </div>
+
+                <span
+                  class="status-badge"
+                  [class.status-success]="canProceed()"
+                >
+                  {{ getEligibilityLabel(eligibilityStatus()) }}
+                </span>
+
+              </div>
+
+              @if (employee(); as emp) {
+
+                <div class="detail-grid">
+
+                  <div class="detail-item">
+                    <label>Employment Status</label>
+                    <strong>
+                      {{ getEmploymentStatusLabel(emp.employmentStatus) }}
+                    </strong>
+                  </div>
+
+                  <div class="detail-item">
+                    <label>Previous Department</label>
+                    <strong>
+                      {{ emp.previousDepartment }}
+                    </strong>
+                  </div>
+
+                  <div class="detail-item">
+                    <label>Previous Position</label>
+                    <strong>
+                      {{ emp.previousPosition }}
+                    </strong>
+                  </div>
+
+                  <div class="detail-item">
+                    <label>Original Hire Date</label>
+                    <strong>
+                      {{ emp.previousHireDate }}
+                    </strong>
+                  </div>
+
+                  <div class="detail-item">
+                    <label>Separation Date</label>
+                    <strong>
+                      {{ emp.separationDate ?? '—' }}
+                    </strong>
+                  </div>
+
+                  <div class="detail-item">
+                    <label>Separation Reason</label>
+                    <strong>
+                      {{ emp.separationReason ?? '—' }}
+                    </strong>
+                  </div>
+
+                  <div class="detail-item">
+
+                    <label>Blocklist Status</label>
+
+                    <strong>
+                      @if (eligibility()) {
+                        {{ isBlocklisted() ? 'Blocked' : 'Clear' }}
+                      } @else {
+                        Not Verified
+                      }
+                    </strong>
+
+                  </div>
+
+                  <div class="detail-item">
+
+                    <label>Rehire Eligibility</label>
+
+                    <strong>
+                      {{ getEligibilityLabel(eligibilityStatus()) }}
+                    </strong>
+
+                  </div>
+
+                </div>
+
+              }
+
+              <div class="info-message">
+
+                @if (canProceed()) {
+
+                  This employee is eligible for rehire.
+                  Continue to review the existing employee profile.
+
+                } @else if (eligibility(); as assessment) {
+
+                  @for (reason of assessment.reasons; track $index) {
+                    <p>{{ reason }}</p>
+                  }
+
+                  @if (assessment.reasons.length === 0) {
+                    <p>
+                      Rehire eligibility requires further review.
+                    </p>
+                  }
+
+                } @else {
+
+                  Eligibility has not been verified.
+
+                }
+
+              </div>
+
+              <cxp-button
+                [disabled]="busy()"
+                (click)="verifyEligibility()"
               >
-                {{ employee.eligible ? 'Eligible' : 'Not Eligible' }}
-              </span>
-            </div>
+                {{ verifying() ? 'Verifying...' : 'Recheck Eligibility' }}
+              </cxp-button>
 
-            <div class="detail-grid">
+            </section>
 
-              <div class="detail-item">
-                <label>Employment Status</label>
-                <strong>{{ employee.employmentStatus }}</strong>
+          }
+
+          <!-- ==================================
+               Profile Review
+               ================================== -->
+
+          @case ('profile') {
+
+            <section class="rehire-panel">
+
+              <div class="panel-heading">
+
+                <div>
+                  <h2>Employee Profile Review</h2>
+                  <p>
+                    Verify the existing personal information
+                    before proceeding.
+                  </p>
+                </div>
+
               </div>
 
-              <div class="detail-item">
-                <label>Previous Department</label>
-                <strong>{{ employee.previousDepartment }}</strong>
+              @if (employee(); as emp) {
+
+                <div class="detail-grid">
+
+                  <div class="detail-item">
+                    <label>First Name</label>
+                    <strong>{{ emp.firstName }}</strong>
+                  </div>
+
+                  <div class="detail-item">
+                    <label>Middle Name</label>
+                    <strong>{{ emp.middleName || '—' }}</strong>
+                  </div>
+
+                  <div class="detail-item">
+                    <label>Last Name</label>
+                    <strong>{{ emp.lastName }}</strong>
+                  </div>
+
+                  <div class="detail-item">
+                    <label>Date of Birth</label>
+                    <strong>{{ emp.dateOfBirth }}</strong>
+                  </div>
+
+                  <div class="detail-item">
+                    <label>Gender</label>
+                    <strong>{{ emp.gender ?? '—' }}</strong>
+                  </div>
+
+                  <div class="detail-item">
+                    <label>Civil Status</label>
+                    <strong>{{ emp.civilStatus ?? '—' }}</strong>
+                  </div>
+
+                  <div class="detail-item">
+                    <label>Email</label>
+                    <strong>{{ emp.email ?? '—' }}</strong>
+                  </div>
+
+                  <div class="detail-item">
+                    <label>Mobile Number</label>
+                    <strong>{{ emp.mobile ?? '—' }}</strong>
+                  </div>
+
+                  <div class="detail-item">
+                    <label>Address</label>
+                    <strong>{{ emp.address ?? '—' }}</strong>
+                  </div>
+
+                  <div class="detail-item">
+                    <label>Emergency Contact</label>
+                    <strong>{{ emp.emergencyContact ?? '—' }}</strong>
+                  </div>
+
+                </div>
+
+              }
+
+              <div class="verification-box">
+
+                <label>
+
+                  <input
+                    type="checkbox"
+                    [checked]="profileVerified()"
+                    [disabled]="busy()"
+                    (change)="onProfileVerifiedChange(
+                      $any($event.target).checked
+                    )"
+                  />
+
+                  I have reviewed and verified
+                  the employee's existing information.
+
+                </label>
+
               </div>
 
-              <div class="detail-item">
-                <label>Previous Position</label>
-                <strong>{{ employee.previousPosition }}</strong>
+            </section>
+
+          }
+
+          <!-- ==================================
+               New Employment Details
+               ================================== -->
+
+          @case ('employment') {
+
+            <section class="rehire-panel">
+
+              <div class="panel-heading">
+
+                <div>
+                  <h2>New Employment Details</h2>
+                  <p>
+                    Enter the proposed employment information
+                    for the returning employee.
+                  </p>
+                </div>
+
               </div>
 
-              <div class="detail-item">
-                <label>Original Hire Date</label>
-                <strong>{{ employee.previousHireDate }}</strong>
+              <div class="form-grid">
+
+                <!-- Department -->
+
+                <div class="form-field">
+
+                  <label>Department *</label>
+
+                  <cxp-input-select
+                    name="department"
+                    [options]="departmentOptions"
+                    [(ngModel)]="department"
+                    placeholder="Select department"
+                  ></cxp-input-select>
+
+                </div>
+
+                <!-- Position -->
+
+                <div class="form-field">
+
+                  <label>Position *</label>
+
+                  <cxp-input-select
+                    name="position"
+                    [options]="positionOptions"
+                    [(ngModel)]="position"
+                    placeholder="Select position"
+                  ></cxp-input-select>
+
+                </div>
+
+                <!-- Employment Type -->
+
+                <div class="form-field">
+
+                  <label>Employment Type *</label>
+
+                  <cxp-input-select
+                    name="employmentType"
+                    [options]="employmentTypeOptions"
+                    [(ngModel)]="employmentType"
+                    placeholder="Select employment type"
+                  ></cxp-input-select>
+
+                </div>
+
+                <!-- Work Location -->
+
+                <div class="form-field">
+
+                  <label>Work Location *</label>
+
+                  <cxp-input-select
+                    name="workLocation"
+                    [options]="workLocationOptions"
+                    [(ngModel)]="workLocation"
+                    placeholder="Select work location"
+                  ></cxp-input-select>
+
+                </div>
+
+                <!-- Start Date -->
+
+                <div class="form-field">
+
+                  <label>Proposed Start Date *</label>
+
+                  <cxp-input-text
+                    name="startDate"
+                    type="date"
+                    [(ngModel)]="startDate"
+                  ></cxp-input-text>
+
+                </div>
+
+                <!-- Justification -->
+
+                <div class="form-field full-width">
+
+                  <label>Rehire Justification *</label>
+
+                  <textarea
+                    rows="4"
+                    name="justification"
+                    [(ngModel)]="justification"
+                    placeholder="Enter reason for rehiring..."
+                  ></textarea>
+
+                </div>
+
               </div>
 
-              <div class="detail-item">
-                <label>Separation Date</label>
-                <strong>{{ employee.separationDate }}</strong>
+            </section>
+
+          }
+
+          <!-- ==================================
+               Review Rehire Request
+               ================================== -->
+
+          @case ('review') {
+
+            <section class="rehire-panel">
+
+              <div class="panel-heading">
+
+                <div>
+                  <h2>Review Rehire Request</h2>
+                  <p>
+                    Confirm all information before submission.
+                  </p>
+                </div>
+
               </div>
 
-              <div class="detail-item">
-                <label>Separation Reason</label>
-                <strong>{{ employee.separationReason }}</strong>
-              </div>
+              @if (employee(); as emp) {
 
-              <div class="detail-item">
-                <label>Blocklist Status</label>
-                <strong>
-                  {{ employee.blocklisted ? 'Blocked' : 'Clear' }}
-                </strong>
-              </div>
+                <div class="detail-grid">
 
-              <div class="detail-item">
-                <label>Rehire Eligibility</label>
-                <strong>
-                  {{ employee.eligible ? 'Qualified' : 'Not Qualified' }}
-                </strong>
-              </div>
+                  <div class="detail-item">
+                    <label>Employee</label>
+                    <strong>{{ fullName() }}</strong>
+                  </div>
 
-            </div>
+                  <div class="detail-item">
+                    <label>Employee Number</label>
+                    <strong>{{ emp.employeeNumber }}</strong>
+                  </div>
 
-            <div class="info-message">
-              This employee is eligible for rehire.
-              Continue to review the existing employee profile.
-            </div>
+                  <div class="detail-item">
+                    <label>Eligibility</label>
+                    <strong>
+                      {{ getEligibilityLabel(eligibilityStatus()) }}
+                    </strong>
+                  </div>
 
-          </section>
+                  <div class="detail-item">
+                    <label>Profile Verification</label>
+                    <strong>
+                      {{ profileVerified() ? 'Verified' : 'Pending' }}
+                    </strong>
+                  </div>
 
-        }
+                  <div class="detail-item">
+                    <label>New Department</label>
+                    <strong>
+                      {{ getOptionLabel(departmentOptions, department) }}
+                    </strong>
+                  </div>
 
-        <!-- Profile -->
-        @case ('profile') {
+                  <div class="detail-item">
+                    <label>New Position</label>
+                    <strong>
+                      {{ getOptionLabel(positionOptions, position) }}
+                    </strong>
+                  </div>
 
-          <section class="rehire-panel">
+                  <div class="detail-item">
+                    <label>Employment Type</label>
+                    <strong>
+                      {{ getOptionLabel(employmentTypeOptions, employmentType) }}
+                    </strong>
+                  </div>
 
-            <div class="panel-heading">
-              <div>
-                <h2>Employee Profile Review</h2>
-                <p>
-                  Verify the existing personal information
-                  before proceeding.
-                </p>
-              </div>
-            </div>
+                  <div class="detail-item">
+                    <label>Work Location</label>
+                    <strong>
+                      {{ getOptionLabel(workLocationOptions, workLocation) }}
+                    </strong>
+                  </div>
 
-            <div class="detail-grid">
+                  <div class="detail-item">
+                    <label>Start Date</label>
+                    <strong>{{ startDate }}</strong>
+                  </div>
 
-              <div class="detail-item">
-                <label>First Name</label>
-                <strong>{{ employee.firstName }}</strong>
-              </div>
+                  <div class="detail-item full-width">
+                    <label>Justification</label>
+                    <strong>{{ justification }}</strong>
+                  </div>
 
-              <div class="detail-item">
-                <label>Middle Name</label>
-                <strong>{{ employee.middleName }}</strong>
-              </div>
+                </div>
 
-              <div class="detail-item">
-                <label>Last Name</label>
-                <strong>{{ employee.lastName }}</strong>
-              </div>
+              }
 
-              <div class="detail-item">
-                <label>Date of Birth</label>
-                <strong>{{ employee.dateOfBirth }}</strong>
-              </div>
+            </section>
 
-              <div class="detail-item">
-                <label>Gender</label>
-                <strong>{{ employee.gender }}</strong>
-              </div>
-
-              <div class="detail-item">
-                <label>Civil Status</label>
-                <strong>{{ employee.civilStatus }}</strong>
-              </div>
-
-              <div class="detail-item">
-                <label>Email</label>
-                <strong>{{ employee.email }}</strong>
-              </div>
-
-              <div class="detail-item">
-                <label>Mobile Number</label>
-                <strong>{{ employee.mobile }}</strong>
-              </div>
-
-              <div class="detail-item">
-                <label>Address</label>
-                <strong>{{ employee.address }}</strong>
-              </div>
-
-              <div class="detail-item">
-                <label>Emergency Contact</label>
-                <strong>{{ employee.emergencyContact }}</strong>
-              </div>
-
-            </div>
-
-            <div class="verification-box">
-              <label>
-                <input
-                  type="checkbox"
-                  [checked]="profileVerified()"
-                  (change)="profileVerified.set(
-                    $any($event.target).checked
-                  )"
-                />
-                I have reviewed and verified
-                the employee's existing information.
-              </label>
-            </div>
-
-          </section>
-
-        }
-
-        <!-- Employment -->
-        @case ('employment') {
-
-          <section class="rehire-panel">
-
-            <div class="panel-heading">
-              <div>
-                <h2>New Employment Details</h2>
-                <p>
-                  Enter the proposed employment information
-                  for the returning employee.
-                </p>
-              </div>
-            </div>
-
-            <div class="form-grid">
-
-              <div class="form-field">
-                <label>Department *</label>
-                <input
-                  type="text"
-                  [(ngModel)]="department"
-                  placeholder="Enter department"
-                />
-              </div>
-
-              <div class="form-field">
-                <label>Position *</label>
-                <input
-                  type="text"
-                  [(ngModel)]="position"
-                  placeholder="Enter position"
-                />
-              </div>
-
-              <div class="form-field">
-                <label>Employment Type</label>
-                <select [(ngModel)]="employmentType">
-                  <option value="Regular">Regular</option>
-                  <option value="Probationary">Probationary</option>
-                  <option value="Contractual">Contractual</option>
-                  <option value="Project-Based">Project-Based</option>
-                </select>
-              </div>
-
-              <div class="form-field">
-                <label>Work Location *</label>
-                <input
-                  type="text"
-                  [(ngModel)]="workLocation"
-                  placeholder="Enter work location"
-                />
-              </div>
-
-              <div class="form-field">
-                <label>Proposed Start Date *</label>
-                <input
-                  type="date"
-                  [(ngModel)]="startDate"
-                />
-              </div>
-
-              <div class="form-field full-width">
-                <label>Rehire Justification *</label>
-                <textarea
-                  rows="4"
-                  [(ngModel)]="justification"
-                  placeholder="Enter reason for rehiring..."
-                ></textarea>
-              </div>
-
-            </div>
-
-          </section>
-
-        }
-
-        <!-- Review -->
-        @case ('review') {
-
-          <section class="rehire-panel">
-
-            <div class="panel-heading">
-              <div>
-                <h2>Review Rehire Request</h2>
-                <p>
-                  Confirm all information before submission.
-                </p>
-              </div>
-            </div>
-
-            <div class="detail-grid">
-
-              <div class="detail-item">
-                <label>Employee</label>
-                <strong>{{ fullName() }}</strong>
-              </div>
-
-              <div class="detail-item">
-                <label>Employee Number</label>
-                <strong>{{ employee.employeeNumber }}</strong>
-              </div>
-
-              <div class="detail-item">
-                <label>Eligibility</label>
-                <strong>
-                  {{ employee.eligible ? 'Eligible' : 'Not Eligible' }}
-                </strong>
-              </div>
-
-              <div class="detail-item">
-                <label>Profile Verification</label>
-                <strong>
-                  {{ profileVerified() ? 'Verified' : 'Pending' }}
-                </strong>
-              </div>
-
-              <div class="detail-item">
-                <label>New Department</label>
-                <strong>{{ department }}</strong>
-              </div>
-
-              <div class="detail-item">
-                <label>New Position</label>
-                <strong>{{ position }}</strong>
-              </div>
-
-              <div class="detail-item">
-                <label>Employment Type</label>
-                <strong>{{ employmentType }}</strong>
-              </div>
-
-              <div class="detail-item">
-                <label>Work Location</label>
-                <strong>{{ workLocation }}</strong>
-              </div>
-
-              <div class="detail-item">
-                <label>Start Date</label>
-                <strong>{{ startDate }}</strong>
-              </div>
-
-              <div class="detail-item full-width">
-                <label>Justification</label>
-                <strong>{{ justification }}</strong>
-              </div>
-
-            </div>
-
-          </section>
+          }
 
         }
 
       }
 
+    </main>
+
+    <!-- ======================================
+         Wizard Footer
+         ====================================== -->
+
+    @if (!submitted()) {
+
+      <footer class="rehire-footer">
+
+        <cxp-button
+          [disabled]="isFirstStep() || busy()"
+          (click)="previous()"
+        >
+          Previous
+        </cxp-button>
+
+        @if (isLastStep()) {
+
+          <cxp-button
+            class="rehire-submit-button"
+            [disabled]="!canSubmit()"
+            (click)="submitRequest()"
+          >
+            {{ submitting() ? 'Submitting...' : 'Submit Rehire' }}
+          </cxp-button>
+
+        } @else {
+
+          <cxp-button
+            [disabled]="!canGoNext()"
+            (click)="next()"
+          >
+            Next
+          </cxp-button>
+
+        }
+
+      </footer>
+
     }
-
-  </main>
-
-  <!-- Footer -->
-  @if (!submitted()) {
-
-    <footer class="rehire-footer">
-
-      <button
-        type="button"
-        class="btn-secondary"
-        [disabled]="isFirstStep()"
-        (click)="previous()"
-      >
-        Previous
-      </button>
-
-      <button
-        type="button"
-        class="btn-primary"
-        [disabled]="!canProceed()"
-        (click)="next()"
-      >
-        {{ isLastStep() ? 'Submit Rehire' : 'Next' }}
-      </button>
-
-    </footer>
 
   }
 

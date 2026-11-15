@@ -1,310 +1,710 @@
 
+/* ========================================
+   Host
+   ======================================== */
+
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 100%;
+
+  color: var(--color-text-primary);
+}
+
+/* ========================================
+   Rehire Page
+   ======================================== */
+
 .rehire-page {
   display: flex;
   flex-direction: column;
+
+  width: 100%;
+  min-width: 0;
   min-height: 100%;
-  background: var(--color-background, #ffffff);
-  color: var(--color-text, #20242c);
+
+  box-sizing: border-box;
+
+  background: var(--color-background-primary);
+  color: var(--color-text-primary);
+
   font-family: inherit;
 }
+
+/* ========================================
+   Header
+   ======================================== */
 
 .rehire-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 24px;
-  border-bottom: 1px solid var(--color-border, #e1e4e8);
+
+  gap: 1rem;
+  padding: 1.5rem;
+
+  background: var(--color-background-secondary);
+
+  border-bottom: 1px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-header);
 }
 
 .rehire-header h1 {
   margin: 0;
-  font-size: 24px;
+
+  font-size: 1.5rem;
   font-weight: 600;
+
+  color: var(--color-text-primary);
 }
 
 .rehire-header p {
-  margin: 6px 0 0;
-  font-size: 13px;
-  color: var(--color-text-secondary, #6b7280);
+  margin: 0.375rem 0 0;
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
+
+  color: var(--color-text-secondary);
 }
 
+/* ========================================
+   Mock Badge
+   ======================================== */
+
 .mock-badge {
-  padding: 6px 10px;
-  font-size: 11px;
-  border: 1px solid var(--color-border, #d1d5db);
-  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  padding: 0.375rem 0.625rem;
+
+  background: var(--color-background-primary);
+  color: var(--color-text-secondary);
+
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-card);
+
+  font-size: 0.6875rem;
+  font-weight: 500;
 }
+
+/* ========================================
+   Employee Summary
+   ======================================== */
 
 .employee-summary {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 20px 24px;
-  border-bottom: 1px solid var(--color-border, #e1e4e8);
+
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+
+  background: var(--color-background-secondary);
+
+  border-bottom: 1px solid var(--color-border-secondary);
 }
 
+/* ========================================
+   Employee Avatar
+   ======================================== */
+
 .employee-avatar {
-  width: 52px;
-  height: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-surface, #eef2f7);
-  border: 1px solid var(--color-border, #d1d5db);
+
+  width: 52px;
+  height: 52px;
+
+  flex: 0 0 auto;
+
+  background: var(--color-background-primary);
+  color: var(--color-text-primary);
+
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--border-radius-card);
+
+  font-size: 1.125rem;
   font-weight: 600;
-  font-size: 18px;
 }
 
+/* ========================================
+   Employee Information
+   ======================================== */
+
 .employee-summary-info {
-  flex: 1;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .employee-summary-info h2 {
-  margin: 0 0 5px;
-  font-size: 17px;
+  margin: 0 0 0.3125rem;
+
+  font-size: 1.0625rem;
+  font-weight: 600;
+
+  color: var(--color-text-primary);
 }
 
 .employee-summary-info p {
-  margin: 0 0 6px;
-  color: var(--color-text-secondary, #6b7280);
-  font-size: 13px;
+  margin: 0 0 0.375rem;
+
+  font-size: 0.8125rem;
+
+  color: var(--color-text-secondary);
 }
 
 .employee-status {
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 500;
+
+  color: var(--color-text-primary);
 }
+
+/* ========================================
+   Employee Separation Date
+   ======================================== */
 
 .employee-summary-date {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+
+  gap: 0.3125rem;
+
   text-align: right;
-  font-size: 12px;
+  font-size: 0.75rem;
+
+  color: var(--color-text-primary);
 }
 
 .employee-summary-date span {
-  color: var(--color-text-secondary, #6b7280);
+  color: var(--color-text-secondary);
 }
+
+.employee-summary-date strong {
+  font-weight: 600;
+}
+
+/* ========================================
+   Wizard Navigation
+   ======================================== */
 
 .rehire-steps {
   display: flex;
-  padding: 18px 24px;
-  gap: 12px;
-  border-bottom: 1px solid var(--color-border, #e1e4e8);
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+
+  background: var(--color-background-primary);
+
+  border-bottom: 1px solid var(--color-border-secondary);
 }
+
+/* ========================================
+   Wizard Step Host
+   ======================================== */
 
 .rehire-step {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 8px 12px;
-  border: 1px solid var(--color-border, #d1d5db);
-  background: transparent;
-  color: inherit;
-  cursor: pointer;
-  border-radius: 0;
+  display: inline-flex;
+  flex: 0 0 auto;
 }
 
-.rehire-step.active {
-  border-color: var(--color-primary, #2563eb);
-  color: var(--color-primary, #2563eb);
+/* ========================================
+   Wizard Step - Default
+   ======================================== */
+
+.rehire-steps ::ng-deep .rehire-step button {
+  background: var(--color-background-secondary);
+  color: var(--color-text-secondary);
+
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-card);
+
+  font-weight: 400;
+
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
 }
 
-.rehire-step.completed {
-  opacity: 0.8;
+/* ========================================
+   Wizard Step - Hover
+   ======================================== */
+
+.rehire-steps
+  ::ng-deep
+  .rehire-step:not(.active) button:hover:not(:disabled) {
+  background: var(--color-background-primary);
+  color: var(--color-text-primary);
+
+  border-color: var(--color-border-primary);
 }
 
-.rehire-step:disabled {
+/* ========================================
+   Wizard Step - Active
+   ======================================== */
+
+.rehire-steps ::ng-deep .rehire-step.active button {
+  background: var(--color-nav-submenu-active-background);
+  color: var(--color-nav-active-text);
+
+  border: 1px solid var(--color-nav-active-text);
+  border-radius: var(--border-radius-card);
+
+  font-weight: 600;
+}
+
+/* ========================================
+   Wizard Step - Active Hover
+   ======================================== */
+
+.rehire-steps
+  ::ng-deep
+  .rehire-step.active button:hover:not(:disabled) {
+  background: var(--color-nav-submenu-active-background);
+  color: var(--color-nav-active-text);
+
+  border-color: var(--color-nav-active-text);
+}
+
+/* ========================================
+   Wizard Step - Completed
+   ======================================== */
+
+.rehire-steps
+  ::ng-deep
+  .rehire-step.completed:not(.active) button {
+  background: var(--color-background-secondary);
+  color: var(--color-text-primary);
+
+  border-color: var(--color-border-primary);
+}
+
+/* ========================================
+   Wizard Step - Disabled
+   ======================================== */
+
+.rehire-steps ::ng-deep .rehire-step button:disabled {
   opacity: 0.45;
   cursor: not-allowed;
 }
 
-.step-number {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 25px;
-  height: 25px;
-  border: 1px solid currentColor;
-  font-size: 12px;
+/* ========================================
+   Wizard Step - Keyboard Focus
+   ======================================== */
+
+.rehire-steps ::ng-deep .rehire-step button:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
 }
 
-.step-label {
-  font-size: 13px;
-  font-weight: 500;
-}
+/* ========================================
+   Main Content
+   ======================================== */
 
 .rehire-content {
-  flex: 1;
-  padding: 24px;
+  flex: 1 1 auto;
+
+  min-width: 0;
+  padding: 1.5rem;
+
+  background: var(--color-background-primary);
+  color: var(--color-text-primary);
 }
 
+/* ========================================
+   Main Panel
+   ======================================== */
+
 .rehire-panel {
-  border: 1px solid var(--color-border, #e1e4e8);
-  padding: 24px;
-  background: var(--color-surface, #ffffff);
+  padding: 1.5rem;
+
+  background: var(--color-background-secondary);
+  color: var(--color-text-primary);
+
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-section);
 }
+
+/* ========================================
+   Panel Heading
+   ======================================== */
 
 .panel-heading {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 24px;
+
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .panel-heading h2 {
-  margin: 0 0 6px;
-  font-size: 18px;
+  margin: 0 0 0.375rem;
+
+  font-size: 1.125rem;
   font-weight: 600;
+
+  color: var(--color-text-primary);
 }
 
 .panel-heading p {
   margin: 0;
-  font-size: 13px;
-  color: var(--color-text-secondary, #6b7280);
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
+
+  color: var(--color-text-secondary);
 }
+
+/* ========================================
+   Status Badge
+   ======================================== */
 
 .status-badge {
-  padding: 6px 12px;
-  font-size: 12px;
-  border: 1px solid var(--color-border, #d1d5db);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  padding: 0.375rem 0.75rem;
+
+  background: var(--color-background-primary);
+  color: var(--color-text-primary);
+
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-card);
+
+  font-size: 0.75rem;
+  font-weight: 500;
 }
 
+/* ========================================
+   Success Status
+   ======================================== */
+
 .status-success {
-  color: var(--color-success, #16803c);
-  border-color: var(--color-success, #16803c);
+  background: var(--color-badge-background-success);
+  color: var(--color-badge-text-success);
+
+  border-color: var(--color-badge-border-success);
 }
+
+/* ========================================
+   Detail and Form Grids
+   ======================================== */
 
 .detail-grid,
 .form-grid {
   display: grid;
+
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 22px 28px;
+
+  gap: 1.375rem 1.75rem;
 }
+
+/* ========================================
+   Detail Items
+   ======================================== */
 
 .detail-item {
   display: flex;
   flex-direction: column;
-  gap: 7px;
+
+  gap: 0.4375rem;
   min-width: 0;
 }
 
-.detail-item label,
-.form-field label {
-  font-size: 12px;
-  color: var(--color-text-secondary, #6b7280);
+.detail-item label {
+  font-size: 0.75rem;
+  font-weight: 500;
+
+  color: var(--color-text-secondary);
 }
 
 .detail-item strong {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
+
+  color: var(--color-text-primary);
+
   overflow-wrap: anywhere;
 }
 
-.info-message {
-  margin-top: 28px;
-  padding: 14px;
-  border: 1px solid var(--color-border, #d1d5db);
-  font-size: 13px;
-}
-
-.verification-box {
-  margin-top: 28px;
-  padding: 16px;
-  border: 1px solid var(--color-border, #d1d5db);
-}
-
-.verification-box label {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 13px;
-  cursor: pointer;
-}
+/* ========================================
+   Form Field Layout
+   ======================================== */
 
 .form-field {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+
+  gap: 0.5rem;
+  min-width: 0;
 }
 
-.form-field input,
-.form-field select,
-.form-field textarea {
+.form-field label {
+  font-size: 0.75rem;
+  font-weight: 500;
+
+  color: var(--color-text-secondary);
+}
+
+/* ========================================
+   CyberXP Input Components
+   ======================================== */
+
+.form-field cxp-input-text,
+.form-field cxp-input-select {
+  display: block;
+
   width: 100%;
-  box-sizing: border-box;
-  padding: 11px 12px;
-  font: inherit;
-  font-size: 13px;
-  border: 1px solid var(--color-border, #d1d5db);
-  border-radius: 0;
-  background: var(--color-background, #ffffff);
-  color: var(--color-text, #20242c);
+  min-width: 0;
 }
 
-.form-field textarea {
-  resize: vertical;
+/* ========================================
+   Select Dropdown Visibility
+   ======================================== */
+
+.form-grid {
+  overflow: visible;
 }
+
+.form-field {
+  overflow: visible;
+}
+
+/* ========================================
+   Rehire Justification Textarea
+   ======================================== */
+
+.form-field textarea {
+  display: block;
+
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+
+  padding: 0.6875rem 0.75rem;
+
+  font: inherit;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+
+  background: var(--color-input-background);
+  color: var(--color-input-text);
+
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--border-radius-input);
+
+  resize: vertical;
+
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+/* ========================================
+   Textarea Placeholder
+   ======================================== */
+
+.form-field textarea::placeholder {
+  color: var(--color-input-placeholder);
+  opacity: 1;
+}
+
+/* ========================================
+   Textarea Hover
+   ======================================== */
+
+.form-field textarea:hover:not(:disabled) {
+  background: var(--color-input-hover-background);
+  border-color: var(--color-input-hover-border);
+}
+
+/* ========================================
+   Textarea Focus
+   ======================================== */
+
+.form-field textarea:focus-visible {
+  background: var(--color-input-focus-background);
+  border-color: var(--color-input-focus-border);
+
+  outline: none;
+
+  box-shadow: 0 0 0 3px var(--color-input-focus-ring);
+}
+
+/* ========================================
+   Textarea Disabled
+   ======================================== */
+
+.form-field textarea:disabled {
+  background: var(--color-input-disabled-background);
+  color: var(--color-input-disabled-text);
+
+  border-color: var(--color-input-disabled-border);
+
+  cursor: not-allowed;
+}
+
+/* ========================================
+   Full Width Fields
+   ======================================== */
 
 .full-width {
   grid-column: 1 / -1;
 }
 
-.rehire-footer {
-  display: flex;
-  justify-content: space-between;
-  padding: 16px 24px;
-  border-top: 1px solid var(--color-border, #e1e4e8);
+/* ========================================
+   Information Message
+   ======================================== */
+
+.info-message {
+  margin-top: 1.75rem;
+  padding: 0.875rem;
+
+  background: var(--color-background-primary);
+  color: var(--color-text-primary);
+
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-card);
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
 }
 
-.rehire-footer button,
-.success-panel button {
-  padding: 10px 20px;
-  font: inherit;
-  font-size: 13px;
-  font-weight: 500;
-  border-radius: 0;
+/* ========================================
+   Verification Box
+   ======================================== */
+
+.verification-box {
+  margin-top: 1.75rem;
+  padding: 1rem;
+
+  background: var(--color-background-primary);
+  color: var(--color-text-primary);
+
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-section);
+}
+
+/* ========================================
+   Verification Label
+   ======================================== */
+
+.verification-box label {
+  display: flex;
+  align-items: center;
+
+  gap: 0.625rem;
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
+
   cursor: pointer;
 }
 
-.btn-primary {
-  background: var(--color-primary, #2563eb);
-  color: #ffffff;
-  border: 1px solid var(--color-primary, #2563eb);
+/* ========================================
+   Verification Checkbox
+   ======================================== */
+
+.verification-box input[type='checkbox'] {
+  flex: 0 0 auto;
+
+  accent-color: var(--color-text-primary);
+
+  cursor: pointer;
 }
 
-.btn-secondary {
-  background: transparent;
-  color: inherit;
-  border: 1px solid var(--color-border, #d1d5db);
+/* ========================================
+   Wizard Footer
+   ======================================== */
+
+.rehire-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+
+  background: var(--color-background-secondary);
+
+  border-top: 1px solid var(--color-border-secondary);
 }
 
-.rehire-footer button:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
+/* ========================================
+   Footer Button Layout
+   ======================================== */
+
+.rehire-footer cxp-button {
+  display: inline-flex;
+  flex: 0 0 auto;
 }
+
+/* ========================================
+   Submit Button Layout
+   ======================================== */
+
+.rehire-submit-button {
+  display: inline-flex;
+  flex: 0 0 auto;
+}
+
+/* ========================================
+   Success Panel
+   ======================================== */
 
 .success-panel {
   text-align: center;
+
+  color: var(--color-text-primary);
 }
 
 .success-panel h2 {
   margin-top: 0;
+
+  color: var(--color-badge-text-success);
 }
 
 .success-panel p {
-  color: var(--color-text-secondary, #6b7280);
+  color: var(--color-text-secondary);
 }
 
+/* ========================================
+   Success Panel Button
+   ======================================== */
+
+.success-panel cxp-button {
+  display: inline-flex;
+
+  margin-top: 1rem;
+}
+
+/* ========================================
+   Responsive Layout
+   ======================================== */
+
 @media (max-width: 768px) {
+
   .rehire-header,
   .employee-summary {
     flex-wrap: wrap;
   }
 
   .rehire-steps {
+    flex-wrap: nowrap;
     overflow-x: auto;
   }
 
@@ -318,14 +718,30 @@
   }
 
   .rehire-content {
-    padding: 16px;
+    padding: 1rem;
   }
 
   .rehire-panel {
-    padding: 16px;
+    padding: 1rem;
   }
 
   .employee-summary-date {
     text-align: left;
+  }
+
+  .rehire-footer {
+    flex-wrap: wrap;
+  }
+}
+
+/* ========================================
+   Reduced Motion
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .rehire-steps ::ng-deep .rehire-step button,
+  .form-field textarea {
+    transition: none;
   }
 }

@@ -7,13 +7,7 @@ import { NewEmployeePage } from './features/hiring/hire new/presentations/pages/
 import { newEmployeeGuard } from './features/employees/guards/new-employee.guards';
 import { RehirePageComponent } from './features/rehiring/rehire/presentation/pages/rehire-page/rehire-page';
 export const routes: Routes = [
- {
-  path: 'rehiring',
-  loadChildren: () =>
-    import('./features/rehiring/rehire.routes')
-      .then(m => m.REHIRE_ROUTES),
-}
-
+ 
   {
     path: '',
     component: MainLayout,
@@ -49,6 +43,30 @@ export const routes: Routes = [
         loadChildren: () =>
           import('./features/employees/presentation/pages/employee-list/employee-list.routes').then(
             (m) => m.NEW_EMPLOYEE_ROUTES,
+          ),
+      },
+       {
+        path: 'rehire-search',
+        canActivate: [newEmployeeGuard],
+        loadChildren: () =>
+          import('./features/rehiring/search/rehire-search.routes').then(
+            (m) => m.REHIRE_SEARCH_ROUTES,
+          ),
+      },
+      {
+        path: 'rehire',
+        canActivate: [newEmployeeGuard],
+        loadChildren: () =>
+          import('./features/rehiring/rehire/rehire.routes').then(
+            (m) => m.REHIRE_ROUTES,
+          ),
+      },
+       {
+        path: 'rehire-history',
+        canActivate: [newEmployeeGuard],
+        loadChildren: () =>
+          import('./features/rehiring/history/rehire-history.routes').then(
+            (m) => m.REHIRE_ROUTES,
           ),
       },
       {

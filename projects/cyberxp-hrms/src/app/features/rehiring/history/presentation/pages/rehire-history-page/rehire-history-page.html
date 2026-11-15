@@ -1,0 +1,280 @@
+
+<div class="rehire-history-page">
+
+  <!-- ========================================
+       Header
+       ======================================== -->
+
+  <header class="history-header">
+
+    <div>
+      <h1>Rehiring History</h1>
+
+      <p>
+        View and monitor rehire requests,
+        approvals, and completed rehiring transactions.
+      </p>
+    </div>
+
+    <span class="mock-badge">
+      MOCK DATA
+    </span>
+
+  </header>
+
+  <!-- ========================================
+       Summary
+       ======================================== -->
+
+  <section class="history-summary">
+
+    <!-- Total Requests -->
+
+    <div class="summary-item">
+      <span>Total Requests</span>
+      <strong>{{ totalRequests() }}</strong>
+    </div>
+
+    <!-- Pending Requests -->
+
+    <div class="summary-item">
+      <span>Pending Approval</span>
+      <strong>{{ pendingRequests() }}</strong>
+    </div>
+
+    <!-- Completed Requests -->
+
+    <div class="summary-item">
+      <span>Completed</span>
+      <strong>{{ completedRequests() }}</strong>
+    </div>
+
+  </section>
+
+  <!-- ========================================
+       Main Content
+       ======================================== -->
+
+  <main class="history-content">
+
+    <section class="history-panel">
+
+      <!-- ======================================
+           Panel Heading
+           ====================================== -->
+
+      <div class="panel-heading">
+
+        <div>
+          <h2>Rehire Records</h2>
+
+          <p>
+            Search and filter previously submitted
+            rehire requests.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- ======================================
+           Search and Filters
+           ====================================== -->
+
+      <div class="history-filters">
+
+        <!-- Search -->
+
+        <div class="filter-field">
+
+          <label>Search</label>
+
+          <cxp-input-search
+            name="rehireHistorySearch"
+            size="md"
+            placeholder="Search employee or request number"
+            [value]="searchTerm()"
+            (valueChange)="onSearchChange($event)"
+          ></cxp-input-search>
+
+        </div>
+
+        <!-- Status Filter -->
+
+        <div class="filter-field">
+
+          <label>Status</label>
+
+          <cxp-input-select
+            name="rehireHistoryStatus"
+            size="md"
+            placeholder="All statuses"
+            [options]="statusOptions"
+            [value]="selectedStatus()"
+            (valueChange)="onStatusChange($event)"
+          ></cxp-input-select>
+
+        </div>
+
+      </div>
+
+      <!-- ======================================
+           History Table
+           ====================================== -->
+
+      <div class="history-table-wrapper">
+
+        <table class="history-table">
+
+          <!-- Table Header -->
+
+          <thead>
+            <tr>
+              <th>Request No.</th>
+              <th>Employee</th>
+              <th>Previous Position</th>
+              <th>Proposed Position</th>
+              <th>Request Date</th>
+              <th>Requested By</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <!-- Table Body -->
+
+          <tbody>
+
+            @for (
+              record of filteredRecords();
+              track record.requestNumber
+            ) {
+
+              <tr>
+
+                <!-- Request Number -->
+
+                <td>
+                  <strong>
+                    {{ record.requestNumber }}
+                  </strong>
+                </td>
+
+                <!-- Employee -->
+
+                <td>
+                  <div class="employee-cell">
+
+                    <strong>
+                      {{ record.employeeName }}
+                    </strong>
+
+                    <span>
+                      {{ record.employeeNumber }}
+                    </span>
+
+                  </div>
+                </td>
+
+                <!-- Previous Position -->
+
+                <td>
+                  {{ record.previousPosition }}
+                </td>
+
+                <!-- Proposed Position -->
+
+                <td>
+                  {{ record.proposedPosition }}
+                </td>
+
+                <!-- Request Date -->
+
+                <td>
+                  {{ record.requestDate }}
+                </td>
+
+                <!-- Requested By -->
+
+                <td>
+                  {{ record.requestedBy }}
+                </td>
+
+                <!-- Status -->
+
+                <td>
+
+                  <span
+                    class="history-status"
+                    [class.status-pending]="record.status === 'PENDING_APPROVAL'"
+                    [class.status-approved]="record.status === 'APPROVED'"
+                    [class.status-rejected]="record.status === 'REJECTED'"
+                    [class.status-completed]="record.status === 'COMPLETED'"
+                  >
+                    {{ getStatusLabel(record.status) }}
+                  </span>
+
+                </td>
+
+                <!-- Action -->
+
+                <td>
+
+                  <cxp-button
+                    (click)="viewDetails(record.requestNumber)"
+                    size="sm"
+                    variant="secondary"
+                  >
+                    View
+                  </cxp-button>
+
+                </td>
+
+              </tr>
+
+            } @empty {
+
+              <!-- Empty State -->
+
+              <tr>
+
+                <td
+                  colspan="8"
+                  class="empty-state"
+                >
+                  No rehire records found.
+                </td>
+
+              </tr>
+
+            }
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+      <!-- ======================================
+           Table Footer
+           ====================================== -->
+
+      <div class="history-table-footer">
+
+        <span>
+          Showing {{ filteredCount() }}
+          of {{ totalRequests() }} records
+        </span>
+
+        <cxp-button
+          (click)="clearFilters()"
+        >
+          Clear Filters
+        </cxp-button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>

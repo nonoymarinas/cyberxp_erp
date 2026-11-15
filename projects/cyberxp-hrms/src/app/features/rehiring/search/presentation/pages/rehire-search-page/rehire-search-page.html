@@ -1,0 +1,356 @@
+
+<div class="rehire-search-page">
+
+  <!-- ========================================
+       Page Header
+       ======================================== -->
+
+  <header class="search-header">
+
+    <div>
+      <h1>Rehire Employee Search</h1>
+
+      <p>
+        Search for former employees to initiate
+        a new rehire request.
+      </p>
+    </div>
+
+    <span class="mock-badge">
+      MOCK DATA
+    </span>
+
+  </header>
+
+  <!-- ========================================
+       Main Content
+       ======================================== -->
+
+  <main class="search-content">
+
+    <section class="search-panel">
+
+      <!-- ======================================
+           Panel Heading
+           ====================================== -->
+
+      <div class="panel-heading">
+
+        <h2>Search Former Employee</h2>
+
+        <p>
+          Enter an employee number, name, department,
+          or previous position, then click Search.
+        </p>
+
+      </div>
+
+      <!-- ======================================
+           Search Form
+           ====================================== -->
+
+      <div class="search-form">
+
+        <!-- Search Input -->
+
+        <div class="search-input-wrapper">
+
+          <cxp-input-search
+            name="employeeKeyword"
+            size="md"
+            placeholder="Employee number, name, department, position..."
+            [value]="searchTerm()"
+            (valueChange)="onSearchChange($event)"
+          ></cxp-input-search>
+
+        </div>
+
+        <!-- Search Button -->
+
+        <cxp-button
+          [disabled]="!canSearch()"
+          (click)="searchEmployees()"
+        >
+          Search
+        </cxp-button>
+
+        <!-- Clear Button -->
+
+        <cxp-button
+          (click)="clearSearch()"
+        >
+          Clear
+        </cxp-button>
+
+      </div>
+
+      <!-- ======================================
+           Loading State
+           ====================================== -->
+
+      @if (loading()) {
+
+        <div
+          class="search-empty-state"
+          role="status"
+        >
+
+          <h3>Searching Employees...</h3>
+
+          <p>
+            Please wait while employee records
+            are being retrieved.
+          </p>
+
+        </div>
+
+      } @else if (error()) {
+
+        <!-- ====================================
+             Error State
+             ==================================== -->
+
+        <div
+          class="search-empty-state"
+          role="alert"
+        >
+
+          <h3>Search Failed</h3>
+
+          <p>
+            {{ error() }}
+          </p>
+
+        </div>
+
+      } @else if (!hasSearched()) {
+
+        <!-- ====================================
+             Initial State
+             ==================================== -->
+
+        <div class="search-empty-state">
+
+          <h3>Search for an Employee</h3>
+
+          <p>
+            No employee records are displayed yet.
+            Enter a keyword and click Search
+            to find matching former employees.
+          </p>
+
+        </div>
+
+      } @else {
+
+        <!-- ====================================
+             Search Results Heading
+             ==================================== -->
+
+        <div class="search-results-header">
+
+          <div>
+
+            <h3>Search Results</h3>
+
+            <p>
+              Results for:
+              <strong>
+                {{ submittedKeyword() }}
+              </strong>
+            </p>
+
+          </div>
+
+          <span>
+            {{ totalRecords() }}
+            matching employees
+          </span>
+
+        </div>
+
+        <!-- ====================================
+             Search Results Table
+             ==================================== -->
+
+        <div class="search-table-wrapper">
+
+          <table class="search-table">
+
+            <!-- Table Header -->
+
+            <thead>
+              <tr>
+                <th>Employee</th>
+                <th>Previous Department</th>
+                <th>Previous Position</th>
+                <th>Separation Date</th>
+                <th>Employment Status</th>
+                <th>Rehire Eligibility</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <!-- Table Body -->
+
+            <tbody>
+
+              @for (
+                employee of searchResults();
+                track employee.personGuid
+              ) {
+
+                <tr>
+
+                  <!-- Employee -->
+
+                  <td>
+
+                    <div class="employee-cell">
+
+                      <strong>
+                        {{ employee.fullName }}
+                      </strong>
+
+                      <span>
+                        {{ employee.employeeNumber }}
+                      </span>
+
+                    </div>
+
+                  </td>
+
+                  <!-- Previous Department -->
+
+                  <td>
+                    {{ employee.departmentName }}
+                  </td>
+
+                  <!-- Previous Position -->
+
+                  <td>
+                    {{ employee.positionName }}
+                  </td>
+
+                  <!-- Separation Date -->
+
+                  <td>
+                    {{ employee.separationDate ?? '—' }}
+                  </td>
+
+                  <!-- Employment Status -->
+
+                  <td>
+
+                    <span class="employment-status">
+                      {{
+                        getEmploymentStatusLabel(
+                          employee.employmentStatus
+                        )
+                      }}
+                    </span>
+
+                  </td>
+
+                  <!-- Rehire Eligibility -->
+
+                  <td>
+
+                    <span class="eligibility-badge">
+                      Pending Verification
+                    </span>
+
+                  </td>
+
+                  <!-- Action -->
+
+                  <td>
+
+                    <cxp-button
+                      (click)="selectEmployee(employee)"
+                      variant="primary"
+                      size="sm"
+                    >
+                      Select
+                    </cxp-button>
+
+                  </td>
+
+                </tr>
+
+              } @empty {
+
+                <!-- =================================
+                     No Matching Results
+                     ================================= -->
+
+                <tr>
+
+                  <td
+                    colspan="7"
+                    class="empty-state"
+                  >
+                    No matching former employees found.
+                    Try another keyword.
+                  </td>
+
+                </tr>
+
+              }
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+        <!-- ====================================
+             Search Results Footer
+             ==================================== -->
+
+        @if (totalRecords() > 0) {
+
+          <div class="search-table-footer">
+
+            <span>
+              Showing {{ searchResultCount() }}
+              of {{ totalRecords() }}
+              matching employees
+            </span>
+
+            <!-- Pagination -->
+
+            <div class="pagination-controls">
+
+              <cxp-button
+                [disabled]="!canPreviousPage()"
+                (click)="previousPage()"
+              >
+                Previous
+              </cxp-button>
+
+              <span class="pagination-info">
+                Page {{ pageNumber() }}
+                of {{ totalPages() }}
+              </span>
+
+              <cxp-button
+                [disabled]="!canNextPage()"
+                (click)="nextPage()"
+              >
+                Next
+              </cxp-button>
+
+            </div>
+
+          </div>
+
+        }
+
+      }
+
+    </section>
+
+  </main>
+
+</div>

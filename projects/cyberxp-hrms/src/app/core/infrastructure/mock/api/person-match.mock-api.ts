@@ -11,44 +11,52 @@ import {
 // DTO Models
 // ========================================
 
-import {
+import type {
   PersonMatchApiResponseDto,
   PersonMatchResponseDto,
-} from '../../models/personal-info/person-match-response.dto.model';
+} from '../../../../features/hiring/hire new/models/personal-info/person-match-response.dto.model';
 
 // ========================================
 // Application Models
 // ========================================
 
-import {
+import type {
   PersonMatchResolution,
-} from '../../models/personal-info/person-match-resolution.model';
+} from '../../../../features/hiring/hire new/models/personal-info/person-match-resolution.model';
 
-import {
+import type {
   PersonMatchSearchRequest,
-} from '../../models/personal-info/person-match-request.model';
+} from '../../../../features/hiring/hire new/models/personal-info/person-match-request.model';
 
-import {
+import type {
   SubmitPersonMatchDecisionRequest,
   SubmitPersonMatchDecisionResponse,
-} from '../../models/personal-info/person-match-decision.model';
+} from '../../../../features/hiring/hire new/models/personal-info/person-match-decision.model';
 
 // ========================================
-// Mock Matcher
+// Mock Person Repository
 // ========================================
 
 import {
   findPersonMatches,
   findMockPersonByGuid,
-} from './person-match.matcher';
+} from '../repository/person.mock-repository';
 
 // ========================================
-// Mock Data
+// General Mock Data
 // ========================================
 
 import {
-  PERSON_MATCH_RESOLUTION_MOCKS,
-} from './person-match.mock-data';
+  PERSON_MOCK_DATA,
+} from '../data/person.mock-data';
+
+import {
+  EMPLOYMENT_MOCK_DATA,
+} from '../data/employment.mock-data';
+
+import type {
+  MockEmploymentStatus,
+} from '../data/employment.mock-data';
 
 // ========================================
 // Configuration
@@ -57,16 +65,186 @@ import {
 const MOCK_API_DELAY = 500;
 
 // ========================================
-// Mock Decision Storage
+// Original Resolution Fixtures
 // ========================================
 
-// Temporary in-memory storage.
-// Decisions are lost when the application reloads.
+const LEGACY_RESOLUTIONS: Record<
+  string,
+  PersonMatchResolution
+> = {
+  'mock-person-001': {
+    screeningId: 'SCR000001',
+    personGuid: 'mock-person-001',
+    personNumber: 'PER000123',
+    fullName: 'Juan Santos Dela Cruz',
+    employmentStatus: 'ACTIVE',
+    isBlocklisted: false,
+    allowedActions: ['VIEW_EMPLOYEE'],
+  },
+
+  'mock-person-002': {
+    screeningId: 'SCR000002',
+    personGuid: 'mock-person-002',
+    personNumber: 'PER000287',
+    fullName: 'Juan Dela Cruz',
+    employmentStatus: 'RESIGNED',
+    isBlocklisted: false,
+    allowedActions: ['VIEW_EMPLOYEE', 'REHIRE'],
+  },
+
+  'mock-person-003': {
+    screeningId: 'SCR000003',
+    personGuid: 'mock-person-003',
+    personNumber: 'PER000415',
+    fullName: 'Juan S Cruz',
+    employmentStatus: 'TERMINATED',
+    isBlocklisted: true,
+    allowedActions: [
+      'VIEW_EMPLOYEE',
+      'BLOCKLIST_REVIEW',
+    ],
+  },
+};
+
+// ========================================
+// Mock Decision Storage
+// ========================================
 
 const MOCK_DECISIONS = new Map<
   string,
   SubmitPersonMatchDecisionResponse
 >();
+
+// ========================================
+// Employment Status Mapping
+// ========================================
+
+// Only return values supported by the
+// existing matching resolution fixtures.
+//
+// Do not misrepresent retirement or
+// contract completion as resignation.
+
+function mapEmploymentStatus(
+  status: MockEmploymentStatus
+): PersonMatchResolution['employmentStatus'] {
+
+  switch (status) {
+    case 'ACTIVE':
+      return 'ACTIVE';
+
+    case 'RESIGNED':
+      return 'RESIGNED';
+
+    case 'TERMINATED':
+      return 'TERMINATED';
+
+    case 'RETIRED':
+    case 'END_OF_CONTRACT':
+      throw new Error(
+        `Employment status "${status}" is not yet supported by PersonMatchResolution.`
+      );
+  }
+}
+
+// ========================================
+// Build Person Match Resolution
+// ========================================
+
+function buildPersonMatchResolution(
+  personGuid: string
+): PersonMatchResolution | null {
+
+  // ======================================
+  // Preserve Original Test Scenarios
+  // ======================================
+
+  const legacy = LEGACY_RESOLUTIONS[personGuid];
+
+  if (legacy) {
+    return {
+      ...legacy,
+      allowedActions: [...legacy.allowedActions],
+    };
+  }
+
+  // ======================================
+  // Find Person
+  // ======================================
+
+  const person = PERSON_MOCK_DATA.find(
+    item => item.personGuid === personGuid
+  );
+
+  if (!person) {
+    return null;
+  }
+
+  // ======================================
+  // Find Latest Employment
+  // ======================================
+
+  const latestEmployment = EMPLOYMENT_MOCK_DATA
+    .filter(
+      employment =>
+        employment.personGuid === personGuid
+    )
+    .sort(
+      (a, b) =>
+        b.hireDate.localeCompare(a.hireDate)
+    )[0];
+
+  if (!latestEmployment) {
+    return null;
+  }
+
+  // ======================================
+  // Map Employment Status
+  // ======================================
+
+  const employmentStatus = mapEmploymentStatus(
+    latestEmployment.status
+  );
+
+  // ======================================
+  // Allowed Actions
+  // ======================================
+
+  const allowedActions:
+    PersonMatchResolution['allowedActions'] = [
+      'VIEW_EMPLOYEE',
+    ];
+
+  // This is mock navigation permission,
+  // not final rehire eligibility approval.
+
+  if (employmentStatus === 'RESIGNED') {
+    allowedActions.push('REHIRE');
+  }
+
+  // ======================================
+  // Build Resolution
+  // ======================================
+
+  return {
+    screeningId: `MOCK-SCR-${personGuid}`,
+
+    personGuid: person.personGuid,
+    personNumber: person.personNumber,
+
+    fullName: [
+      person.firstName,
+      person.middleName,
+      person.lastName,
+    ]
+      .filter(Boolean)
+      .join(' '),
+
+    employmentStatus,
+    isBlocklisted: false,
+    allowedActions,
+  };
+}
 
 // ========================================
 // Check Person Match Mock API
@@ -90,7 +268,7 @@ export function checkPersonMatchMockApi(
 
     const hasBlocklistMatch = matches.some(
       person =>
-        PERSON_MATCH_RESOLUTION_MOCKS[
+        LEGACY_RESOLUTIONS[
           person.personGuid
         ]?.isBlocklisted === true
     );
@@ -145,9 +323,7 @@ export function getPersonMatchResolutionMockApi(
     // Validate Existing Person
     // ======================================
 
-    const person = findMockPersonByGuid(
-      personGuid
-    );
+    const person = findMockPersonByGuid(personGuid);
 
     if (!person) {
       return throwError(() =>
@@ -162,9 +338,7 @@ export function getPersonMatchResolutionMockApi(
     // ======================================
 
     const resolution =
-      PERSON_MATCH_RESOLUTION_MOCKS[
-        personGuid
-      ];
+      buildPersonMatchResolution(personGuid);
 
     if (!resolution) {
       return throwError(() =>
@@ -180,9 +354,7 @@ export function getPersonMatchResolutionMockApi(
 
     return of({
       ...resolution,
-      allowedActions: [
-        ...resolution.allowedActions,
-      ],
+      allowedActions: [...resolution.allowedActions],
     });
 
   }).pipe(
@@ -220,11 +392,12 @@ export function submitPersonMatchDecisionMockApi(
     // Validate Decision
     // ======================================
 
-    const validDecisions = [
-      'CONFIRMED',
-      'DISMISSED',
-      'ESCALATED',
-    ];
+    const validDecisions:
+      SubmitPersonMatchDecisionRequest['decision'][] = [
+        'CONFIRMED',
+        'DISMISSED',
+        'ESCALATED',
+      ];
 
     if (!validDecisions.includes(request.decision)) {
       return throwError(() =>

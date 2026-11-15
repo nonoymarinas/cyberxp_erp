@@ -1,15 +1,16 @@
 
 import {
   PersonMatch,
-} from '../../models/personal-info/person-match.model';
+} from '../../../../features/hiring/hire new/models/personal-info/person-match.model';
 
 import {
   PersonMatchSearchRequest,
-} from '../../models/personal-info/person-match-request.model';
+} from '../../../../features/hiring/hire new/models/personal-info/person-match-request.model';
 
 import {
-  PERSON_MATCH_MOCKS,
-} from './person-match.mock-data';
+  PERSON_MOCK_DATA,
+  MockPersonRecord,
+} from '../data/person.mock-data';
 
 
 /* ========================================
@@ -133,7 +134,7 @@ function middleNameSimilarity(
 
 function calculateMatchScore(
   request: PersonMatchSearchRequest,
-  person: PersonMatch
+  person: MockPersonRecord
 ): number {
 
   const firstScore = similarity(
@@ -193,7 +194,7 @@ function getMatchClassification(
 function getMatchType(
   score: number,
   request: PersonMatchSearchRequest,
-  person: PersonMatch
+  person: MockPersonRecord
 ): string {
 
   const exactFirst =
@@ -224,6 +225,38 @@ function getMatchType(
 
 
 /* ========================================
+   Convert Mock Person To PersonMatch
+   ======================================== */
+
+function toPersonMatch(
+  person: MockPersonRecord,
+  score: number,
+  matchType: string
+): PersonMatch {
+
+  return {
+    personGuid: person.personGuid,
+    personNumber: person.personNumber,
+
+    firstName: person.firstName,
+    middleName: person.middleName,
+    lastName: person.lastName,
+
+    dateOfBirth: person.dateOfBirth,
+
+    imageUrl: person.imageUrl ?? '',
+
+    matchScore: score,
+    matchType,
+
+    matchClassification:
+      getMatchClassification(score),
+  };
+
+}
+
+
+/* ========================================
    Find Person By GUID
    ======================================== */
 
@@ -231,8 +264,22 @@ export function findMockPersonByGuid(
   personGuid: string
 ): PersonMatch | undefined {
 
-  return PERSON_MATCH_MOCKS.find(
-    person => person.personGuid === personGuid
+  const person = PERSON_MOCK_DATA.find(
+    item => item.personGuid === personGuid
+  );
+
+  if (!person) {
+    return undefined;
+  }
+
+  // Preserve the existing PersonMatch return type.
+  // No matching request is available here,
+  // so matchScore is not calculated.
+
+  return toPersonMatch(
+    person,
+    0,
+    'Not Evaluated'
   );
 }
 
@@ -257,7 +304,7 @@ export function findPersonMatches(
 
   const matches: PersonMatch[] = [];
 
-  for (const person of PERSON_MATCH_MOCKS) {
+  for (const person of PERSON_MOCK_DATA) {
 
     const score = calculateMatchScore(
       request,
@@ -268,20 +315,15 @@ export function findPersonMatches(
       continue;
     }
 
-    const match: PersonMatch = {
-      ...person,
-
-      matchScore: score,
-
-      matchClassification:
-        getMatchClassification(score),
-
-      matchType: getMatchType(
+    const match = toPersonMatch(
+      person,
+      score,
+      getMatchType(
         score,
         request,
         person
-      ),
-    };
+      )
+    );
 
     matches.push(match);
   }

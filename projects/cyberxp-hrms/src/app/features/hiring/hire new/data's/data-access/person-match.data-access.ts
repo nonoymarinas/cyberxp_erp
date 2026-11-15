@@ -40,7 +40,7 @@ import {
   checkPersonMatchMockApi,
   getPersonMatchResolutionMockApi,
   submitPersonMatchDecisionMockApi,
-} from '../mocks/person-match.mock-api';
+} from '../../../../../core/infrastructure/mock/api/person-match.mock-api';
 
 // ========================================
 // Data Access
