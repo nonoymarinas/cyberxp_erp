@@ -27,11 +27,11 @@ import {
 import {
   PersonMatchResolution,
   PersonResolutionAction,
-} from '../../../../models/personal-info/person-match-resolution.model';
+} from '../../../../domain/models/shared/person-match-resolution/person-match-resolution.model';
 
 import {
   PersonMatchService,
-} from '../../../../business/services/person-match.services';
+} from '../../../../application/services/person-match.services';
 
 // ========================================
 // Person Match Resolution Component

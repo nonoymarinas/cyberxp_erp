@@ -13,8 +13,20 @@ import {
 } from '@angular/router';
 
 import {
+  toSignal,
+} from '@angular/core/rxjs-interop';
+
+import {
+  map,
+} from 'rxjs';
+
+import {
   CxpButton,
   CxpClassificationBadge,
+} from 'cyberxp-ui';
+
+import type {
+  CxpClassificationLevel,
 } from 'cyberxp-ui';
 
 // ========================================
@@ -23,7 +35,7 @@ import {
 
 import {
   PersonMatch,
-} from '../../../../models/personal-info/person-match.model';
+} from '../../../../domain/models/shared/person-match/person-match.model';
 
 // ========================================
 // Wizard State
@@ -31,7 +43,7 @@ import {
 
 import {
   NewEmployeeStateService,
-} from '../../../../state/new-employee-state.service';
+} from '../../../../application/state/new-employee-state.service';
 
 // ========================================
 // Types
@@ -73,9 +85,11 @@ export class PersonMatchCompareComponent {
   // Dependencies
   // ========================================
 
-  private readonly route = inject(ActivatedRoute);
+  private readonly route =
+    inject(ActivatedRoute);
 
-  private readonly router = inject(Router);
+  private readonly router =
+    inject(Router);
 
   private readonly wizardState =
     inject(NewEmployeeStateService);
@@ -84,26 +98,34 @@ export class PersonMatchCompareComponent {
   // Selected Person GUID
   // ========================================
 
-  readonly personGuid =
-    this.route.snapshot.paramMap.get('personGuid');
+  readonly personGuid = toSignal(
+    this.route.paramMap.pipe(
+      map(params => params.get('personGuid'))
+    ),
+    {
+      initialValue:
+        this.route.snapshot.paramMap.get(
+          'personGuid'
+        ),
+    }
+  );
 
   // ========================================
   // Existing Person
   // ========================================
 
-  readonly existingPerson = computed<PersonMatch | null>(() => {
+  readonly existingPerson =
+    computed<PersonMatch | null>(() => {
 
-    if (!this.personGuid) {
-      return null;
-    }
+      const guid = this.personGuid();
 
-    const matches =
-      this.wizardState.personMatches();
+      if (!guid) {
+        return null;
+      }
 
-    return matches.find(
-      person => person.personGuid === this.personGuid
-    ) ?? null;
-  });
+      return this.wizardState
+        .getPersonMatchByGuid(guid);
+    });
 
   // ========================================
   // New Employee Draft
@@ -111,6 +133,13 @@ export class PersonMatchCompareComponent {
 
   readonly newPerson =
     this.wizardState.personalDraft;
+
+  // ========================================
+  // Matching Workflow Status
+  // ========================================
+
+  readonly matchStatus =
+    this.wizardState.personMatchStatus;
 
   // ========================================
   // Full Names
@@ -153,44 +182,87 @@ export class PersonMatchCompareComponent {
   });
 
   // ========================================
+  // Match Score
+  // ========================================
+
+  readonly matchScore = computed(
+    () => this.existingPerson()?.matchScore ?? 0
+  );
+
+  // ========================================
+  // Match Type
+  // ========================================
+
+  readonly matchType = computed(
+    () => this.existingPerson()?.matchType ?? ''
+  );
+
+  // ========================================
+  // Match Classification ID
+  // ========================================
+
+  readonly matchClassificationId = computed(
+    () =>
+      this.existingPerson()
+        ?.matchClassificationId ?? null
+  );
+
+  // ========================================
+  // Classification Badge
+  // ========================================
+  //
+  // Classification references must be
+  // loaded through the application layer.
+  //
+  // Do not infer the classification from
+  // the numeric ID or similarity score.
+  // ========================================
+
+  readonly badgeClassification =
+    signal<CxpClassificationLevel>('neutral');
+
+  // ========================================
   // Field-by-Field Comparison
   // ========================================
 
-  readonly comparisonRows = computed<ComparisonRow[]>(() => {
+  readonly comparisonRows =
+    computed<ComparisonRow[]>(() => {
 
-    const newPerson = this.newPerson();
-    const existingPerson = this.existingPerson();
+      const newPerson = this.newPerson();
 
-    if (!newPerson || !existingPerson) {
-      return [];
-    }
+      const existingPerson =
+        this.existingPerson();
 
-    return [
-      this.createComparisonRow(
-        'First Name',
-        newPerson.firstName,
-        existingPerson.firstName
-      ),
+      if (!newPerson || !existingPerson) {
+        return [];
+      }
 
-      this.createComparisonRow(
-        'Middle Name',
-        newPerson.middleName,
-        existingPerson.middleName
-      ),
+      return [
+        this.createComparisonRow(
+          'First Name',
+          newPerson.firstName,
+          existingPerson.firstName
+        ),
 
-      this.createComparisonRow(
-        'Last Name',
-        newPerson.lastName,
-        existingPerson.lastName
-      ),
+        this.createComparisonRow(
+          'Middle Name',
+          newPerson.middleName,
+          existingPerson.middleName
+        ),
 
-      this.createComparisonRow(
-        'Date of Birth',
-        newPerson.dateOfBirth,
-        existingPerson.dateOfBirth
-      ),
-    ];
-  });
+        this.createComparisonRow(
+          'Last Name',
+          newPerson.lastName,
+          existingPerson.lastName
+        ),
+
+        this.createComparisonRow(
+          'Date of Birth',
+          newPerson.dateOfBirth,
+          existingPerson.dateOfBirth
+        ),
+      ];
+    });
 
   // ========================================
   // Comparison Helper
@@ -232,12 +304,39 @@ export class PersonMatchCompareComponent {
   }
 
   // ========================================
+  // Comparison Summary
+  // ========================================
+
+  readonly matchingFields = computed(
+    () =>
+      this.comparisonRows().filter(
+        row => row.result === 'match'
+      ).length
+  );
+
+  readonly differentFields = computed(
+    () =>
+      this.comparisonRows().filter(
+        row => row.result === 'different'
+      ).length
+  );
+
+  readonly missingFields = computed(
+    () =>
+      this.comparisonRows().filter(
+        row => row.result === 'missing'
+      ).length
+  );
+
+  // ========================================
   // Screening UI State
   // ========================================
 
-  readonly isEscalated = signal(false);
+  readonly isEscalated =
+    signal(false);
 
-  readonly screeningMessage = signal('');
+  readonly screeningMessage =
+    signal('');
 
   // ========================================
   // Confirm Match
@@ -245,8 +344,11 @@ export class PersonMatchCompareComponent {
 
   confirmMatch(): void {
 
-    const person = this.existingPerson();
-    const draft = this.newPerson();
+    const person =
+      this.existingPerson();
+
+    const draft =
+      this.newPerson();
 
     if (!person || !draft) {
       return;
@@ -255,9 +357,14 @@ export class PersonMatchCompareComponent {
     // ======================================
     // Navigate to Resolution
     // ======================================
-    // No submission or database mutation.
-    // The selected person is reviewed
-    // before preparing an employment proposal.
+    //
+    // This does not change the workflow
+    // status or create an employee.
+    //
+    // The resolution page determines
+    // whether the person is eligible
+    // for an appropriate employment action.
+    // ======================================
 
     void this.router.navigate([
       '/app',
@@ -277,8 +384,10 @@ export class PersonMatchCompareComponent {
     // ======================================
     // Return to Match List
     // ======================================
-    // No decision is submitted.
+    //
+    // No screening decision is stored.
     // Other possible matches remain visible.
+    // ======================================
 
     void this.router.navigate([
       '/app',
@@ -293,18 +402,21 @@ export class PersonMatchCompareComponent {
 
   escalateMatch(): void {
 
-    const person = this.existingPerson();
+    const person =
+      this.existingPerson();
 
     if (!person || !this.newPerson()) {
       return;
     }
 
     // ======================================
-    // Local Screening Flag
+    // Temporary UI State
     // ======================================
-    // This is temporary UI state.
-    // EmploymentProposal integration must
-    // preserve the escalation for approval.
+    //
+    // This is not persisted to the backend.
+    // The screening status remains
+    // REVIEW or HOLD.
+    // ======================================
 
     this.isEscalated.set(true);
 

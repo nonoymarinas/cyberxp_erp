@@ -12,23 +12,22 @@
   <header class="compare-header">
 
     <div class="compare-heading">
-
       <h2>Person Match Comparison</h2>
 
       <p>
         Compare the new employee information
         against the selected existing person.
       </p>
-
     </div>
 
-    @if (existingPerson(); as person) {
+    <!-- ======================================
+         Matching Classification
+         ====================================== -->
 
-      <cxp-classification-badge
-        [classification]="person.matchClassification"
-        [label]="person.matchType"
-      />
-
+    @if (existingPerson()) {
+      <span class="compare-verification-status">
+        {{ matchType() || 'Person Match' }}
+      </span>
     }
 
   </header>
@@ -62,18 +61,14 @@
             <div class="compare-photo">
 
               @if (draft.imageUrl) {
-
                 <img
                   [src]="draft.imageUrl"
                   [alt]="newFullName()"
                 />
-
               } @else {
-
                 <span class="compare-photo-placeholder">
                   No Photo
                 </span>
-
               }
 
             </div>
@@ -94,10 +89,7 @@
 
           <div class="compare-profile-data">
 
-            @for (
-              row of comparisonRows();
-              track row.label
-            ) {
+            @for (row of comparisonRows(); track row.label) {
 
               <div class="compare-data-row">
 
@@ -111,16 +103,26 @@
                     {{ row.newValue }}
                   </span>
 
-                  <cxp-classification-badge
-                    [classification]="
-                      row.result === 'match'
-                        ? 'low'
-                        : row.result === 'different'
-                          ? 'high'
-                          : 'medium'
-                    "
-                    [label]="row.result"
-                  />
+                  @switch (row.result) {
+
+                    @case ('match') {
+                      <span class="compare-field-result">
+                        Match
+                      </span>
+                    }
+
+                    @case ('different') {
+                      <span class="compare-field-result">
+                        Different
+                      </span>
+                    }
+
+                    @case ('missing') {
+                      <span class="compare-field-result">
+                        Missing
+                      </span>
+                    }
+                  }
 
                 </div>
 
@@ -147,18 +149,14 @@
             <div class="compare-photo">
 
               @if (person.imageUrl) {
-
                 <img
                   [src]="person.imageUrl"
                   [alt]="existingFullName()"
                 />
-
               } @else {
-
                 <span class="compare-photo-placeholder">
                   No Photo
                 </span>
-
               }
 
             </div>
@@ -179,10 +177,7 @@
 
           <div class="compare-profile-data">
 
-            @for (
-              row of comparisonRows();
-              track row.label
-            ) {
+            @for (row of comparisonRows(); track row.label) {
 
               <div class="compare-data-row">
 
@@ -196,16 +191,26 @@
                     {{ row.existingValue }}
                   </span>
 
-                  <cxp-classification-badge
-                    [classification]="
-                      row.result === 'match'
-                        ? 'low'
-                        : row.result === 'different'
-                          ? 'high'
-                          : 'medium'
-                    "
-                    [label]="row.result"
-                  />
+                  @switch (row.result) {
+
+                    @case ('match') {
+                      <span class="compare-field-result">
+                        Match
+                      </span>
+                    }
+
+                    @case ('different') {
+                      <span class="compare-field-result">
+                        Different
+                      </span>
+                    }
+
+                    @case ('missing') {
+                      <span class="compare-field-result">
+                        Missing
+                      </span>
+                    }
+                  }
 
                 </div>
 
@@ -220,13 +225,13 @@
       </div>
 
       <!-- ======================================
-           Similarity Score
+           Comparison Summary
            ====================================== -->
 
       <div class="compare-similarity">
 
         <div class="compare-similarity-value">
-          {{ person.matchScore }}%
+          {{ matchScore() }}%
         </div>
 
         <div class="compare-similarity-details">
@@ -236,12 +241,29 @@
           </span>
 
           <span class="compare-similarity-description">
-            Estimated similarity based on the
-            submitted personal information.
-            This score is generated by the mock
-            matching algorithm and requires
-            further verification.
+            This score is calculated from the
+            submitted personal information and
+            existing person records.
+
+            A similarity score is not proof
+            that two records belong to the
+            same individual.
           </span>
+
+          <div class="compare-similarity-description">
+            Matching Fields:
+            {{ matchingFields() }}
+
+            &nbsp;|&nbsp;
+
+            Different Fields:
+            {{ differentFields() }}
+
+            &nbsp;|&nbsp;
+
+            Missing Fields:
+            {{ missingFields() }}
+          </div>
 
         </div>
 
@@ -256,15 +278,13 @@
         <div class="compare-verification-heading">
 
           <div>
-
             <h3>Person Match Review</h3>
 
             <p>
-              Select an existing person, dismiss
-              this candidate, or flag the match
-              for administrator review.
+              Confirm the selected existing person,
+              return to the match list, or escalate
+              the case for administrator review.
             </p>
-
           </div>
 
           <span
@@ -273,7 +293,9 @@
           >
             {{ isEscalated()
                 ? 'REQUIRES REVIEW'
-                : 'PENDING REVIEW' }}
+                : matchStatus() === 'HOLD'
+                  ? 'ON HOLD'
+                  : 'PENDING REVIEW' }}
           </span>
 
         </div>
@@ -359,7 +381,7 @@
 
       <p>
         The selected person could not be found
-        in the screening records.
+        in the current screening records.
       </p>
 
     </div>

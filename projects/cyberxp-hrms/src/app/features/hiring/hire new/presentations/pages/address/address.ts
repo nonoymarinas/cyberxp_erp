@@ -14,7 +14,7 @@ import { EMPLOYEE_PERMISSIONS } from '../../../../../../core/authorization/permi
 import {
   Address,
   SaveAddressRequest,
-} from '../../../models/address/address.model';
+} from '../../../domain/models/address/address.model';
 
 @Component({
   selector: 'employee-address-container',

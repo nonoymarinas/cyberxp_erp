@@ -24,9 +24,9 @@ import {
   Region,
   Province,
   City,
-} from '../../../../models/address/address-ref.model';
+} from '../../../../domain/models/address/address-ref.model';
 
-import { Address } from '../../../../models/address/address.model';
+import { Address } from '../../../../domain/models/address/address.model';
 
 export interface AddressSaveValue {
   addressId: string | null;

@@ -1,8 +1,24 @@
-import { Component, DestroyRef, OnInit, computed, effect, inject, untracked } from '@angular/core';
 
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  Component,
+  DestroyRef,
+  OnInit,
+  computed,
+  effect,
+  inject,
+  untracked,
+} from '@angular/core';
 
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+
+import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
 
 import {
   CxpButton,
@@ -13,29 +29,42 @@ import {
   CxpInputText,
 } from 'cyberxp-ui';
 
-import type { CxpSelectOption, CxpSelectPrimitive } from 'cyberxp-ui';
+import type {
+  CxpSelectOption,
+  CxpSelectPrimitive,
+} from 'cyberxp-ui';
 
 // ========================================
 // Employee State
 // ========================================
 
-import { EmployeeState } from '../../../../../employees/state/employee-state.service';
+import {
+  EmployeeState,
+} from '../../../../../employees/state/employee-state.service';
 
 // ========================================
 // Business Services
 // ========================================
 
-import { PersonalInfoService } from '../../../../../employees/business/services/personal-info.service';
+import {
+  PersonalInfoService,
+} from '../../../../../employees/business/services/personal-info.service';
 
-import { PersonalInfoRefService } from '../../../../../employees/business/services/personal-info-ref.service';
+import {
+  PersonalInfoRefService,
+} from '../../../../../employees/business/services/personal-info-ref.service';
 
 // ========================================
 // Authorization
 // ========================================
 
-import { UserAccessService } from '../../../../../../core/authorization/services/user-access.services';
+import {
+  UserAccessService,
+} from '../../../../../../core/authorization/services/user-access.services';
 
-import { EMPLOYEE_PERMISSIONS } from '../../../../../../core/authorization/permissions/employee-permissions';
+import {
+  EMPLOYEE_PERMISSIONS,
+} from '../../../../../../core/authorization/permissions/employee-permissions';
 
 // ========================================
 // Models
@@ -44,13 +73,15 @@ import { EMPLOYEE_PERMISSIONS } from '../../../../../../core/authorization/permi
 import {
   PersonalInfo,
   SavePersonalInfoRequest,
-} from '../../../models/personal-info/personal-info.model';
+} from '../../../domain/models/personal-info/personal-info.model';
 
 // ========================================
 // Wizard State
 // ========================================
 
-import { NewEmployeeStateService } from '../../../state/new-employee-state.service';
+import {
+  NewEmployeeStateService,
+} from '../../../application/state/new-employee-state.service';
 
 // ========================================
 // Component
@@ -74,42 +105,59 @@ import { NewEmployeeStateService } from '../../../state/new-employee-state.servi
   styleUrl: './personal.css',
 })
 export class PersonalComponent implements OnInit {
+
   // ========================================
   // Dependencies
   // ========================================
 
-  private readonly destroyRef = inject(DestroyRef);
+  private readonly destroyRef =
+    inject(DestroyRef);
 
-  private readonly userAccessService = inject(UserAccessService);
+  private readonly userAccessService =
+    inject(UserAccessService);
 
-  private readonly personalInfoService = inject(PersonalInfoService);
+  private readonly personalInfoService =
+    inject(PersonalInfoService);
 
-  private readonly personalInfoRefService = inject(PersonalInfoRefService);
+  private readonly personalInfoRefService =
+    inject(PersonalInfoRefService);
 
-  private readonly newEmployeeState = inject(NewEmployeeStateService);
+  // Public for Angular template access.
+  readonly newEmployeeState =
+    inject(NewEmployeeStateService);
 
-  public readonly employeeState = inject(EmployeeState);
+  public readonly employeeState =
+    inject(EmployeeState);
 
   // ========================================
   // Permissions
   // ========================================
 
-  readonly permissions = EMPLOYEE_PERMISSIONS.personalInfo;
+  readonly permissions =
+    EMPLOYEE_PERMISSIONS.personalInfo;
 
   get canCreate(): boolean {
-    return this.userAccessService.hasPermission(this.permissions.create);
+    return this.userAccessService.hasPermission(
+      this.permissions.create
+    );
   }
 
   get canRead(): boolean {
-    return this.userAccessService.hasPermission(this.permissions.read);
+    return this.userAccessService.hasPermission(
+      this.permissions.read
+    );
   }
 
   get canUpdate(): boolean {
-    return this.userAccessService.hasPermission(this.permissions.update);
+    return this.userAccessService.hasPermission(
+      this.permissions.update
+    );
   }
 
   get canDelete(): boolean {
-    return this.userAccessService.hasPermission(this.permissions.delete);
+    return this.userAccessService.hasPermission(
+      this.permissions.delete
+    );
   }
 
   // ========================================
@@ -121,7 +169,9 @@ export class PersonalComponent implements OnInit {
   }
 
   get canModify(): boolean {
-    return this.isNewEmployee ? this.canCreate : this.canUpdate;
+    return this.isNewEmployee
+      ? this.canCreate
+      : this.canUpdate;
   }
 
   get canAccess(): boolean {
@@ -141,9 +191,13 @@ export class PersonalComponent implements OnInit {
       return false;
     }
 
-    const status = this.newEmployeeState.personMatchStatus();
+    const status =
+      this.newEmployeeState.personMatchStatus();
 
-    return status === 'REVIEW' || status === 'HOLD';
+    return (
+      status === 'REVIEW' ||
+      status === 'HOLD'
+    );
   });
 
   // ========================================
@@ -165,18 +219,28 @@ export class PersonalComponent implements OnInit {
       validators: [Validators.required],
     }),
 
-    suffixId: new FormControl<string | null>(null),
+    suffixId: new FormControl<string | null>(
+      null
+    ),
 
     dateOfBirth: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required],
     }),
 
-    genderId: new FormControl<string | null>(null, Validators.required),
+    genderId: new FormControl<string | null>(
+      null,
+      Validators.required
+    ),
 
-    civilStatusId: new FormControl<string | null>(null, Validators.required),
+    civilStatusId: new FormControl<string | null>(
+      null,
+      Validators.required
+    ),
 
-    imageUrl: new FormControl<string | null>(null),
+    imageUrl: new FormControl<string | null>(
+      null
+    ),
   });
 
   // ========================================
@@ -209,25 +273,25 @@ export class PersonalComponent implements OnInit {
   // Employee Data
   // ========================================
 
-  private originalEmployee: PersonalInfo | null = null;
+  private originalEmployee: PersonalInfo | null =
+    null;
 
-  employee: PersonalInfo = this.emptyPersonalInfo();
+  employee: PersonalInfo =
+    this.emptyPersonalInfo();
 
   // ========================================
   // Constructor
   // ========================================
 
   constructor() {
+
     // ======================================
-    // Watch Screening Status
+    // Watch Screening Lock
     // ======================================
 
     effect(() => {
-      // Track only the screening lock.
       this.isScreeningLocked();
 
-      // Avoid adding unrelated state
-      // dependencies to this effect.
       untracked(() => {
         this.updateFormState();
       });
@@ -242,13 +306,17 @@ export class PersonalComponent implements OnInit {
     return {
       employeeNumber: null,
       employeeGuid: null,
+
       firstName: '',
       middleName: '',
       lastName: '',
+
       suffixId: null,
       dateOfBirth: '',
+
       genderId: null,
       civilStatusId: null,
+
       imageUrl: null,
     };
   }
@@ -258,30 +326,18 @@ export class PersonalComponent implements OnInit {
   // ========================================
 
   ngOnInit(): void {
-    // ======================================
-    // Disable Form Initially
-    // ======================================
 
     this.personalInfoForm.disable({
       emitEvent: false,
     });
 
-    // ======================================
-    // Watch Form Changes
-    // ======================================
-
+    // Watch changes before restoring draft.
     this.watchFormValidity();
 
-    // ======================================
-    // Load Employee or Restore Draft
-    // ======================================
-
+    // Load existing employee or draft.
     this.loadPersonalInfo();
 
-    // ======================================
-    // Load Reference Data
-    // ======================================
-
+    // Load dropdown references.
     this.loadReferences();
   }
 
@@ -290,17 +346,26 @@ export class PersonalComponent implements OnInit {
   // ========================================
 
   private watchFormValidity(): void {
-    this.personalInfoForm.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-      if (!this.isNewEmployee || this.isScreeningLocked()) {
-        return;
-      }
 
-      // Preserve draft while typing.
-      this.syncPersonalDraft();
+    this.personalInfoForm.valueChanges
+      .pipe(
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(() => {
 
-      // Synchronize wizard validity.
-      this.syncWizardValidity();
-    });
+        if (
+          !this.isNewEmployee ||
+          this.isScreeningLocked()
+        ) {
+          return;
+        }
+
+        // Preserve complete personal draft.
+        this.syncPersonalDraft();
+
+        // Synchronize wizard validation.
+        this.syncWizardValidity();
+      });
   }
 
   // ========================================
@@ -308,11 +373,16 @@ export class PersonalComponent implements OnInit {
   // ========================================
 
   private syncPersonalDraft(): void {
-    if (!this.isNewEmployee || this.isScreeningLocked()) {
+
+    if (
+      !this.isNewEmployee ||
+      this.isScreeningLocked()
+    ) {
       return;
     }
 
-    const value = this.personalInfoForm.getRawValue();
+    const value =
+      this.personalInfoForm.getRawValue();
 
     const draft: PersonalInfo = {
       employeeNumber: null,
@@ -331,7 +401,13 @@ export class PersonalComponent implements OnInit {
       imageUrl: value.imageUrl,
     };
 
-    this.newEmployeeState.setPersonalDraft(draft);
+    // Identity changes invalidate
+    // previous Person Matching verification
+    // through NewEmployeeStateService.
+
+    this.newEmployeeState.setPersonalDraft(
+      draft
+    );
   }
 
   // ========================================
@@ -339,17 +415,20 @@ export class PersonalComponent implements OnInit {
   // ========================================
 
   private restorePersonalDraft(): boolean {
+
     if (!this.isNewEmployee) {
       return false;
     }
 
-    const draft = this.newEmployeeState.personalDraft();
+    const draft =
+      this.newEmployeeState.personalDraft();
 
     if (!draft) {
       return false;
     }
 
     this.employee = {
+      ...this.emptyPersonalInfo(),
       ...draft,
     };
 
@@ -369,7 +448,7 @@ export class PersonalComponent implements OnInit {
       },
       {
         emitEvent: false,
-      },
+      }
     );
 
     this.personalInfoForm.markAsPristine();
@@ -387,21 +466,17 @@ export class PersonalComponent implements OnInit {
   // ========================================
 
   private syncWizardValidity(): void {
+
     if (!this.isNewEmployee) {
       return;
     }
 
-    // ======================================
-    // Preserve Validity During Screening
-    // ======================================
+    // Do not alter validity while
+    // screening is locked.
 
     if (this.isScreeningLocked()) {
       return;
     }
-
-    // ======================================
-    // Validate Current Form
-    // ======================================
 
     const valid =
       this.referencesLoaded &&
@@ -409,7 +484,10 @@ export class PersonalComponent implements OnInit {
       this.personalInfoForm.enabled &&
       this.personalInfoForm.valid;
 
-    this.newEmployeeState.setValid('personal-info', valid);
+    this.newEmployeeState.setValid(
+      'personal-info',
+      valid
+    );
   }
 
   // ========================================
@@ -417,22 +495,31 @@ export class PersonalComponent implements OnInit {
   // ========================================
 
   loadReferences(): void {
+
     this.isLoading = true;
     this.errorMessage = '';
 
     this.personalInfoRefService
       .getReferenceOptions()
-      .pipe(takeUntilDestroyed(this.destroyRef))
+      .pipe(
+        takeUntilDestroyed(this.destroyRef)
+      )
       .subscribe({
+
         next: (options) => {
-          this.suffixOptions = options.suffixOptions ?? [];
 
-          this.genderOptions = options.genderOptions ?? [];
+          this.suffixOptions =
+            options.suffixOptions ?? [];
 
-          this.civilStatusOptions = options.civilStatusOptions ?? [];
+          this.genderOptions =
+            options.genderOptions ?? [];
+
+          this.civilStatusOptions =
+            options.civilStatusOptions ?? [];
 
           this.referencesLoaded =
-            this.genderOptions.length > 0 && this.civilStatusOptions.length > 0;
+            this.genderOptions.length > 0 &&
+            this.civilStatusOptions.length > 0;
 
           this.isLoading = false;
 
@@ -442,19 +529,33 @@ export class PersonalComponent implements OnInit {
         },
 
         error: (error) => {
-          console.error('Failed to load reference data:', error);
+
+          console.error(
+            'Failed to load reference data:',
+            error
+          );
 
           this.referencesLoaded = false;
           this.isLoading = false;
 
-          this.errorMessage = 'Unable to load reference data.';
+          this.errorMessage =
+            'Unable to load reference data.';
 
           this.personalInfoForm.disable({
             emitEvent: false,
           });
 
-          if (this.isNewEmployee) {
-            this.newEmployeeState.setValid('personal-info', false);
+          // Preserve an established
+          // REVIEW or HOLD screening result.
+
+          if (
+            this.isNewEmployee &&
+            !this.isScreeningLocked()
+          ) {
+            this.newEmployeeState.setValid(
+              'personal-info',
+              false
+            );
           }
         },
       });
@@ -465,11 +566,13 @@ export class PersonalComponent implements OnInit {
   // ========================================
 
   private updateFormState(): void {
+
     // ======================================
     // Screening Lock
     // ======================================
 
     if (this.isScreeningLocked()) {
+
       this.personalInfoForm.disable({
         emitEvent: false,
       });
@@ -478,10 +581,15 @@ export class PersonalComponent implements OnInit {
     }
 
     // ======================================
-    // Reference and Permission Checks
+    // References and Permissions
     // ======================================
 
-    if (this.referencesLoaded && this.isEditing && this.canModify) {
+    if (
+      this.referencesLoaded &&
+      this.isEditing &&
+      this.canModify
+    ) {
+
       this.personalInfoForm.enable({
         emitEvent: false,
       });
@@ -508,18 +616,21 @@ export class PersonalComponent implements OnInit {
   // ========================================
 
   onEditSave(): void {
+
     if (this.isNewEmployee) {
       return;
     }
 
     if (!this.canModify) {
+
       this.personalInfoForm.disable({
         emitEvent: false,
       });
 
       this.isEditing = false;
 
-      this.errorMessage = 'You do not have permission to update personal information.';
+      this.errorMessage =
+        'You do not have permission to update personal information.';
 
       return;
     }
@@ -537,21 +648,17 @@ export class PersonalComponent implements OnInit {
   // ========================================
 
   startEdit(): void {
-    // ======================================
-    // Prevent Editing During Screening
-    // ======================================
 
     if (this.isScreeningLocked()) {
-      this.errorMessage = 'Personal information is locked pending screening review.';
+
+      this.errorMessage =
+        'Personal information is locked pending screening review.';
 
       return;
     }
 
-    // ======================================
-    // Check Permissions
-    // ======================================
-
     if (!this.canModify) {
+
       this.personalInfoForm.disable({
         emitEvent: false,
       });
@@ -565,25 +672,19 @@ export class PersonalComponent implements OnInit {
       return;
     }
 
-    // ======================================
-    // Check Reference Data
-    // ======================================
-
     if (!this.referencesLoaded) {
+
       this.personalInfoForm.disable({
         emitEvent: false,
       });
 
       this.isEditing = false;
 
-      this.errorMessage = 'Reference data is not yet available.';
+      this.errorMessage =
+        'Reference data is not yet available.';
 
       return;
     }
-
-    // ======================================
-    // Start Edit Mode
-    // ======================================
 
     this.errorMessage = '';
     this.successMessage = '';
@@ -605,32 +706,42 @@ export class PersonalComponent implements OnInit {
   // ========================================
 
   cancelEdit(): void {
+
     if (this.isNewEmployee) {
       return;
     }
 
     if (this.originalEmployee) {
+
       this.personalInfoForm.reset(
         {
-          firstName: this.originalEmployee.firstName,
+          firstName:
+            this.originalEmployee.firstName,
 
-          middleName: this.originalEmployee.middleName ?? '',
+          middleName:
+            this.originalEmployee.middleName ?? '',
 
-          lastName: this.originalEmployee.lastName,
+          lastName:
+            this.originalEmployee.lastName,
 
-          suffixId: this.originalEmployee.suffixId,
+          suffixId:
+            this.originalEmployee.suffixId,
 
-          dateOfBirth: this.originalEmployee.dateOfBirth ?? '',
+          dateOfBirth:
+            this.originalEmployee.dateOfBirth ?? '',
 
-          genderId: this.originalEmployee.genderId,
+          genderId:
+            this.originalEmployee.genderId,
 
-          civilStatusId: this.originalEmployee.civilStatusId,
+          civilStatusId:
+            this.originalEmployee.civilStatusId,
 
-          imageUrl: this.originalEmployee.imageUrl,
+          imageUrl:
+            this.originalEmployee.imageUrl,
         },
         {
           emitEvent: false,
-        },
+        }
       );
     }
 
@@ -653,18 +764,21 @@ export class PersonalComponent implements OnInit {
   // ========================================
 
   savePersonalInfo(): void {
+
     if (this.isNewEmployee) {
       return;
     }
 
     if (!this.canModify) {
+
       this.personalInfoForm.disable({
         emitEvent: false,
       });
 
       this.isEditing = false;
 
-      this.errorMessage = 'You do not have permission to update personal information.';
+      this.errorMessage =
+        'You do not have permission to update personal information.';
 
       return;
     }
@@ -676,7 +790,9 @@ export class PersonalComponent implements OnInit {
     this.personalInfoForm.markAllAsTouched();
 
     if (this.personalInfoForm.invalid) {
-      this.errorMessage = 'Please fill in all required fields before saving.';
+
+      this.errorMessage =
+        'Please fill in all required fields before saving.';
 
       return;
     }
@@ -689,10 +805,12 @@ export class PersonalComponent implements OnInit {
     // Build Save Request
     // ======================================
 
-    const value = this.personalInfoForm.getRawValue();
+    const value =
+      this.personalInfoForm.getRawValue();
 
     const request: SavePersonalInfoRequest = {
-      employeeGuid: this.employeeState.employeeGuid(),
+      employeeGuid:
+        this.employeeState.employeeGuid(),
 
       firstName: value.firstName,
       middleName: value.middleName,
@@ -715,30 +833,45 @@ export class PersonalComponent implements OnInit {
 
     this.personalInfoService
       .savePersonalInfo(request)
-      .pipe(takeUntilDestroyed(this.destroyRef))
+      .pipe(
+        takeUntilDestroyed(this.destroyRef)
+      )
       .subscribe({
+
         next: (response) => {
+
           this.isSaving = false;
 
           if (!response.success) {
-            this.errorMessage = response.message ?? 'Unable to save personal information.';
+
+            this.errorMessage =
+              response.message ??
+              'Unable to save personal information.';
 
             return;
           }
 
-          const personalInfo = response.data.personalInfo;
+          const personalInfo =
+            response.data.personalInfo;
 
           this.setPersonalInfo(personalInfo);
 
-          this.successMessage = response.message ?? 'Personal information saved successfully.';
+          this.successMessage =
+            response.message ??
+            'Personal information saved successfully.';
         },
 
         error: (error) => {
+
           this.isSaving = false;
 
-          this.errorMessage = 'An unexpected error occurred while saving.';
+          this.errorMessage =
+            'An unexpected error occurred while saving.';
 
-          console.error('Failed to save personal information:', error);
+          console.error(
+            'Failed to save personal information:',
+            error
+          );
         },
       });
   }
@@ -748,25 +881,26 @@ export class PersonalComponent implements OnInit {
   // ========================================
 
   private loadPersonalInfo(): void {
-    const personalInfo = this.employeeState.employeeData()?.personalInfo;
+
+    const personalInfo =
+      this.employeeState.employeeData()
+        ?.personalInfo;
 
     // ======================================
     // New Employee
     // ======================================
 
     if (this.isNewEmployee) {
-      // Restore saved draft.
+
       if (this.restorePersonalDraft()) {
         this.syncWizardValidity();
-
         return;
       }
 
-      // ====================================
-      // Initialize Blank Form
-      // ====================================
+      // Initialize blank form.
 
-      this.employee = this.emptyPersonalInfo();
+      this.employee =
+        this.emptyPersonalInfo();
 
       this.originalEmployee = null;
 
@@ -775,15 +909,18 @@ export class PersonalComponent implements OnInit {
           firstName: '',
           middleName: '',
           lastName: '',
+
           suffixId: null,
           dateOfBirth: '',
+
           genderId: null,
           civilStatusId: null,
+
           imageUrl: null,
         },
         {
           emitEvent: false,
-        },
+        }
       );
 
       this.personalInfoForm.markAsPristine();
@@ -793,7 +930,10 @@ export class PersonalComponent implements OnInit {
 
       this.updateFormState();
 
-      this.newEmployeeState.setValid('personal-info', false);
+      this.newEmployeeState.setValid(
+        'personal-info',
+        false
+      );
 
       return;
     }
@@ -803,25 +943,29 @@ export class PersonalComponent implements OnInit {
     // ======================================
 
     if (!this.canRead) {
+
       this.isEditing = false;
 
       this.personalInfoForm.disable({
         emitEvent: false,
       });
 
-      this.errorMessage = 'You do not have permission to read personal information.';
+      this.errorMessage =
+        'You do not have permission to read personal information.';
 
       return;
     }
 
     if (!personalInfo) {
+
       this.isEditing = false;
 
       this.personalInfoForm.disable({
         emitEvent: false,
       });
 
-      this.errorMessage = 'Employee personal information is unavailable.';
+      this.errorMessage =
+        'Employee personal information is unavailable.';
 
       return;
     }
@@ -833,7 +977,10 @@ export class PersonalComponent implements OnInit {
   // Set Existing Personal Information
   // ========================================
 
-  private setPersonalInfo(personalInfo: PersonalInfo): void {
+  private setPersonalInfo(
+    personalInfo: PersonalInfo
+  ): void {
+
     this.employee = {
       ...personalInfo,
     };
@@ -842,23 +989,26 @@ export class PersonalComponent implements OnInit {
       {
         firstName: personalInfo.firstName,
 
-        middleName: personalInfo.middleName ?? '',
+        middleName:
+          personalInfo.middleName ?? '',
 
         lastName: personalInfo.lastName,
 
         suffixId: personalInfo.suffixId,
 
-        dateOfBirth: personalInfo.dateOfBirth ?? '',
+        dateOfBirth:
+          personalInfo.dateOfBirth ?? '',
 
         genderId: personalInfo.genderId,
 
-        civilStatusId: personalInfo.civilStatusId,
+        civilStatusId:
+          personalInfo.civilStatusId,
 
         imageUrl: personalInfo.imageUrl,
       },
       {
         emitEvent: false,
-      },
+      }
     );
 
     this.originalEmployee = {
@@ -879,11 +1029,17 @@ export class PersonalComponent implements OnInit {
   // Reference Label Helper
   // ========================================
 
-  getReferenceLabel(options: CxpSelectOption[], selectedValue: CxpSelectPrimitive | null): string {
+  getReferenceLabel(
+    options: CxpSelectOption[],
+    selectedValue: CxpSelectPrimitive | null
+  ): string {
+
     if (selectedValue === null) {
       return '—';
     }
 
-    return options.find((option) => option.value === selectedValue)?.label ?? '—';
+    return options.find(
+      option => option.value === selectedValue
+    )?.label ?? '—';
   }
 }

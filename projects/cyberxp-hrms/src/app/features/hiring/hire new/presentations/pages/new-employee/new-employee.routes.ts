@@ -32,7 +32,7 @@ import { PersonMatchCompareComponent } from '../person-match/person-match-compar
 // State
 // ========================================
 
-import { NewEmployeeStateService } from '../../../state/new-employee-state.service';
+import { NewEmployeeStateService } from '../../../application/state/new-employee-state.service';
 
 // ========================================
 // Guards

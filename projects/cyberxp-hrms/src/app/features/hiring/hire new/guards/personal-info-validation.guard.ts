@@ -6,7 +6,7 @@ import { CanActivateFn, Router } from '@angular/router';
 // State
 // ========================================
 
-import { NewEmployeeStateService } from '../state/new-employee-state.service';
+import { NewEmployeeStateService } from '../application/state/new-employee-state.service';
 
 // ========================================
 // Personal Information Validation Guard

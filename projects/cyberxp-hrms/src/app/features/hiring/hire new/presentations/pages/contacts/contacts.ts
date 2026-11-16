@@ -19,7 +19,7 @@ import { ContactRefService } from '../../../../../employees/business/services/co
 
 import { ContactService } from '../../../../../employees/business/services/contact.service';
 
-import { Contact, SaveContactRequest } from '../../../models/contacts/contact.model';
+import { Contact, SaveContactRequest } from '../../../domain/models/contacts/contact.model';
 
 @Component({
   selector: 'employee-contacts',

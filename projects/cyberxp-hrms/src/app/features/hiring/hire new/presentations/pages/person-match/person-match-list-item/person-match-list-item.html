@@ -1,3 +1,4 @@
+
 <!-- ========================================
      Person Match List Item
      ======================================== -->
@@ -8,18 +9,26 @@
   (click)="selectPerson()"
   [attr.aria-label]="'Compare person record: ' + fullName()"
 >
+
   <!-- ========================================
        Avatar
        ======================================== -->
 
   <div class="match-avatar">
+
     @if (person().imageUrl) {
-      <img class="match-avatar-image" [src]="person().imageUrl" [alt]="fullName()" loading="lazy" />
+      <img
+        class="match-avatar-image"
+        [src]="person().imageUrl"
+        [alt]="fullName()"
+        loading="lazy"
+      />
     } @else {
       <span aria-hidden="true">
         {{ initials() }}
       </span>
     }
+
   </div>
 
   <!-- ========================================
@@ -27,6 +36,7 @@
        ======================================== -->
 
   <div class="match-details">
+
     <!-- Full Name -->
 
     <span class="match-person-name">
@@ -46,9 +56,25 @@
       {{ person().dateOfBirth }}
     </span>
 
-    <!-- Match Classification -->
+    <!-- ======================================
+         Match Classification
+         ====================================== -->
 
-    <cxp-classification-badge [classification]="matchClassification()" [label]="matchType()" />
+    @if (badgeClassification(); as level) {
+
+      <cxp-classification-badge
+        [classification]="level"
+        [label]="matchType()"
+      />
+
+    } @else {
+
+      <span class="match-classification-unavailable">
+        {{ matchClassificationName() }}
+      </span>
+
+    }
+
   </div>
 
   <!-- ========================================
@@ -56,14 +82,26 @@
        ======================================== -->
 
   <div class="match-score">
-    <span class="match-score-value"> {{ matchScore() }}% </span>
 
-    <span class="match-score-label"> Similarity </span>
+    <span class="match-score-value">
+      {{ matchScore() }}%
+    </span>
+
+    <span class="match-score-label">
+      Similarity
+    </span>
+
   </div>
 
   <!-- ========================================
        Navigation Arrow
        ======================================== -->
 
-  <span class="match-arrow" aria-hidden="true"> › </span>
+  <span
+    class="match-arrow"
+    aria-hidden="true"
+  >
+    ›
+  </span>
+
 </button>
