@@ -15,10 +15,6 @@ import {
   PersonMatch,
 } from '../../../../domain/models/shared/person-match/person-match.model';
 
-import {
-  ReferenceItem,
-} from '../../../../../../../shared/models/reference-item.model';
-
 // ========================================
 // UI Components
 // ========================================
@@ -58,11 +54,11 @@ export class PersonMatchListItemComponent {
     input.required<PersonMatch>();
 
   // ========================================
-  // Classification References Input
+  // Decision Input
   // ========================================
 
-  readonly classifications =
-    input<readonly ReferenceItem<number>[]>([]);
+  readonly decisionCode =
+    input<string | null>(null);
 
   // ========================================
   // Selection Output
@@ -113,49 +109,44 @@ export class PersonMatchListItemComponent {
   // ========================================
 
   readonly matchScore = computed(
-    () => this.person().matchScore
+    () => this.person().personMatchScore
   );
 
   // ========================================
-  // Classification ID
+  // Match Level
   // ========================================
 
-  readonly matchClassificationId = computed(
-    () => this.person().matchClassificationId
+  readonly matchLevel = computed(
+    () => this.person().personMatchLevel
   );
 
   // ========================================
-  // Resolve Classification Reference
+  // Match Level Label
   // ========================================
 
-  readonly matchClassification = computed(() => {
+  readonly matchLevelLabel = computed(() => {
 
-    const classificationId =
-      this.matchClassificationId();
+    const level =
+      this.matchLevel().trim().toUpperCase();
 
-    return this.classifications().find(
-      item => item.id === classificationId
-    ) ?? null;
+    switch (level) {
+
+      case 'HIGH':
+        return 'High Match';
+
+      case 'MEDIUM':
+        return 'Medium Match';
+
+      case 'LOW':
+        return 'Low Match';
+
+      case 'NEUTRAL':
+        return 'Neutral';
+
+      default:
+        return level || 'Unknown Level';
+    }
   });
-
-  // ========================================
-  // Classification Name
-  // ========================================
-
-  readonly matchClassificationName = computed(
-    () =>
-      this.matchClassification()?.name ??
-      'Classification unavailable'
-  );
-
-  // ========================================
-  // Classification Code
-  // ========================================
-
-  readonly matchClassificationCode = computed(
-    () =>
-      this.matchClassification()?.code ?? null
-  );
 
   // ========================================
   // Badge Classification
@@ -164,12 +155,10 @@ export class PersonMatchListItemComponent {
   readonly badgeClassification =
     computed<CxpClassificationLevel | null>(() => {
 
-      const code =
-        this.matchClassificationCode()
-          ?.trim()
-          .toLowerCase();
+      const level =
+        this.matchLevel().trim().toLowerCase();
 
-      switch (code) {
+      switch (level) {
 
         case 'high':
           return 'high';
@@ -189,12 +178,53 @@ export class PersonMatchListItemComponent {
     });
 
   // ========================================
-  // Match Type
+  // Match Method
   // ========================================
 
-  readonly matchType = computed(
-    () => this.person().matchType
+  readonly matchMethod = computed(
+    () => this.person().personMatchMethod
   );
+
+  // ========================================
+  // Decision State
+  // ========================================
+
+  readonly hasDecision = computed(
+    () => this.decisionCode() !== null
+  );
+
+  readonly isPendingReview = computed(
+    () => !this.hasDecision()
+  );
+
+  readonly isReviewed = computed(
+    () => this.hasDecision()
+  );
+
+  // ========================================
+  // Decision Label
+  // ========================================
+
+  readonly decisionLabel = computed(() => {
+
+    const code =
+      this.decisionCode()?.trim().toUpperCase();
+
+    switch (code) {
+
+      case 'SAME_PERSON':
+        return 'Same Person Confirmed';
+
+      case 'DIFFERENT_PERSON':
+        return 'Different Person';
+
+      case 'ESCALATE':
+        return 'Escalated for Review';
+
+      default:
+        return 'Pending Review';
+    }
+  });
 
   // ========================================
   // Select Person
@@ -204,7 +234,7 @@ export class PersonMatchListItemComponent {
 
     const person = this.person();
 
-    if (!person.personGuid) {
+    if (!person.personGuid?.trim()) {
       return;
     }
 

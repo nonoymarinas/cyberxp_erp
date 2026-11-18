@@ -1,0 +1,120 @@
+
+/* ========================================
+   Personal Information
+   ======================================== */
+
+/* ========================================
+   Header
+   ======================================== */
+
+.item-group-header {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 1rem;
+
+  border-radius: var(--border-radius-header);
+  margin-bottom: 1rem;
+}
+
+.personal-info__icon {
+  display: flex;
+  align-items: center;
+  align-self: center;
+}
+
+/* ========================================
+   Body
+   ======================================== */
+
+.personal-info__body {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 1rem;
+}
+
+/* ========================================
+   Image
+   ======================================== */
+
+.personal-info__image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  max-width: 160px;
+
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--border-radius-card);
+
+  aspect-ratio: 1 / 1;
+}
+
+.personal-info__user-icon {
+  align-self: center;
+  justify-self: center;
+}
+
+.personal-info__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ========================================
+   Input Fields
+   ======================================== */
+
+.cxp-input__wrap {
+  gap: 0.5rem;
+}
+
+.cxp-input__wrap:last-child {
+  margin-bottom: 0;
+}
+
+.personal-info__fields {
+  display: flex;
+  flex-direction: column;
+}
+
+.personal-info__field {
+  margin-bottom: 0.5rem;
+}
+
+.personal-info__field:last-child {
+  margin-bottom: 0;
+}
+
+/* ========================================
+   Labels
+   ======================================== */
+
+.cxp-label {
+  padding: 0.5rem;
+}
+
+/* ========================================
+   Status Messages
+   ======================================== */
+
+.personal-info__message {
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--border-radius-card);
+}
+
+.personal-info__message--error {
+  border-color: var(--color-border-subtle);
+}
+
+.personal-info__message--success {
+  border-color: var(--color-border-subtle);
+}
+
+.personal-info__message--screening {
+  border-color: var(--color-border-subtle);
+}

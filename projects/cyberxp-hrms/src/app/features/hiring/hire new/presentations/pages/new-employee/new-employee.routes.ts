@@ -10,7 +10,7 @@ import { NewEmployeePage } from './new-employee';
 // Wizard Components
 // ========================================
 
-import { PersonalComponent } from '../personal/personal';
+import { PersonalInfoComponent } from '../personal-info/personal-info';
 
 import { AddressComponent } from '../address/address';
 
@@ -89,7 +89,7 @@ export const NEW_EMPLOYEE_ROUTES: Routes = [
 
       {
         path: 'personal-info',
-        component: PersonalComponent,
+        component: PersonalInfoComponent,
 
         canActivate: [wizardPermissionGuard],
 

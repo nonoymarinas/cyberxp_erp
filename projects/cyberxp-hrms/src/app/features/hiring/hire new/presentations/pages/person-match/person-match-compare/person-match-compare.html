@@ -12,22 +12,26 @@
   <header class="compare-header">
 
     <div class="compare-heading">
+
       <h2>Person Match Comparison</h2>
 
       <p>
         Compare the new employee information
         against the selected existing person.
       </p>
+
     </div>
 
     <!-- ======================================
-         Matching Classification
+         Match Method
          ====================================== -->
 
     @if (existingPerson()) {
+
       <span class="compare-verification-status">
-        {{ matchType() || 'Person Match' }}
+        {{ matchMethod() || 'Person Match' }}
       </span>
+
     }
 
   </header>
@@ -61,14 +65,18 @@
             <div class="compare-photo">
 
               @if (draft.imageUrl) {
+
                 <img
                   [src]="draft.imageUrl"
                   [alt]="newFullName()"
                 />
+
               } @else {
+
                 <span class="compare-photo-placeholder">
                   No Photo
                 </span>
+
               }
 
             </div>
@@ -122,6 +130,7 @@
                         Missing
                       </span>
                     }
+
                   }
 
                 </div>
@@ -149,14 +158,18 @@
             <div class="compare-photo">
 
               @if (person.imageUrl) {
+
                 <img
                   [src]="person.imageUrl"
                   [alt]="existingFullName()"
                 />
+
               } @else {
+
                 <span class="compare-photo-placeholder">
                   No Photo
                 </span>
+
               }
 
             </div>
@@ -210,6 +223,7 @@
                         Missing
                       </span>
                     }
+
                   }
 
                 </div>
@@ -251,6 +265,19 @@
           </span>
 
           <div class="compare-similarity-description">
+
+            Match Level:
+            {{ matchLevelLabel() }}
+
+            &nbsp;|&nbsp;
+
+            Match Method:
+            {{ matchMethod() }}
+
+          </div>
+
+          <div class="compare-similarity-description">
+
             Matching Fields:
             {{ matchingFields() }}
 
@@ -263,6 +290,7 @@
 
             Missing Fields:
             {{ missingFields() }}
+
           </div>
 
         </div>
@@ -278,27 +306,106 @@
         <div class="compare-verification-heading">
 
           <div>
+
             <h3>Person Match Review</h3>
 
             <p>
-              Confirm the selected existing person,
-              return to the match list, or escalate
-              the case for administrator review.
+              Review the selected existing person
+              and record an HR decision.
+
+              A saved decision cannot be submitted
+              again for the same candidate in
+              this screening session.
             </p>
+
           </div>
+
+          <!-- ==================================
+               Decision Status
+               ================================== -->
 
           <span
             class="compare-verification-status"
+            [class.compare-verification-status--warning]="isEscalated()"
             role="status"
           >
-            {{ isEscalated()
-                ? 'REQUIRES REVIEW'
-                : matchStatus() === 'HOLD'
-                  ? 'ON HOLD'
-                  : 'PENDING REVIEW' }}
+
+            @if (isDecisionSubmitting()) {
+
+              SAVING DECISION
+
+            } @else if (savedDecision(); as decision) {
+
+              @switch (decision.decisionCode) {
+
+                @case ('SAME_PERSON') {
+                  SAME PERSON CONFIRMED
+                }
+
+                @case ('DIFFERENT_PERSON') {
+                  DIFFERENT PERSON
+                }
+
+                @case ('ESCALATE') {
+                  REQUIRES REVIEW
+                }
+
+                @default {
+                  DECISION RECORDED
+                }
+
+              }
+
+            } @else {
+
+              PENDING REVIEW
+
+            }
+
           </span>
 
         </div>
+
+        <!-- ======================================
+             Saved Decision Information
+             ====================================== -->
+
+        @if (savedDecision(); as decision) {
+
+          <div
+            class="compare-decision-message"
+            role="status"
+          >
+
+            <strong>Decision Recorded</strong>
+
+            <div>
+              Decision:
+              {{ decision.decisionCode }}
+            </div>
+
+            <div>
+              Reviewed By:
+              {{ decision.decidedBy }}
+            </div>
+
+            <div>
+              Reviewed At:
+              {{ decision.decidedAt }}
+            </div>
+
+            @if (decision.remarks) {
+
+              <div>
+                Remarks:
+                {{ decision.remarks }}
+              </div>
+
+            }
+
+          </div>
+
+        }
 
         <!-- ======================================
              Review Actions
@@ -306,26 +413,55 @@
 
         <div class="compare-verification-actions">
 
+          <!-- ==================================
+               Confirm Same Person
+               ================================== -->
+
           <cxp-button
             type="button"
             variant="primary"
+            [disabled]="
+              isDecisionSubmitting() ||
+              hasSavedDecision()
+            "
             (clicked)="confirmMatch()"
           >
-            Confirm Match
+
+            @if (isDecisionSubmitting()) {
+              Saving...
+            } @else {
+              Confirm Same Person
+            }
+
           </cxp-button>
+
+          <!-- ==================================
+               Not the Same Person
+               ================================== -->
 
           <cxp-button
             type="button"
             variant="secondary"
+            [disabled]="
+              isDecisionSubmitting() ||
+              hasSavedDecision()
+            "
             (clicked)="dismissMatch()"
           >
-            Dismiss Match
+            Not the Same Person
           </cxp-button>
+
+          <!-- ==================================
+               Escalate for Review
+               ================================== -->
 
           <cxp-button
             type="button"
             variant="secondary"
-            [disabled]="isEscalated()"
+            [disabled]="
+              isDecisionSubmitting() ||
+              hasSavedDecision()
+            "
             (clicked)="escalateMatch()"
           >
             Escalate for Review
@@ -334,16 +470,37 @@
         </div>
 
         <!-- ======================================
-             Screening Feedback
+             Submission Feedback
              ====================================== -->
 
-        @if (screeningMessage()) {
+        @if (screeningMessage() || decisionError()) {
 
           <div
             class="compare-decision-message"
             role="status"
+            aria-live="polite"
           >
-            {{ screeningMessage() }}
+            {{ screeningMessage() || decisionError() }}
+          </div>
+
+        }
+
+        <!-- ======================================
+             Missing Screening Session
+             ====================================== -->
+
+        @if (
+          !screeningId() &&
+          !hasSavedDecision()
+        ) {
+
+          <div
+            class="compare-decision-message"
+            role="alert"
+          >
+            A valid screening session is required
+            before recording an HR decision.
+            Please complete screening initialization.
           </div>
 
         }
@@ -397,6 +554,7 @@
     <cxp-button
       type="button"
       variant="secondary"
+      [disabled]="isDecisionSubmitting()"
       (clicked)="backToMatches()"
     >
       Back to Matches
@@ -405,6 +563,7 @@
     <cxp-button
       type="button"
       variant="secondary"
+      [disabled]="isDecisionSubmitting()"
       (clicked)="backToPersonalInfo()"
     >
       Back to Personal Information

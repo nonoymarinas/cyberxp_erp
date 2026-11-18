@@ -1,27 +1,27 @@
 
 import {
   PERSON_MOCK_DATA,
-} from '../data/person.mock-data';
+} from '../data/shared/person.mock-data';
 
 import type {
   MockPersonRecord,
-} from '../data/person.mock-data';
+} from '../data/shared/person.mock-data';
 
 import {
   PERSON_PROFILE_MOCK_DATA,
-} from '../data/person-profile.mock-data';
+} from '../data/person-rehire-data/person-profile.mock-data';
 
 import type {
   MockPersonProfileRecord,
-} from '../data/person-profile.mock-data';
+} from '../data/person-rehire-data/person-profile.mock-data';
 
 import {
   REHIRE_REQUEST_MOCK_DATA,
-} from '../data/rehire-request.mock-data';
+} from '../data/person-rehire-data/rehire-request.mock-data';
 
 import type {
   MockRehireRequestRecord,
-} from '../data/rehire-request.mock-data';
+} from '../data/person-rehire-data/rehire-request.mock-data';
 
 import {
   findMockLatestEmployment,
@@ -31,11 +31,11 @@ import {
 
 import type {
   MockEmploymentRecord,
-} from '../data/employment.mock-data';
+} from '../data/shared/employment.mock-data';
 
 import type {
   MockEmploymentSeparationRecord,
-} from '../data/employment-separation.mock-data';
+} from '../data/person-rehire-data/employment-separation.mock-data';
 
 import {
   findMockActivePersonRestrictions,
@@ -44,7 +44,7 @@ import {
 
 import type {
   MockPersonRestrictionRecord,
-} from '../data/person-restriction.mock-data';
+} from '../data/person-rehire-data/person-restriction.mock-data';
 
 /* ========================================
    Rehire Candidate Repository Record

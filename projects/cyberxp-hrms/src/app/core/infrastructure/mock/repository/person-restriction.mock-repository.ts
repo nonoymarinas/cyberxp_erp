@@ -1,12 +1,12 @@
 
 import {
   PERSON_RESTRICTION_MOCK_DATA,
-} from '../data/person-restriction.mock-data';
+} from '../data/person-rehire-data/person-restriction.mock-data';
 
 import type {
   MockPersonRestrictionRecord,
   MockPersonRestrictionType,
-} from '../data/person-restriction.mock-data';
+} from '../data/person-rehire-data/person-restriction.mock-data';
 
 /* ========================================
    Find Person Restrictions

@@ -1,19 +1,19 @@
 
 import {
   EMPLOYMENT_MOCK_DATA,
-} from '../data/employment.mock-data';
+} from '../data/shared/employment.mock-data';
 
 import type {
   MockEmploymentRecord,
-} from '../data/employment.mock-data';
+} from '../data/shared/employment.mock-data';
 
 import {
   EMPLOYMENT_SEPARATION_MOCK_DATA,
-} from '../data/employment-separation.mock-data';
+} from '../data/person-rehire-data/employment-separation.mock-data';
 
 import type {
   MockEmploymentSeparationRecord,
-} from '../data/employment-separation.mock-data';
+} from '../data/person-rehire-data/employment-separation.mock-data';
 
 /* ========================================
    Find Employment By GUID

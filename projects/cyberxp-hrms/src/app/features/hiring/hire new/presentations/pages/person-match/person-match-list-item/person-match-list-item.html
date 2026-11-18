@@ -7,7 +7,12 @@
   type="button"
   class="match-item"
   (click)="selectPerson()"
-  [attr.aria-label]="'Compare person record: ' + fullName()"
+  [attr.aria-label]="
+    'View person record: ' +
+    fullName() +
+    '. ' +
+    decisionLabel()
+  "
 >
 
   <!-- ========================================
@@ -17,16 +22,20 @@
   <div class="match-avatar">
 
     @if (person().imageUrl) {
+
       <img
         class="match-avatar-image"
         [src]="person().imageUrl"
         [alt]="fullName()"
         loading="lazy"
       />
+
     } @else {
+
       <span aria-hidden="true">
         {{ initials() }}
       </span>
+
     }
 
   </div>
@@ -57,23 +66,46 @@
     </span>
 
     <!-- ======================================
-         Match Classification
+         Match Level
          ====================================== -->
 
     @if (badgeClassification(); as level) {
 
       <cxp-classification-badge
         [classification]="level"
-        [label]="matchType()"
+        [label]="matchLevelLabel()"
       />
 
     } @else {
 
       <span class="match-classification-unavailable">
-        {{ matchClassificationName() }}
+        {{ matchLevelLabel() }}
       </span>
 
     }
+
+    <!-- ======================================
+         Match Method
+         ====================================== -->
+
+    <span class="match-person-method">
+      Match Method:
+      {{ matchMethod() }}
+    </span>
+
+    <!-- ======================================
+         Decision Status
+         ====================================== -->
+
+    <span
+      class="match-decision-status"
+      [class.match-decision-status--pending]="isPendingReview()"
+      [class.match-decision-status--confirmed]="decisionCode() === 'SAME_PERSON'"
+      [class.match-decision-status--different]="decisionCode() === 'DIFFERENT_PERSON'"
+      [class.match-decision-status--escalated]="decisionCode() === 'ESCALATE'"
+    >
+      {{ decisionLabel() }}
+    </span>
 
   </div>
 

@@ -5,7 +5,7 @@ import { SettingsPage } from './features/settings/pages/settings-page/settings-p
 import { DashboardPage } from './features/dashboard/dashboard';
 import { NewEmployeePage } from './features/hiring/hire new/presentations/pages/new-employee/new-employee';
 import { newEmployeeGuard } from './features/employees/guards/new-employee.guards';
-import { RehirePageComponent } from './features/rehiring/rehire/presentation/pages/rehire-page/rehire-page';
+import { RehirePageComponent } from './features/rehiring/rehire-main/presentation/pages/rehire-page/rehire-page';
 export const routes: Routes = [
  
   {
@@ -49,7 +49,7 @@ export const routes: Routes = [
         path: 'rehire-search',
         canActivate: [newEmployeeGuard],
         loadChildren: () =>
-          import('./features/rehiring/search/rehire-search.routes').then(
+          import('./features/rehiring/rehire-search/rehire-search.routes').then(
             (m) => m.REHIRE_SEARCH_ROUTES,
           ),
       },
@@ -57,7 +57,7 @@ export const routes: Routes = [
         path: 'rehire',
         canActivate: [newEmployeeGuard],
         loadChildren: () =>
-          import('./features/rehiring/rehire/rehire.routes').then(
+          import('./features/rehiring/rehire-main/rehire.routes').then(
             (m) => m.REHIRE_ROUTES,
           ),
       },

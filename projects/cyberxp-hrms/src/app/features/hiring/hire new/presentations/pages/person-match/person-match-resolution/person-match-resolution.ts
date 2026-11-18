@@ -5,15 +5,12 @@ import {
   DestroyRef,
   computed,
   inject,
-  signal,
 } from '@angular/core';
 
 import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-
-import { finalize } from 'rxjs';
 
 import {
   takeUntilDestroyed,
@@ -24,14 +21,29 @@ import {
   CxpClassificationBadge,
 } from 'cyberxp-ui';
 
-import {
-  PersonMatchResolution,
+// ========================================
+// Models
+// ========================================
+
+import type {
   PersonResolutionAction,
-} from '../../../../domain/models/shared/person-match-resolution/person-match-resolution.model';
+} from '../../../../domain/models/shared/person-match-resolution/person-match-resolution-type-ref.model';
+
+// ========================================
+// Resolution Service
+// ========================================
 
 import {
-  PersonMatchService,
-} from '../../../../application/services/person-match.services';
+  PersonMatchResolutionService,
+} from '../../../../application/services/person-match-resolution.service';
+
+// ========================================
+// Wizard State
+// ========================================
+
+import {
+  NewEmployeeStateService,
+} from '../../../../application/state/new-employee-state.service';
 
 // ========================================
 // Person Match Resolution Component
@@ -57,26 +69,75 @@ export class PersonMatchResolutionComponent {
   // Dependencies
   // ========================================
 
-  private readonly route = inject(ActivatedRoute);
-  private readonly router = inject(Router);
-  private readonly destroyRef = inject(DestroyRef);
+  private readonly route =
+    inject(ActivatedRoute);
 
-  private readonly personMatchService =
-    inject(PersonMatchService);
+  private readonly router =
+    inject(Router);
+
+  private readonly destroyRef =
+    inject(DestroyRef);
+
+  private readonly resolutionService =
+    inject(PersonMatchResolutionService);
+
+  private readonly wizardState =
+    inject(NewEmployeeStateService);
 
   // ========================================
-  // State
+  // Shared Resolution State
   // ========================================
 
   readonly resolution =
-    signal<PersonMatchResolution | null>(null);
+    this.wizardState.personMatchResolution;
 
-  readonly isLoading = signal(false);
+  readonly isLoading =
+    this.wizardState.isResolutionLoading;
 
-  readonly errorMessage = signal('');
+  readonly errorMessage = computed(
+    () => this.wizardState.resolutionError() ?? ''
+  );
 
   // ========================================
-  // Computed State
+  // Screening State
+  // ========================================
+
+  readonly screeningId =
+    this.wizardState.screeningId;
+
+  readonly screeningStatusCode =
+    this.wizardState.screeningStatusCode;
+
+  // ========================================
+  // Confirmed Decision State
+  // ========================================
+
+  readonly hasConfirmedDecision = computed(() => {
+
+    const screeningId =
+      this.screeningId();
+
+    const personGuid =
+      this.route.snapshot.paramMap.get('personGuid');
+
+    if (!screeningId || !personGuid) {
+      return false;
+    }
+
+    // Establish reactive dependency.
+    this.wizardState.personMatchDecisions();
+
+    const decision =
+      this.wizardState.getPersonMatchDecision(
+        screeningId,
+        personGuid
+      );
+
+    return decision?.decisionCode === 'SAME_PERSON';
+  });
+
+  // ========================================
+  // Computed Resolution State
   // ========================================
 
   readonly isBlocklisted = computed(
@@ -129,33 +190,100 @@ export class PersonMatchResolutionComponent {
     const personGuid =
       this.route.snapshot.paramMap.get('personGuid');
 
-    if (!personGuid) {
-      this.resolution.set(null);
-      this.errorMessage.set('Person GUID is missing.');
+    const screeningId =
+      this.screeningId();
+
+    // ======================================
+    // Validate Screening Session
+    // ======================================
+
+    if (!personGuid || !screeningId) {
+
+      this.wizardState.clearPersonMatchResolution();
+
+      this.wizardState.setResolutionError(
+        'A valid screening session and person are required.'
+      );
+
       return;
     }
 
-    this.isLoading.set(true);
-    this.errorMessage.set('');
-    this.resolution.set(null);
+    // ======================================
+    // Validate Selected Person
+    // ======================================
 
-    this.personMatchService
-      .getResolution(personGuid)
+    const person =
+      this.wizardState.getPersonMatchByGuid(
+        personGuid
+      );
+
+    if (!person) {
+
+      this.wizardState.clearPersonMatchResolution();
+
+      this.wizardState.setResolutionError(
+        'The selected person does not belong to the current screening.'
+      );
+
+      return;
+    }
+
+    // ======================================
+    // Validate Saved Decision
+    // ======================================
+
+    const decision =
+      this.wizardState.getPersonMatchDecision(
+        screeningId,
+        personGuid
+      );
+
+    if (
+      !decision ||
+      decision.decisionCode !== 'SAME_PERSON'
+    ) {
+
+      this.wizardState.clearPersonMatchResolution();
+
+      this.wizardState.setResolutionError(
+        'A saved Same Person decision is required before resolution.'
+      );
+
+      return;
+    }
+
+    // ======================================
+    // Load Resolution Through Service
+    // ======================================
+
+    this.resolutionService
+      .getResolution({
+        screeningId,
+        personGuid,
+      })
       .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        finalize(() => this.isLoading.set(false))
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe({
-        next: (result) => {
-          this.resolution.set(result);
+
+        // ====================================
+        // Resolution Loaded
+        // ====================================
+
+        next: () => {
+
+          // Resolution is already stored
+          // in NewEmployeeStateService.
         },
 
-        error: (error: unknown) => {
-          this.errorMessage.set(
-            error instanceof Error
-              ? error.message
-              : 'Unable to load person resolution.'
-          );
+        // ====================================
+        // Load Failed
+        // ====================================
+
+        error: () => {
+
+          // Error is already stored
+          // in NewEmployeeStateService.
         },
       });
   }
@@ -168,14 +296,20 @@ export class PersonMatchResolutionComponent {
     action: PersonResolutionAction
   ): boolean {
 
-    const person = this.resolution();
+    const person =
+      this.resolution();
 
-    if (!person) {
+    if (
+      !person ||
+      !this.hasConfirmedDecision() ||
+      this.isLoading()
+    ) {
       return false;
     }
 
-    // Blocklisted persons cannot be
-    // rehired, reactivated, or hired.
+    // ======================================
+    // Blocklist Restrictions
+    // ======================================
 
     if (
       person.isBlocklisted &&
@@ -188,8 +322,9 @@ export class PersonMatchResolutionComponent {
       return false;
     }
 
-    // Active employees cannot be rehired
-    // or hired again as existing persons.
+    // ======================================
+    // Active Employee Restrictions
+    // ======================================
 
     if (
       person.employmentStatus === 'ACTIVE' &&
@@ -201,9 +336,13 @@ export class PersonMatchResolutionComponent {
       return false;
     }
 
-    // Backend-provided allowed actions.
+    // ======================================
+    // Backend-Provided Allowed Actions
+    // ======================================
 
-    return person.allowedActions.includes(action);
+    return person.allowedActions.includes(
+      action
+    );
   }
 
   // ========================================
@@ -212,7 +351,8 @@ export class PersonMatchResolutionComponent {
 
   rehire(): void {
 
-    const person = this.resolution();
+    const person =
+      this.resolution();
 
     if (!person || !this.canRehire()) {
       return;
@@ -232,7 +372,8 @@ export class PersonMatchResolutionComponent {
 
   reactivate(): void {
 
-    const person = this.resolution();
+    const person =
+      this.resolution();
 
     if (!person || !this.canReactivate()) {
       return;
@@ -252,7 +393,8 @@ export class PersonMatchResolutionComponent {
 
   hireExisting(): void {
 
-    const person = this.resolution();
+    const person =
+      this.resolution();
 
     if (!person || !this.canHireExisting()) {
       return;
@@ -272,7 +414,8 @@ export class PersonMatchResolutionComponent {
 
   viewEmployee(): void {
 
-    const person = this.resolution();
+    const person =
+      this.resolution();
 
     if (!person || !this.canViewEmployee()) {
       return;
@@ -292,7 +435,8 @@ export class PersonMatchResolutionComponent {
 
   reviewBlocklist(): void {
 
-    const person = this.resolution();
+    const person =
+      this.resolution();
 
     if (!person || !this.canReviewBlocklist()) {
       return;
@@ -319,17 +463,16 @@ export class PersonMatchResolutionComponent {
     ]);
   }
 
-
   // ========================================
   // Back to Match List
   // ========================================
 
   backToMatches(): void {
+
     void this.router.navigate([
       '/app',
       'new-employee',
       'screening',
     ]);
   }
-
 }

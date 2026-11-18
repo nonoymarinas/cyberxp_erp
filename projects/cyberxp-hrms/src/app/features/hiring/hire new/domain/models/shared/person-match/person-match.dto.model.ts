@@ -1,6 +1,7 @@
+import { ApiResponse } from '../../../../../../../shared/models/api-response.model';
 
 /* ========================================
-   Person Match Result DTO
+   Person Match Result
    ======================================== */
 
 export interface PersonMatchDto {
@@ -10,13 +11,13 @@ export interface PersonMatchDto {
   firstName: string;
   middleName: string | null;
   lastName: string;
-
   dateOfBirth: string;
 
-  matchScore: number;
-  matchType: string;
-  imageUrl?: string;
+  personMatchScore: number;
+  personMatchLevel: string;
+  personMatchMethod: string;
 
-  // Database classification reference ID
-  matchClassificationId: number;
+  imageUrl?: string;
 }
+
+export type PersonMatchApiResponseDto = ApiResponse<PersonMatchDto[]>;

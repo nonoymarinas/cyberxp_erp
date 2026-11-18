@@ -1,23 +1,16 @@
 
 import {
   PersonMatchDto,
+  PersonMatchApiResponseDto,
 } from '../../domain/models/shared/person-match/person-match.dto.model';
 
 import {
   PersonMatch,
+  PersonMatchApiResponse,
 } from '../../domain/models/shared/person-match/person-match.model';
 
-import {
-  PersonMatchApiResponseDto,
-} from '../../domain/models/shared/person-match/person-match-result.dto.model';
-
-import {
-  PersonMatchResult,
-  PersonMatchApiResponse,
-} from '../../domain/models/shared/person-match/person-match-result.model';
-
 // ========================================
-// Map Individual Person Match
+// Map Person Match DTO
 // ========================================
 
 export function mapPersonMatch(
@@ -31,53 +24,34 @@ export function mapPersonMatch(
     firstName: dto.firstName,
     middleName: dto.middleName,
     lastName: dto.lastName,
-
     dateOfBirth: dto.dateOfBirth,
 
-    matchScore: dto.matchScore,
-    matchType: dto.matchType,
+    personMatchScore: dto.personMatchScore,
+    personMatchLevel: dto.personMatchLevel,
+    personMatchMethod: dto.personMatchMethod,
 
     imageUrl: dto.imageUrl,
-
-    matchClassificationId:
-      dto.matchClassificationId,
   };
 }
 
 // ========================================
-// Map Person Match Result
+// Map Person Match API Response
 // ========================================
 
-export function mapPersonMatchResult(
-  dto: PersonMatchApiResponseDto['data']
-): PersonMatchResult {
-
-  return {
-    workflowStatus: dto.workflowStatus,
-    workflowStatusCode: dto.workflowStatusCode,
-
-    hasPossibleMatch: dto.hasPossibleMatch,
-    hasBlocklistMatch: dto.hasBlocklistMatch,
-
-    totalMatches: dto.totalMatches,
-
-    matches: dto.matches.map(
-      item => mapPersonMatch(item)
-    ),
-  };
-}
-
-// ========================================
-// Map Complete API Response
-// ========================================
-
-export function mapPersonMatchApiResult(
+export function mapPersonMatchApiResponse(
   response: PersonMatchApiResponseDto
 ): PersonMatchApiResponse {
 
-  if (!response.success || !response.data) {
+  if (!response.success) {
     throw new Error(
-      response.message || 'Person matching failed.'
+      response.message ||
+      'Person matching failed.'
+    );
+  }
+
+  if (!Array.isArray(response.data)) {
+    throw new Error(
+      'Invalid person matching response: data must be an array.'
     );
   }
 
@@ -85,9 +59,6 @@ export function mapPersonMatchApiResult(
     success: response.success,
     message: response.message,
     errorCode: response.errorCode,
-
-    data: mapPersonMatchResult(
-      response.data
-    ),
+    data: response.data.map(mapPersonMatch),
   };
 }

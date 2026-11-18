@@ -1,31 +1,27 @@
-// ========================================
-// Match Decision
-// ========================================
-
-export type MatchDecision =
-  | 'CONFIRMED'
-  | 'DISMISSED'
-  | 'ESCALATED';
+import { ApiResponse } from '../../../../../../../shared/models/api-response.model';
 
 // ========================================
-// Submit Decision Request
+// Person Match Decision
 // ========================================
 
-export interface SubmitPersonMatchDecisionRequest {
-  personGuid: string;
-  decision: MatchDecision;
-  reason: string;
-}
+export interface PersonMatchDecision {
+  decisionGuid: string;
 
-// ========================================
-// Submit Decision Response
-// ========================================
-
-export interface SubmitPersonMatchDecisionResponse {
   screeningId: string;
+
   personGuid: string;
-  decision: MatchDecision;
-  reason: string;
+
+  decisionCode: string;
+
+  remarks: string | null;
+
+  decidedBy: string;
+
+  decidedAt: string;
 }
 
+// ========================================
+// Person Match Decision API Response
+// ========================================
 
+export type PersonMatchDecisionApiResponse = ApiResponse<PersonMatchDecision>;

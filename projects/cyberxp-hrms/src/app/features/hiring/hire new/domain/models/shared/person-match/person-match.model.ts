@@ -1,22 +1,22 @@
 
+import { ApiResponse } from '../../../../../../../shared/models/api-response.model';
 /* ========================================
    Person Match Result
    ======================================== */
 
 export interface PersonMatch {
- personGuid: string;
+  personGuid: string;
   personNumber: string;
 
   firstName: string;
   middleName: string | null;
   lastName: string;
-
   dateOfBirth: string;
 
-  matchScore: number;
-  matchType: string;
-  imageUrl?: string;
+  personMatchScore: number;
+  personMatchLevel: string;
+  personMatchMethod: string;
 
-  // Database classification reference ID
-  matchClassificationId: number;
+  imageUrl?: string;
 }
+export type PersonMatchApiResponse = ApiResponse<PersonMatch[]>;

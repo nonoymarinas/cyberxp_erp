@@ -1,18 +1,8 @@
+import {
+  ApiResponse,
+} from '../../../../../../../shared/models/api-response.model'; 
 
-export type PersonEmploymentStatus =
-  | 'ACTIVE'
-  | 'INACTIVE'
-  | 'RESIGNED'
-  | 'TERMINATED'
-  | 'RETIRED'
-  | 'NONE';
-
-export type PersonResolutionAction =
-  | 'VIEW_EMPLOYEE'
-  | 'REHIRE'
-  | 'REACTIVATE'
-  | 'HIRE_EXISTING'
-  | 'BLOCKLIST_REVIEW';
+import{PersonEmploymentStatus,PersonResolutionAction} from './person-match-resolution-type-ref.model';
 
 export interface PersonMatchResolution {
   screeningId: string;
@@ -23,3 +13,4 @@ export interface PersonMatchResolution {
   isBlocklisted: boolean;
   allowedActions: PersonResolutionAction[];
 }
+ export type PersonMatchResolutionApiResponse = ApiResponse<PersonMatchResolution>;

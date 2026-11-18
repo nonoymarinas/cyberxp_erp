@@ -1,9 +1,17 @@
 
-import { Component, inject } from '@angular/core';
+import {
+  Component,
+  inject,
+} from '@angular/core';
 
-import { Router, RouterOutlet } from '@angular/router';
+import {
+  Router,
+  RouterOutlet,
+} from '@angular/router';
 
-import { finalize, take } from 'rxjs';
+import {
+  take,
+} from 'rxjs';
 
 import {
   CxpIconChevronApp,
@@ -16,31 +24,49 @@ import {
 // Authorization
 // ========================================
 
-import { UserAccessService } from '../../../../../../core/authorization/services/user-access.services';
+import {
+  UserAccessService,
+} from '../../../../../../core/authorization/services/user-access.services';
 
-import { EMPLOYEE_PERMISSIONS } from '../../../../../../core/authorization/permissions/employee-permissions';
+import {
+  EMPLOYEE_PERMISSIONS,
+} from '../../../../../../core/authorization/permissions/employee-permissions';
 
 // ========================================
 // State
 // ========================================
 
-import { NewEmployeeStateService } from '../../../application/state/new-employee-state.service';
+import {
+  NewEmployeeStateService,
+} from '../../../application/state/new-employee-state.service';
+
+import {
+  NewEmployeeRefStateService,
+} from '../../../../../../core/application/states/new-employee-ref-state.service';
 
 // ========================================
 // Business Services
 // ========================================
 
-import { PersonMatchService } from '../../../application/services/person-match.services';
+import {
+  PersonMatchService,
+} from '../../../application/services/person-match.service';
+
+import {
+  PersonMatchDecisionService,
+} from '../../../application/services/person-match-decision.service';
 
 // ========================================
 // Models
 // ========================================
 
-import { NewEmployeeStep } from '../../../domain/models/shared/complete-steps/new-employee-step.model';
+import {
+  NewEmployeeStep,
+} from '../../../domain/models/shared/complete-steps/new-employee-step.model';
 
-import { PersonMatchRequest } from '../../../domain/models/shared/person-match/person-match-request.model';
-
-import { PersonMatchApiResponse } from '../../../domain/models/shared/person-match/person-match-result.model';
+import {
+  PersonMatchRequest,
+} from '../../../domain/models/shared/person-match/person-match-request.model';
 
 // ========================================
 // Component
@@ -60,6 +86,11 @@ import { PersonMatchApiResponse } from '../../../domain/models/shared/person-mat
 
   templateUrl: './new-employee.html',
   styleUrl: './new-employee.css',
+
+  providers: [
+    NewEmployeeStateService,
+    PersonMatchDecisionService,
+  ],
 })
 export class NewEmployeePage {
 
@@ -76,6 +107,9 @@ export class NewEmployeePage {
   private readonly personMatchService =
     inject(PersonMatchService);
 
+  private readonly refState =
+    inject(NewEmployeeRefStateService);
+
   readonly newEmployeeState =
     inject(NewEmployeeStateService);
 
@@ -91,6 +125,32 @@ export class NewEmployeePage {
   readonly isChecking =
     this.newEmployeeState.isPersonMatchChecking;
 
+  readonly hasNoMatchCandidates =
+    this.newEmployeeState.hasNoMatchCandidates;
+
+  readonly personMatchError =
+    this.newEmployeeState.personMatchError;
+
+  readonly isDecisionSubmitting =
+    this.newEmployeeState.isDecisionSubmitting;
+
+  // ========================================
+  // Workflow Status References
+  // ========================================
+
+  readonly workFlowStatuses =
+    this.refState.workFlowStatuses;
+
+  private hasWorkFlowStatus(
+    code: string
+  ): boolean {
+
+    return this.workFlowStatuses().some(
+      item =>
+        item.code?.toUpperCase() === code
+    );
+  }
+
   // ========================================
   // Permissions
   // ========================================
@@ -98,42 +158,49 @@ export class NewEmployeePage {
   readonly permissions = EMPLOYEE_PERMISSIONS;
 
   get canCreatePersonalInfo(): boolean {
+
     return this.userAccessService.hasPermission(
       this.permissions.personalInfo.create
     );
   }
 
   get canCreateAddress(): boolean {
+
     return this.userAccessService.hasPermission(
       this.permissions.address.create
     );
   }
 
   get canCreateContact(): boolean {
+
     return this.userAccessService.hasPermission(
       this.permissions.contact.create
     );
   }
 
   get canCreateEmergencyContact(): boolean {
+
     return this.userAccessService.hasPermission(
       this.permissions.emergencyContact.create
     );
   }
 
   get canCreateGovernmentInfo(): boolean {
+
     return this.userAccessService.hasPermission(
       this.permissions.benefit.create
     );
   }
 
   get canCreateEmployment(): boolean {
+
     return this.userAccessService.hasPermission(
       this.permissions.employment.create
     );
   }
 
   get canCreateCompensation(): boolean {
+
     return this.userAccessService.hasPermission(
       this.permissions.compensation.create
     );
@@ -144,6 +211,7 @@ export class NewEmployeePage {
   // ========================================
 
   get steps(): NewEmployeeStep[] {
+
     const steps: NewEmployeeStep[] = [];
 
     if (this.canCreatePersonalInfo) {
@@ -174,7 +242,9 @@ export class NewEmployeePage {
   // ========================================
 
   get currentStep(): NewEmployeeStep | null {
-    const url = this.router.url.split('?')[0];
+
+    const url =
+      this.router.url.split('?')[0];
 
     const route = url
       .split('/')
@@ -186,7 +256,7 @@ export class NewEmployeePage {
     }
 
     return this.steps.find(
-      (step) => step === route
+      step => step === route
     ) ?? null;
   }
 
@@ -195,6 +265,7 @@ export class NewEmployeePage {
   // ========================================
 
   get currentStepIndex(): number {
+
     const step = this.currentStep;
 
     return step
@@ -207,9 +278,11 @@ export class NewEmployeePage {
   // ========================================
 
   get canPrevious(): boolean {
+
     return (
       this.currentStepIndex > 0 &&
-      !this.isChecking()
+      !this.isChecking() &&
+      !this.isDecisionSubmitting()
     );
   }
 
@@ -218,29 +291,46 @@ export class NewEmployeePage {
   // ========================================
 
   get canNext(): boolean {
+
     const step = this.currentStep;
 
-    if (!step || this.isChecking()) {
+    if (
+      !step ||
+      this.isChecking() ||
+      this.isDecisionSubmitting()
+    ) {
       return false;
     }
 
-    // ======================================
-    // Block Unresolved Screening
-    // ======================================
+    if (!this.newEmployeeState.isValid(step)) {
+      return false;
+    }
 
     if (step === 'personal-info') {
-      const status =
-        this.newEmployeeState.personMatchStatus();
+
+      // A confirmed screening clearance
+      // is required before proceeding.
 
       if (
-        status === 'REVIEW' ||
-        status === 'HOLD'
+        this.newEmployeeState.isScreeningClear() &&
+        this.newEmployeeState.isVerified('personal-info')
+      ) {
+        return true;
+      }
+
+      // Existing matching results require
+      // review or authoritative clearance.
+
+      if (
+        this.hasPossibleMatch() ||
+        this.hasNoMatchCandidates() ||
+        this.newEmployeeState.isScreeningOnHold()
       ) {
         return false;
       }
     }
 
-    return this.newEmployeeState.isValid(step);
+    return true;
   }
 
   // ========================================
@@ -248,6 +338,7 @@ export class NewEmployeePage {
   // ========================================
 
   get isLastStep(): boolean {
+
     const index = this.currentStepIndex;
 
     return (
@@ -261,6 +352,7 @@ export class NewEmployeePage {
   // ========================================
 
   get isScreeningPage(): boolean {
+
     return this.router.url
       .split('?')[0]
       .split('/')
@@ -272,6 +364,7 @@ export class NewEmployeePage {
   // ========================================
 
   previous(): void {
+
     if (!this.canPrevious) {
       return;
     }
@@ -289,28 +382,37 @@ export class NewEmployeePage {
   // ========================================
 
   next(): void {
+
     const step = this.currentStep;
 
     if (!step || !this.canNext) {
       return;
     }
 
-    // ======================================
-    // Personal Information Screening
-    // ======================================
-
     if (step === 'personal-info') {
+
+      // Do not repeat matching when the
+      // screening has already been cleared.
+
+      if (
+        this.newEmployeeState.isScreeningClear() &&
+        this.newEmployeeState.isVerified('personal-info')
+      ) {
+        const nextStep =
+          this.steps[this.currentStepIndex + 1];
+
+        if (nextStep) {
+          this.navigateToStep(nextStep);
+        }
+
+        return;
+      }
+
       this.checkExistingPerson();
       return;
     }
 
-    // ======================================
-    // Other Wizard Steps
-    // ======================================
-
     if (this.isLastStep) {
-      // Employee creation will be
-      // implemented separately.
 
       this.errorMessage =
         'Employee creation is not yet available.';
@@ -332,11 +434,10 @@ export class NewEmployeePage {
 
   private checkExistingPerson(): void {
 
-    // ======================================
-    // Prevent Duplicate Requests
-    // ======================================
-
-    if (this.isChecking()) {
+    if (
+      this.isChecking() ||
+      this.isDecisionSubmitting()
+    ) {
       return;
     }
 
@@ -349,6 +450,7 @@ export class NewEmployeePage {
         'personal-info'
       )
     ) {
+
       this.errorMessage =
         'Please complete the required personal information.';
 
@@ -359,6 +461,7 @@ export class NewEmployeePage {
       this.newEmployeeState.personalDraft();
 
     if (!draft) {
+
       this.errorMessage =
         'Personal information is unavailable.';
 
@@ -370,29 +473,25 @@ export class NewEmployeePage {
     // ======================================
 
     const request: PersonMatchRequest = {
+
       firstName: draft.firstName.trim(),
+
       middleName:
         draft.middleName?.trim() || null,
+
       lastName: draft.lastName.trim(),
+
       dateOfBirth: draft.dateOfBirth,
     };
 
     // ======================================
-    // Initialize Screening
+    // Begin Matching
     // ======================================
 
     this.errorMessage = '';
 
-    this.newEmployeeState.clearPersonMatch();
-
-    this.newEmployeeState.setVerified(
-      'personal-info',
-      false
-    );
-
-    this.newEmployeeState.setPersonMatchChecking(
-      true
-    );
+    const requestVersion =
+      this.newEmployeeState.beginPersonMatchRequest();
 
     // ======================================
     // Call Person Match Service
@@ -401,186 +500,91 @@ export class NewEmployeePage {
     this.personMatchService
       .checkExistingPerson(request)
       .pipe(
-        take(1),
-
-        finalize(() => {
-          this.newEmployeeState
-            .setPersonMatchChecking(false);
-        })
+        take(1)
       )
       .subscribe({
 
-        // ====================================
-        // Person Match API Response
-        // ====================================
-
-        next: (result: PersonMatchApiResponse) => {
+        next: response => {
 
           // ==================================
-          // Validate API Response
+          // Reject Stale Request
           // ==================================
-
-          if (!result.success || !result.data) {
-            this.newEmployeeState.clearPersonMatch();
-
-            this.newEmployeeState.setVerified(
-              'personal-info',
-              false
-            );
-
-            this.errorMessage =
-              result.message ||
-              'Person matching failed.';
-
-            return;
-          }
-
-          // ==================================
-          // Extract Person Match Result
-          // ==================================
-
-          const response = result.data;
-
-          // ==================================
-          // Reject Stale Results
-          // ==================================
-
-          const current =
-            this.newEmployeeState.personalDraft();
 
           if (
-            !current ||
-            current.firstName.trim() !==
-              request.firstName ||
-            (current.middleName?.trim() || null) !==
-              request.middleName ||
-            current.lastName.trim() !==
-              request.lastName ||
-            current.dateOfBirth !==
-              request.dateOfBirth
+            !this.newEmployeeState
+              .isCurrentPersonMatchRequest(
+                requestVersion
+              )
           ) {
-            this.newEmployeeState.clearPersonMatch();
-
-            this.newEmployeeState.setVerified(
-              'personal-info',
-              false
-            );
-
-            this.errorMessage =
-              'Personal information changed. Please check again.';
-
             return;
           }
 
           // ==================================
-          // Validate Workflow Status
-          // ==================================
-
-          const workflowStatusCode =
-            response.workflowStatusCode;
-
-          if (
-            workflowStatusCode !== 'CLEAR' &&
-            workflowStatusCode !== 'REVIEW' &&
-            workflowStatusCode !== 'HOLD'
-          ) {
-            this.newEmployeeState.clearPersonMatch();
-
-            this.newEmployeeState.setVerified(
-              'personal-info',
-              false
-            );
-
-            this.errorMessage =
-              'Unknown person matching workflow status.';
-
-            return;
-          }
-
-          // ==================================
-          // Store Person Match Result
+          // Store Matching Results
           // ==================================
 
           this.newEmployeeState
-            .setPersonMatchResponse(response);
+            .setPersonMatchResponse(
+              response,
+              requestVersion
+            );
 
           // ==================================
-          // Process Workflow Status
+          // Handle Possible Matches
           // ==================================
 
-          switch (workflowStatusCode) {
+          if (this.hasPossibleMatch()) {
 
-            // ================================
-            // CLEAR: Continue Wizard
-            // ================================
+            this.newEmployeeState.setVerified(
+              'personal-info',
+              false
+            );
 
-            case 'CLEAR': {
+            this.errorMessage =
+              this.hasWorkFlowStatus('REVIEW')
+                ? 'Possible matching persons found. Please review the results.'
+                : 'Possible matching persons found. Screening review is required.';
 
-              this.newEmployeeState.setVerified(
-                'personal-info',
-                true
-              );
-
-              const nextStep =
-                this.steps[
-                  this.currentStepIndex + 1
-                ];
-
-              if (nextStep) {
-                this.navigateToStep(nextStep);
-              }
-
-              break;
-            }
-
-            // ================================
-            // REVIEW: Possible Duplicate
-            // ================================
-
-            case 'REVIEW': {
-
-              this.newEmployeeState.setVerified(
-                'personal-info',
-                false
-              );
-
-              // Stay on Personal Information.
-              // User can open Possible Matches.
-
-              break;
-            }
-
-            // ================================
-            // HOLD: Restricted Person
-            // ================================
-
-            case 'HOLD': {
-
-              this.newEmployeeState.setVerified(
-                'personal-info',
-                false
-              );
-
-              // Stay on Personal Information.
-              // Screening requires resolution.
-
-              break;
-            }
+            return;
           }
+
+          // ==================================
+          // No Matching Candidates
+          // ==================================
+
+          this.newEmployeeState.setVerified(
+            'personal-info',
+            false
+          );
+
+          this.errorMessage =
+            'No matching candidates found. ' +
+            'Additional screening clearance is required before continuing.';
+
+          // No automatic clearance.
         },
 
-        // ====================================
-        // Person Matching Error
-        // ====================================
+        error: error => {
 
-        error: (error) => {
+          if (
+            !this.newEmployeeState
+              .isCurrentPersonMatchRequest(
+                requestVersion
+              )
+          ) {
+            return;
+          }
 
           console.error(
             'Person matching failed:',
             error
           );
 
-          this.newEmployeeState.clearPersonMatch();
+          this.newEmployeeState
+            .setPersonMatchError(
+              'Unable to check existing persons. Please try again.',
+              requestVersion
+            );
 
           this.newEmployeeState.setVerified(
             'personal-info',
@@ -598,6 +602,7 @@ export class NewEmployeePage {
   // ========================================
 
   private openScreening(): void {
+
     void this.router.navigate([
       '/app',
       'new-employee',
@@ -610,12 +615,10 @@ export class NewEmployeePage {
   // ========================================
 
   openPossibleMatches(): void {
-    const status =
-      this.newEmployeeState.personMatchStatus();
 
     if (
-      status !== 'REVIEW' &&
-      status !== 'HOLD'
+      !this.hasPossibleMatch() ||
+      this.isDecisionSubmitting()
     ) {
       return;
     }
@@ -629,60 +632,27 @@ export class NewEmployeePage {
 
   tryAgain(): void {
 
-    // ======================================
-    // Validate Current Step
-    // ======================================
-
     if (
       this.currentStep !== 'personal-info' ||
-      this.isChecking()
+      this.isChecking() ||
+      this.isDecisionSubmitting()
     ) {
       return;
     }
-
-    // ======================================
-    // Validate Screening Status
-    // ======================================
-
-    const status =
-      this.newEmployeeState.personMatchStatus();
 
     if (
-      status !== 'REVIEW' &&
-      status !== 'HOLD'
+      !this.newEmployeeState.hasNoMatchCandidates()
     ) {
       return;
     }
 
-    // ======================================
-    // Clear Previous Screening
-    // ======================================
-
-    this.newEmployeeState.clearPersonMatch();
-
-    // ======================================
-    // Invalidate Verification
-    // ======================================
-
-    this.newEmployeeState.setVerified(
-      'personal-info',
-      false
-    );
-
-    // ======================================
-    // Reset Error Message
-    // ======================================
+    this.newEmployeeState
+      .invalidatePersonMatch();
 
     this.errorMessage = '';
 
-    // The existing Personal Information
-    // draft is preserved.
-    //
-    // The PersonalComponent can unlock
-    // its reactive form.
-    //
-    // Clicking Next performs a new
-    // Person Match screening.
+    // Personal draft is preserved.
+    // Clicking Next starts a new match check.
   }
 
   // ========================================
@@ -692,6 +662,7 @@ export class NewEmployeePage {
   private navigateToStep(
     step: NewEmployeeStep
   ): void {
+
     void this.router.navigate([
       '/app',
       'new-employee',

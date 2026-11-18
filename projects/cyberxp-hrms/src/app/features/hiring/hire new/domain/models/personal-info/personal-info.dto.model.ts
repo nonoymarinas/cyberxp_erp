@@ -1,9 +1,3 @@
-import { ApiResponse } from '../../../../../../shared/models/api-response.model';
-
-export interface EmployeeReferenceDto {
-  publicId: string;
-  referenceName: string;
-}
 
 export interface PersonalInfoDto {
   employeeNumber: string | null;

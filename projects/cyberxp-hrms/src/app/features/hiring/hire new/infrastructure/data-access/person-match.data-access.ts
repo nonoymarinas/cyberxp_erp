@@ -19,15 +19,15 @@ import {
 
 import {
   PersonMatchApiResponse,
-} from '../../domain/models/shared/person-match/person-match-result.model';
+} from '../../domain/models/shared/person-match/person-match.model';
 
 import {
-  PersonMatchResolution,
-} from '../../domain/models/shared/person-match-resolution/person-match-resolution.model';
-
-import {
-  mapPersonMatchApiResult,
+  mapPersonMatchApiResponse,
 } from './person-match.mapper';
+
+// ========================================
+// Person Match Data Access
+// ========================================
 
 @Injectable({
   providedIn: 'root',
@@ -45,23 +45,8 @@ export class PersonMatchDataAccess {
     request: PersonMatchRequest
   ): Observable<PersonMatchApiResponse> {
 
-    return this.api
-      .checkExistingPerson(request)
-      .pipe(
-        map(mapPersonMatchApiResult)
-      );
-  }
-
-  // ========================================
-  // Get Resolution
-  // ========================================
-
-  getResolution(
-    personGuid: string
-  ): Observable<PersonMatchResolution> {
-
-    return this.api.getResolution(
-      personGuid
+    return this.api.checkExistingPerson(request).pipe(
+      map(mapPersonMatchApiResponse)
     );
   }
 }

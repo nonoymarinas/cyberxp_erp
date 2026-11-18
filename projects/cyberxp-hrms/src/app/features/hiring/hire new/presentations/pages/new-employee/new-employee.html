@@ -1,10 +1,14 @@
+
 <div class="cxp-page">
+
   <!-- ========================================
        Header
        ======================================== -->
 
   <header class="cxp-section__header">
-    <h2 class="cxp-section__title">Employee Details</h2>
+    <h2 class="cxp-section__title">
+      Employee Details
+    </h2>
   </header>
 
   <!-- ========================================
@@ -12,55 +16,83 @@
        ======================================== -->
 
   <section class="new-employee-main-body">
+
     <!-- ========================================
          Step Navigation
          ======================================== -->
 
     <div class="sub-sidebar-box">
-      <!-- Personal Information -->
+
+      <!-- ======================================
+           Personal Information
+           ====================================== -->
 
       @if (canCreatePersonalInfo) {
-        <cxp-menu-page-item class="sub-sidebar-menu-item" route="personal-info">
+        <cxp-menu-page-item
+          class="sub-sidebar-menu-item"
+          route="personal-info"
+        >
           <span label>Personals</span>
           <cxp-icon-chevron-app end />
         </cxp-menu-page-item>
       }
 
-      <!-- Address -->
+      <!-- ======================================
+           Address
+           ====================================== -->
 
       @if (canCreateAddress) {
-        <cxp-menu-page-item class="sub-sidebar-menu-item" route="address">
+        <cxp-menu-page-item
+          class="sub-sidebar-menu-item"
+          route="address"
+        >
           <span label>Addresses</span>
           <cxp-icon-chevron-app end />
         </cxp-menu-page-item>
       }
 
-      <!-- Contacts -->
+      <!-- ======================================
+           Contacts
+           ====================================== -->
 
       @if (canCreateContact) {
-        <cxp-menu-page-item class="sub-sidebar-menu-item" route="contacts">
+        <cxp-menu-page-item
+          class="sub-sidebar-menu-item"
+          route="contacts"
+        >
           <span label>Contacts</span>
           <cxp-icon-chevron-app end />
         </cxp-menu-page-item>
       }
 
-      <!-- Emergency Contacts -->
+      <!-- ======================================
+           Emergency Contacts
+           ====================================== -->
 
       @if (canCreateEmergencyContact) {
-        <cxp-menu-page-item class="sub-sidebar-menu-item" route="emergency-contacts">
+        <cxp-menu-page-item
+          class="sub-sidebar-menu-item"
+          route="emergency-contacts"
+        >
           <span label>Emergencies</span>
           <cxp-icon-chevron-app end />
         </cxp-menu-page-item>
       }
 
-      <!-- Employment -->
+      <!-- ======================================
+           Employment
+           ====================================== -->
 
       @if (canCreateEmployment) {
-        <cxp-menu-page-item class="sub-sidebar-menu-item" route="employment">
+        <cxp-menu-page-item
+          class="sub-sidebar-menu-item"
+          route="employment"
+        >
           <span label>Employments</span>
           <cxp-icon-chevron-app end />
         </cxp-menu-page-item>
       }
+
     </div>
 
     <!-- ========================================
@@ -76,25 +108,38 @@
          ======================================== -->
 
     @if (!isScreeningPage) {
+
       <div class="cxp-section__footer">
+
         <!-- ====================================
              Previous Button
              ==================================== -->
 
-        <cxp-button size="sm" variant="secondary" [disabled]="!canPrevious" (clicked)="previous()">
+        <cxp-button
+          size="sm"
+          variant="secondary"
+          [disabled]="!canPrevious"
+          (clicked)="previous()"
+        >
           Previous
         </cxp-button>
 
         <!-- ====================================
-             Next Button and Screening Actions
+             Next Button and Matching Actions
              ==================================== -->
 
         <div class="wizard-next-actions">
+
           <!-- ==================================
                Next / Create Button
                ================================== -->
 
-          <cxp-button size="sm" variant="secondary" [disabled]="!canNext" (clicked)="next()">
+          <cxp-button
+            size="sm"
+            variant="secondary"
+            [disabled]="!canNext"
+            (clicked)="next()"
+          >
             @if (isChecking()) {
               Checking...
             } @else if (isLastStep) {
@@ -105,17 +150,13 @@
           </cxp-button>
 
           <!-- ==================================
-               Screening Actions
+               Possible Matches
                ================================== -->
 
           @if (
             currentStep === 'personal-info' &&
-            (newEmployeeState.personMatchStatus() === 'REVIEW' ||
-              newEmployeeState.personMatchStatus() === 'HOLD')
+            hasPossibleMatch()
           ) {
-            <!-- ==================================
-                 Possible Matches / Screening Hold
-                 ================================== -->
 
             <cxp-action-alert-button
               variant="danger"
@@ -124,16 +165,20 @@
               [disabled]="isChecking()"
               (clicked)="openPossibleMatches()"
             >
-              @if (newEmployeeState.personMatchStatus() === 'HOLD' && !hasPossibleMatch()) {
-                Screening On Hold
-              } @else {
-                Possible Matches
-              }
+              Possible Matches
+              ({{ newEmployeeState.totalMatches() }})
             </cxp-action-alert-button>
 
-            <!-- ==================================
-                 Try Again Button
-                 ================================== -->
+          }
+
+          <!-- ==================================
+               Try Again
+               ================================== -->
+
+          @if (
+            currentStep === 'personal-info' &&
+            hasNoMatchCandidates()
+          ) {
 
             <cxp-action-alert-button
               variant="success"
@@ -143,19 +188,31 @@
             >
               Try Again
             </cxp-action-alert-button>
+
           }
 
           <!-- ==================================
-               Screening Error
+               Screening Error / Information
                ================================== -->
 
-          @if (errorMessage) {
-            <span class="wizard-error" role="alert">
-              {{ errorMessage }}
+          @if (errorMessage || personMatchError()) {
+
+            <span
+              class="wizard-error"
+              role="status"
+              aria-live="polite"
+            >
+              {{ errorMessage || personMatchError() }}
             </span>
+
           }
+
         </div>
+
       </div>
+
     }
+
   </section>
+
 </div>

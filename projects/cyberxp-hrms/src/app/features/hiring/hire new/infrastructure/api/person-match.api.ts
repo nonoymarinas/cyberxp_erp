@@ -12,13 +12,8 @@ import {
   Observable,
   defer,
   of,
-  throwError,
   delay,
 } from 'rxjs';
-
-// ========================================
-// Domain Models
-// ========================================
 
 import {
   PersonMatchRequest,
@@ -26,40 +21,20 @@ import {
 
 import {
   PersonMatchDto,
+  PersonMatchApiResponseDto,
 } from '../../domain/models/shared/person-match/person-match.dto.model';
 
 import {
-  PersonMatchResultDto,
-  PersonMatchApiResponseDto,
-} from '../../domain/models/shared/person-match/person-match-result.dto.model';
-
-import {
-  PersonMatchResolution,
-} from '../../domain/models/shared/person-match-resolution/person-match-resolution.model';
-
-// ========================================
-// Mock Repository
-// ========================================
-
-import {
   PersonMatchMockRepository,
-} from '../../../../../core/infrastructure/mock/repository/person-match.mock-repository';
+} from '../../../../../core/infrastructure/mock/repository/person-match-repo/person-match.mock-repository';
 
 // ========================================
 // Configuration
 // ========================================
 
-// Change to false when the real backend
-// endpoints are available.
-
 const USE_MOCK_API = true;
 
-const API_URL =
-  '/api/v1/person-match';
-
-// ========================================
-// Matching Configuration
-// ========================================
+const API_URL = '/api/v1/person-match';
 
 const MATCH_THRESHOLD = 65;
 
@@ -73,10 +48,6 @@ const MOCK_DELAY_MS = 300;
   providedIn: 'root',
 })
 export class PersonMatchApi {
-
-  // ========================================
-  // Dependencies
-  // ========================================
 
   private readonly http =
     inject(HttpClient);
@@ -107,68 +78,12 @@ export class PersonMatchApi {
   }
 
   // ========================================
-  // Get Person Match Resolution
-  // ========================================
-
-  getResolution(
-    personGuid: string
-  ): Observable<PersonMatchResolution> {
-
-    const guid = personGuid.trim();
-
-    if (!guid) {
-      return throwError(
-        () => new Error(
-          'Person GUID is required.'
-        )
-      );
-    }
-
-    // ======================================
-    // Real Backend
-    // ======================================
-
-    if (!USE_MOCK_API) {
-      return this.http.get<PersonMatchResolution>(
-        `${API_URL}/resolution/${encodeURIComponent(guid)}`
-      );
-    }
-
-    // ======================================
-    // Mock Backend
-    // ======================================
-    //
-    // Person matching records alone cannot
-    // establish employment eligibility.
-    //
-    // Resolution requires:
-    // - Employment status
-    // - Employment history
-    // - Blocklist status
-    // - Allowed employment actions
-    //
-    // Do not manufacture these values.
-    // ======================================
-
-    return throwError(
-      () => new Error(
-        'Mock person resolution is not yet implemented. ' +
-        'Employment and blocklist records are required.'
-      )
-    );
-  }
-
-  // ========================================
   // Execute Mock Matching
   // ========================================
 
   private executeMockMatching(
     request: PersonMatchRequest
   ): PersonMatchApiResponseDto {
-
-    // ======================================
-    // Normalize Request
-    // ======================================
 
     const firstName =
       this.normalize(request.firstName);
@@ -206,7 +121,7 @@ export class PersonMatchApi {
     const matches: PersonMatchDto[] = [];
 
     // ======================================
-    // Calculate Matches
+    // Calculate Similarity
     // ======================================
 
     for (const person of persons) {
@@ -217,16 +132,16 @@ export class PersonMatchApi {
           this.normalize(person.firstName)
         );
 
-      const lastNameScore =
-        this.similarity(
-          lastName,
-          this.normalize(person.lastName)
-        );
-
       const middleNameScore =
         this.similarity(
           middleName,
           this.normalize(person.middleName)
+        );
+
+      const lastNameScore =
+        this.similarity(
+          lastName,
+          this.normalize(person.lastName)
         );
 
       const birthDateScore =
@@ -234,64 +149,59 @@ export class PersonMatchApi {
           ? 100
           : 0;
 
-      // ====================================
-      // Weighted Similarity
-      // ====================================
-
       const weightedScore =
         firstNameScore * 0.30 +
         middleNameScore * 0.10 +
         lastNameScore * 0.35 +
         birthDateScore * 0.25;
 
-      const matchScore =
+      const personMatchScore =
         Math.round(weightedScore);
 
-      // ====================================
-      // Apply Threshold
-      // ====================================
+      // ======================================
+      // Apply Matching Threshold
+      // ======================================
 
-      if (matchScore < MATCH_THRESHOLD) {
+      if (personMatchScore < MATCH_THRESHOLD) {
         continue;
       }
 
-      // ====================================
-      // Resolve Classification Reference
-      // ====================================
+      // ======================================
+      // Resolve Match Level
+      // ======================================
 
-      const classification =
-        this.repository
-          .getClassificationByScore(
-            matchScore
-          );
+      const matchLevel =
+        this.repository.getMatchLevelByScore(
+          personMatchScore
+        );
 
-      if (!classification) {
+      if (!matchLevel?.code) {
         throw new Error(
-          `No classification configured for score ${matchScore}.`
+          `No match level configured for score ${personMatchScore}.`
         );
       }
 
-      // ====================================
-      // Determine Match Type
-      // ====================================
+      const personMatchLevel =
+        matchLevel.code;
+
+      // ======================================
+      // Determine Match Method
+      // ======================================
 
       const exactIdentity =
-        firstName ===
-          this.normalize(person.firstName) &&
-        middleName ===
-          this.normalize(person.middleName) &&
-        lastName ===
-          this.normalize(person.lastName) &&
-        dateOfBirth ===
-          person.dateOfBirth;
+        firstName === this.normalize(person.firstName) &&
+        middleName === this.normalize(person.middleName) &&
+        lastName === this.normalize(person.lastName) &&
+        dateOfBirth === person.dateOfBirth;
 
-      const matchType = exactIdentity
-        ? 'EXACT'
-        : 'POSSIBLE';
+      const personMatchMethod =
+        exactIdentity
+          ? 'EXACT'
+          : 'FUZZY';
 
-      // ====================================
+      // ======================================
       // Build Match DTO
-      // ====================================
+      // ======================================
 
       matches.push({
         personGuid: person.personGuid,
@@ -299,80 +209,35 @@ export class PersonMatchApi {
 
         firstName: person.firstName,
         middleName: person.middleName,
-
         lastName: person.lastName,
         dateOfBirth: person.dateOfBirth,
 
+        personMatchScore,
+        personMatchLevel,
+        personMatchMethod,
+
         imageUrl: person.imageUrl ?? undefined,
-
-        matchScore,
-        matchType,
-
-        matchClassificationId:
-          classification.id,
       });
     }
 
-    // ======================================
-    // Sort by Similarity
-    // ======================================
+    // ========================================
+    // Sort Matches
+    // ========================================
 
     matches.sort(
       (a, b) =>
-        b.matchScore - a.matchScore
+        b.personMatchScore - a.personMatchScore
     );
 
-    // ======================================
-    // Workflow Decision
-    // ======================================
-
-    const hasPossibleMatch =
-      matches.length > 0;
-
-    // Blocklist detection is not available
-    // until the mock blocklist repository
-    // has been implemented.
-
-    const hasBlocklistMatch = false;
-
-    const workflowStatusCode =
-      hasBlocklistMatch
-        ? 'HOLD'
-        : hasPossibleMatch
-          ? 'REVIEW'
-          : 'CLEAR';
-
-    const workflowStatus =
-      workflowStatusCode === 'HOLD'
-        ? 'On Hold'
-        : workflowStatusCode === 'REVIEW'
-          ? 'Requires Review'
-          : 'Clear';
-
-    // ======================================
-    // Build Result DTO
-    // ======================================
-
-    const result: PersonMatchResultDto = {
-      workflowStatus,
-      workflowStatusCode,
-
-      hasPossibleMatch,
-      hasBlocklistMatch,
-
-      totalMatches: matches.length,
-      matches,
-    };
-
-    // ======================================
+    // ========================================
     // Return API Response
-    // ======================================
+    // ========================================
 
     return {
       success: true,
       message: 'Person matching completed.',
       errorCode: null,
-      data: result,
+      data: matches,
     };
   }
 
@@ -385,6 +250,7 @@ export class PersonMatchApi {
   ): string {
 
     return (value ?? '')
+      .normalize('NFKC')
       .trim()
       .replace(/\s+/g, ' ')
       .toLowerCase();

@@ -6,24 +6,30 @@
        ======================================== -->
 
   <header class="match-header">
+
     <div class="match-header-content">
+
       <h2 class="match-title">
         Possible Person Matches
       </h2>
 
       <p class="match-description">
-        Similar person records were found.
-        Select a person to compare information.
+        Review the matching person records.
+        Select a person to compare information
+        and record an HR decision.
       </p>
+
     </div>
 
     <cxp-button
       type="button"
       variant="secondary"
-      (click)="back()"
+      [disabled]="isChecking() || isDecisionSubmitting()"
+      (clicked)="back()"
     >
       Back to Personal Information
     </cxp-button>
+
   </header>
 
   <!-- ========================================
@@ -31,7 +37,9 @@
        ======================================== -->
 
   <div class="match-summary">
+
     <div class="match-summary-content">
+
       <span class="match-summary-count">
         {{ totalMatches() }}
       </span>
@@ -39,56 +47,236 @@
       <span>
         Possible matching person records found
       </span>
+
     </div>
 
-    <!-- ======================================
-         Screening Status
-         ====================================== -->
+    @if (isDecisionSubmitting()) {
 
-    @if (matchStatus() === 'REVIEW') {
+      <span class="match-summary-status">
+        Saving Decision
+      </span>
+
+    } @else if (totalPending() > 0) {
+
       <span class="match-summary-status">
         Review Required
       </span>
-    } @else if (matchStatus() === 'HOLD') {
+
+    } @else if (totalReviewed() > 0) {
+
       <span class="match-summary-status">
-        On Hold
+        Review Completed
       </span>
+
     }
+
   </div>
 
   <!-- ========================================
-       Person Match List
+       Review Progress
        ======================================== -->
 
-  <div class="match-list">
-    @for (person of matches(); track person.personGuid) {
-      <cxp-person-match-list-item
-        [person]="person"
-        (selected)="compare($event)"
-      />
-    } @empty {
-      <div class="match-empty">
-        No possible matching persons found.
+  @if (hasPossibleMatch()) {
+
+    <div class="match-summary">
+
+      <div class="match-summary-content">
+
+        <span>
+          Pending Review:
+          <strong>{{ totalPending() }}</strong>
+        </span>
+
+        <span>
+          Reviewed:
+          <strong>{{ totalReviewed() }}</strong>
+        </span>
+
       </div>
-    }
-  </div>
+
+    </div>
+
+  }
+
+  <!-- ========================================
+       Matching Status
+       ======================================== -->
+
+  @if (isChecking()) {
+
+    <div class="match-notice" role="status">
+      Checking existing person records...
+    </div>
+
+  }
+
+  @if (errorMessage()) {
+
+    <div class="match-notice" role="alert">
+      {{ errorMessage() }}
+    </div>
+
+  }
+
+  @if (decisionError()) {
+
+    <div class="match-notice" role="alert">
+      {{ decisionError() }}
+    </div>
+
+  }
+
+  <!-- ========================================
+       Pending Review
+       ======================================== -->
+
+  @if (totalPending() > 0) {
+
+    <div class="match-list">
+
+      <h3>
+        Pending Review ({{ totalPending() }})
+      </h3>
+
+      @for (
+        person of pendingMatches();
+        track person.personGuid
+      ) {
+
+        <cxp-person-match-list-item
+          [person]="person"
+          (selected)="compare($event)"
+        />
+
+      }
+
+    </div>
+
+  }
+
+  <!-- ========================================
+       Reviewed Candidates
+       ======================================== -->
+
+  @if (totalReviewed() > 0) {
+
+    <div class="match-list">
+
+      <h3>
+        Reviewed ({{ totalReviewed() }})
+      </h3>
+
+      @for (
+        person of reviewedMatches();
+        track person.personGuid
+      ) {
+
+        <div class="match-reviewed-item">
+
+          <div class="match-reviewed-status">
+            {{ getReviewLabel(person.personGuid) }}
+          </div>
+
+          <cxp-person-match-list-item
+            [person]="person"
+            (selected)="compare($event)"
+          />
+
+        </div>
+
+      }
+
+    </div>
+
+  }
+
+  <!-- ========================================
+       Empty State
+       ======================================== -->
+
+  @if (!hasPossibleMatch()) {
+
+    <div class="match-list">
+
+      <div class="match-empty">
+
+        @if (isChecking()) {
+
+          Checking for possible matching persons...
+
+        } @else if (!hasPersonMatchResponse()) {
+
+          No matching search results are available.
+          Return to Personal Information and run
+          the person matching check.
+
+        } @else {
+
+          No possible matching persons found.
+
+        }
+
+      </div>
+
+    </div>
+
+  }
 
   <!-- ========================================
        Footer Notice
        ======================================== -->
 
-  @if (hasMatches()) {
-    <div class="match-notice">
-      @if (matchStatus() === 'HOLD') {
-        Registration is currently on hold.
-        An authorized review is required
-        before proceeding.
-      } @else if (matchStatus() === 'REVIEW') {
-        Registration cannot proceed until
-        the possible matches have been
-        reviewed and resolved.
+  @if (hasPossibleMatch()) {
+
+    <div class="match-notice" role="status">
+
+      @if (!screeningId()) {
+
+        Screening session initialization is
+        required before HR decisions can be saved.
+
+      } @else if (totalPending() > 0) {
+
+        Registration cannot proceed until the
+        pending matches have been reviewed
+        and screening clearance is confirmed.
+
+      } @else if (
+        newEmployeeState.hasEscalatedDecision()
+      ) {
+
+        One or more candidates have been escalated.
+        Administrator review is required.
+
+      } @else if (
+        newEmployeeState.hasConfirmedMatch()
+      ) {
+
+        An existing person has been confirmed.
+        Continue through the appropriate
+        person resolution workflow.
+
+      } @else {
+
+        All matching candidates have been reviewed.
+        Final screening clearance is still required
+        before employee registration can proceed.
+
       }
+
     </div>
+
+  } @else if (
+    hasPersonMatchResponse() &&
+    !isChecking()
+  ) {
+
+    <div class="match-notice" role="status">
+      No matching candidates were identified.
+      Additional screening clearance is required
+      before employee registration can proceed.
+    </div>
+
   }
 
 </section>

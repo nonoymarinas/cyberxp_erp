@@ -14,10 +14,12 @@ import {
 
 import {
   toSignal,
+  takeUntilDestroyed,
 } from '@angular/core/rxjs-interop';
 
 import {
   map,
+  take,
 } from 'rxjs';
 
 import {
@@ -44,6 +46,22 @@ import {
 import {
   NewEmployeeStateService,
 } from '../../../../application/state/new-employee-state.service';
+
+// ========================================
+// Decision Service
+// ========================================
+
+import {
+  PersonMatchDecisionService,
+} from '../../../../application/services/person-match-decision.service';
+
+// ========================================
+// Reference State
+// ========================================
+
+import {
+  NewEmployeeRefStateService,
+} from '../../../../../../../core/application/states/new-employee-ref-state.service';
 
 // ========================================
 // Types
@@ -94,6 +112,12 @@ export class PersonMatchCompareComponent {
   private readonly wizardState =
     inject(NewEmployeeStateService);
 
+  private readonly decisionService =
+    inject(PersonMatchDecisionService);
+
+  private readonly refState =
+    inject(NewEmployeeRefStateService);
+
   // ========================================
   // Selected Person GUID
   // ========================================
@@ -135,11 +159,59 @@ export class PersonMatchCompareComponent {
     this.wizardState.personalDraft;
 
   // ========================================
-  // Matching Workflow Status
+  // Screening Session
   // ========================================
 
-  readonly matchStatus =
-    this.wizardState.personMatchStatus;
+  readonly screeningId =
+    this.wizardState.screeningId;
+
+  readonly screeningStatusCode =
+    this.wizardState.screeningStatusCode;
+
+  // ========================================
+  // Decision References
+  // ========================================
+
+  readonly matchDecisionTypes =
+    this.refState.matchDecisionTypes;
+
+  // ========================================
+  // Decision State
+  // ========================================
+
+  readonly isDecisionSubmitting =
+    this.wizardState.isDecisionSubmitting;
+
+  readonly decisionError =
+    this.wizardState.decisionError;
+
+  readonly savedDecision = computed(() => {
+
+    const screeningId =
+      this.screeningId();
+
+    const personGuid =
+      this.personGuid();
+
+    if (!screeningId || !personGuid) {
+      return null;
+    }
+
+    // Read the decision signal so this
+    // computed value updates after saving.
+
+    this.wizardState.personMatchDecisions();
+
+    return this.wizardState
+      .getPersonMatchDecision(
+        screeningId,
+        personGuid
+      );
+  });
+
+  readonly hasSavedDecision = computed(
+    () => this.savedDecision() !== null
+  );
 
   // ========================================
   // Full Names
@@ -186,40 +258,77 @@ export class PersonMatchCompareComponent {
   // ========================================
 
   readonly matchScore = computed(
-    () => this.existingPerson()?.matchScore ?? 0
+    () => this.existingPerson()?.personMatchScore ?? 0
   );
 
   // ========================================
-  // Match Type
+  // Match Level
   // ========================================
 
-  readonly matchType = computed(
-    () => this.existingPerson()?.matchType ?? ''
+  readonly matchLevel = computed(
+    () => this.existingPerson()?.personMatchLevel ?? ''
   );
 
+  readonly matchLevelLabel = computed(() => {
+
+    const level =
+      this.matchLevel().trim().toUpperCase();
+
+    switch (level) {
+
+      case 'HIGH':
+        return 'High Match';
+
+      case 'MEDIUM':
+        return 'Medium Match';
+
+      case 'LOW':
+        return 'Low Match';
+
+      case 'NEUTRAL':
+        return 'Neutral';
+
+      default:
+        return level || 'Unknown Level';
+    }
+  });
+
   // ========================================
-  // Match Classification ID
+  // Match Method
   // ========================================
 
-  readonly matchClassificationId = computed(
-    () =>
-      this.existingPerson()
-        ?.matchClassificationId ?? null
+  readonly matchMethod = computed(
+    () => this.existingPerson()?.personMatchMethod ?? ''
   );
 
   // ========================================
   // Classification Badge
   // ========================================
-  //
-  // Classification references must be
-  // loaded through the application layer.
-  //
-  // Do not infer the classification from
-  // the numeric ID or similarity score.
-  // ========================================
 
   readonly badgeClassification =
-    signal<CxpClassificationLevel>('neutral');
+    computed<CxpClassificationLevel | null>(() => {
+
+      const level =
+        this.matchLevel().trim().toLowerCase();
+
+      switch (level) {
+
+        case 'high':
+          return 'high';
+
+        case 'medium':
+          return 'medium';
+
+        case 'low':
+          return 'low';
+
+        case 'neutral':
+          return 'neutral';
+
+        default:
+          return null;
+      }
+    });
 
   // ========================================
   // Field-by-Field Comparison
@@ -228,7 +337,8 @@ export class PersonMatchCompareComponent {
   readonly comparisonRows =
     computed<ComparisonRow[]>(() => {
 
-      const newPerson = this.newPerson();
+      const newPerson =
+        this.newPerson();
 
       const existingPerson =
         this.existingPerson();
@@ -286,8 +396,8 @@ export class PersonMatchCompareComponent {
       result = 'missing';
 
     } else if (
-      newText.toLowerCase() ===
-      existingText.toLowerCase()
+      newText.normalize('NFKC').toLowerCase() ===
+      existingText.normalize('NFKC').toLowerCase()
     ) {
       result = 'match';
 
@@ -329,20 +439,40 @@ export class PersonMatchCompareComponent {
   );
 
   // ========================================
-  // Screening UI State
+  // Review UI State
   // ========================================
 
-  readonly isEscalated =
-    signal(false);
+  readonly isEscalated = computed(
+    () =>
+      this.savedDecision()?.decisionCode ===
+      'ESCALATE'
+  );
 
   readonly screeningMessage =
     signal('');
 
   // ========================================
-  // Confirm Match
+  // Submit Decision
   // ========================================
 
-  confirmMatch(): void {
+  private submitDecision(
+    decisionCode: string
+  ): void {
+
+    // ======================================
+    // Prevent Duplicate Submission
+    // ======================================
+
+    if (
+      this.isDecisionSubmitting() ||
+      this.hasSavedDecision()
+    ) {
+      return;
+    }
+
+    // ======================================
+    // Validate Comparison
+    // ======================================
 
     const person =
       this.existingPerson();
@@ -351,49 +481,183 @@ export class PersonMatchCompareComponent {
       this.newPerson();
 
     if (!person || !draft) {
+
+      this.screeningMessage.set(
+        'Person comparison information is unavailable.'
+      );
+
       return;
     }
 
     // ======================================
-    // Navigate to Resolution
-    // ======================================
-    //
-    // This does not change the workflow
-    // status or create an employee.
-    //
-    // The resolution page determines
-    // whether the person is eligible
-    // for an appropriate employment action.
+    // Validate Screening Session
     // ======================================
 
-    void this.router.navigate([
-      '/app',
-      'new-employee',
-      'screening',
-      'resolution',
-      person.personGuid,
-    ]);
+    const screeningId =
+      this.screeningId();
+
+    if (!screeningId) {
+
+      this.screeningMessage.set(
+        'A valid screening session is required before saving a decision.'
+      );
+
+      return;
+    }
+
+    // ======================================
+    // Validate Decision Reference
+    // ======================================
+
+    const decisionType =
+      this.matchDecisionTypes().find(
+        item =>
+          item.code?.toUpperCase() ===
+          decisionCode.toUpperCase()
+      );
+
+    if (!decisionType?.code) {
+
+      this.screeningMessage.set(
+        `Decision type ${decisionCode} is unavailable.`
+      );
+
+      return;
+    }
+
+    // ======================================
+    // Clear Previous Messages
+    // ======================================
+
+    this.screeningMessage.set('');
+
+    this.wizardState.setDecisionError(null);
+
+    // ======================================
+    // Submit Decision
+    // ======================================
+
+    this.decisionService
+      .submitDecision({
+        screeningId,
+        personGuid: person.personGuid,
+        decisionCode: decisionType.code,
+        remarks: null,
+      })
+      .pipe(
+        take(1),
+        takeUntilDestroyed()
+      )
+      .subscribe({
+
+        // ====================================
+        // Decision Saved
+        // ====================================
+
+        next: savedDecision => {
+
+          // Do not navigate based on a stale
+          // response from another screening.
+
+          if (
+            this.screeningId() !==
+            savedDecision.screeningId
+          ) {
+            return;
+          }
+
+          // ==================================
+          // SAME PERSON
+          // ==================================
+
+          if (
+            savedDecision.decisionCode ===
+            'SAME_PERSON'
+          ) {
+
+            this.wizardState.selectPersonMatch(
+              savedDecision.personGuid
+            );
+
+            void this.router.navigate([
+              '/app',
+              'new-employee',
+              'screening',
+              'resolution',
+              savedDecision.personGuid,
+            ]);
+
+            return;
+          }
+
+          // ==================================
+          // DIFFERENT PERSON
+          // ==================================
+
+          if (
+            savedDecision.decisionCode ===
+            'DIFFERENT_PERSON'
+          ) {
+
+            void this.router.navigate([
+              '/app',
+              'new-employee',
+              'screening',
+            ]);
+
+            return;
+          }
+
+          // ==================================
+          // ESCALATE
+          // ==================================
+
+          if (
+            savedDecision.decisionCode ===
+            'ESCALATE'
+          ) {
+
+            this.screeningMessage.set(
+              'Decision saved. This candidate requires administrator review.'
+            );
+          }
+        },
+
+        // ====================================
+        // Submission Failed
+        // ====================================
+
+        error: (error: unknown) => {
+
+          this.screeningMessage.set(
+            error instanceof Error
+              ? error.message
+              : 'Unable to save person match decision.'
+          );
+        },
+      });
   }
 
   // ========================================
-  // Dismiss Match
+  // Confirm Same Person
+  // ========================================
+
+  confirmMatch(): void {
+
+    this.submitDecision(
+      'SAME_PERSON'
+    );
+  }
+
+  // ========================================
+  // Not the Same Person
   // ========================================
 
   dismissMatch(): void {
 
-    // ======================================
-    // Return to Match List
-    // ======================================
-    //
-    // No screening decision is stored.
-    // Other possible matches remain visible.
-    // ======================================
-
-    void this.router.navigate([
-      '/app',
-      'new-employee',
-      'screening',
-    ]);
+    this.submitDecision(
+      'DIFFERENT_PERSON'
+    );
   }
 
   // ========================================
@@ -402,27 +666,8 @@ export class PersonMatchCompareComponent {
 
   escalateMatch(): void {
 
-    const person =
-      this.existingPerson();
-
-    if (!person || !this.newPerson()) {
-      return;
-    }
-
-    // ======================================
-    // Temporary UI State
-    // ======================================
-    //
-    // This is not persisted to the backend.
-    // The screening status remains
-    // REVIEW or HOLD.
-    // ======================================
-
-    this.isEscalated.set(true);
-
-    this.screeningMessage.set(
-      'This potential match requires administrator review. ' +
-      'The issue must be included in the employment proposal.'
+    this.submitDecision(
+      'ESCALATE'
     );
   }
 
@@ -431,6 +676,10 @@ export class PersonMatchCompareComponent {
   // ========================================
 
   backToMatches(): void {
+
+    if (this.isDecisionSubmitting()) {
+      return;
+    }
 
     void this.router.navigate([
       '/app',
@@ -444,6 +693,10 @@ export class PersonMatchCompareComponent {
   // ========================================
 
   backToPersonalInfo(): void {
+
+    if (this.isDecisionSubmitting()) {
+      return;
+    }
 
     void this.router.navigate([
       '/app',

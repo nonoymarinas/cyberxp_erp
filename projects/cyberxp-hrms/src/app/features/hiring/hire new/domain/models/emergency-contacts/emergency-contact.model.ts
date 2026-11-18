@@ -1,5 +1,5 @@
 import { ApiResponse } from '../../../../../../shared/models/api-response.model';
-import { Contact,SaveContactRequest } from '../contacts/contact.model';
+import { Contact } from '../contacts/contact.model';
 import { Address as Address } from '../address/address.model';
 
 export interface EmergencyContactPerson {
