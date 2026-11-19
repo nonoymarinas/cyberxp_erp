@@ -44,21 +44,27 @@ export class NewEmployeeRefDataAccess {
 
   // ======================================
   // Dependencies
-  // ======================================
+  // ========================================
 
   private readonly api =
     inject(NewEmployeeRefApi);
 
   // ======================================
   // Get Employee References
-  // ======================================
+  // ========================================
 
   getReferences(): Observable<NewEmployeeRefApiResponse> {
 
     return this.api
       .getReferences()
       .pipe(
+
+        // ==================================
+        // Convert API DTO To Domain Model
+        // ==================================
+
         map(mapNewEmployeeRefApiResponse)
+
       );
   }
 }

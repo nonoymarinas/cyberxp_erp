@@ -7,9 +7,9 @@ import type {
   ReferenceItemDto,
 } from '../../../../shared/models/reference-item.dto.model';
 
-/* ========================================
-   New Employee Reference Data DTO
-   ======================================== */
+// ========================================
+// New Employee Reference Data DTO
+// ========================================
 
 export interface NewEmployeeRefDataDto {
 
@@ -22,24 +22,18 @@ export interface NewEmployeeRefDataDto {
   suffixes: ReferenceItemDto[];
 
   // ======================================
-  // Employment
+  // Organization
   // ======================================
 
   departments: ReferenceItemDto[];
   positions: ReferenceItemDto[];
+
+  // ======================================
+  // Employment
+  // ======================================
+
   employmentStatuses: ReferenceItemDto[];
-  branches: ReferenceItemDto[];
-
-  // ======================================
-  // Employment Separation Types
-  // ======================================
-
   employmentSeparationTypes: ReferenceItemDto[];
-
-  // ======================================
-  // Employment Clearance Statuses
-  // ======================================
-
   employmentClearanceStatuses: ReferenceItemDto[];
 
   // ======================================
@@ -52,25 +46,18 @@ export interface NewEmployeeRefDataDto {
   // Contacts
   // ======================================
 
-  contactMediumTypes: ReferenceItemDto[];
-  contactContextTypes: ReferenceItemDto[];
+  contactTypes: ReferenceItemDto[];
+  contactScopes: ReferenceItemDto[];
 
   // ======================================
-  // Person Match
+  // Person Matching
   // ======================================
 
-  personMatchLevels: ReferenceItemDto[];
   workFlowStatuses: ReferenceItemDto[];
-  matchDecisionTypes: ReferenceItemDto[];
+  personMatchDecisionTypes: ReferenceItemDto[];
 
   // ======================================
-  // Person Restriction Types
-  // ======================================
-
-  personRestrictionTypes: ReferenceItemDto[];
-
-  // ======================================
-  // Person Restriction Statuses
+  // Person Restrictions
   // ======================================
 
   personRestrictionStatuses: ReferenceItemDto[];
@@ -83,9 +70,9 @@ export interface NewEmployeeRefDataDto {
   rehireEligibilityStatuses: ReferenceItemDto[];
 }
 
-/* ========================================
-   API Response DTO
-   ======================================== */
+// ========================================
+// New Employee Reference API Response DTO
+// ========================================
 
 export type NewEmployeeRefApiResponseDto =
   ApiResponse<NewEmployeeRefDataDto>;

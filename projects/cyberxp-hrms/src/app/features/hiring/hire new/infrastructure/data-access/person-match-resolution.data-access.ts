@@ -15,7 +15,7 @@ import {
 
 import type {
   PersonMatchResolutionRequest,
-} from '../../domain/models/shared/person-match-resolution/person-match-resolution-request.model';
+} from '../../domain/models/person-match-resolution/person-match-resolution-request.model';
 
 // ========================================
 // Domain Response
@@ -23,7 +23,7 @@ import type {
 
 import type {
   PersonMatchResolutionApiResponse,
-} from '../../domain/models/shared/person-match-resolution/person-match-resolution.model';
+} from '../../domain/models/person-match-resolution/person-match-resolution.model';
 
 // ========================================
 // API

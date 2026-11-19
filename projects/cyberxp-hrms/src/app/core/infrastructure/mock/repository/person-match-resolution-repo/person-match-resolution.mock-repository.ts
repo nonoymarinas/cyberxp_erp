@@ -10,16 +10,16 @@ import {
 
 import type {
   PersonMatchResolutionRequest,
-} from '../../../../../features/hiring/hire new/domain/models/shared/person-match-resolution/person-match-resolution-request.model';
+} from '../../../../../features/hiring/hire new/domain/models/person-match-resolution/person-match-resolution-request.model';
 
 import type {
   PersonMatchResolutionDto,
-} from '../../../../../features/hiring/hire new/domain/models/shared/person-match-resolution/person-match-resolution.dto.model';
+} from '../../../../../features/hiring/hire new/domain/models/person-match-resolution/person-match-resolution.dto.model';
 
 import type {
   PersonEmploymentStatus,
   PersonResolutionAction,
-} from '../../../../../features/hiring/hire new/domain/models/shared/person-match-resolution/person-match-resolution-type-ref.model';
+} from '../../../../../features/hiring/hire new/domain/models/person-match-resolution/person-match-resolution-type-ref.model';
 
 // ========================================
 // Mock Data

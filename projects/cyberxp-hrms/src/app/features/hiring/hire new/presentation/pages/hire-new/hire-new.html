@@ -1,0 +1,269 @@
+
+<div class="cxp-page">
+
+  <!-- ========================================
+       Header
+       ======================================== -->
+
+  <header class="cxp-section__header">
+
+    <h2 class="cxp-section__title">
+      Employee Details
+    </h2>
+
+  </header>
+
+  <!-- ========================================
+       Main Body
+       ======================================== -->
+
+  <section class="new-employee-main-body">
+
+    <!-- ========================================
+         Step Navigation
+         ======================================== -->
+
+    <div class="sub-sidebar-box">
+
+      <!-- ======================================
+           Personal Information
+           ====================================== -->
+
+      @if (canCreatePersonalInfo) {
+
+        <cxp-menu-page-item
+          class="sub-sidebar-menu-item"
+          route="personal-info"
+        >
+          <span label>
+            Personals
+          </span>
+
+          <cxp-icon-chevron-app end />
+        </cxp-menu-page-item>
+
+      }
+
+      <!-- ======================================
+           Address
+           ====================================== -->
+
+      @if (canCreateAddress) {
+
+        <cxp-menu-page-item
+          class="sub-sidebar-menu-item"
+          route="address"
+        >
+          <span label>
+            Addresses
+          </span>
+
+          <cxp-icon-chevron-app end />
+        </cxp-menu-page-item>
+
+      }
+
+      <!-- ======================================
+           Contacts
+           ====================================== -->
+
+      @if (canCreateContact) {
+
+        <cxp-menu-page-item
+          class="sub-sidebar-menu-item"
+          route="contacts"
+        >
+          <span label>
+            Contacts
+          </span>
+
+          <cxp-icon-chevron-app end />
+        </cxp-menu-page-item>
+
+      }
+
+      <!-- ======================================
+           Emergency Contacts
+           ====================================== -->
+
+      @if (canCreateEmergencyContact) {
+
+        <cxp-menu-page-item
+          class="sub-sidebar-menu-item"
+          route="emergency-contacts"
+        >
+          <span label>
+            Emergencies
+          </span>
+
+          <cxp-icon-chevron-app end />
+        </cxp-menu-page-item>
+
+      }
+
+      <!-- ======================================
+           Employment
+           ====================================== -->
+
+      @if (canCreateEmployment) {
+
+        <cxp-menu-page-item
+          class="sub-sidebar-menu-item"
+          route="employment"
+        >
+          <span label>
+            Employments
+          </span>
+
+          <cxp-icon-chevron-app end />
+        </cxp-menu-page-item>
+
+      }
+
+    </div>
+
+    <!-- ========================================
+         Current Wizard Step
+         ======================================== -->
+
+    <div class="route-content">
+
+      <router-outlet />
+
+    </div>
+
+    <!-- ========================================
+         Wizard Navigation
+         ======================================== -->
+
+    @if (!isScreeningPage) {
+
+      <div class="cxp-section__footer">
+
+        <!-- ====================================
+             Previous Button
+             ==================================== -->
+
+        <cxp-button
+          size="sm"
+          variant="secondary"
+          [disabled]="!canPrevious"
+          (clicked)="previous()"
+        >
+          Previous
+        </cxp-button>
+
+        <!-- ====================================
+             Next Button And Screening Actions
+             ==================================== -->
+
+        <div class="wizard-next-actions">
+
+          <!-- ==================================
+               Next / Create Button
+               ================================== -->
+
+          <cxp-button
+            size="sm"
+            variant="secondary"
+            [disabled]="!canNext"
+            (clicked)="next()"
+          >
+
+            @if (isChecking()) {
+
+              Checking...
+
+            } @else if (isLastStep) {
+
+              Create
+
+            } @else {
+
+              Next
+
+            }
+
+          </cxp-button>
+
+          <!-- ==================================
+               Possible Matches
+               Only When Matches Exist
+               ================================== -->
+
+          @if (
+            currentStep === 'personal-info' &&
+            hasPossibleMatch()
+          ) {
+
+            <cxp-action-alert-button
+              variant="danger"
+              size="sm"
+              [pulse]="true"
+              [disabled]="
+                isChecking() ||
+                isDecisionSubmitting()
+              "
+              (clicked)="openPossibleMatches()"
+            >
+              Possible Matches
+              ({{ newEmployeeState.totalMatches() }})
+            </cxp-action-alert-button>
+
+          }
+
+          <!-- ==================================
+               Try Again
+               Only When Matches Exist
+               ================================== -->
+
+          @if (
+            currentStep === 'personal-info' &&
+            hasPossibleMatch()
+          ) {
+
+            <cxp-action-alert-button
+              variant="success"
+              size="sm"
+              [disabled]="
+                isChecking() ||
+                isDecisionSubmitting()
+              "
+              (clicked)="tryAgain()"
+            >
+              Try Again
+            </cxp-action-alert-button>
+
+          }
+
+          <!-- ==================================
+               Screening Error / Information
+               ================================== -->
+
+          @if (
+            errorMessage ||
+            personMatchError()
+          ) {
+
+            <span
+              class="wizard-error"
+              role="status"
+              aria-live="polite"
+            >
+              {{
+                errorMessage ||
+                personMatchError()
+              }}
+            </span>
+
+          }
+
+        </div>
+
+      </div>
+
+    }
+
+  </section>
+
+</div>

@@ -2,12 +2,12 @@
 import type {
   PersonMatchResolutionDto,
   PersonMatchResolutionApiResponseDto,
-} from '../../domain/models/shared/person-match-resolution/person-match-resolution.dto.model';
+} from '../../domain/models/person-match-resolution/person-match-resolution.dto.model';
 
 import type {
   PersonMatchResolution,
   PersonMatchResolutionApiResponse,
-} from '../../domain/models/shared/person-match-resolution/person-match-resolution.model';
+} from '../../domain/models/person-match-resolution/person-match-resolution.model';
 
 // ========================================
 // Map Person Match Resolution DTO

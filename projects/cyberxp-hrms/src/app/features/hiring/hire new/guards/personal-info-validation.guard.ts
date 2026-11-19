@@ -33,53 +33,71 @@ export const personalInfoValidationGuard: CanActivateFn = () => {
     inject(NewEmployeeStateService);
 
   // ========================================
-  // Check Personal Information Validity
+  // Personal Information Validation
   // ========================================
 
   const isValid =
     newEmployeeState.isValid('personal-info');
 
-  // ========================================
-  // Check Personal Information Verification
-  // ========================================
-
   const isVerified =
     newEmployeeState.isVerified('personal-info');
 
   // ========================================
-  // Check Screening Session
+  // Persisted Screening Session Clearance
   // ========================================
 
   const screeningId =
     newEmployeeState.screeningId();
 
-  // ========================================
-  // Check Screening Status
-  // ========================================
-
   const isScreeningClear =
     newEmployeeState.isScreeningClear();
+
+  const hasSessionClearance =
+    isValid &&
+    isVerified &&
+    !!screeningId &&
+    isScreeningClear;
+
+  // ========================================
+  // Successful Zero-Match Local Clearance
+  // ========================================
+
+  const hasZeroMatchClearance =
+    newEmployeeState.isZeroMatchCleared();
 
   // ========================================
   // Allow Navigation
   // ========================================
 
   if (
-    isValid &&
-    isVerified &&
-    !!screeningId &&
-    isScreeningClear
+    hasSessionClearance ||
+    hasZeroMatchClearance
   ) {
     return true;
   }
 
   // ========================================
-  // Redirect to Personal Information
+  // Diagnostic Logging
+  // ========================================
+
+  console.warn(
+    '[HireNew] Personal information validation blocked',
+    {
+      isValid,
+      isVerified,
+      hasScreeningId: !!screeningId,
+      isScreeningClear,
+      hasZeroMatchClearance,
+    }
+  );
+
+  // ========================================
+  // Redirect To Personal Information
   // ========================================
 
   return router.createUrlTree([
     '/app',
-    'new-employee',
+    'hire-new',
     'personal-info',
   ]);
 };

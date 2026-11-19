@@ -36,9 +36,11 @@ export function mapReferenceItem(
   return {
     id: dto.publicId,
     name: dto.referenceName,
+
     code: dto.code
       ? dto.code.trim().toUpperCase()
       : null,
+
     disabled: false,
   };
 }
@@ -67,7 +69,7 @@ export function mapNewEmployeeRefData(
       (dto.suffixes ?? []).map(mapReferenceItem),
 
     // ====================================
-    // Employment References
+    // Organization References
     // ====================================
 
     departments:
@@ -76,14 +78,15 @@ export function mapNewEmployeeRefData(
     positions:
       (dto.positions ?? []).map(mapReferenceItem),
 
+    // ====================================
+    // Employment References
+    // ====================================
+
     employmentStatuses:
       (dto.employmentStatuses ?? []).map(mapReferenceItem),
 
-    branches:
-      (dto.branches ?? []).map(mapReferenceItem),
-
     // ====================================
-    // Employment Separation Type References
+    // Employment Separation References
     // ====================================
 
     employmentSeparationTypes:
@@ -91,7 +94,7 @@ export function mapNewEmployeeRefData(
         .map(mapReferenceItem),
 
     // ====================================
-    // Employment Clearance Status References
+    // Employment Clearance References
     // ====================================
 
     employmentClearanceStatuses:
@@ -109,18 +112,11 @@ export function mapNewEmployeeRefData(
     // Contact References
     // ====================================
 
-    contactMediumTypes:
-      (dto.contactMediumTypes ?? []).map(mapReferenceItem),
+    contactTypes:
+      (dto.contactTypes ?? []).map(mapReferenceItem),
 
-    contactContextTypes:
-      (dto.contactContextTypes ?? []).map(mapReferenceItem),
-
-    // ====================================
-    // Person Match Level References
-    // ====================================
-
-    personMatchLevels:
-      (dto.personMatchLevels ?? []).map(mapReferenceItem),
+    contactScopes:
+      (dto.contactScopes ?? []).map(mapReferenceItem),
 
     // ====================================
     // Workflow Status References
@@ -133,15 +129,8 @@ export function mapNewEmployeeRefData(
     // Person Match Decision References
     // ====================================
 
-    matchDecisionTypes:
-      (dto.matchDecisionTypes ?? []).map(mapReferenceItem),
-
-    // ====================================
-    // Person Restriction Type References
-    // ====================================
-
-    personRestrictionTypes:
-      (dto.personRestrictionTypes ?? [])
+    personMatchDecisionTypes:
+      (dto.personMatchDecisionTypes ?? [])
         .map(mapReferenceItem),
 
     // ====================================
@@ -183,7 +172,10 @@ export function mapNewEmployeeRefApiResponse(
   // Validate API Response
   // ======================================
 
-  if (!response.success || !response.data) {
+  if (
+    !response.success ||
+    !response.data
+  ) {
 
     throw new Error(
       response.message ||

@@ -2,12 +2,12 @@
 import {
   PersonMatchDecisionDto,
   PersonMatchDecisionApiResponseDto,
-} from '../../domain/models/shared/person-match-decision/person-match-decision.dto.model';
+} from '../../domain/models/person-match-decision/person-match-decision.dto.model';
 
 import {
   PersonMatchDecision,
   PersonMatchDecisionApiResponse,
-} from '../../domain/models/shared/person-match-decision/person-match-decision.model';
+} from '../../domain/models/person-match-decision/person-match-decision.model';
 
 // ========================================
 // Map Person Match Decision DTO

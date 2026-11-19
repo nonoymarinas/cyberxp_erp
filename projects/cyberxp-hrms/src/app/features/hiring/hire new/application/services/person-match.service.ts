@@ -14,11 +14,11 @@ import {
 
 import {
   PersonMatchRequest,
-} from '../../domain/models/shared/person-match/person-match-request.model';
+} from '../../domain/models/person-match/person-match-request.model';
 
 import {
   PersonMatchApiResponse,
-} from '../../domain/models/shared/person-match/person-match.model';
+} from '../../domain/models/person-match/person-match.model';
 
 // ========================================
 // Person Match Service

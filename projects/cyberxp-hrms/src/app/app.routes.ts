@@ -3,7 +3,7 @@ import { MainLayout } from './layouts/main-layout/main-layout';
 import { HomePage } from './features/home/pages/home-page/home-page';
 import { SettingsPage } from './features/settings/pages/settings-page/settings-page';
 import { DashboardPage } from './features/dashboard/dashboard';
-import { NewEmployeePage } from './features/hiring/hire new/presentations/pages/new-employee/new-employee';
+import { NewEmployeePage } from './features/hiring/hire new/presentation/pages/hire-new/hire-new';
 import { newEmployeeGuard } from './features/employees/guards/new-employee.guards';
 import { RehirePageComponent } from './features/rehiring/rehire-main/presentation/pages/rehire-page/rehire-page';
 export const routes: Routes = [
@@ -31,10 +31,10 @@ export const routes: Routes = [
         component: HomePage,
       },
       {
-        path: 'new-employee',
+        path: 'hire-new',
         canActivate: [newEmployeeGuard],
         loadChildren: () =>
-          import('./features/hiring/hire new/presentations/pages/new-employee/new-employee.routes').then(
+          import('./features/hiring/hire new/routes/hire-new.route').then(
             (m) => m.NEW_EMPLOYEE_ROUTES,
           ),
       },

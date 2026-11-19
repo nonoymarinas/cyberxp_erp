@@ -26,7 +26,7 @@ import {
 
 import {
   PersonMatchDecisionRequest,
-} from '../../../../../features/hiring/hire new/domain/models/shared/person-match-decision/person-match-decision-request.model';
+} from '../../../../../features/hiring/hire new/domain/models/person-match-decision/person-match-decision-request.model';
 
 // ========================================
 // Mock Repository

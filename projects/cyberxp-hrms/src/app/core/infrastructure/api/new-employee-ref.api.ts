@@ -6,88 +6,35 @@ import {
 import {
   Injectable,
   inject,
+  isDevMode,
 } from '@angular/core';
 
 import {
   Observable,
-  map,
+  tap,
+  catchError,
+  throwError,
 } from 'rxjs';
+
+// ========================================
+// DTO
+// ========================================
 
 import type {
   NewEmployeeRefApiResponseDto,
 } from '../../domain/models/references/new-employee-ref.dto.model';
+
+// ========================================
+// Environment
+// ========================================
 
 import {
   environment,
 } from '../../../../environments/environment';
 
 // ========================================
-// Workflow Status Reference
+// New Employee Reference API
 // ========================================
-
-import {
-  getMockWorkFlowStatuses,
-} from '../mock/repository/reference-repo/work-flow-status-ref.mock-repository';
-
-// ========================================
-// Person Match Decision Reference
-// ========================================
-
-import {
-  getMockPersonMatchDecisionTypes,
-} from '../mock/repository/reference-repo/person-match-decision-type-ref.mock-repository';
-
-// ========================================
-// Rehire Request Status Reference
-// ========================================
-
-import {
-  getActiveMockRehireRequestStatuses,
-} from '../mock/repository/reference-repo/rehire-request-status-ref.mock-repository';
-
-// ========================================
-// Rehire Eligibility Status Reference
-// ========================================
-
-import {
-  getActiveMockRehireEligibilityStatuses,
-} from '../mock/repository/reference-repo/rehire-eligibility-status-ref.mock-repository';
-
-// ========================================
-// Employment Separation Type Reference
-// ========================================
-
-import {
-  getActiveMockEmploymentSeparationTypes,
-} from '../mock/repository/reference-repo/employment-separation-type-ref.mock-repository';
-
-// ========================================
-// Employment Clearance Status Reference
-// ========================================
-
-import {
-  getActiveMockEmploymentClearanceStatuses,
-} from '../mock/repository/reference-repo/employment-clearance-status-ref.mock-repository';
-
-// ========================================
-// Person Restriction Type Reference
-// ========================================
-
-import {
-  getActiveMockPersonRestrictionTypes,
-} from '../mock/repository/reference-repo/person-restriction-type-ref.mock-repository';
-
-// ========================================
-// Person Restriction Status Reference
-// ========================================
-
-import {
-  getActiveMockPersonRestrictionStatuses,
-} from '../mock/repository/reference-repo/person-restriction-status-ref.mock-repository';
-
-/* ========================================
-   New Employee Reference API
-   ======================================== */
 
 @Injectable({
   providedIn: 'root',
@@ -100,6 +47,10 @@ export class NewEmployeeRefApi {
 
   private readonly http =
     inject(HttpClient);
+
+  // ======================================
+  // API Endpoint
+  // ======================================
 
   private readonly endpoint =
     `${environment.api.baseUrl}/employees/references`;
@@ -116,137 +67,244 @@ export class NewEmployeeRefApi {
       )
       .pipe(
 
-        map(response => {
+        // ==================================
+        // External API Response
+        // ==================================
+
+        tap(response => {
 
           // ==================================
-          // Validate API Response
+          // Development Logging Only
           // ==================================
 
-          if (!response.success || !response.data) {
-            return response;
+          if (!isDevMode()) {
+            return;
           }
 
-          // ==================================
-          // Existing Mock References
-          // ==================================
+          console.groupCollapsed(
+            '%c[EXTERNAL API] Employee References',
+            'color: #2196f3; font-weight: bold;'
+          );
 
-          const workFlowStatuses =
-            getMockWorkFlowStatuses();
+          console.log(
+            'Endpoint:',
+            this.endpoint
+          );
 
-          const matchDecisionTypes =
-            getMockPersonMatchDecisionTypes();
+          console.log(
+            'Success:',
+            response.success
+          );
 
-          // ==================================
-          // Rehire Request Status References
-          // ==================================
-
-          const rehireRequestStatuses =
-            getActiveMockRehireRequestStatuses()
-              .map(status => ({
-                publicId: String(status.id),
-                referenceName: status.name,
-                code: status.code,
-              }));
+          console.log(
+            'Message:',
+            response.message
+          );
 
           // ==================================
-          // Rehire Eligibility Status References
+          // Full API Response
           // ==================================
 
-          const rehireEligibilityStatuses =
-            getActiveMockRehireEligibilityStatuses()
-              .map(status => ({
-                publicId: String(status.id),
-                referenceName: status.name,
-                code: status.code,
-              }));
+          console.log(
+            'Full API Response:',
+            structuredClone(response)
+          );
 
           // ==================================
-          // Employment Separation Types
+          // Reference Collections
           // ==================================
 
-          const employmentSeparationTypes =
-            getActiveMockEmploymentSeparationTypes()
-              .map(item => ({
-                publicId: String(item.id),
-                referenceName: item.name,
-                code: item.code,
-              }));
+          if (
+            response.success &&
+            response.data
+          ) {
 
-          // ==================================
-          // Employment Clearance Statuses
-          // ==================================
+            const data =
+              response.data;
 
-          const employmentClearanceStatuses =
-            getActiveMockEmploymentClearanceStatuses()
-              .map(item => ({
-                publicId: String(item.id),
-                referenceName: item.name,
-                code: item.code,
-              }));
+            console.group(
+              '[API] Personal Information'
+            );
 
-          // ==================================
-          // Person Restriction Types
-          // ==================================
+            console.log(
+              'Genders:',
+              data.genders
+            );
 
-          const personRestrictionTypes =
-            getActiveMockPersonRestrictionTypes()
-              .map(item => ({
-                publicId: String(item.id),
-                referenceName: item.name,
-                code: item.code,
-              }));
+            console.log(
+              'Civil Statuses:',
+              data.civilStatuses
+            );
 
-          // ==================================
-          // Person Restriction Statuses
-          // ==================================
+            console.log(
+              'Suffixes:',
+              data.suffixes
+            );
 
-          const personRestrictionStatuses =
-            getActiveMockPersonRestrictionStatuses()
-              .map(item => ({
-                publicId: String(item.id),
-                referenceName: item.name,
-                code: item.code,
-              }));
+            console.groupEnd();
 
-          // ==================================
-          // Merge Into API Response
-          // ==================================
+            // ==================================
+            // Organization
+            // ==================================
 
-          return {
-            ...response,
+            console.group(
+              '[API] Organization'
+            );
 
-            data: {
-              ...response.data,
+            console.log(
+              'Departments:',
+              data.departments
+            );
 
-              // ==================================
-              // Existing References
-              // ==================================
+            console.log(
+              'Positions:',
+              data.positions
+            );
 
-              workFlowStatuses,
-              matchDecisionTypes,
+            console.groupEnd();
 
-              // ==================================
-              // Rehire References
-              // ==================================
+            // ==================================
+            // Employment
+            // ==================================
 
-              rehireRequestStatuses,
-              rehireEligibilityStatuses,
+            console.group(
+              '[API] Employment'
+            );
 
-              // ==================================
-              // Employment Separation
-              // ==================================
+            console.log(
+              'Employment Statuses:',
+              data.employmentStatuses
+            );
 
-              employmentSeparationTypes,
-              employmentClearanceStatuses,
+            console.log(
+              'Employment Separation Types:',
+              data.employmentSeparationTypes
+            );
 
-              // ==================================
-              // Person Restrictions
-              // ==================================
+            console.log(
+              'Employment Clearance Statuses:',
+              data.employmentClearanceStatuses
+            );
 
-              personRestrictionTypes,
-              personRestrictionStatuses,
-            },
-          };
+            console.groupEnd();
+
+            // ==================================
+            // Address
+            // ==================================
+
+            console.group(
+              '[API] Address'
+            );
+
+            console.log(
+              'Address Types:',
+              data.addressTypes
+            );
+
+            console.groupEnd();
+
+            // ==================================
+            // Contacts
+            // ==================================
+
+            console.group(
+              '[API] Contacts'
+            );
+
+            console.log(
+              'Contact Types:',
+              data.contactTypes
+            );
+
+            console.log(
+              'Contact Scopes:',
+              data.contactScopes
+            );
+
+            console.groupEnd();
+
+            // ==================================
+            // Person Matching
+            // ==================================
+
+            console.group(
+              '[API] Person Matching'
+            );
+
+            console.log(
+              'Workflow Statuses:',
+              data.workFlowStatuses
+            );
+
+            console.log(
+              'Person Match Decision Types:',
+              data.personMatchDecisionTypes
+            );
+
+            console.groupEnd();
+
+            // ==================================
+            // Person Restrictions
+            // ==================================
+
+            console.group(
+              '[API] Person Restrictions'
+            );
+
+            console.log(
+              'Person Restriction Statuses:',
+              data.personRestrictionStatuses
+            );
+
+            console.groupEnd();
+
+            // ==================================
+            // Rehire
+            // ==================================
+
+            console.group(
+              '[API] Rehire'
+            );
+
+            console.log(
+              'Rehire Request Statuses:',
+              data.rehireRequestStatuses
+            );
+
+            console.log(
+              'Rehire Eligibility Statuses:',
+              data.rehireEligibilityStatuses
+            );
+
+            console.groupEnd();
+
+          }
+
+          console.groupEnd();
+
+        }),
+
+        // ==================================
+        // HTTP Error Handling
+        // ==================================
+
+        catchError(error => {
+
+          if (isDevMode()) {
+
+            console.error(
+              '[EXTERNAL API] Failed to load employee references',
+              {
+                endpoint: this.endpoint,
+                status: error.status,
+                message: error.message,
+                error,
+              }
+            );
+
+          }
+
+          return throwError(() => error);
 
         })
       );

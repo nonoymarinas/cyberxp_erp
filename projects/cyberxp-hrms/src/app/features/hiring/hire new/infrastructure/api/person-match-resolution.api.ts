@@ -29,7 +29,7 @@ import {
 
 import type {
   PersonMatchResolutionRequest,
-} from '../../domain/models/shared/person-match-resolution/person-match-resolution-request.model';
+} from '../../domain/models/person-match-resolution/person-match-resolution-request.model';
 
 // ========================================
 // API Response DTO
@@ -37,7 +37,7 @@ import type {
 
 import type {
   PersonMatchResolutionApiResponseDto,
-} from '../../domain/models/shared/person-match-resolution/person-match-resolution.dto.model';
+} from '../../domain/models/person-match-resolution/person-match-resolution.dto.model';
 
 // ========================================
 // Mock Repository

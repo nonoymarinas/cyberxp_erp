@@ -2,12 +2,12 @@
 import {
   PersonMatchDto,
   PersonMatchApiResponseDto,
-} from '../../domain/models/shared/person-match/person-match.dto.model';
+} from '../../domain/models/person-match/person-match.dto.model';
 
 import {
   PersonMatch,
   PersonMatchApiResponse,
-} from '../../domain/models/shared/person-match/person-match.model';
+} from '../../domain/models/person-match/person-match.model';
 
 // ========================================
 // Map Person Match DTO

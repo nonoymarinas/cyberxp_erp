@@ -23,7 +23,7 @@ import {
 
 import {
   PersonMatchDecisionRequest,
-} from '../../domain/models/shared/person-match-decision/person-match-decision-request.model';
+} from '../../domain/models/person-match-decision/person-match-decision-request.model';
 
 // ========================================
 // Domain Response Model
@@ -31,7 +31,7 @@ import {
 
 import {
   PersonMatchDecisionApiResponse,
-} from '../../domain/models/shared/person-match-decision/person-match-decision.model';
+} from '../../domain/models/person-match-decision/person-match-decision.model';
 
 // ========================================
 // Mapper

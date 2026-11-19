@@ -11,7 +11,7 @@ import {
 
 import type {
   NewEmployeeStep,
-} from '../../domain/models/shared/complete-steps/new-employee-step.model';
+} from '../../domain/models/complete-steps/new-employee-step.model';
 
 import type {
   PersonalInfo,
@@ -20,15 +20,24 @@ import type {
 import type {
   PersonMatch,
   PersonMatchApiResponse,
-} from '../../domain/models/shared/person-match/person-match.model';
+} from '../../domain/models/person-match/person-match.model';
 
 import type {
   PersonMatchDecision,
-} from '../../domain/models/shared/person-match-decision/person-match-decision.model';
+} from '../../domain/models/person-match-decision/person-match-decision.model';
 
 import type {
   PersonMatchResolution,
-} from '../../domain/models/shared/person-match-resolution/person-match-resolution.model';
+} from '../../domain/models/person-match-resolution/person-match-resolution.model';
+
+// ========================================
+// Same Person Details Model
+// ========================================
+
+import type {
+  SamePersonDetails,
+} from '../../domain/models/same-person/same-person-details.model';
+
 
 // ========================================
 // New Employee State Service
@@ -198,6 +207,40 @@ export class NewEmployeeStateService {
     this._resolutionError.asReadonly();
 
   // ========================================
+  // Same Person Details State
+  // ========================================
+
+  private readonly _samePersonDetails =
+    signal<SamePersonDetails | null>(null);
+
+  readonly samePersonDetails =
+    this._samePersonDetails.asReadonly();
+
+  // ========================================
+  // Computed Same Person Details
+  // ========================================
+
+  readonly hasSamePersonDetails = computed(
+    () => this._samePersonDetails() !== null
+  );
+
+  readonly samePersonEmploymentStatus = computed(
+    () => this._samePersonDetails()?.employmentStatusCode ?? null
+  );
+
+  readonly samePersonRehireEligibility = computed(
+    () => this._samePersonDetails()?.rehireEligibilityStatusCode ?? null
+  );
+
+  readonly samePersonRestrictionStatus = computed(
+    () => this._samePersonDetails()?.personRestrictionStatusCode ?? null
+  );
+
+  readonly samePersonAvailableActions = computed(
+    () => [...(this._samePersonDetails()?.availableActions ?? [])]
+  );
+
+  // ========================================
   // Resolution Request Version
   // ========================================
 
@@ -223,11 +266,37 @@ export class NewEmployeeStateService {
     () => this._personMatchResponse() !== null
   );
 
+ 
+  // ========================================
+  // No Matching Candidates
+  // ========================================
+
   readonly hasNoMatchCandidates = computed(
     () =>
       this.hasPersonMatchResponse() &&
       this.personMatches().length === 0
   );
+
+
+  // ========================================
+  // Successful Zero-Match Wizard Clearance
+  // ========================================
+
+  readonly isZeroMatchCleared = computed(() => {
+
+    const response = this._personMatchResponse();
+
+    return (
+      response?.success === true &&
+      Array.isArray(response.data) &&
+      response.data.length === 0 &&
+      !this._isPersonMatchChecking() &&
+      this._personMatchError() === null &&
+      this.isValid('personal-info') &&
+      this.isVerified('personal-info')
+    );
+  });
+
 
   readonly selectedPersonMatch = computed(
     () =>
@@ -326,6 +395,41 @@ export class NewEmployeeStateService {
       this._personMatchResolution()
         ?.allowedActions ?? []
   );
+
+  // ========================================
+  // Set Same Person Details
+  // ========================================
+
+  setSamePersonDetails(
+    details: SamePersonDetails | null
+  ): void {
+
+    if (
+      details !== null &&
+      !this.getPersonMatchByGuid(details.personGuid)
+    ) {
+      throw new Error(
+        'Same Person details do not belong to the current match results.'
+      );
+    }
+
+    this._samePersonDetails.set(
+      details
+        ? {
+            ...details,
+            availableActions: [...details.availableActions],
+          }
+        : null
+    );
+  }
+
+  // ========================================
+  // Clear Same Person Details
+  // ========================================
+
+  clearSamePersonDetails(): void {
+    this._samePersonDetails.set(null);
+  }
 
   // ========================================
   // Set Step Validation
@@ -434,8 +538,9 @@ export class NewEmployeeStateService {
     const requestVersion =
       ++this._personMatchRequestVersion;
 
-    // Invalidate previous resolution.
+    // Invalidate previous resolution and candidate details.
     this.invalidateResolutionRequest();
+    this._samePersonDetails.set(null);
 
     this._personMatchResponse.set(null);
     this._selectedPersonMatchGuid.set(null);
@@ -536,6 +641,10 @@ export class NewEmployeeStateService {
       );
     }
 
+    if (this._selectedPersonMatchGuid() !== personGuid) {
+      this._samePersonDetails.set(null);
+    }
+
     this._selectedPersonMatchGuid.set(
       personGuid
     );
@@ -599,6 +708,7 @@ export class NewEmployeeStateService {
       // and resolution from being reused.
 
       this._personMatchDecisions.set([]);
+      this._samePersonDetails.set(null);
       this._selectedPersonMatchGuid.set(null);
       this._decisionError.set(null);
 
@@ -948,6 +1058,7 @@ export class NewEmployeeStateService {
   clearPersonMatch(): void {
 
     ++this._personMatchRequestVersion;
+    this._samePersonDetails.set(null);
 
     this._personMatchResponse.set(null);
     this._selectedPersonMatchGuid.set(null);
@@ -984,6 +1095,7 @@ export class NewEmployeeStateService {
   reset(): void {
 
     ++this._personMatchRequestVersion;
+    this._samePersonDetails.set(null);
 
     this.invalidateResolutionRequest();
 

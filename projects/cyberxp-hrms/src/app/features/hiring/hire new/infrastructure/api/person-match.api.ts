@@ -17,12 +17,12 @@ import {
 
 import {
   PersonMatchRequest,
-} from '../../domain/models/shared/person-match/person-match-request.model';
+} from '../../domain/models/person-match/person-match-request.model';
 
 import {
   PersonMatchDto,
   PersonMatchApiResponseDto,
-} from '../../domain/models/shared/person-match/person-match.dto.model';
+} from '../../domain/models/person-match/person-match.dto.model';
 
 import {
   PersonMatchMockRepository,

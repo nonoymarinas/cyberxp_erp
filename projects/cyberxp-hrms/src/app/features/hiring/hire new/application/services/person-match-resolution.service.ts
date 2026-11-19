@@ -19,7 +19,7 @@ import {
 
 import type {
   PersonMatchResolutionRequest,
-} from '../../domain/models/shared/person-match-resolution/person-match-resolution-request.model';
+} from '../../domain/models/person-match-resolution/person-match-resolution-request.model';
 
 // ========================================
 // Domain Model
@@ -27,7 +27,7 @@ import type {
 
 import type {
   PersonMatchResolution,
-} from '../../domain/models/shared/person-match-resolution/person-match-resolution.model';
+} from '../../domain/models/person-match-resolution/person-match-resolution.model';
 
 // ========================================
 // Data Access

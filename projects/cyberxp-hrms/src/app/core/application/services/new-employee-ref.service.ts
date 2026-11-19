@@ -78,13 +78,8 @@ export interface NewEmployeeRefSelectOptions {
   contactMediumTypeOptions: CxpSelectOption[];
   contactContextTypeOptions: CxpSelectOption[];
 
-  // Branch
-
-  branchOptions: CxpSelectOption[];
-
   // Person Restrictions
 
-  personRestrictionTypeOptions: CxpSelectOption[];
   personRestrictionStatusOptions: CxpSelectOption[];
 
   // Rehire
@@ -109,9 +104,9 @@ const REFERENCE_CACHE_TTL_MS =
 })
 export class NewEmployeeRefService {
 
-  // ======================================
+  // ========================================
   // Dependencies
-  // ======================================
+  // ========================================
 
   private readonly dataAccess =
     inject(NewEmployeeRefDataAccess);
@@ -119,16 +114,16 @@ export class NewEmployeeRefService {
   readonly state =
     inject(NewEmployeeRefStateService);
 
-  // ======================================
+  // ========================================
   // In-Flight Request
-  // ======================================
+  // ========================================
 
   private inFlightRequest:
     Observable<NewEmployeeRefData> | null = null;
 
-  // ======================================
+  // ========================================
   // Cache Status
-  // ======================================
+  // ========================================
 
   private isCacheValid(): boolean {
 
@@ -151,9 +146,9 @@ export class NewEmployeeRefService {
     );
   }
 
-  // ======================================
+  // ========================================
   // Get References
-  // ======================================
+  // ========================================
 
   getReferences(): Observable<NewEmployeeRefData> {
 
@@ -168,9 +163,9 @@ export class NewEmployeeRefService {
     return this.fetchReferences();
   }
 
-  // ======================================
+  // ========================================
   // Refresh References
-  // ======================================
+  // ========================================
 
   refreshReferences(): Observable<NewEmployeeRefData> {
 
@@ -181,9 +176,9 @@ export class NewEmployeeRefService {
     return this.fetchReferences();
   }
 
-  // ======================================
+  // ========================================
   // Fetch References
-  // ======================================
+  // ========================================
 
   private fetchReferences(): Observable<NewEmployeeRefData> {
 
@@ -339,29 +334,17 @@ export class NewEmployeeRefService {
 
       contactMediumTypeOptions:
         this.toSelectOptions(
-          references.contactMediumTypes
+          references.contactTypes
         ),
 
       contactContextTypeOptions:
         this.toSelectOptions(
-          references.contactContextTypes
+          references.contactScopes
         ),
-
-      // ==================================
-      // Branch
-      // ==================================
-
-      branchOptions:
-        this.toSelectOptions(references.branches),
 
       // ==================================
       // Person Restrictions
       // ==================================
-
-      personRestrictionTypeOptions:
-        this.toCodeSelectOptions(
-          references.personRestrictionTypes
-        ),
 
       personRestrictionStatusOptions:
         this.toCodeSelectOptions(
@@ -464,22 +447,6 @@ export class NewEmployeeRefService {
       map(references =>
         this.toCodeSelectOptions(
           references.employmentClearanceStatuses
-        )
-      )
-    );
-  }
-
-  // ========================================
-  // Get Person Restriction Type Options
-  // ========================================
-
-  getPersonRestrictionTypeOptions():
-    Observable<CxpSelectOption[]> {
-
-    return this.getReferences().pipe(
-      map(references =>
-        this.toCodeSelectOptions(
-          references.personRestrictionTypes
         )
       )
     );

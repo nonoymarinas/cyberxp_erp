@@ -29,7 +29,7 @@ import {
 
 import {
   PersonMatchDecisionRequest,
-} from '../../domain/models/shared/person-match-decision/person-match-decision-request.model';
+} from '../../domain/models/person-match-decision/person-match-decision-request.model';
 
 // ========================================
 // Response DTO
@@ -37,7 +37,7 @@ import {
 
 import {
   PersonMatchDecisionApiResponseDto,
-} from '../../domain/models/shared/person-match-decision/person-match-decision.dto.model';
+} from '../../domain/models/person-match-decision/person-match-decision.dto.model';
 
 // ========================================
 // Mock Repository

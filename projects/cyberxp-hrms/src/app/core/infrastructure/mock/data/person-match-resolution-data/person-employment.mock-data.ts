@@ -5,7 +5,7 @@
 
 import type {
   PersonEmploymentStatus,
-} from '../../../../../features/hiring/hire new/domain/models/shared/person-match-resolution/person-match-resolution-type-ref.model';
+} from '../../../../../features/hiring/hire new/domain/models/person-match-resolution/person-match-resolution-type-ref.model';
 
 // ========================================
 // Person Employment Record

@@ -1,0 +1,669 @@
+
+<!-- ========================================
+     Same Person Verification
+     ======================================== -->
+
+<section class="same-person">
+
+  <!-- ======================================
+       Page Header
+       ====================================== -->
+
+  <header class="same-person__header">
+
+    <div class="same-person__heading">
+
+      <div class="same-person__eyebrow">
+        PERSON MATCHING / IDENTITY VERIFICATION
+      </div>
+
+      <h2 class="same-person__title">
+        Same Person Verification
+      </h2>
+
+      <p class="same-person__subtitle">
+        Review the applicant, existing person record,
+        employment status, rehire eligibility, and
+        restrictions before confirming identity.
+      </p>
+
+    </div>
+
+    <div class="same-person__header-status">
+      <span class="same-person__status-dot"></span>
+      Identity Review
+    </div>
+
+  </header>
+
+  <!-- ======================================
+       Selected Person Validation
+       ====================================== -->
+
+  @if (!selectedPerson()) {
+
+    <div
+      class="same-person__message same-person__message--error"
+      role="alert"
+    >
+
+      <strong>Person Not Found</strong>
+
+      <p>
+        The selected candidate is not available
+        in the current matching session.
+      </p>
+
+      <button
+        type="button"
+        class="same-person__button same-person__button--secondary"
+        (click)="back()"
+      >
+        Back to Compare
+      </button>
+
+    </div>
+
+  } @else {
+
+    <!-- ======================================
+         Comparison Summary
+         ====================================== -->
+
+    <div class="same-person__comparison">
+
+      <!-- ====================================
+           New Applicant
+           ==================================== -->
+
+      <article class="same-person__person-card">
+
+        <div class="same-person__card-header">
+
+          <span class="same-person__card-label">
+            NEW APPLICANT
+          </span>
+
+          <span class="same-person__card-type">
+            Personal Information Draft
+          </span>
+
+        </div>
+
+        <div class="same-person__identity">
+
+          <div
+            class="same-person__avatar same-person__avatar--applicant"
+            aria-hidden="true"
+          >
+            A
+          </div>
+
+          <div class="same-person__identity-details">
+
+            <h3 class="same-person__person-name">
+              {{ applicantFullName() || 'Not available' }}
+            </h3>
+
+            <span class="same-person__person-caption">
+              Applicant under verification
+            </span>
+
+          </div>
+
+        </div>
+
+        <div class="same-person__fields">
+
+          <div class="same-person__field">
+            <span class="same-person__field-label">
+              First Name
+            </span>
+            <span class="same-person__field-value">
+              {{ applicant()?.firstName || '—' }}
+            </span>
+          </div>
+
+          <div class="same-person__field">
+            <span class="same-person__field-label">
+              Middle Name
+            </span>
+            <span class="same-person__field-value">
+              {{ applicant()?.middleName || '—' }}
+            </span>
+          </div>
+
+          <div class="same-person__field">
+            <span class="same-person__field-label">
+              Last Name
+            </span>
+            <span class="same-person__field-value">
+              {{ applicant()?.lastName || '—' }}
+            </span>
+          </div>
+
+          <div class="same-person__field">
+            <span class="same-person__field-label">
+              Date of Birth
+            </span>
+            <span class="same-person__field-value">
+              {{ applicant()?.dateOfBirth || '—' }}
+            </span>
+          </div>
+
+        </div>
+
+      </article>
+
+      <!-- ====================================
+           Comparison Indicator
+           ==================================== -->
+
+      <div
+        class="same-person__compare-indicator"
+        aria-hidden="true"
+      >
+        <span>VS</span>
+      </div>
+
+      <!-- ====================================
+           Existing Person
+           ==================================== -->
+
+      <article class="same-person__person-card">
+
+        <div class="same-person__card-header">
+
+          <span class="same-person__card-label">
+            EXISTING PERSON
+          </span>
+
+          <span class="same-person__card-type">
+            Matched Record
+          </span>
+
+        </div>
+
+        <div class="same-person__identity">
+
+          <div
+            class="same-person__avatar same-person__avatar--existing"
+            aria-hidden="true"
+          >
+            {{ selectedPerson()?.firstName?.charAt(0) || 'P' }}
+          </div>
+
+          <div class="same-person__identity-details">
+
+            <h3 class="same-person__person-name">
+              {{ existingPersonFullName() }}
+            </h3>
+
+            <span class="same-person__person-caption">
+              {{ selectedPerson()?.personNumber || 'Existing record' }}
+            </span>
+
+          </div>
+
+        </div>
+
+        <div class="same-person__fields">
+
+          <div class="same-person__field">
+            <span class="same-person__field-label">
+              First Name
+            </span>
+            <span class="same-person__field-value">
+              {{ selectedPerson()?.firstName || '—' }}
+            </span>
+          </div>
+
+          <div class="same-person__field">
+            <span class="same-person__field-label">
+              Middle Name
+            </span>
+            <span class="same-person__field-value">
+              {{ selectedPerson()?.middleName || '—' }}
+            </span>
+          </div>
+
+          <div class="same-person__field">
+            <span class="same-person__field-label">
+              Last Name
+            </span>
+            <span class="same-person__field-value">
+              {{ selectedPerson()?.lastName || '—' }}
+            </span>
+          </div>
+
+          <div class="same-person__field">
+            <span class="same-person__field-label">
+              Date of Birth
+            </span>
+            <span class="same-person__field-value">
+              {{ selectedPerson()?.dateOfBirth || '—' }}
+            </span>
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+
+    <!-- ======================================
+         Matching Information
+         ====================================== -->
+
+    <section class="same-person__section">
+
+      <div class="same-person__section-header">
+
+        <h3 class="same-person__section-title">
+          Matching Information
+        </h3>
+
+        <p class="same-person__section-description">
+          Matching results are indicators only.
+          The reviewer must verify identity
+          before recording a decision.
+        </p>
+
+      </div>
+
+      <div class="same-person__metrics">
+
+        <div class="same-person__metric">
+          <span class="same-person__metric-label">
+            Match Score
+          </span>
+          <strong class="same-person__metric-value">
+            {{ matchScore() }}%
+          </strong>
+        </div>
+
+        <div class="same-person__metric">
+          <span class="same-person__metric-label">
+            Match Level
+          </span>
+          <strong class="same-person__metric-value">
+            {{ matchLevel() || 'Unknown' }}
+          </strong>
+        </div>
+
+        <div class="same-person__metric">
+          <span class="same-person__metric-label">
+            Match Method
+          </span>
+          <strong class="same-person__metric-value">
+            {{ matchMethod() || 'Unknown' }}
+          </strong>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ======================================
+         Existing Person Details
+         ====================================== -->
+
+    <section class="same-person__section">
+
+      <div class="same-person__section-header">
+
+        <h3 class="same-person__section-title">
+          Employment and Rehire Assessment
+        </h3>
+
+        <p class="same-person__section-description">
+          Review the existing person's employment
+          relationship, rehire eligibility, and
+          restrictions before proceeding.
+        </p>
+
+      </div>
+
+      <!-- ====================================
+           Loading
+           ==================================== -->
+
+      @if (isDetailsLoading()) {
+
+        <div
+          class="same-person__message"
+          role="status"
+        >
+          Loading existing person details...
+        </div>
+
+      }
+
+      <!-- ====================================
+           Details Error
+           ==================================== -->
+
+      @if (detailsError()) {
+
+        <div
+          class="same-person__message same-person__message--error"
+          role="alert"
+        >
+
+          <strong>Unable to Load Person Details</strong>
+
+          <p>{{ detailsError() }}</p>
+
+          <button
+            type="button"
+            class="same-person__button same-person__button--secondary"
+            [disabled]="isDetailsLoading()"
+            (click)="retryLoadDetails()"
+          >
+            Retry
+          </button>
+
+        </div>
+
+      }
+
+      <!-- ====================================
+           Retrieved Details
+           ==================================== -->
+
+      @if (
+        !isDetailsLoading() &&
+        !detailsError() &&
+        samePersonDetails()
+      ) {
+
+        <div class="same-person__metrics">
+
+          <!-- Employment Status -->
+
+          <div class="same-person__metric">
+
+            <span class="same-person__metric-label">
+              Employment Status
+            </span>
+
+            <strong class="same-person__metric-value">
+              {{ employmentStatusName() }}
+            </strong>
+
+            <span class="same-person__field-label">
+              {{ employmentStatusCode() }}
+            </span>
+
+          </div>
+
+          <!-- Rehire Eligibility -->
+
+          <div class="same-person__metric">
+
+            <span class="same-person__metric-label">
+              Rehire Eligibility
+            </span>
+
+            <strong class="same-person__metric-value">
+              {{ rehireEligibilityStatusName() }}
+            </strong>
+
+            <span class="same-person__field-label">
+              {{ rehireEligibilityStatusCode() }}
+            </span>
+
+          </div>
+
+          <!-- Person Restrictions -->
+
+          <div class="same-person__metric">
+
+            <span class="same-person__metric-label">
+              Person Restriction
+            </span>
+
+            <strong class="same-person__metric-value">
+              {{ personRestrictionStatusName() }}
+            </strong>
+
+            <span class="same-person__field-label">
+              {{ personRestrictionStatusCode() }}
+            </span>
+
+          </div>
+
+        </div>
+
+        <!-- ==================================
+             Active Restriction Warning
+             ================================== -->
+
+        @if (hasActiveRestriction()) {
+
+          <div
+            class="same-person__message same-person__message--warning"
+            role="alert"
+          >
+
+            <strong>Active Person Restriction</strong>
+
+            <p>
+              This existing person has an active
+              restriction. Confirming identity does
+              not authorize hiring, rehire, or
+              reactivation. Further review is required.
+            </p>
+
+          </div>
+
+        }
+
+        <!-- ==================================
+             Available Workflow Actions
+             ================================== -->
+
+        <div class="same-person__section-header">
+
+          <h3 class="same-person__section-title">
+            Available Workflow Actions
+          </h3>
+
+          <p class="same-person__section-description">
+            These actions are determined by the
+            existing person's current records.
+            Execution requires appropriate authorization.
+          </p>
+
+        </div>
+
+        @if (hasAvailableAction()) {
+
+          <div class="same-person__fields">
+
+            @for (
+              action of availableActions();
+              track action
+            ) {
+
+              <div class="same-person__field">
+
+                <span class="same-person__field-value">
+                  {{ action.replaceAll('_', ' ') }}
+                </span>
+
+              </div>
+
+            }
+
+          </div>
+
+        } @else {
+
+          <div
+            class="same-person__message same-person__message--warning"
+          >
+            No workflow actions are currently available.
+          </div>
+
+        }
+
+      }
+
+    </section>
+
+    <!-- ======================================
+         Identity Decision
+         ====================================== -->
+
+    <section class="same-person__section">
+
+      <div class="same-person__section-header">
+
+        <h3 class="same-person__section-title">
+          Identity Decision
+        </h3>
+
+        <p class="same-person__section-description">
+          Confirming Same Person identifies the applicant
+          as an existing person in the system.
+          This does not automatically approve employment
+          or rehire.
+        </p>
+
+      </div>
+
+      <div class="same-person__decision">
+
+        <div class="same-person__decision-icon">
+          ✓
+        </div>
+
+        <div class="same-person__decision-content">
+
+          <strong class="same-person__decision-title">
+            Same Person
+          </strong>
+
+          <p class="same-person__decision-description">
+            The applicant and selected existing record
+            represent the same individual. The existing
+            person identity should be reused instead of
+            creating a duplicate person record.
+          </p>
+
+        </div>
+
+        <span class="same-person__decision-code">
+          SAME_PERSON
+        </span>
+
+      </div>
+
+      <!-- ====================================
+           Existing Decision Warning
+           ==================================== -->
+
+      @if (hasExistingDecision()) {
+
+        <div
+          class="same-person__message same-person__message--warning"
+          role="status"
+        >
+
+          <strong>Candidate Already Reviewed</strong>
+
+          <p>
+            A decision has already been recorded
+            for this candidate in the current
+            screening session.
+          </p>
+
+        </div>
+
+      }
+
+      <!-- ====================================
+           Missing Screening Session
+           ==================================== -->
+
+      @if (!screeningId()) {
+
+        <div
+          class="same-person__message same-person__message--warning"
+          role="alert"
+        >
+
+          <strong>Screening Session Required</strong>
+
+          <p>
+            A valid screening session is required
+            before the Same Person decision can
+            be submitted.
+          </p>
+
+        </div>
+
+      }
+
+      <!-- ====================================
+           Decision Error
+           ==================================== -->
+
+      @if (decisionError()) {
+
+        <div
+          class="same-person__message same-person__message--error"
+          role="alert"
+        >
+
+          <strong>Decision Error</strong>
+
+          <p>
+            {{ decisionError() }}
+          </p>
+
+        </div>
+
+      }
+
+    </section>
+
+    <!-- ======================================
+         Actions
+         ====================================== -->
+
+    <footer class="same-person__actions">
+
+      <button
+        type="button"
+        class="same-person__button same-person__button--secondary"
+        [disabled]="isDecisionSubmitting()"
+        (click)="back()"
+      >
+        Back to Compare
+      </button>
+
+      <button
+        type="button"
+        class="same-person__button same-person__button--primary"
+        [disabled]="
+          !isReadyToSubmit() ||
+          hasExistingDecision()
+        "
+        (click)="confirmSamePerson()"
+      >
+
+        @if (isDecisionSubmitting()) {
+          Submitting...
+        } @else {
+          Confirm Same Person
+        }
+
+      </button>
+
+    </footer>
+
+  }
+
+</section>

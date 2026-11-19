@@ -87,7 +87,7 @@ export class NewEmployeeRefStateService {
   );
 
   // ========================================
-  // Employment References
+  // Organization References
   // ========================================
 
   readonly departments = computed(
@@ -98,12 +98,12 @@ export class NewEmployeeRefStateService {
     () => this._references()?.positions ?? []
   );
 
+  // ========================================
+  // Employment References
+  // ========================================
+
   readonly employmentStatuses = computed(
     () => this._references()?.employmentStatuses ?? []
-  );
-
-  readonly branches = computed(
-    () => this._references()?.branches ?? []
   );
 
   // ========================================
@@ -130,20 +130,15 @@ export class NewEmployeeRefStateService {
   // Contact References
   // ========================================
 
+  // Preserve existing application property names.
+  // Map from the external API reference names.
+
   readonly contactMediumTypes = computed(
-    () => this._references()?.contactMediumTypes ?? []
+    () => this._references()?.contactTypes ?? []
   );
 
   readonly contactContextTypes = computed(
-    () => this._references()?.contactContextTypes ?? []
-  );
-
-  // ========================================
-  // Person Match References
-  // ========================================
-
-  readonly personMatchLevels = computed(
-    () => this._references()?.personMatchLevels ?? []
+    () => this._references()?.contactScopes ?? []
   );
 
   // ========================================
@@ -159,16 +154,12 @@ export class NewEmployeeRefStateService {
   // ========================================
 
   readonly matchDecisionTypes = computed(
-    () => this._references()?.matchDecisionTypes ?? []
+    () => this._references()?.personMatchDecisionTypes ?? []
   );
 
   // ========================================
-  // Person Restriction References
+  // Person Restriction Status References
   // ========================================
-
-  readonly personRestrictionTypes = computed(
-    () => this._references()?.personRestrictionTypes ?? []
-  );
 
   readonly personRestrictionStatuses = computed(
     () => this._references()?.personRestrictionStatuses ?? []

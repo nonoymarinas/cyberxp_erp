@@ -7,14 +7,14 @@ import type {
   ReferenceItem,
 } from '../../../../shared/models/reference-item.model';
 
-/* ========================================
-   New Employee Reference Data Model
-   ======================================== */
+// ========================================
+// New Employee Reference Data Model
+// ========================================
 
 export interface NewEmployeeRefData {
 
   // ======================================
-  // Personal Information References
+  // Personal Information
   // ======================================
 
   genders: ReferenceItem<string>[];
@@ -22,60 +22,57 @@ export interface NewEmployeeRefData {
   suffixes: ReferenceItem<string>[];
 
   // ======================================
-  // Employment References
+  // Organization
   // ======================================
 
   departments: ReferenceItem<string>[];
   positions: ReferenceItem<string>[];
+
+  // ======================================
+  // Employment
+  // ======================================
+
   employmentStatuses: ReferenceItem<string>[];
-  branches: ReferenceItem<string>[];
-
-  // ======================================
-  // Employment Separation References
-  // ======================================
-
   employmentSeparationTypes: ReferenceItem<string>[];
   employmentClearanceStatuses: ReferenceItem<string>[];
 
   // ======================================
-  // Address References
+  // Address
   // ======================================
 
   addressTypes: ReferenceItem<string>[];
 
   // ======================================
-  // Contact References
+  // Contacts
   // ======================================
 
-  contactMediumTypes: ReferenceItem<string>[];
-  contactContextTypes: ReferenceItem<string>[];
+  contactTypes: ReferenceItem<string>[];
+  contactScopes: ReferenceItem<string>[];
 
   // ======================================
-  // Person Match References
+  // Person Matching
   // ======================================
 
-  personMatchLevels: ReferenceItem<string>[];
   workFlowStatuses: ReferenceItem<string>[];
-  matchDecisionTypes: ReferenceItem<string>[];
+  personMatchDecisionTypes: ReferenceItem<string>[];
 
   // ======================================
-  // Person Restriction References
+  // Person Restrictions
   // ======================================
 
-  personRestrictionTypes: ReferenceItem<string>[];
   personRestrictionStatuses: ReferenceItem<string>[];
 
   // ======================================
-  // Rehire References
+  // Rehire
   // ======================================
 
   rehireRequestStatuses: ReferenceItem<string>[];
   rehireEligibilityStatuses: ReferenceItem<string>[];
 }
 
-/* ========================================
-   New Employee Reference API Response
-   ======================================== */
+// ========================================
+// New Employee Reference API Response
+// ========================================
 
 export type NewEmployeeRefApiResponse =
   ApiResponse<NewEmployeeRefData>;

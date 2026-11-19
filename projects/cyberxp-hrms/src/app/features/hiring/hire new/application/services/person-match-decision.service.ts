@@ -27,11 +27,11 @@ import {
 
 import {
   PersonMatchDecisionRequest,
-} from '../../domain/models/shared/person-match-decision/person-match-decision-request.model';
+} from '../../domain/models/person-match-decision/person-match-decision-request.model';
 
 import {
   PersonMatchDecision,
-} from '../../domain/models/shared/person-match-decision/person-match-decision.model';
+} from '../../domain/models/person-match-decision/person-match-decision.model';
 
 // ========================================
 // Wizard State
