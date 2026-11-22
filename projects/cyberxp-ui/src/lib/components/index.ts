@@ -54,3 +54,8 @@ export * from './icons/hr-admin/cxp-icon-approval-history';
 export * from './icons/hr-admin/cxp-icon-document-requirements';
 export * from './icons/hr-admin/cxp-icon-hr-compliance';
 export * from './icons/hr-admin/cxp-icon-hr-audit';
+
+export * from './icons/job-requesitions/cxp-icon-job-request-new';
+export * from './icons/job-requesitions/cxp-icon-job-request-mine';
+export * from './icons/job-requesitions/cxp-icon-job-request-all';
+export * from './icons/job-requesitions/cxp-icon-job-request-pending';

@@ -73,7 +73,9 @@
       >
 
         <cxp-icon-recruitment
-          start size="md" fill="outline"
+          start
+          size="md"
+          fill="outline"
           [strokeWidth]="1.5"
         ></cxp-icon-recruitment>
 
@@ -85,21 +87,95 @@
           [exact]="true"
         >
           <cxp-icon-dashboard
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-dashboard>
+
           <span label>Dashboard</span>
         </cxp-menu-sidebar-item>
 
-        <!-- Job Requisitions -->
+        <!-- ====================================
+             JOB REQUISITIONS
+             ==================================== -->
+
         <cxp-menu-sidebar-item
-          route="/app/recruitment/job-requisitions"
+          [group]="true"
+          [expanded]="false"
+          ariaLabel="Job Requisitions"
         >
+
           <cxp-icon-job-requisitions
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-job-requisitions>
+
           <span label>Job Requisitions</span>
+
+          <!-- New Job Request -->
+          <cxp-menu-sidebar-item
+            class="job-requisitions-submenu-item"
+            route="/app/recruitment/job-requisitions/new"
+          >
+            <cxp-icon-job-request-new
+              start
+              size="sm"
+              fill="outline"
+              [strokeWidth]="1.5"
+            ></cxp-icon-job-request-new>
+
+            <span label>New Job Request</span>
+          </cxp-menu-sidebar-item>
+
+          <!-- My Requests -->
+          <cxp-menu-sidebar-item
+            class="job-requisitions-submenu-item"
+            route="/app/recruitment/job-requisitions/my-requests"
+          >
+            <cxp-icon-job-request-mine
+              start
+              size="sm"
+              fill="outline"
+              [strokeWidth]="1.5"
+            ></cxp-icon-job-request-mine>
+
+            <span label>My Requests</span>
+          </cxp-menu-sidebar-item>
+
+          <!-- All Requests -->
+          <cxp-menu-sidebar-item
+            class="job-requisitions-submenu-item"
+            route="/app/recruitment/job-requisitions"
+            [exact]="true"
+          >
+            <cxp-icon-job-request-all
+              start
+              size="sm"
+              fill="outline"
+              [strokeWidth]="1.5"
+            ></cxp-icon-job-request-all>
+
+            <span label>All Requests</span>
+          </cxp-menu-sidebar-item>
+
+          <!-- Pending Approvals -->
+          <cxp-menu-sidebar-item
+            class="job-requisitions-submenu-item"
+            route="/app/recruitment/job-requisitions/approvals"
+          >
+            <cxp-icon-job-request-pending
+              start
+              size="sm"
+              fill="outline"
+              [strokeWidth]="1.5"
+            ></cxp-icon-job-request-pending>
+
+            <span label>Pending Approvals</span>
+          </cxp-menu-sidebar-item>
+
         </cxp-menu-sidebar-item>
 
         <!-- Job Openings -->
@@ -107,9 +183,12 @@
           route="/app/recruitment/job-openings"
         >
           <cxp-icon-job-openings
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-job-openings>
+
           <span label>Job Openings</span>
         </cxp-menu-sidebar-item>
 
@@ -118,9 +197,12 @@
           route="/app/recruitment/applicants"
         >
           <cxp-icon-applicants
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-applicants>
+
           <span label>Applicants</span>
         </cxp-menu-sidebar-item>
 
@@ -129,9 +211,12 @@
           route="/app/recruitment/screening"
         >
           <cxp-icon-screening-interviews
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-screening-interviews>
+
           <span label>Screening & Interviews</span>
         </cxp-menu-sidebar-item>
 
@@ -140,9 +225,12 @@
           route="/app/recruitment/job-offers"
         >
           <cxp-icon-job-offers
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-job-offers>
+
           <span label>Job Offers</span>
         </cxp-menu-sidebar-item>
 
@@ -156,9 +244,12 @@
             route="/app/hire-new/personal-info"
           >
             <cxp-icon-hire-new
-              start size="sm" fill="outline"
+              start
+              size="sm"
+              fill="outline"
               [strokeWidth]="1.5"
             ></cxp-icon-hire-new>
+
             <span label>Hire New</span>
           </cxp-menu-sidebar-item>
         }
@@ -168,9 +259,12 @@
           route="/app/recruitment/onboarding"
         >
           <cxp-icon-onboarding
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-onboarding>
+
           <span label>Onboarding</span>
         </cxp-menu-sidebar-item>
 
@@ -179,9 +273,12 @@
           route="/app/recruitment/history"
         >
           <cxp-icon-recruitment-history
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-recruitment-history>
+
           <span label>Recruitment History</span>
         </cxp-menu-sidebar-item>
 
@@ -198,7 +295,9 @@
       >
 
         <cxp-icon-employee-management
-          start size="md" fill="outline"
+          start
+          size="md"
+          fill="outline"
           [strokeWidth]="1.5"
         ></cxp-icon-employee-management>
 
@@ -210,9 +309,12 @@
           [exact]="true"
         >
           <cxp-icon-dashboard
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-dashboard>
+
           <span label>Dashboard</span>
         </cxp-menu-sidebar-item>
 
@@ -222,9 +324,12 @@
           [exact]="true"
         >
           <cxp-icon-employee-records
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-employee-records>
+
           <span label>Employee Records</span>
         </cxp-menu-sidebar-item>
 
@@ -233,9 +338,12 @@
           route="/app/employees/history"
         >
           <cxp-icon-employee-history
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-employee-history>
+
           <span label>Employee History</span>
         </cxp-menu-sidebar-item>
 
@@ -244,9 +352,12 @@
           route="/app/employee/employment"
         >
           <cxp-icon-employment-assignments
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-employment-assignments>
+
           <span label>Employment & Assignments</span>
         </cxp-menu-sidebar-item>
 
@@ -255,9 +366,12 @@
           route="/app/employee/movements"
         >
           <cxp-icon-employee-movements
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-employee-movements>
+
           <span label>Employee Movements</span>
         </cxp-menu-sidebar-item>
 
@@ -267,9 +381,12 @@
           [exact]="true"
         >
           <cxp-icon-rehire
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-rehire>
+
           <span label>Rehire</span>
         </cxp-menu-sidebar-item>
 
@@ -278,9 +395,12 @@
           route="/app/rehire-history"
         >
           <cxp-icon-rehire-history
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-rehire-history>
+
           <span label>Rehire History</span>
         </cxp-menu-sidebar-item>
 
@@ -290,9 +410,12 @@
           [exact]="true"
         >
           <cxp-icon-reactivate
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-reactivate>
+
           <span label>Reactivate</span>
         </cxp-menu-sidebar-item>
 
@@ -301,9 +424,12 @@
           route="/app/reactivation/history"
         >
           <cxp-icon-reactivation-history
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-reactivation-history>
+
           <span label>Reactivation History</span>
         </cxp-menu-sidebar-item>
 
@@ -312,9 +438,12 @@
           route="/app/employee/offboarding"
         >
           <cxp-icon-offboarding
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-offboarding>
+
           <span label>Offboarding</span>
         </cxp-menu-sidebar-item>
 
@@ -323,9 +452,12 @@
           route="/app/employee/performance"
         >
           <cxp-icon-performance-development
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-performance-development>
+
           <span label>Performance & Development</span>
         </cxp-menu-sidebar-item>
 
@@ -342,7 +474,9 @@
       >
 
         <cxp-icon-payroll-attendance
-          start size="md" fill="outline"
+          start
+          size="md"
+          fill="outline"
           [strokeWidth]="1.5"
         ></cxp-icon-payroll-attendance>
 
@@ -354,9 +488,12 @@
           [exact]="true"
         >
           <cxp-icon-dashboard
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-dashboard>
+
           <span label>Dashboard</span>
         </cxp-menu-sidebar-item>
 
@@ -365,9 +502,12 @@
           route="/app/payroll/work-schedules"
         >
           <cxp-icon-work-schedules
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-work-schedules>
+
           <span label>Work Schedules</span>
         </cxp-menu-sidebar-item>
 
@@ -376,9 +516,12 @@
           route="/app/payroll/attendance"
         >
           <cxp-icon-attendance
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-attendance>
+
           <span label>Attendance</span>
         </cxp-menu-sidebar-item>
 
@@ -387,9 +530,12 @@
           route="/app/payroll/leave"
         >
           <cxp-icon-leave-absences
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-leave-absences>
+
           <span label>Leave & Absences</span>
         </cxp-menu-sidebar-item>
 
@@ -398,9 +544,12 @@
           route="/app/payroll/overtime"
         >
           <cxp-icon-overtime
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-overtime>
+
           <span label>Overtime</span>
         </cxp-menu-sidebar-item>
 
@@ -409,9 +558,12 @@
           route="/app/payroll/compensation"
         >
           <cxp-icon-compensation
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-compensation>
+
           <span label>Compensation</span>
         </cxp-menu-sidebar-item>
 
@@ -420,9 +572,12 @@
           route="/app/payroll/processing"
         >
           <cxp-icon-payroll-processing
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-payroll-processing>
+
           <span label>Payroll Processing</span>
         </cxp-menu-sidebar-item>
 
@@ -431,9 +586,12 @@
           route="/app/payroll/history"
         >
           <cxp-icon-payroll-history
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-payroll-history>
+
           <span label>Payroll History</span>
         </cxp-menu-sidebar-item>
 
@@ -442,9 +600,12 @@
           route="/app/payroll/benefits"
         >
           <cxp-icon-benefits-deductions
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-benefits-deductions>
+
           <span label>Benefits & Deductions</span>
         </cxp-menu-sidebar-item>
 
@@ -461,7 +622,9 @@
       >
 
         <cxp-icon-hr-administration
-          start size="md" fill="outline"
+          start
+          size="md"
+          fill="outline"
           [strokeWidth]="1.5"
         ></cxp-icon-hr-administration>
 
@@ -473,9 +636,12 @@
           [exact]="true"
         >
           <cxp-icon-dashboard
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-dashboard>
+
           <span label>Dashboard</span>
         </cxp-menu-sidebar-item>
 
@@ -484,9 +650,12 @@
           route="/app/admin/policies"
         >
           <cxp-icon-hr-policies
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-hr-policies>
+
           <span label>HR Policies</span>
         </cxp-menu-sidebar-item>
 
@@ -495,9 +664,12 @@
           route="/app/admin/references"
         >
           <cxp-icon-hr-references
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-hr-references>
+
           <span label>HR References</span>
         </cxp-menu-sidebar-item>
 
@@ -506,9 +678,12 @@
           route="/app/admin/workflows"
         >
           <cxp-icon-approval-workflows
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-approval-workflows>
+
           <span label>Approval Workflows</span>
         </cxp-menu-sidebar-item>
 
@@ -517,9 +692,12 @@
           route="/app/approvals/pending"
         >
           <cxp-icon-pending-approvals
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-pending-approvals>
+
           <span label>Pending Approvals</span>
         </cxp-menu-sidebar-item>
 
@@ -528,9 +706,12 @@
           route="/app/approvals/history"
         >
           <cxp-icon-approval-history
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-approval-history>
+
           <span label>Approval History</span>
         </cxp-menu-sidebar-item>
 
@@ -539,9 +720,12 @@
           route="/app/admin/documents"
         >
           <cxp-icon-document-requirements
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-document-requirements>
+
           <span label>Document Requirements</span>
         </cxp-menu-sidebar-item>
 
@@ -550,9 +734,12 @@
           route="/app/admin/compliance"
         >
           <cxp-icon-hr-compliance
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-hr-compliance>
+
           <span label>HR Compliance</span>
         </cxp-menu-sidebar-item>
 
@@ -561,9 +748,12 @@
           route="/app/admin/audit"
         >
           <cxp-icon-hr-audit
-            start size="sm" fill="outline"
+            start
+            size="sm"
+            fill="outline"
             [strokeWidth]="1.5"
           ></cxp-icon-hr-audit>
+
           <span label>HR Audit</span>
         </cxp-menu-sidebar-item>
 
@@ -582,8 +772,11 @@
         route="/app/settings"
       >
         <cxp-icon-settings-nav
-          start size="xs" fill="outline"
+          start
+          size="xs"
+          fill="outline"
         ></cxp-icon-settings-nav>
+
         <span label>Settings</span>
       </cxp-menu-sidebar-item>
 
@@ -592,8 +785,11 @@
         route="/app/logouts"
       >
         <cxp-icon-logout-nav
-          start size="xs" fill="outline"
+          start
+          size="xs"
+          fill="outline"
         ></cxp-icon-logout-nav>
+
         <span label>Logout</span>
       </cxp-menu-sidebar-item>
 

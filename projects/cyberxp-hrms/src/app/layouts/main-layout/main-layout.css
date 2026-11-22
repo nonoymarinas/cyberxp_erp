@@ -408,3 +408,27 @@ cxp-layout-main {
     scroll-behavior: auto;
   }
 }
+
+
+
+/* ========================================
+   Job Requisitions Submenu Indentation
+   ======================================== */
+
+
+/* ========================================
+   Job Requisitions Submenu Indentation
+   ======================================== */
+
+.sidebar__menu
+cxp-menu-sidebar-item.job-requisitions-submenu-item {
+  display: block;
+
+  width: calc(100% - 20px) !important;
+  max-width: calc(100% - 20px);
+
+  margin-inline-start: 20px !important;
+
+  box-sizing: border-box;
+}
+

@@ -1,4 +1,3 @@
-
 import { Component, inject } from '@angular/core';
 
 // ========================================
@@ -16,13 +15,11 @@ import {
   // ======================================
   // Shared Icons
   // ======================================
-
   CxpIconDashboard,
 
   // ======================================
   // 01 - Recruitment & Onboarding
   // ======================================
-
   CxpIconRecruitment,
   CxpIconJobRequisitions,
   CxpIconJobOpenings,
@@ -36,7 +33,6 @@ import {
   // ======================================
   // 02 - Employee Management
   // ======================================
-
   CxpIconEmployeeManagement,
   CxpIconEmployeeRecords,
   CxpIconEmployeeHistory,
@@ -52,7 +48,6 @@ import {
   // ======================================
   // 03 - Payroll & Attendance
   // ======================================
-
   CxpIconPayrollAttendance,
   CxpIconWorkSchedules,
   CxpIconAttendance,
@@ -66,7 +61,6 @@ import {
   // ======================================
   // 04 - HR Administration
   // ======================================
-
   CxpIconHrAdministration,
   CxpIconHrPolicies,
   CxpIconHrReferences,
@@ -80,39 +74,33 @@ import {
   // ======================================
   // Footer Icons
   // ======================================
-
   CxpIconSettingsNav,
   CxpIconLogoutNav,
-
+  CxpIconJobRequestNew,
+  CxpIconJobRequestMine,
+  CxpIconJobRequestAll,
+  CxpIconJobRequestPending,
 } from 'cyberxp-ui';
 
 // ========================================
 // Header Components
 // ========================================
 
-import {
-  HeaderAppsIcon,
-} from './components/header-apps-icon/header-apps-icon';
+import { HeaderAppsIcon } from './components/header-apps-icon/header-apps-icon';
 
-import {
-  HeaderUserIcon,
-} from './components/header-user-icon/header-user-icon';
+import { HeaderUserIcon } from './components/header-user-icon/header-user-icon';
 
 // ========================================
 // Authorization
 // ========================================
 
-import {
-  UserAccessService,
-} from '../../core/authorization/services/user-access.services';
+import { UserAccessService } from '../../core/authorization/services/user-access.services';
 
 // ========================================
 // Chatbot
 // ========================================
 
-import {
-  CxpChatbotMain,
-} from '../../components/chatbot/cxp-chatbot-main/cxp-chatbot-main';
+import { CxpChatbotMain } from '../../components/chatbot/cxp-chatbot-main/cxp-chatbot-main';
 
 // ========================================
 // Main Layout
@@ -214,13 +202,17 @@ import {
     // ======================================
 
     CxpChatbotMain,
+
+    CxpIconJobRequestNew,
+    CxpIconJobRequestMine,
+    CxpIconJobRequestAll,
+    CxpIconJobRequestPending,
   ],
 
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.css',
 })
 export class MainLayout {
-
   // ========================================
   // Sidebar State
   // ========================================
@@ -233,6 +225,5 @@ export class MainLayout {
   // Authorization
   // ========================================
 
-  public readonly userAccessService =
-    inject(UserAccessService);
+  public readonly userAccessService = inject(UserAccessService);
 }
