@@ -1,0 +1,346 @@
+
+<!-- ========================================
+     NEW JOB REQUEST
+     ======================================== -->
+
+<div class="cxp-page job-request-page">
+
+  <!-- ======================================
+       Page Header
+       ====================================== -->
+
+  <header class="cxp-section__header job-request-header">
+
+    <div class="job-request-header__content">
+
+      <h2 class="cxp-section__title">
+        New Job Request
+      </h2>
+
+      <p class="job-request-subtitle">
+        Departmental Manpower Requisition
+      </p>
+
+    </div>
+
+    <span class="job-request-status">
+      Draft
+    </span>
+
+  </header>
+
+  <!-- ======================================
+       Main Body
+       ====================================== -->
+
+  <section class="cxp-section job-request-main-body">
+
+    <form
+      class="job-request-form"
+      [formGroup]="jobRequestForm"
+      autocomplete="off"
+    >
+
+      <!-- ====================================
+           Position Information
+           ==================================== -->
+
+      <div class="cxp-item-group-box job-request-group">
+
+        <header class="item-group-header cxp-section__header">
+
+          <h2 class="cxp-section__title">
+            Position Information
+          </h2>
+
+        </header>
+
+        <div class="job-request-grid">
+
+          <!-- Department -->
+
+          <div class="cxp-input__wrap">
+
+            <label
+              class="cxp-label cxp-label-bg cxp-label-sm"
+              for="departmentId"
+            >
+              Department
+            </label>
+
+            <cxp-input-select
+              id="departmentId"
+              formControlName="departmentId"
+              size="sm"
+              placeholder="Select Department"
+              [options]="departmentOptions"
+              [invalid]="isInvalid('departmentId')"
+            ></cxp-input-select>
+
+            @if (isInvalid('departmentId')) {
+              <span class="job-request-error">
+                Department is required.
+              </span>
+            }
+
+          </div>
+
+          <!-- Job Position -->
+
+          <div class="cxp-input__wrap">
+
+            <label
+              class="cxp-label cxp-label-bg cxp-label-sm"
+              for="positionId"
+            >
+              Job Position
+            </label>
+
+            <cxp-input-select
+              id="positionId"
+              formControlName="positionId"
+              size="sm"
+              placeholder="Select Job Position"
+              [options]="positionOptions"
+              [invalid]="isInvalid('positionId')"
+            ></cxp-input-select>
+
+            @if (isInvalid('positionId')) {
+              <span class="job-request-error">
+                Job position is required.
+              </span>
+            }
+
+          </div>
+
+          <!-- Required Headcount -->
+
+          <div class="cxp-input__wrap">
+
+            <label
+              class="cxp-label cxp-label-bg cxp-label-sm"
+              for="requestedHeadcount"
+            >
+              Required Headcount
+            </label>
+
+            <cxp-input-text
+              id="requestedHeadcount"
+              formControlName="requestedHeadcount"
+              size="sm"
+              type="number"
+              placeholder="Number of Employees"
+              [invalid]="isInvalid('requestedHeadcount')"
+            ></cxp-input-text>
+
+            @if (isInvalid('requestedHeadcount')) {
+              <span class="job-request-error">
+                Enter a positive whole number.
+              </span>
+            }
+
+          </div>
+
+          <!-- Required Date -->
+
+          <div class="cxp-input__wrap">
+
+            <label
+              class="cxp-label cxp-label-bg cxp-label-sm"
+              for="requiredDate"
+            >
+              Required Date
+            </label>
+
+            <cxp-input-text
+              id="requiredDate"
+              formControlName="requiredDate"
+              size="sm"
+              type="date"
+              [invalid]="isInvalid('requiredDate')"
+            ></cxp-input-text>
+
+            @if (isInvalid('requiredDate')) {
+              <span class="job-request-error">
+                Required date is mandatory.
+              </span>
+            }
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ====================================
+           Request Details
+           ==================================== -->
+
+      <div class="cxp-item-group-box job-request-group">
+
+        <header class="item-group-header cxp-section__header">
+
+          <h2 class="cxp-section__title">
+            Request Details
+          </h2>
+
+        </header>
+
+        <div class="job-request-grid">
+
+          <!-- Request Type -->
+
+          <div class="cxp-input__wrap">
+
+            <label
+              class="cxp-label cxp-label-bg cxp-label-sm"
+              for="requestType"
+            >
+              Request Type
+            </label>
+
+            <cxp-input-select
+              id="requestType"
+              formControlName="requestType"
+              size="sm"
+              placeholder="Select Request Type"
+              [options]="requestTypeOptions"
+              [invalid]="isInvalid('requestType')"
+            ></cxp-input-select>
+
+          </div>
+
+          <!-- Priority -->
+
+          <div class="cxp-input__wrap">
+
+            <label
+              class="cxp-label cxp-label-bg cxp-label-sm"
+              for="priority"
+            >
+              Priority
+            </label>
+
+            <cxp-input-select
+              id="priority"
+              formControlName="priority"
+              size="sm"
+              placeholder="Select Priority"
+              [options]="priorityOptions"
+              [invalid]="isInvalid('priority')"
+            ></cxp-input-select>
+
+          </div>
+
+        </div>
+
+        <!-- ==================================
+             Justification
+             ================================== -->
+
+        <div class="cxp-input__wrap job-request-justification">
+
+          <label
+            class="cxp-label cxp-label-bg cxp-label-sm"
+            for="justification"
+          >
+            Justification
+          </label>
+
+          <textarea
+            id="justification"
+            class="job-request-textarea"
+            formControlName="justification"
+            rows="5"
+            maxlength="2000"
+            placeholder="Explain why the manpower is required..."
+            [class.is-invalid]="isInvalid('justification')"
+          ></textarea>
+
+          <div class="job-request-field-footer">
+
+            @if (isInvalid('justification')) {
+              <span class="job-request-error">
+                Justification must contain
+                at least 10 characters.
+              </span>
+            }
+
+            <span class="job-request-character-count">
+              {{ jobRequestForm.controls.justification.value.length }}
+              / 2000
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ====================================
+           Status Messages
+           ==================================== -->
+
+      @if (errorMessage()) {
+
+        <div
+          class="job-request-message job-request-message--error"
+          role="alert"
+        >
+          {{ errorMessage() }}
+        </div>
+
+      }
+
+      @if (successMessage()) {
+
+        <div
+          class="job-request-message job-request-message--success"
+          role="status"
+        >
+          {{ successMessage() }}
+        </div>
+
+      }
+
+      <!-- ====================================
+           Form Actions
+           ==================================== -->
+
+      <div class="cxp-section__footer job-request-actions">
+
+        <!-- Reset -->
+
+        <cxp-button
+          size="sm"
+          variant="secondary"
+          [disabled]="isSubmitting()"
+          (clicked)="reset()"
+        >
+          Reset
+        </cxp-button>
+
+        <!-- Submit Request -->
+
+        <cxp-button
+          size="sm"
+          variant="secondary"
+          [disabled]="isSubmitting()"
+          (clicked)="submit()"
+        >
+
+          @if (isSubmitting()) {
+            Submitting...
+          } @else {
+            Submit Request
+          }
+
+        </cxp-button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+</div>

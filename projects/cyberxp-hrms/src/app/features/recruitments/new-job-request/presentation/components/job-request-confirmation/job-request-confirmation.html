@@ -1,0 +1,206 @@
+
+<!-- ========================================
+     JOB REQUEST CONFIRMATION
+     ======================================== -->
+
+<div class="cxp-page confirmation-page">
+
+  <!-- ======================================
+       Page Header
+       ====================================== -->
+
+  <header class="cxp-section__header confirmation-page-header">
+
+    <h2 class="cxp-section__title">
+      Job Request Confirmation
+    </h2>
+
+  </header>
+
+  <!-- ======================================
+       Main Body
+       ====================================== -->
+
+  <section class="cxp-section confirmation-main-body">
+
+    @if (request; as jobRequest) {
+
+      <!-- ====================================
+           Confirmation Status
+           ==================================== -->
+
+      <div class="confirmation-status">
+
+        <div
+          class="confirmation-status__icon"
+          aria-hidden="true"
+        >
+          ✓
+        </div>
+
+        <h2 class="confirmation-status__title">
+          Request Validated
+        </h2>
+
+        <p class="confirmation-status__description">
+          Your job request has passed validation.
+          This is a local confirmation preview.
+          The request has not yet been saved
+          or submitted for approval.
+        </p>
+
+      </div>
+
+      <!-- ====================================
+           Request Summary
+           ==================================== -->
+
+      <div class="confirmation-summary">
+
+        <header class="confirmation-summary__header">
+
+          <h3 class="cxp-section__title">
+            Request Summary
+          </h3>
+
+        </header>
+
+        <div class="confirmation-grid">
+
+          <!-- Department -->
+
+          <div class="confirmation-field">
+
+            <span class="confirmation-field__label">
+              Department
+            </span>
+
+            <span class="confirmation-field__value">
+              {{ departmentName }}
+            </span>
+
+          </div>
+
+          <!-- Position -->
+
+          <div class="confirmation-field">
+
+            <span class="confirmation-field__label">
+              Job Position
+            </span>
+
+            <span class="confirmation-field__value">
+              {{ positionName }}
+            </span>
+
+          </div>
+
+          <!-- Headcount -->
+
+          <div class="confirmation-field">
+
+            <span class="confirmation-field__label">
+              Required Headcount
+            </span>
+
+            <span class="confirmation-field__value">
+              {{ jobRequest.requestedHeadcount }}
+            </span>
+
+          </div>
+
+          <!-- Required Date -->
+
+          <div class="confirmation-field">
+
+            <span class="confirmation-field__label">
+              Required Date
+            </span>
+
+            <span class="confirmation-field__value">
+              {{ jobRequest.requiredDate }}
+            </span>
+
+          </div>
+
+          <!-- Request Type -->
+
+          <div class="confirmation-field">
+
+            <span class="confirmation-field__label">
+              Request Type
+            </span>
+
+            <span class="confirmation-field__value">
+              {{ requestTypeLabel }}
+            </span>
+
+          </div>
+
+          <!-- Priority -->
+
+          <div class="confirmation-field">
+
+            <span class="confirmation-field__label">
+              Priority
+            </span>
+
+            <span class="confirmation-field__value">
+              {{ priorityLabel }}
+            </span>
+
+          </div>
+
+          <!-- Justification -->
+
+          <div class="confirmation-field confirmation-field--full">
+
+            <span class="confirmation-field__label">
+              Justification
+            </span>
+
+            <span class="confirmation-field__value">
+              {{ jobRequest.justification }}
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    } @else {
+
+      <!-- ====================================
+           Missing Request
+           ==================================== -->
+
+      <div
+        class="confirmation-message confirmation-message--error"
+        role="alert"
+      >
+        No job request preview was found.
+        Please create a new request.
+      </div>
+
+    }
+
+    <!-- ====================================
+         Footer Actions
+         ==================================== -->
+
+    <div class="cxp-section__footer confirmation-actions">
+
+      <cxp-button
+        size="sm"
+        variant="secondary"
+        (clicked)="newRequest()"
+      >
+        New Request
+      </cxp-button>
+
+    </div>
+
+  </section>
+
+</div>

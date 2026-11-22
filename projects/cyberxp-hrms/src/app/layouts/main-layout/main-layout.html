@@ -1,36 +1,20 @@
-
-<cxp-layout-main
-  [(sidebarOpen)]="sidebarOpen"
-  [(sidebarWidth)]="sidebarWidth"
->
+<cxp-layout-main [(sidebarOpen)]="sidebarOpen" [(sidebarWidth)]="sidebarWidth">
   <!-- ========================================
        HEADER
        ======================================== -->
 
   <div layout-header class="main-layout__header">
-
-    <cxp-icon-app-nav
-      class="cyberxp-logo"
-      size="xs"
-      fill="filled"
-    ></cxp-icon-app-nav>
+    <cxp-icon-app-nav class="cyberxp-logo" size="xs" fill="filled"></cxp-icon-app-nav>
 
     <label class="module-name cxp-title cxp-title-md">
       CXP-HRMS
-      <span class="module-name-span">
-        - Human Resource Management System
-      </span>
+      <span class="module-name-span"> - Human Resource Management System </span>
       v.10.1.0
     </label>
 
-    <header-apps-icon
-      class="header-apps-icon"
-    ></header-apps-icon>
+    <header-apps-icon class="header-apps-icon"></header-apps-icon>
 
-    <header-user-icon
-      class="header-apps-icon"
-    ></header-user-icon>
-
+    <header-user-icon class="header-apps-icon"></header-user-icon>
   </div>
 
   <!-- ========================================
@@ -42,36 +26,22 @@
     class="main-layout__body__sidebar cxp-sidebar"
     [class.main-layout__body__sidebar--open]="sidebarOpen"
   >
-
     <!-- COMPANY LOGO -->
 
     <div class="sidebar__header cxp-sidebar__header">
-      <img
-        class="company-logo-img"
-        src="/assets/images/icons/spx-logo.png"
-        alt="SPX Logo"
-      />
+      <img class="company-logo-img" src="/assets/images/icons/spx-logo.png" alt="SPX Logo" />
     </div>
 
     <!-- ======================================
          NAVIGATION
          ====================================== -->
 
-    <nav
-      class="sidebar__menu"
-      aria-label="HRMS navigation"
-    >
-
+    <nav class="sidebar__menu" aria-label="HRMS navigation">
       <!-- ====================================
            01 - RECRUITMENT & ONBOARDING
            ==================================== -->
 
-      <cxp-menu-sidebar-item
-        [group]="true"
-        [expanded]="false"
-        ariaLabel="Recruitment & Onboarding"
-      >
-
+      <cxp-menu-sidebar-item [group]="true" [expanded]="false" ariaLabel="Recruitment & Onboarding">
         <cxp-icon-recruitment
           start
           size="md"
@@ -79,13 +49,10 @@
           [strokeWidth]="1.5"
         ></cxp-icon-recruitment>
 
-        <span label>Recruitment & Onboarding</span>
+        <span label>Recruitment </span>
 
         <!-- Dashboard -->
-        <cxp-menu-sidebar-item
-          route="/app/recruitment/dashboard"
-          [exact]="true"
-        >
+        <cxp-menu-sidebar-item route="/app/recruitment/dashboard" [exact]="true">
           <cxp-icon-dashboard
             start
             size="sm"
@@ -100,12 +67,7 @@
              JOB REQUISITIONS
              ==================================== -->
 
-        <cxp-menu-sidebar-item
-          [group]="true"
-          [expanded]="false"
-          ariaLabel="Job Requisitions"
-        >
-
+        <cxp-menu-sidebar-item [group]="true" [expanded]="false" ariaLabel="Job Requisitions">
           <cxp-icon-job-requisitions
             start
             size="sm"
@@ -119,6 +81,7 @@
           <cxp-menu-sidebar-item
             class="job-requisitions-submenu-item"
             route="/app/recruitment/job-requisitions/new"
+            [exact]="true"
           >
             <cxp-icon-job-request-new
               start
@@ -175,13 +138,10 @@
 
             <span label>Pending Approvals</span>
           </cxp-menu-sidebar-item>
-
         </cxp-menu-sidebar-item>
 
         <!-- Job Openings -->
-        <cxp-menu-sidebar-item
-          route="/app/recruitment/job-openings"
-        >
+        <cxp-menu-sidebar-item route="/app/recruitment/job-openings">
           <cxp-icon-job-openings
             start
             size="sm"
@@ -193,9 +153,7 @@
         </cxp-menu-sidebar-item>
 
         <!-- Applicants -->
-        <cxp-menu-sidebar-item
-          route="/app/recruitment/applicants"
-        >
+        <cxp-menu-sidebar-item route="/app/recruitment/applicants">
           <cxp-icon-applicants
             start
             size="sm"
@@ -207,9 +165,7 @@
         </cxp-menu-sidebar-item>
 
         <!-- Screening & Interviews -->
-        <cxp-menu-sidebar-item
-          route="/app/recruitment/screening"
-        >
+        <cxp-menu-sidebar-item route="/app/recruitment/screening">
           <cxp-icon-screening-interviews
             start
             size="sm"
@@ -221,9 +177,7 @@
         </cxp-menu-sidebar-item>
 
         <!-- Job Offers -->
-        <cxp-menu-sidebar-item
-          route="/app/recruitment/job-offers"
-        >
+        <cxp-menu-sidebar-item route="/app/recruitment/job-offers">
           <cxp-icon-job-offers
             start
             size="sm"
@@ -235,14 +189,8 @@
         </cxp-menu-sidebar-item>
 
         <!-- Hire New -->
-        @if (
-          userAccessService.hasPermission(
-            'hrms.employee.personal.create'
-          )
-        ) {
-          <cxp-menu-sidebar-item
-            route="/app/hire-new/personal-info"
-          >
+        @if (userAccessService.hasPermission('hrms.employee.personal.create')) {
+          <cxp-menu-sidebar-item route="/app/hire-new/personal-info">
             <cxp-icon-hire-new
               start
               size="sm"
@@ -255,9 +203,7 @@
         }
 
         <!-- Onboarding -->
-        <cxp-menu-sidebar-item
-          route="/app/recruitment/onboarding"
-        >
+        <cxp-menu-sidebar-item route="/app/recruitment/onboarding">
           <cxp-icon-onboarding
             start
             size="sm"
@@ -269,9 +215,7 @@
         </cxp-menu-sidebar-item>
 
         <!-- Recruitment History -->
-        <cxp-menu-sidebar-item
-          route="/app/recruitment/history"
-        >
+        <cxp-menu-sidebar-item route="/app/recruitment/history">
           <cxp-icon-recruitment-history
             start
             size="sm"
@@ -281,19 +225,13 @@
 
           <span label>Recruitment History</span>
         </cxp-menu-sidebar-item>
-
       </cxp-menu-sidebar-item>
 
       <!-- ====================================
            02 - EMPLOYEE MANAGEMENT
            ==================================== -->
 
-      <cxp-menu-sidebar-item
-        [group]="true"
-        [expanded]="false"
-        ariaLabel="Employee Management"
-      >
-
+      <cxp-menu-sidebar-item [group]="true" [expanded]="false" ariaLabel="Employee Management">
         <cxp-icon-employee-management
           start
           size="md"
@@ -301,13 +239,10 @@
           [strokeWidth]="1.5"
         ></cxp-icon-employee-management>
 
-        <span label>Employee Management</span>
+        <span label>Employee </span>
 
         <!-- Dashboard -->
-        <cxp-menu-sidebar-item
-          route="/app/employee/dashboard"
-          [exact]="true"
-        >
+        <cxp-menu-sidebar-item route="/app/employee/dashboard" [exact]="true">
           <cxp-icon-dashboard
             start
             size="sm"
@@ -319,10 +254,7 @@
         </cxp-menu-sidebar-item>
 
         <!-- Employee Records -->
-        <cxp-menu-sidebar-item
-          route="/app/employee-list"
-          [exact]="true"
-        >
+        <cxp-menu-sidebar-item route="/app/employee-list" [exact]="true">
           <cxp-icon-employee-records
             start
             size="sm"
@@ -334,9 +266,7 @@
         </cxp-menu-sidebar-item>
 
         <!-- Employee History -->
-        <cxp-menu-sidebar-item
-          route="/app/employees/history"
-        >
+        <cxp-menu-sidebar-item route="/app/employees/history">
           <cxp-icon-employee-history
             start
             size="sm"
@@ -348,9 +278,7 @@
         </cxp-menu-sidebar-item>
 
         <!-- Employment & Assignments -->
-        <cxp-menu-sidebar-item
-          route="/app/employee/employment"
-        >
+        <cxp-menu-sidebar-item route="/app/employee/employment">
           <cxp-icon-employment-assignments
             start
             size="sm"
@@ -362,9 +290,7 @@
         </cxp-menu-sidebar-item>
 
         <!-- Employee Movements -->
-        <cxp-menu-sidebar-item
-          route="/app/employee/movements"
-        >
+        <cxp-menu-sidebar-item route="/app/employee/movements">
           <cxp-icon-employee-movements
             start
             size="sm"
@@ -376,24 +302,14 @@
         </cxp-menu-sidebar-item>
 
         <!-- Rehire -->
-        <cxp-menu-sidebar-item
-          route="/app/rehire-search"
-          [exact]="true"
-        >
-          <cxp-icon-rehire
-            start
-            size="sm"
-            fill="outline"
-            [strokeWidth]="1.5"
-          ></cxp-icon-rehire>
+        <cxp-menu-sidebar-item route="/app/rehire-search" [exact]="true">
+          <cxp-icon-rehire start size="sm" fill="outline" [strokeWidth]="1.5"></cxp-icon-rehire>
 
           <span label>Rehire</span>
         </cxp-menu-sidebar-item>
 
         <!-- Rehire History -->
-        <cxp-menu-sidebar-item
-          route="/app/rehire-history"
-        >
+        <cxp-menu-sidebar-item route="/app/rehire-history">
           <cxp-icon-rehire-history
             start
             size="sm"
@@ -405,10 +321,7 @@
         </cxp-menu-sidebar-item>
 
         <!-- Reactivate -->
-        <cxp-menu-sidebar-item
-          route="/app/reactivation"
-          [exact]="true"
-        >
+        <cxp-menu-sidebar-item route="/app/reactivation" [exact]="true">
           <cxp-icon-reactivate
             start
             size="sm"
@@ -420,9 +333,7 @@
         </cxp-menu-sidebar-item>
 
         <!-- Reactivation History -->
-        <cxp-menu-sidebar-item
-          route="/app/reactivation/history"
-        >
+        <cxp-menu-sidebar-item route="/app/reactivation/history">
           <cxp-icon-reactivation-history
             start
             size="sm"
@@ -434,9 +345,7 @@
         </cxp-menu-sidebar-item>
 
         <!-- Offboarding -->
-        <cxp-menu-sidebar-item
-          route="/app/employee/offboarding"
-        >
+        <cxp-menu-sidebar-item route="/app/employee/offboarding">
           <cxp-icon-offboarding
             start
             size="sm"
@@ -448,9 +357,7 @@
         </cxp-menu-sidebar-item>
 
         <!-- Performance & Development -->
-        <cxp-menu-sidebar-item
-          route="/app/employee/performance"
-        >
+        <cxp-menu-sidebar-item route="/app/employee/performance">
           <cxp-icon-performance-development
             start
             size="sm"
@@ -460,19 +367,13 @@
 
           <span label>Performance & Development</span>
         </cxp-menu-sidebar-item>
-
       </cxp-menu-sidebar-item>
 
       <!-- ====================================
            03 - PAYROLL & ATTENDANCE
            ==================================== -->
 
-      <cxp-menu-sidebar-item
-        [group]="true"
-        [expanded]="false"
-        ariaLabel="Payroll & Attendance"
-      >
-
+      <cxp-menu-sidebar-item [group]="true" [expanded]="false" ariaLabel="Payroll & Attendance">
         <cxp-icon-payroll-attendance
           start
           size="md"
@@ -480,13 +381,10 @@
           [strokeWidth]="1.5"
         ></cxp-icon-payroll-attendance>
 
-        <span label>Payroll & Attendance</span>
+        <span label>Payroll </span>
 
         <!-- Dashboard -->
-        <cxp-menu-sidebar-item
-          route="/app/payroll/dashboard"
-          [exact]="true"
-        >
+        <cxp-menu-sidebar-item route="/app/payroll/dashboard" [exact]="true">
           <cxp-icon-dashboard
             start
             size="sm"
@@ -498,9 +396,7 @@
         </cxp-menu-sidebar-item>
 
         <!-- Work Schedules -->
-        <cxp-menu-sidebar-item
-          route="/app/payroll/work-schedules"
-        >
+        <cxp-menu-sidebar-item route="/app/payroll/work-schedules">
           <cxp-icon-work-schedules
             start
             size="sm"
@@ -512,9 +408,7 @@
         </cxp-menu-sidebar-item>
 
         <!-- Attendance -->
-        <cxp-menu-sidebar-item
-          route="/app/payroll/attendance"
-        >
+        <cxp-menu-sidebar-item route="/app/payroll/attendance">
           <cxp-icon-attendance
             start
             size="sm"
@@ -526,9 +420,7 @@
         </cxp-menu-sidebar-item>
 
         <!-- Leave & Absences -->
-        <cxp-menu-sidebar-item
-          route="/app/payroll/leave"
-        >
+        <cxp-menu-sidebar-item route="/app/payroll/leave">
           <cxp-icon-leave-absences
             start
             size="sm"
@@ -540,23 +432,14 @@
         </cxp-menu-sidebar-item>
 
         <!-- Overtime -->
-        <cxp-menu-sidebar-item
-          route="/app/payroll/overtime"
-        >
-          <cxp-icon-overtime
-            start
-            size="sm"
-            fill="outline"
-            [strokeWidth]="1.5"
-          ></cxp-icon-overtime>
+        <cxp-menu-sidebar-item route="/app/payroll/overtime">
+          <cxp-icon-overtime start size="sm" fill="outline" [strokeWidth]="1.5"></cxp-icon-overtime>
 
           <span label>Overtime</span>
         </cxp-menu-sidebar-item>
 
         <!-- Compensation -->
-        <cxp-menu-sidebar-item
-          route="/app/payroll/compensation"
-        >
+        <cxp-menu-sidebar-item route="/app/payroll/compensation">
           <cxp-icon-compensation
             start
             size="sm"
@@ -568,9 +451,7 @@
         </cxp-menu-sidebar-item>
 
         <!-- Payroll Processing -->
-        <cxp-menu-sidebar-item
-          route="/app/payroll/processing"
-        >
+        <cxp-menu-sidebar-item route="/app/payroll/processing">
           <cxp-icon-payroll-processing
             start
             size="sm"
@@ -582,9 +463,7 @@
         </cxp-menu-sidebar-item>
 
         <!-- Payroll History -->
-        <cxp-menu-sidebar-item
-          route="/app/payroll/history"
-        >
+        <cxp-menu-sidebar-item route="/app/payroll/history">
           <cxp-icon-payroll-history
             start
             size="sm"
@@ -596,9 +475,7 @@
         </cxp-menu-sidebar-item>
 
         <!-- Benefits & Deductions -->
-        <cxp-menu-sidebar-item
-          route="/app/payroll/benefits"
-        >
+        <cxp-menu-sidebar-item route="/app/payroll/benefits">
           <cxp-icon-benefits-deductions
             start
             size="sm"
@@ -608,19 +485,13 @@
 
           <span label>Benefits & Deductions</span>
         </cxp-menu-sidebar-item>
-
       </cxp-menu-sidebar-item>
 
       <!-- ====================================
            04 - HR ADMINISTRATION
            ==================================== -->
 
-      <cxp-menu-sidebar-item
-        [group]="true"
-        [expanded]="false"
-        ariaLabel="HR Administration"
-      >
-
+      <cxp-menu-sidebar-item [group]="true" [expanded]="false" ariaLabel="HR Administration">
         <cxp-icon-hr-administration
           start
           size="md"
@@ -628,13 +499,10 @@
           [strokeWidth]="1.5"
         ></cxp-icon-hr-administration>
 
-        <span label>HR Administration</span>
+        <span label>HR Admin</span>
 
         <!-- Dashboard -->
-        <cxp-menu-sidebar-item
-          route="/app/admin/dashboard"
-          [exact]="true"
-        >
+        <cxp-menu-sidebar-item route="/app/admin/dashboard" [exact]="true">
           <cxp-icon-dashboard
             start
             size="sm"
@@ -646,9 +514,7 @@
         </cxp-menu-sidebar-item>
 
         <!-- HR Policies -->
-        <cxp-menu-sidebar-item
-          route="/app/admin/policies"
-        >
+        <cxp-menu-sidebar-item route="/app/admin/policies">
           <cxp-icon-hr-policies
             start
             size="sm"
@@ -660,9 +526,7 @@
         </cxp-menu-sidebar-item>
 
         <!-- HR References -->
-        <cxp-menu-sidebar-item
-          route="/app/admin/references"
-        >
+        <cxp-menu-sidebar-item route="/app/admin/references">
           <cxp-icon-hr-references
             start
             size="sm"
@@ -674,9 +538,7 @@
         </cxp-menu-sidebar-item>
 
         <!-- Approval Workflows -->
-        <cxp-menu-sidebar-item
-          route="/app/admin/workflows"
-        >
+        <cxp-menu-sidebar-item route="/app/admin/workflows">
           <cxp-icon-approval-workflows
             start
             size="sm"
@@ -688,9 +550,7 @@
         </cxp-menu-sidebar-item>
 
         <!-- Pending Approvals -->
-        <cxp-menu-sidebar-item
-          route="/app/approvals/pending"
-        >
+        <cxp-menu-sidebar-item route="/app/approvals/pending">
           <cxp-icon-pending-approvals
             start
             size="sm"
@@ -702,9 +562,7 @@
         </cxp-menu-sidebar-item>
 
         <!-- Approval History -->
-        <cxp-menu-sidebar-item
-          route="/app/approvals/history"
-        >
+        <cxp-menu-sidebar-item route="/app/approvals/history">
           <cxp-icon-approval-history
             start
             size="sm"
@@ -716,9 +574,7 @@
         </cxp-menu-sidebar-item>
 
         <!-- Document Requirements -->
-        <cxp-menu-sidebar-item
-          route="/app/admin/documents"
-        >
+        <cxp-menu-sidebar-item route="/app/admin/documents">
           <cxp-icon-document-requirements
             start
             size="sm"
@@ -730,9 +586,7 @@
         </cxp-menu-sidebar-item>
 
         <!-- HR Compliance -->
-        <cxp-menu-sidebar-item
-          route="/app/admin/compliance"
-        >
+        <cxp-menu-sidebar-item route="/app/admin/compliance">
           <cxp-icon-hr-compliance
             start
             size="sm"
@@ -744,21 +598,12 @@
         </cxp-menu-sidebar-item>
 
         <!-- HR Audit -->
-        <cxp-menu-sidebar-item
-          route="/app/admin/audit"
-        >
-          <cxp-icon-hr-audit
-            start
-            size="sm"
-            fill="outline"
-            [strokeWidth]="1.5"
-          ></cxp-icon-hr-audit>
+        <cxp-menu-sidebar-item route="/app/admin/audit">
+          <cxp-icon-hr-audit start size="sm" fill="outline" [strokeWidth]="1.5"></cxp-icon-hr-audit>
 
           <span label>HR Audit</span>
         </cxp-menu-sidebar-item>
-
       </cxp-menu-sidebar-item>
-
     </nav>
 
     <!-- ======================================
@@ -766,35 +611,20 @@
          ====================================== -->
 
     <div class="sidebar__footer">
-
       <!-- Settings -->
-      <cxp-menu-sidebar-item
-        route="/app/settings"
-      >
-        <cxp-icon-settings-nav
-          start
-          size="xs"
-          fill="outline"
-        ></cxp-icon-settings-nav>
+      <cxp-menu-sidebar-item route="/app/settings">
+        <cxp-icon-settings-nav start size="xs" fill="outline"></cxp-icon-settings-nav>
 
         <span label>Settings</span>
       </cxp-menu-sidebar-item>
 
       <!-- Logout -->
-      <cxp-menu-sidebar-item
-        route="/app/logouts"
-      >
-        <cxp-icon-logout-nav
-          start
-          size="xs"
-          fill="outline"
-        ></cxp-icon-logout-nav>
+      <cxp-menu-sidebar-item route="/app/logouts">
+        <cxp-icon-logout-nav start size="xs" fill="outline"></cxp-icon-logout-nav>
 
         <span label>Logout</span>
       </cxp-menu-sidebar-item>
-
     </div>
-
   </aside>
 
   <!-- ========================================
@@ -802,11 +632,8 @@
        ======================================== -->
 
   <div layout-footer>
-    <label class="main-layout__footer__notes">
-      © 2026 CyberXP ERP. All rights reserved.
-    </label>
+    <label class="main-layout__footer__notes"> © 2026 CyberXP ERP. All rights reserved. </label>
   </div>
-
 </cxp-layout-main>
 
 <!-- ========================================

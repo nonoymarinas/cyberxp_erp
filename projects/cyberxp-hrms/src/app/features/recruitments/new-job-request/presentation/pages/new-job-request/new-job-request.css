@@ -1,0 +1,408 @@
+/* ========================================
+   New Job Request Host
+   ======================================== */
+
+:host {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  min-width: 0;
+  min-height: 0;
+
+  box-sizing: border-box;
+}
+
+/* ========================================
+   Main Page Layout
+   ======================================== */
+
+.job-request-page {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+
+  margin: 0;
+  padding: 0.5rem;
+
+  box-sizing: border-box;
+}
+
+/* ========================================
+   Page Header
+   ======================================== */
+
+.job-request-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  width: 100%;
+  min-width: 0;
+
+  margin-bottom: 1rem;
+}
+
+.job-request-header__content {
+  min-width: 0;
+}
+
+.job-request-subtitle {
+  margin: 0.25rem 0 0;
+
+  color: var(--color-text-07);
+
+  font-size: 0.875rem;
+}
+
+/* ========================================
+   Request Status
+   ======================================== */
+
+.job-request-status {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 0.35rem 0.75rem;
+
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--border-radius-card);
+
+  color: var(--color-text-primary);
+
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* ========================================
+   Main Body
+   ======================================== */
+
+.job-request-main-body {
+  flex: 1 1 auto;
+
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+
+  padding: 0.75rem;
+
+  box-sizing: border-box;
+
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-section);
+
+  overflow-y: auto;
+}
+
+/* ========================================
+   Form Layout
+   ======================================== */
+
+.job-request-form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 1rem;
+
+  width: 100%;
+  min-width: 0;
+
+  box-sizing: border-box;
+}
+
+/* ========================================
+   Item Group
+   ======================================== */
+
+.job-request-group {
+  width: 100%;
+  min-width: 0;
+
+  /* padding: 0.75rem; */
+
+  /* border: 1px solid var(--color-border-subtle); */
+  border-radius: var(--border-radius-card);
+
+  box-sizing: border-box;
+}
+
+/* ========================================
+   Item Group Header
+   ======================================== */
+
+.item-group-header {
+  display: grid;
+  grid-template-columns: 1fr;
+
+  align-items: center;
+  gap: 1rem;
+
+  margin-bottom: 1rem;
+
+  border-radius: var(--border-radius-header);
+}
+
+/* ========================================
+   Form Grid
+   ======================================== */
+
+.job-request-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  column-gap: 1.5rem;
+  row-gap: 1rem;
+
+  width: 100%;
+  min-width: 0;
+}
+
+/* ========================================
+   Input Wrappers
+   ======================================== */
+
+.cxp-input__wrap {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.cxp-input__wrap:last-child {
+  margin-bottom: 0;
+}
+
+/* ========================================
+   Labels
+   ======================================== */
+
+.cxp-label {
+  padding: 0.5rem;
+}
+
+/* ========================================
+   CyberXP Input Components
+   ======================================== */
+
+.job-request-grid cxp-input-text,
+.job-request-grid cxp-input-select {
+  display: block;
+
+  width: 100%;
+  min-width: 0;
+}
+
+/* ========================================
+   Justification
+   ======================================== */
+
+.job-request-justification {
+  width: 100%;
+  min-width: 0;
+
+  margin-top: 1rem;
+}
+
+.job-request-textarea {
+  display: block;
+
+  width: 100%;
+  min-width: 0;
+
+  min-height: 110px;
+
+  padding: 0.65rem 0.75rem;
+
+  box-sizing: border-box;
+
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--border-radius-card);
+
+  background-color: transparent;
+  color: var(--color-text-primary);
+
+  font: inherit;
+  font-size: 0.875rem;
+  line-height: 1.5;
+
+  resize: vertical;
+}
+
+.job-request-textarea:focus {
+  outline: 1px solid var(--color-border-primary);
+  outline-offset: 1px;
+}
+
+.job-request-textarea.is-invalid {
+  border-color: var(--color-error-text);
+}
+
+/* ========================================
+   Field Footer
+   ======================================== */
+
+.job-request-field-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.job-request-character-count {
+  margin-left: auto;
+
+  color: var(--color-text-07);
+
+  font-size: 0.75rem;
+}
+
+/* ========================================
+   Validation Errors
+   ======================================== */
+
+.job-request-error {
+  color: var(--color-error-text);
+
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* ========================================
+   Status Messages
+   ======================================== */
+
+.job-request-message {
+  width: 100%;
+
+  padding: 0.75rem 1rem;
+
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--border-radius-card);
+
+  box-sizing: border-box;
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.job-request-message--error {
+  color: var(--color-error-text);
+}
+
+.job-request-message--success {
+  color: var(--color-text-primary);
+}
+
+/* ========================================
+   Form Actions
+   ======================================== */
+
+.job-request-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  width: 100%;
+  min-width: 0;
+}
+
+.job-request-actions cxp-button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+}
+
+/* ========================================
+   Tablet Layout
+   ======================================== */
+
+@media (max-width: 768px) {
+  .cxp-input__wrap {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 0.25rem;
+    min-width: 0;
+  }
+
+  .cxp-label {
+    padding: 0 .1rem;
+    background: none;
+  }
+
+  .job-request-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .job-request-main-body {
+    padding: 0;
+    border: none;
+  }
+
+  .job-request-group {
+    /* padding: 0.5rem; */
+  }
+
+  .job-request-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .job-request-actions > cxp-button:last-child {
+    justify-self: self-end;
+  }
+
+  .job-request-page {
+    padding: 1rem
+  }
+
+
+}
+
+/* ========================================
+   Small Screen Layout
+   ======================================== */
+
+@media (max-width: 480px) {
+
+  .job-request-header {
+    align-items: flex-start;
+  }
+
+  .job-request-actions {
+    gap: 0.5rem;
+  }
+
+  .job-request-actions cxp-button {
+    flex: 1 1 auto;
+  }
+
+}
+
+/* ========================================
+   Reduced Motion
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .job-request-textarea {
+    scroll-behavior: auto;
+  }
+
+}
