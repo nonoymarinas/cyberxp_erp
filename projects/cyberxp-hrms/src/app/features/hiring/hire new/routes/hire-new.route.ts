@@ -55,6 +55,13 @@ import { SamePersonComponent } from '../presentation/pages/person-match/person-m
 
 import { SamePersonService } from '../application/services/same-person.service';
 
+import { WizardStepStateService } from '../application/state/wizard-step-state.service';
+
+import { ApplicantDraftStateService } from '../application/state/applicant-draft-state.service';
+
+import { PersonMatchStateService } from '../application/state/person-match-state.service';
+import { ScreeningStateService } from '../application/state/screening-state.service';
+import { PersonMatchDecisionStateService } from '../application/state/person-match-decision-state.service';
 // ========================================
 // Routes
 // ========================================
@@ -68,7 +75,15 @@ export const NEW_EMPLOYEE_ROUTES: Routes = [
     // Shared Wizard State
     // ======================================
 
-    providers: [NewEmployeeStateService, SamePersonService],
+    providers: [
+      NewEmployeeStateService,
+      WizardStepStateService,
+      SamePersonService,
+      ApplicantDraftStateService,
+      PersonMatchStateService,
+      ScreeningStateService,
+      PersonMatchDecisionStateService
+    ],
 
     // ======================================
     // New Employee RBAC

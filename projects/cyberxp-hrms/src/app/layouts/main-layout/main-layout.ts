@@ -13,23 +13,77 @@ import {
   // Header Icon
   CxpIconAppNav,
 
-  // Main Menu Icons
-  CxpIconMenuDashboard,
-  CxpIconMenuHome,
-  CxpIconMenuEmployees,
-  CxpIconHumanPlus,
-  CxpIconMenuRehire,
-  CxpIconMenuReactivation,
+  // ======================================
+  // Shared Icons
+  // ======================================
 
-  // Submenu Icons
-  CxpIconMenuRecords,
-  CxpIconHumanNew,
-  CxpIconMenuHistory,
-  CxpIconMenuPending,
+  CxpIconDashboard,
 
+  // ======================================
+  // 01 - Recruitment & Onboarding
+  // ======================================
+
+  CxpIconRecruitment,
+  CxpIconJobRequisitions,
+  CxpIconJobOpenings,
+  CxpIconApplicants,
+  CxpIconScreeningInterviews,
+  CxpIconJobOffers,
+  CxpIconHireNew,
+  CxpIconOnboarding,
+  CxpIconRecruitmentHistory,
+
+  // ======================================
+  // 02 - Employee Management
+  // ======================================
+
+  CxpIconEmployeeManagement,
+  CxpIconEmployeeRecords,
+  CxpIconEmployeeHistory,
+  CxpIconEmploymentAssignments,
+  CxpIconEmployeeMovements,
+  CxpIconRehire,
+  CxpIconRehireHistory,
+  CxpIconReactivate,
+  CxpIconReactivationHistory,
+  CxpIconOffboarding,
+  CxpIconPerformanceDevelopment,
+
+  // ======================================
+  // 03 - Payroll & Attendance
+  // ======================================
+
+  CxpIconPayrollAttendance,
+  CxpIconWorkSchedules,
+  CxpIconAttendance,
+  CxpIconLeaveAbsences,
+  CxpIconOvertime,
+  CxpIconCompensation,
+  CxpIconPayrollProcessing,
+  CxpIconPayrollHistory,
+  CxpIconBenefitsDeductions,
+
+  // ======================================
+  // 04 - HR Administration
+  // ======================================
+
+  CxpIconHrAdministration,
+  CxpIconHrPolicies,
+  CxpIconHrReferences,
+  CxpIconApprovalWorkflows,
+  CxpIconPendingApprovals,
+  CxpIconApprovalHistory,
+  CxpIconDocumentRequirements,
+  CxpIconHrCompliance,
+  CxpIconHrAudit,
+
+  // ======================================
   // Footer Icons
+  // ======================================
+
   CxpIconSettingsNav,
   CxpIconLogoutNav,
+
 } from 'cyberxp-ui';
 
 // ========================================
@@ -69,34 +123,96 @@ import {
   standalone: true,
 
   imports: [
+    // ======================================
     // Layout
+    // ======================================
+
     CxpLayoutMain,
     CxpMenuSidebarItem,
 
+    // ======================================
     // Header
+    // ======================================
+
     CxpIconAppNav,
     HeaderAppsIcon,
     HeaderUserIcon,
 
-    // Main Menu Icons
-    CxpIconMenuDashboard,
-    CxpIconMenuHome,
-    CxpIconMenuEmployees,
-    CxpIconHumanPlus,
-    CxpIconMenuRehire,
-    CxpIconMenuReactivation,
+    // ======================================
+    // Shared Icons
+    // ======================================
 
-    // Submenu Icons
-    CxpIconMenuRecords,
-    CxpIconHumanNew,
-    CxpIconMenuHistory,
-    CxpIconMenuPending,
+    CxpIconDashboard,
 
+    // ======================================
+    // 01 - Recruitment & Onboarding
+    // ======================================
+
+    CxpIconRecruitment,
+    CxpIconJobRequisitions,
+    CxpIconJobOpenings,
+    CxpIconApplicants,
+    CxpIconScreeningInterviews,
+    CxpIconJobOffers,
+    CxpIconHireNew,
+    CxpIconOnboarding,
+    CxpIconRecruitmentHistory,
+
+    // ======================================
+    // 02 - Employee Management
+    // ======================================
+
+    CxpIconEmployeeManagement,
+    CxpIconEmployeeRecords,
+    CxpIconEmployeeHistory,
+    CxpIconEmploymentAssignments,
+    CxpIconEmployeeMovements,
+    CxpIconRehire,
+    CxpIconRehireHistory,
+    CxpIconReactivate,
+    CxpIconReactivationHistory,
+    CxpIconOffboarding,
+    CxpIconPerformanceDevelopment,
+
+    // ======================================
+    // 03 - Payroll & Attendance
+    // ======================================
+
+    CxpIconPayrollAttendance,
+    CxpIconWorkSchedules,
+    CxpIconAttendance,
+    CxpIconLeaveAbsences,
+    CxpIconOvertime,
+    CxpIconCompensation,
+    CxpIconPayrollProcessing,
+    CxpIconPayrollHistory,
+    CxpIconBenefitsDeductions,
+
+    // ======================================
+    // 04 - HR Administration
+    // ======================================
+
+    CxpIconHrAdministration,
+    CxpIconHrPolicies,
+    CxpIconHrReferences,
+    CxpIconApprovalWorkflows,
+    CxpIconPendingApprovals,
+    CxpIconApprovalHistory,
+    CxpIconDocumentRequirements,
+    CxpIconHrCompliance,
+    CxpIconHrAudit,
+
+    // ======================================
     // Footer Icons
+    // ======================================
+
     CxpIconSettingsNav,
     CxpIconLogoutNav,
 
+    // ======================================
     // Chatbot
+    // ======================================
+
     CxpChatbotMain,
   ],
 

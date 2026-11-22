@@ -4,7 +4,7 @@
   [(sidebarWidth)]="sidebarWidth"
 >
   <!-- ========================================
-       Header
+       HEADER
        ======================================== -->
 
   <div layout-header class="main-layout__header">
@@ -34,7 +34,7 @@
   </div>
 
   <!-- ========================================
-       Sidebar
+       SIDEBAR
        ======================================== -->
 
   <aside
@@ -43,9 +43,7 @@
     [class.main-layout__body__sidebar--open]="sidebarOpen"
   >
 
-    <!-- ======================================
-         Company Logo
-         ====================================== -->
+    <!-- COMPANY LOGO -->
 
     <div class="sidebar__header cxp-sidebar__header">
       <img
@@ -56,7 +54,7 @@
     </div>
 
     <!-- ======================================
-         Navigation
+         NAVIGATION
          ====================================== -->
 
     <nav
@@ -65,115 +63,90 @@
     >
 
       <!-- ====================================
-           Dashboard
-           ==================================== -->
-
-      <cxp-menu-sidebar-item
-        route="/app/dashboard"
-        [exact]="true"
-      >
-        <cxp-icon-menu-dashboard
-          start
-          size="md"
-          fill="outline"
-          [strokeWidth]="1.5"
-        ></cxp-icon-menu-dashboard>
-
-        <span label>Dashboard</span>
-      </cxp-menu-sidebar-item>
-
-      <!-- ====================================
-           Home
-           ==================================== -->
-
-      <cxp-menu-sidebar-item
-        route="/app/home"
-        [exact]="true"
-      >
-        <cxp-icon-menu-home
-          start
-          size="md"
-          fill="outline"
-          [strokeWidth]="1.5"
-        ></cxp-icon-menu-home>
-
-        <span label>Home</span>
-      </cxp-menu-sidebar-item>
-
-      <!-- ====================================
-           Employees
+           01 - RECRUITMENT & ONBOARDING
            ==================================== -->
 
       <cxp-menu-sidebar-item
         [group]="true"
         [expanded]="false"
-        ariaLabel="Employees"
+        ariaLabel="Recruitment & Onboarding"
       >
 
-        <cxp-icon-menu-employees
-          start
-          size="md"
-          fill="outline"
+        <cxp-icon-recruitment
+          start size="md" fill="outline"
           [strokeWidth]="1.5"
-        ></cxp-icon-menu-employees>
+        ></cxp-icon-recruitment>
 
-        <span label>Employees</span>
+        <span label>Recruitment & Onboarding</span>
 
-        <!-- Employee Records -->
-
+        <!-- Dashboard -->
         <cxp-menu-sidebar-item
-          route="/app/employee-list"
+          route="/app/recruitment/dashboard"
           [exact]="true"
         >
-          <cxp-icon-menu-records
-            start
-            size="sm"
-            fill="outline"
+          <cxp-icon-dashboard
+            start size="sm" fill="outline"
             [strokeWidth]="1.5"
-          ></cxp-icon-menu-records>
-
-          <span label>Records</span>
+          ></cxp-icon-dashboard>
+          <span label>Dashboard</span>
         </cxp-menu-sidebar-item>
 
-        <!-- Employee History -->
-
+        <!-- Job Requisitions -->
         <cxp-menu-sidebar-item
-          route="/app/employees/history"
+          route="/app/recruitment/job-requisitions"
         >
-          <cxp-icon-menu-history
-            start
-            size="sm"
-            fill="outline"
+          <cxp-icon-job-requisitions
+            start size="sm" fill="outline"
             [strokeWidth]="1.5"
-          ></cxp-icon-menu-history>
-
-          <span label>History</span>
+          ></cxp-icon-job-requisitions>
+          <span label>Job Requisitions</span>
         </cxp-menu-sidebar-item>
 
-      </cxp-menu-sidebar-item>
-      <!-- End Employees -->
+        <!-- Job Openings -->
+        <cxp-menu-sidebar-item
+          route="/app/recruitment/job-openings"
+        >
+          <cxp-icon-job-openings
+            start size="sm" fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-job-openings>
+          <span label>Job Openings</span>
+        </cxp-menu-sidebar-item>
 
-      <!-- ====================================
-           Hiring
-           ==================================== -->
+        <!-- Applicants -->
+        <cxp-menu-sidebar-item
+          route="/app/recruitment/applicants"
+        >
+          <cxp-icon-applicants
+            start size="sm" fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-applicants>
+          <span label>Applicants</span>
+        </cxp-menu-sidebar-item>
 
-      <cxp-menu-sidebar-item
-        [group]="true"
-        [expanded]="false"
-        ariaLabel="Hiring"
-      >
+        <!-- Screening & Interviews -->
+        <cxp-menu-sidebar-item
+          route="/app/recruitment/screening"
+        >
+          <cxp-icon-screening-interviews
+            start size="sm" fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-screening-interviews>
+          <span label>Screening & Interviews</span>
+        </cxp-menu-sidebar-item>
 
-        <cxp-icon-human-plus
-          start
-          size="md"
-          fill="outline"
-          [strokeWidth]="1.5"
-        ></cxp-icon-human-plus>
-
-        <span label>Hiring</span>
+        <!-- Job Offers -->
+        <cxp-menu-sidebar-item
+          route="/app/recruitment/job-offers"
+        >
+          <cxp-icon-job-offers
+            start size="sm" fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-job-offers>
+          <span label>Job Offers</span>
+        </cxp-menu-sidebar-item>
 
         <!-- Hire New -->
-
         @if (
           userAccessService.hasPermission(
             'hrms.employee.personal.create'
@@ -182,226 +155,445 @@
           <cxp-menu-sidebar-item
             route="/app/hire-new/personal-info"
           >
-            <cxp-icon-human-new
-              start
-              size="sm"
-              fill="outline"
+            <cxp-icon-hire-new
+              start size="sm" fill="outline"
               [strokeWidth]="1.5"
-            ></cxp-icon-human-new>
-
+            ></cxp-icon-hire-new>
             <span label>Hire New</span>
           </cxp-menu-sidebar-item>
         }
 
-        <!-- Hiring History -->
-
+        <!-- Onboarding -->
         <cxp-menu-sidebar-item
-          route="/app/hiring/history"
+          route="/app/recruitment/onboarding"
         >
-          <cxp-icon-menu-history
-            start
-            size="sm"
-            fill="outline"
+          <cxp-icon-onboarding
+            start size="sm" fill="outline"
             [strokeWidth]="1.5"
-          ></cxp-icon-menu-history>
+          ></cxp-icon-onboarding>
+          <span label>Onboarding</span>
+        </cxp-menu-sidebar-item>
 
-          <span label>History</span>
+        <!-- Recruitment History -->
+        <cxp-menu-sidebar-item
+          route="/app/recruitment/history"
+        >
+          <cxp-icon-recruitment-history
+            start size="sm" fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-recruitment-history>
+          <span label>Recruitment History</span>
         </cxp-menu-sidebar-item>
 
       </cxp-menu-sidebar-item>
-      <!-- End Hiring -->
 
       <!-- ====================================
-           Rehiring
+           02 - EMPLOYEE MANAGEMENT
            ==================================== -->
 
       <cxp-menu-sidebar-item
         [group]="true"
         [expanded]="false"
-        ariaLabel="Rehiring"
+        ariaLabel="Employee Management"
       >
 
-        <cxp-icon-menu-rehire
-          start
-          size="md"
-          fill="outline"
+        <cxp-icon-employee-management
+          start size="md" fill="outline"
           [strokeWidth]="1.5"
-        ></cxp-icon-menu-rehire>
+        ></cxp-icon-employee-management>
 
-        <span label>Rehiring</span>
+        <span label>Employee Management</span>
+
+        <!-- Dashboard -->
+        <cxp-menu-sidebar-item
+          route="/app/employee/dashboard"
+          [exact]="true"
+        >
+          <cxp-icon-dashboard
+            start size="sm" fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-dashboard>
+          <span label>Dashboard</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- Employee Records -->
+        <cxp-menu-sidebar-item
+          route="/app/employee-list"
+          [exact]="true"
+        >
+          <cxp-icon-employee-records
+            start size="sm" fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-employee-records>
+          <span label>Employee Records</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- Employee History -->
+        <cxp-menu-sidebar-item
+          route="/app/employees/history"
+        >
+          <cxp-icon-employee-history
+            start size="sm" fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-employee-history>
+          <span label>Employee History</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- Employment & Assignments -->
+        <cxp-menu-sidebar-item
+          route="/app/employee/employment"
+        >
+          <cxp-icon-employment-assignments
+            start size="sm" fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-employment-assignments>
+          <span label>Employment & Assignments</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- Employee Movements -->
+        <cxp-menu-sidebar-item
+          route="/app/employee/movements"
+        >
+          <cxp-icon-employee-movements
+            start size="sm" fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-employee-movements>
+          <span label>Employee Movements</span>
+        </cxp-menu-sidebar-item>
 
         <!-- Rehire -->
-
         <cxp-menu-sidebar-item
           route="/app/rehire-search"
           [exact]="true"
         >
-          <cxp-icon-menu-rehire
-            start
-            size="sm"
-            fill="outline"
+          <cxp-icon-rehire
+            start size="sm" fill="outline"
             [strokeWidth]="1.5"
-          ></cxp-icon-menu-rehire>
-
+          ></cxp-icon-rehire>
           <span label>Rehire</span>
         </cxp-menu-sidebar-item>
 
-        <!-- Rehiring History -->
-
+        <!-- Rehire History -->
         <cxp-menu-sidebar-item
           route="/app/rehire-history"
         >
-          <cxp-icon-menu-history
-            start
-            size="sm"
-            fill="outline"
+          <cxp-icon-rehire-history
+            start size="sm" fill="outline"
             [strokeWidth]="1.5"
-          ></cxp-icon-menu-history>
-
-          <span label>History</span>
+          ></cxp-icon-rehire-history>
+          <span label>Rehire History</span>
         </cxp-menu-sidebar-item>
 
-      </cxp-menu-sidebar-item>
-      <!-- End Rehiring -->
-
-      <!-- ====================================
-           Reactivation
-           ==================================== -->
-
-      <cxp-menu-sidebar-item
-        [group]="true"
-        [expanded]="false"
-        ariaLabel="Reactivation"
-      >
-
-        <cxp-icon-menu-reactivation
-          start
-          size="md"
-          fill="outline"
-          [strokeWidth]="1.5"
-        ></cxp-icon-menu-reactivation>
-
-        <span label>Reactivation</span>
-
         <!-- Reactivate -->
-
         <cxp-menu-sidebar-item
           route="/app/reactivation"
           [exact]="true"
         >
-          <cxp-icon-menu-reactivation
-            start
-            size="sm"
-            fill="outline"
+          <cxp-icon-reactivate
+            start size="sm" fill="outline"
             [strokeWidth]="1.5"
-          ></cxp-icon-menu-reactivation>
-
+          ></cxp-icon-reactivate>
           <span label>Reactivate</span>
         </cxp-menu-sidebar-item>
 
         <!-- Reactivation History -->
-
         <cxp-menu-sidebar-item
           route="/app/reactivation/history"
         >
-          <cxp-icon-menu-history
-            start
-            size="sm"
-            fill="outline"
+          <cxp-icon-reactivation-history
+            start size="sm" fill="outline"
             [strokeWidth]="1.5"
-          ></cxp-icon-menu-history>
+          ></cxp-icon-reactivation-history>
+          <span label>Reactivation History</span>
+        </cxp-menu-sidebar-item>
 
-          <span label>History</span>
+        <!-- Offboarding -->
+        <cxp-menu-sidebar-item
+          route="/app/employee/offboarding"
+        >
+          <cxp-icon-offboarding
+            start size="sm" fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-offboarding>
+          <span label>Offboarding</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- Performance & Development -->
+        <cxp-menu-sidebar-item
+          route="/app/employee/performance"
+        >
+          <cxp-icon-performance-development
+            start size="sm" fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-performance-development>
+          <span label>Performance & Development</span>
         </cxp-menu-sidebar-item>
 
       </cxp-menu-sidebar-item>
-      <!-- End Reactivation -->
 
       <!-- ====================================
-           Approvals
+           03 - PAYROLL & ATTENDANCE
            ==================================== -->
 
       <cxp-menu-sidebar-item
         [group]="true"
         [expanded]="false"
-        ariaLabel="Approvals"
+        ariaLabel="Payroll & Attendance"
       >
 
-        <cxp-icon-menu-pending
-          start
-          size="md"
-          fill="outline"
+        <cxp-icon-payroll-attendance
+          start size="md" fill="outline"
           [strokeWidth]="1.5"
-        ></cxp-icon-menu-pending>
+        ></cxp-icon-payroll-attendance>
 
-        <span label>Approvals</span>
+        <span label>Payroll & Attendance</span>
 
-        <!-- Pending Approvals -->
-
+        <!-- Dashboard -->
         <cxp-menu-sidebar-item
-          route="/app/approvals/pending"
+          route="/app/payroll/dashboard"
+          [exact]="true"
         >
-          <cxp-icon-menu-pending
-            start
-            size="sm"
-            fill="outline"
+          <cxp-icon-dashboard
+            start size="sm" fill="outline"
             [strokeWidth]="1.5"
-          ></cxp-icon-menu-pending>
-
-          <span label>Pending</span>
+          ></cxp-icon-dashboard>
+          <span label>Dashboard</span>
         </cxp-menu-sidebar-item>
 
-        <!-- Approval History -->
-
+        <!-- Work Schedules -->
         <cxp-menu-sidebar-item
-          route="/app/approvals/history"
+          route="/app/payroll/work-schedules"
         >
-          <cxp-icon-menu-history
-            start
-            size="sm"
-            fill="outline"
+          <cxp-icon-work-schedules
+            start size="sm" fill="outline"
             [strokeWidth]="1.5"
-          ></cxp-icon-menu-history>
+          ></cxp-icon-work-schedules>
+          <span label>Work Schedules</span>
+        </cxp-menu-sidebar-item>
 
-          <span label>History</span>
+        <!-- Attendance -->
+        <cxp-menu-sidebar-item
+          route="/app/payroll/attendance"
+        >
+          <cxp-icon-attendance
+            start size="sm" fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-attendance>
+          <span label>Attendance</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- Leave & Absences -->
+        <cxp-menu-sidebar-item
+          route="/app/payroll/leave"
+        >
+          <cxp-icon-leave-absences
+            start size="sm" fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-leave-absences>
+          <span label>Leave & Absences</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- Overtime -->
+        <cxp-menu-sidebar-item
+          route="/app/payroll/overtime"
+        >
+          <cxp-icon-overtime
+            start size="sm" fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-overtime>
+          <span label>Overtime</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- Compensation -->
+        <cxp-menu-sidebar-item
+          route="/app/payroll/compensation"
+        >
+          <cxp-icon-compensation
+            start size="sm" fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-compensation>
+          <span label>Compensation</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- Payroll Processing -->
+        <cxp-menu-sidebar-item
+          route="/app/payroll/processing"
+        >
+          <cxp-icon-payroll-processing
+            start size="sm" fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-payroll-processing>
+          <span label>Payroll Processing</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- Payroll History -->
+        <cxp-menu-sidebar-item
+          route="/app/payroll/history"
+        >
+          <cxp-icon-payroll-history
+            start size="sm" fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-payroll-history>
+          <span label>Payroll History</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- Benefits & Deductions -->
+        <cxp-menu-sidebar-item
+          route="/app/payroll/benefits"
+        >
+          <cxp-icon-benefits-deductions
+            start size="sm" fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-benefits-deductions>
+          <span label>Benefits & Deductions</span>
         </cxp-menu-sidebar-item>
 
       </cxp-menu-sidebar-item>
-      <!-- End Approvals -->
+
+      <!-- ====================================
+           04 - HR ADMINISTRATION
+           ==================================== -->
+
+      <cxp-menu-sidebar-item
+        [group]="true"
+        [expanded]="false"
+        ariaLabel="HR Administration"
+      >
+
+        <cxp-icon-hr-administration
+          start size="md" fill="outline"
+          [strokeWidth]="1.5"
+        ></cxp-icon-hr-administration>
+
+        <span label>HR Administration</span>
+
+        <!-- Dashboard -->
+        <cxp-menu-sidebar-item
+          route="/app/admin/dashboard"
+          [exact]="true"
+        >
+          <cxp-icon-dashboard
+            start size="sm" fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-dashboard>
+          <span label>Dashboard</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- HR Policies -->
+        <cxp-menu-sidebar-item
+          route="/app/admin/policies"
+        >
+          <cxp-icon-hr-policies
+            start size="sm" fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-hr-policies>
+          <span label>HR Policies</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- HR References -->
+        <cxp-menu-sidebar-item
+          route="/app/admin/references"
+        >
+          <cxp-icon-hr-references
+            start size="sm" fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-hr-references>
+          <span label>HR References</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- Approval Workflows -->
+        <cxp-menu-sidebar-item
+          route="/app/admin/workflows"
+        >
+          <cxp-icon-approval-workflows
+            start size="sm" fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-approval-workflows>
+          <span label>Approval Workflows</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- Pending Approvals -->
+        <cxp-menu-sidebar-item
+          route="/app/approvals/pending"
+        >
+          <cxp-icon-pending-approvals
+            start size="sm" fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-pending-approvals>
+          <span label>Pending Approvals</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- Approval History -->
+        <cxp-menu-sidebar-item
+          route="/app/approvals/history"
+        >
+          <cxp-icon-approval-history
+            start size="sm" fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-approval-history>
+          <span label>Approval History</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- Document Requirements -->
+        <cxp-menu-sidebar-item
+          route="/app/admin/documents"
+        >
+          <cxp-icon-document-requirements
+            start size="sm" fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-document-requirements>
+          <span label>Document Requirements</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- HR Compliance -->
+        <cxp-menu-sidebar-item
+          route="/app/admin/compliance"
+        >
+          <cxp-icon-hr-compliance
+            start size="sm" fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-hr-compliance>
+          <span label>HR Compliance</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- HR Audit -->
+        <cxp-menu-sidebar-item
+          route="/app/admin/audit"
+        >
+          <cxp-icon-hr-audit
+            start size="sm" fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-hr-audit>
+          <span label>HR Audit</span>
+        </cxp-menu-sidebar-item>
+
+      </cxp-menu-sidebar-item>
 
     </nav>
 
     <!-- ======================================
-         Sidebar Footer
+         SIDEBAR FOOTER
          ====================================== -->
 
     <div class="sidebar__footer">
 
       <!-- Settings -->
-
       <cxp-menu-sidebar-item
         route="/app/settings"
       >
         <cxp-icon-settings-nav
-          start
-          size="xs"
-          fill="outline"
+          start size="xs" fill="outline"
         ></cxp-icon-settings-nav>
-
         <span label>Settings</span>
       </cxp-menu-sidebar-item>
 
       <!-- Logout -->
-
       <cxp-menu-sidebar-item
         route="/app/logouts"
       >
         <cxp-icon-logout-nav
-          start
-          size="xs"
-          fill="outline"
+          start size="xs" fill="outline"
         ></cxp-icon-logout-nav>
-
         <span label>Logout</span>
       </cxp-menu-sidebar-item>
 
@@ -410,7 +602,7 @@
   </aside>
 
   <!-- ========================================
-       Footer
+       FOOTER
        ======================================== -->
 
   <div layout-footer>
@@ -422,7 +614,7 @@
 </cxp-layout-main>
 
 <!-- ========================================
-     Chatbot
+     CHATBOT
      ======================================== -->
 
 <cxp-chatbot-main />
