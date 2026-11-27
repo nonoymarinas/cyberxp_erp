@@ -12,26 +12,35 @@ import { ForgotPassword as ForgotPassword } from './features/authentication/page
 export const routes: Routes = [
   {
     path: '',
-    component: AuthLayout,
-    children: [
-      {
-        path: '',
-        component: Login,
-      },
-      {
-        path: 'forgot-password',
-        component: ForgotPassword,
-      },
-       {
-        path: 'atms-terms-of-service',
-        component: TermsOfService,
-      },
-      {
-        path: 'atms-privacy-policy',
-        component: PrivacyPolicy,
-      },
-    ],
+    component: MainLayout,
   },
+  {
+    path: '**',
+    redirectTo: '',
+  },
+  // {
+    
+    // path: '',
+    // component: AuthLayout,
+    // children: [
+    //   {
+    //     path: '',
+    //     component: Login,
+    //   },
+    //   {
+    //     path: 'forgot-password',
+    //     component: ForgotPassword,
+    //   },
+    //    {
+    //     path: 'atms-terms-of-service',
+    //     component: TermsOfService,
+    //   },
+    //   {
+    //     path: 'atms-privacy-policy',
+    //     component: PrivacyPolicy,
+    //   },
+    // ],
+  // },
   {
     path: 'app',
     component: MainLayout,

@@ -27,7 +27,7 @@ export function findMockWorkFlowStatusById(
 ): ReferenceItemDto | undefined {
 
   const item = WORK_FLOW_STATUS_MOCK_DATA.find(
-    item => item.publicId === publicId
+    item => item.guid === publicId
   );
 
   return item ? { ...item } : undefined;

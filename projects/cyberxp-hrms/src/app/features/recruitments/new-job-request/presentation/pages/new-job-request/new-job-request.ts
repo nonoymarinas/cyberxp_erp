@@ -1,8 +1,11 @@
-
 import {
   Component,
   inject,
   signal,
+  computed,
+  OnInit,
+  DestroyRef,
+  isDevMode,
 } from '@angular/core';
 
 import {
@@ -17,6 +20,14 @@ import {
 } from '@angular/forms';
 
 import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
+
+// ========================================
+// CyberXP UI
+// ========================================
+
+import {
   CxpButton,
   CxpInputSelect,
   CxpInputText,
@@ -25,6 +36,22 @@ import {
 import type {
   CxpSelectOption,
 } from 'cyberxp-ui';
+
+// ========================================
+// Application Services
+// ========================================
+
+import {
+  JobRequestReferenceService,
+} from '../../../application/services/references/job-request-reference.service';
+
+// ========================================
+// Application State
+// ========================================
+
+import {
+  JobRequestReferenceState,
+} from '../../../application/states/references/job-request-reference.state';
 
 // ========================================
 // New Job Request Component
@@ -44,13 +71,23 @@ import type {
   templateUrl: './new-job-request.html',
   styleUrl: './new-job-request.css',
 })
-export class NewJobRequest {
+export class NewJobRequest implements OnInit {
 
   // ========================================
   // Dependencies
   // ========================================
 
-  private readonly router = inject(Router);
+  private readonly router =
+    inject(Router);
+
+  private readonly destroyRef =
+    inject(DestroyRef);
+
+  private readonly referenceService =
+    inject(JobRequestReferenceService);
+
+  private readonly referenceState =
+    inject(JobRequestReferenceState);
 
   // ========================================
   // Component State
@@ -65,94 +102,81 @@ export class NewJobRequest {
   readonly errorMessage = signal('');
 
   // ========================================
-  // Department References
-  // Temporary Mock Data
+  // Reference State
   // ========================================
 
-  readonly departmentOptions: CxpSelectOption[] = [
-    {
-      value: '1',
-      label: 'Engineering',
-    },
-    {
-      value: '2',
-      label: 'Operations',
-    },
-    {
-      value: '3',
-      label: 'Human Resources',
-    },
-    {
-      value: '4',
-      label: 'Accounting',
-    },
-  ];
+  readonly referencesLoading =
+    this.referenceState.loading;
+
+  readonly referencesLoaded =
+    this.referenceState.loaded;
+
+  readonly referencesError =
+    this.referenceState.error;
+
+  // ========================================
+  // Department References
+  // ========================================
+
+  readonly departmentOptions =
+    computed<CxpSelectOption[]>(() =>
+
+      this.referenceState.departments().map(
+        department => ({
+          value: String(department.id),
+          label: department.name,
+        })
+      )
+
+    );
 
   // ========================================
   // Position References
-  // Temporary Mock Data
   // ========================================
 
-  readonly positionOptions: CxpSelectOption[] = [
-    {
-      value: '1',
-      label: 'Civil Engineer',
-    },
-    {
-      value: '2',
-      label: 'Project Engineer',
-    },
-    {
-      value: '3',
-      label: 'Accountant',
-    },
-    {
-      value: '4',
-      label: 'HR Officer',
-    },
-  ];
+  readonly positionOptions =
+    computed<CxpSelectOption[]>(() =>
+
+      this.referenceState.positions().map(
+        position => ({
+          value: String(position.id),
+          label: position.name,
+        })
+      )
+
+    );
 
   // ========================================
   // Request Type References
   // ========================================
 
-  readonly requestTypeOptions: CxpSelectOption[] = [
-    {
-      value: 'ADDITIONAL',
-      label: 'Additional Headcount',
-    },
-    {
-      value: 'REPLACEMENT',
-      label: 'Replacement Employee',
-    },
-    {
-      value: 'PROJECT_BASED',
-      label: 'Project-Based',
-    },
-  ];
+  readonly requestTypeOptions =
+    computed<CxpSelectOption[]>(() =>
+
+      this.referenceState.jobRequestTypes().map(
+        requestType => ({
+          value: requestType.code,
+          label: requestType.name,
+        })
+      )
+
+    );
 
   // ========================================
   // Priority References
   // ========================================
 
-  readonly priorityOptions: CxpSelectOption[] = [
-    {
-      value: 'LOW',
-      label: 'Low',
-    },
-    {
-      value: 'NORMAL',
-      label: 'Normal',
-    },
-    {
-      value: 'HIGH',
-      label: 'High',
-    },
-    {
-      value: 'URGENT',
-      label: 'Urgent',
-    },
-  ];
+  readonly priorityOptions =
+    computed<CxpSelectOption[]>(() =>
+
+      this.referenceState.priorityLevels().map(
+        priority => ({
+          value: priority.code,
+          label: priority.name,
+        })
+      )
+
+    );
 
   // ========================================
   // Reactive Form
@@ -186,12 +210,12 @@ export class NewJobRequest {
     }),
 
     requestType: new FormControl<string | null>(
-      'ADDITIONAL',
+      'ADDITIONAL_HEADCOUNT',
       Validators.required
     ),
 
     priority: new FormControl<string | null>(
-      'NORMAL',
+      'MEDIUM',
       Validators.required
     ),
 
@@ -205,6 +229,144 @@ export class NewJobRequest {
     }),
 
   });
+
+  // ========================================
+  // Lifecycle
+  // ========================================
+
+  ngOnInit(): void {
+
+    this.loadReferences();
+
+  }
+
+  // ========================================
+  // Load Job Request References
+  // ========================================
+
+  private loadReferences(): void {
+
+    // ======================================
+    // Temporary Company ID
+    // Replace with authenticated company context
+    // ======================================
+
+    const companyId = 1;
+
+    this.referenceService
+      .loadReferences(companyId)
+      .pipe(
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe({
+
+        // ==================================
+        // References Loaded
+        // ==================================
+
+        next: () => {
+
+          if (!isDevMode()) {
+            return;
+          }
+
+          console.groupCollapsed(
+            '%c[PAGE] New Job Request References',
+            'color: #ff9800; font-weight: bold;'
+          );
+
+          console.log(
+            'Company ID:',
+            companyId
+          );
+
+          console.log(
+            'Full References:',
+            structuredClone(
+              this.referenceState.references()
+            )
+          );
+
+          // ==================================
+          // Departments
+          // ==================================
+
+          console.log(
+            'Departments:',
+            this.referenceState.departments()
+          );
+
+          console.table(
+            this.departmentOptions()
+          );
+
+          // ==================================
+          // Positions
+          // ==================================
+
+          console.log(
+            'Positions:',
+            this.referenceState.positions()
+          );
+
+          console.table(
+            this.positionOptions()
+          );
+
+          // ==================================
+          // Request Types
+          // ==================================
+
+          console.log(
+            'Job Request Types:',
+            this.referenceState.jobRequestTypes()
+          );
+
+          console.table(
+            this.requestTypeOptions()
+          );
+
+          // ==================================
+          // Priority Levels
+          // ==================================
+
+          console.log(
+            'Priority Levels:',
+            this.referenceState.priorityLevels()
+          );
+
+          console.table(
+            this.priorityOptions()
+          );
+
+          console.groupEnd();
+
+        },
+
+        // ==================================
+        // Reference Loading Error
+        // ==================================
+
+        error: error => {
+
+          this.errorMessage.set(
+            'Unable to load job request references.'
+          );
+
+          if (isDevMode()) {
+
+            console.error(
+              '[PAGE] Failed to load job request references',
+              error
+            );
+
+          }
+
+        },
+
+      });
+
+  }
 
   // ========================================
   // Field Validation
@@ -229,7 +391,10 @@ export class NewJobRequest {
 
   async submit(): Promise<void> {
 
-    if (this.isSubmitting()) {
+    if (
+      this.isSubmitting() ||
+      this.referencesLoading()
+    ) {
       return;
     }
 
@@ -237,6 +402,20 @@ export class NewJobRequest {
 
     this.successMessage.set('');
     this.errorMessage.set('');
+
+    // ======================================
+    // Reference Validation
+    // ======================================
+
+    if (!this.referencesLoaded()) {
+
+      this.errorMessage.set(
+        'Job request references are not available.'
+      );
+
+      return;
+
+    }
 
     // ======================================
     // Form Validation
@@ -260,6 +439,49 @@ export class NewJobRequest {
     const value =
       this.jobRequestForm.getRawValue();
 
+    // ======================================
+    // Validate Selected References
+    // ======================================
+
+    const validDepartment =
+      this.departmentOptions().some(
+        option => option.value === value.departmentId
+      );
+
+    const validPosition =
+      this.positionOptions().some(
+        option => option.value === value.positionId
+      );
+
+    const validRequestType =
+      this.requestTypeOptions().some(
+        option => option.value === value.requestType
+      );
+
+    const validPriority =
+      this.priorityOptions().some(
+        option => option.value === value.priority
+      );
+
+    if (
+      !validDepartment ||
+      !validPosition ||
+      !validRequestType ||
+      !validPriority
+    ) {
+
+      this.errorMessage.set(
+        'Please select valid job request references.'
+      );
+
+      return;
+
+    }
+
+    // ======================================
+    // Validate Justification
+    // ======================================
+
     const justification =
       value.justification.trim();
 
@@ -271,6 +493,10 @@ export class NewJobRequest {
 
       return;
     }
+
+    // ======================================
+    // Job Request Payload
+    // ======================================
 
     const request = {
 
@@ -368,8 +594,8 @@ export class NewJobRequest {
       positionId: null,
       requestedHeadcount: '1',
       requiredDate: '',
-      requestType: 'ADDITIONAL',
-      priority: 'NORMAL',
+      requestType: 'ADDITIONAL_HEADCOUNT',
+      priority: 'MEDIUM',
       justification: '',
 
     });

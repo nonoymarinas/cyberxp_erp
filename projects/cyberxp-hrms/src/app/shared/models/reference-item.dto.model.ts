@@ -1,6 +1,6 @@
 
 export interface ReferenceItemDto {
-  publicId: string;
+  guid: string;
   code: string | null;
-  referenceName: string;
+  name: string;
 }

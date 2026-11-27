@@ -1,0 +1,385 @@
+{
+  "success": true,
+  "message": "Job request references retrieved successfully.",
+  "errorCode": null,
+  "data": {
+    "priorityLevels": [
+      {
+        "id": 1,
+        "guid": "b1b95ecf-388a-4444-8ba5-48801e535bca",
+        "code": "CRITICAL",
+        "name": "Critical"
+      },
+      { "id": 2, "guid": "de499a70-5baa-4da0-b581-b57777658c87", "code": "HIGH", "name": "High" },
+      { "id": 4, "guid": "458766ea-1801-4efe-9b82-765bd545be16", "code": "LOW", "name": "Low" },
+      {
+        "id": 3,
+        "guid": "6f6d40f6-8866-43b6-83f3-ac0c0c37efb8",
+        "code": "MEDIUM",
+        "name": "Medium"
+      }
+    ],
+    "departments": [
+      {
+        "parentUnitId": null,
+        "id": 48,
+        "guid": "ba9214c3-fdd9-4b7f-8f3b-5102a23be363",
+        "code": "ACC",
+        "name": "Accounting"
+      },
+      {
+        "parentUnitId": null,
+        "id": 33,
+        "guid": "542b4a4f-ada1-4492-af18-1b531d11c70d",
+        "code": "ADMIN",
+        "name": "Administration"
+      },
+      {
+        "parentUnitId": null,
+        "id": 41,
+        "guid": "a02f0147-b63b-4cf7-a123-732f2de3da94",
+        "code": "ENG",
+        "name": "Engineering"
+      },
+      {
+        "parentUnitId": null,
+        "id": 45,
+        "guid": "e6dd5d1a-2520-467a-882f-ebcb56ec959d",
+        "code": "EXEC",
+        "name": "Executive Management"
+      },
+      {
+        "parentUnitId": null,
+        "id": 40,
+        "guid": "67faec5d-8894-4f8e-a68d-f5b038184029",
+        "code": "FIN",
+        "name": "Finance"
+      },
+      {
+        "parentUnitId": null,
+        "id": 37,
+        "guid": "88e0d558-842c-4a7c-b2dc-c17cac2f745d",
+        "code": "HSE",
+        "name": "Health, Safety and Environment"
+      },
+      {
+        "parentUnitId": null,
+        "id": 44,
+        "guid": "7481508d-b6b4-45de-b81d-a37586145e21",
+        "code": "HR",
+        "name": "Human Resources"
+      },
+      {
+        "parentUnitId": null,
+        "id": 46,
+        "guid": "0045e18f-b43f-4cec-a69e-fef3c9466da4",
+        "code": "IT",
+        "name": "Information Technology"
+      },
+      {
+        "parentUnitId": null,
+        "id": 43,
+        "guid": "5c3c6ab2-fff6-48f1-961b-7948c38519f6",
+        "code": "LOG",
+        "name": "Logistics"
+      },
+      {
+        "parentUnitId": null,
+        "id": 47,
+        "guid": "70aaab23-a3c6-468a-894d-a309d9c009a4",
+        "code": "MAINT",
+        "name": "Maintenance"
+      },
+      {
+        "parentUnitId": null,
+        "id": 38,
+        "guid": "a35594ad-9b3c-4138-b07b-9e68fc622df1",
+        "code": "OPS",
+        "name": "Operations"
+      },
+      {
+        "parentUnitId": null,
+        "id": 42,
+        "guid": "62e84650-a0f8-4fc1-90fb-a147b954d1c9",
+        "code": "PROC",
+        "name": "Procurement"
+      },
+      {
+        "parentUnitId": null,
+        "id": 36,
+        "guid": "f84122ed-1a45-4b48-b478-3f30a305bd91",
+        "code": "PMO",
+        "name": "Project Management"
+      },
+      {
+        "parentUnitId": null,
+        "id": 35,
+        "guid": "46c4b090-3be6-472c-9f0a-e88cf61db3ae",
+        "code": "QAQC",
+        "name": "Quality Assurance / Quality Control"
+      },
+      {
+        "parentUnitId": null,
+        "id": 39,
+        "guid": "dc75434b-db37-4f98-9498-754955c53575",
+        "code": "SALES",
+        "name": "Sales and Marketing"
+      },
+      {
+        "parentUnitId": null,
+        "id": 34,
+        "guid": "bebab25a-97c3-41a5-a7b8-288fc0292aa4",
+        "code": "WH",
+        "name": "Warehouse"
+      }
+    ],
+    "positions": [
+      {
+        "organizationUnitId": null,
+        "authorizedHeadcount": null,
+        "id": 68,
+        "guid": "fa7e5f77-2f03-4329-89cb-a300e832e7d2",
+        "code": "ACCOUNTANT",
+        "name": "Accountant"
+      },
+      {
+        "organizationUnitId": null,
+        "authorizedHeadcount": null,
+        "id": 59,
+        "guid": "1b66c32c-28ee-422a-9a95-cba7f83f3240",
+        "code": "ACCOUNTING_MANAGER",
+        "name": "Accounting Manager"
+      },
+      {
+        "organizationUnitId": null,
+        "authorizedHeadcount": null,
+        "id": 69,
+        "guid": "e460d433-2be8-44d7-b9e6-fbfe446cc1b1",
+        "code": "ADMIN_ASSISTANT",
+        "name": "Administrative Assistant"
+      },
+      {
+        "organizationUnitId": null,
+        "authorizedHeadcount": null,
+        "id": 75,
+        "guid": "4e4a8b69-8917-44f3-babe-011cc2641270",
+        "code": "CARPENTER",
+        "name": "Carpenter"
+      },
+      {
+        "organizationUnitId": null,
+        "authorizedHeadcount": null,
+        "id": 53,
+        "guid": "6812b97c-15c1-4be7-a917-04df85330440",
+        "code": "CEO",
+        "name": "Chief Executive Officer"
+      },
+      {
+        "organizationUnitId": null,
+        "authorizedHeadcount": null,
+        "id": 55,
+        "guid": "35f9d976-eec3-46e2-b5f5-4748de981813",
+        "code": "CFO",
+        "name": "Chief Financial Officer"
+      },
+      {
+        "organizationUnitId": null,
+        "authorizedHeadcount": null,
+        "id": 54,
+        "guid": "fda5e785-9e6c-420a-8ccd-bd7e5cb39a59",
+        "code": "COO",
+        "name": "Chief Operating Officer"
+      },
+      {
+        "organizationUnitId": null,
+        "authorizedHeadcount": null,
+        "id": 63,
+        "guid": "d1657826-397a-422d-8171-ee3f273ac9ca",
+        "code": "CIVIL_ENGINEER",
+        "name": "Civil Engineer"
+      },
+      {
+        "organizationUnitId": null,
+        "authorizedHeadcount": null,
+        "id": 71,
+        "guid": "5b4df6fe-0fbd-4035-add7-1b01d3cf1ff6",
+        "code": "FOREMAN",
+        "name": "Construction Foreman"
+      },
+      {
+        "organizationUnitId": null,
+        "authorizedHeadcount": null,
+        "id": 73,
+        "guid": "4e3fa16b-196b-4777-bcd1-839c81140a99",
+        "code": "ELECTRICIAN",
+        "name": "Electrician"
+      },
+      {
+        "organizationUnitId": null,
+        "authorizedHeadcount": null,
+        "id": 78,
+        "guid": "d675f068-4491-4136-bf83-750d37a905f1",
+        "code": "GENERAL_LABORER",
+        "name": "General Laborer"
+      },
+      {
+        "organizationUnitId": null,
+        "authorizedHeadcount": null,
+        "id": 56,
+        "guid": "57ea0668-4ce1-46b5-96e8-8111cee0a503",
+        "code": "GENERAL_MANAGER",
+        "name": "General Manager"
+      },
+      {
+        "organizationUnitId": null,
+        "authorizedHeadcount": null,
+        "id": 72,
+        "guid": "e4792bff-47d7-49ee-9a8b-d8142959ac63",
+        "code": "EQUIPMENT_OPERATOR",
+        "name": "Heavy Equipment Operator"
+      },
+      {
+        "organizationUnitId": null,
+        "authorizedHeadcount": null,
+        "id": 58,
+        "guid": "13d4cc97-6b72-4108-a4f1-a8f4c1df4972",
+        "code": "HR_MANAGER",
+        "name": "Human Resources Manager"
+      },
+      {
+        "organizationUnitId": null,
+        "authorizedHeadcount": null,
+        "id": 67,
+        "guid": "450a2748-453a-4451-b7fe-d4aa6117f9f4",
+        "code": "HR_OFFICER",
+        "name": "Human Resources Officer"
+      },
+      {
+        "organizationUnitId": null,
+        "authorizedHeadcount": null,
+        "id": 77,
+        "guid": "e599efac-b455-4508-8cdf-3794a8fe71ad",
+        "code": "MASON",
+        "name": "Mason"
+      },
+      {
+        "organizationUnitId": null,
+        "authorizedHeadcount": null,
+        "id": 57,
+        "guid": "32ecccf3-67bc-413a-b41e-9c0bf9f2d0dd",
+        "code": "OPERATIONS_MANAGER",
+        "name": "Operations Manager"
+      },
+      {
+        "organizationUnitId": null,
+        "authorizedHeadcount": null,
+        "id": 61,
+        "guid": "265cd78c-77ed-4445-9306-985c2c29f8e0",
+        "code": "PROJECT_ENGINEER",
+        "name": "Project Engineer"
+      },
+      {
+        "organizationUnitId": null,
+        "authorizedHeadcount": null,
+        "id": 60,
+        "guid": "ac85ff2b-a140-4dce-8d13-2a3f1ba8fd61",
+        "code": "PROJECT_MANAGER",
+        "name": "Project Manager"
+      },
+      {
+        "organizationUnitId": null,
+        "authorizedHeadcount": null,
+        "id": 65,
+        "guid": "946dfb5a-df0b-48c9-9590-71d9e4eaca48",
+        "code": "QAQC_ENGINEER",
+        "name": "QA/QC Engineer"
+      },
+      {
+        "organizationUnitId": null,
+        "authorizedHeadcount": null,
+        "id": 66,
+        "guid": "b66ef58d-4659-4011-a7d0-538fe23145b3",
+        "code": "SAFETY_OFFICER",
+        "name": "Safety Officer"
+      },
+      {
+        "organizationUnitId": null,
+        "authorizedHeadcount": null,
+        "id": 62,
+        "guid": "109be40e-1904-46af-9975-c6c8aed3bbba",
+        "code": "SITE_ENGINEER",
+        "name": "Site Engineer"
+      },
+      {
+        "organizationUnitId": null,
+        "authorizedHeadcount": null,
+        "id": 70,
+        "guid": "a48142bc-1555-4f69-88cb-8c5985d4afde",
+        "code": "SITE_SUPERVISOR",
+        "name": "Site Supervisor"
+      },
+      {
+        "organizationUnitId": null,
+        "authorizedHeadcount": null,
+        "id": 76,
+        "guid": "14eb0a4e-6e55-433d-9c36-e4690bc20bcd",
+        "code": "STEEL_FIXER",
+        "name": "Steel Fixer"
+      },
+      {
+        "organizationUnitId": null,
+        "authorizedHeadcount": null,
+        "id": 64,
+        "guid": "20e52c03-9ae4-4732-b167-18251c8f68f5",
+        "code": "STRUCTURAL_ENGINEER",
+        "name": "Structural Engineer"
+      },
+      {
+        "organizationUnitId": null,
+        "authorizedHeadcount": null,
+        "id": 74,
+        "guid": "048d2eab-84d8-47f6-82ab-34446c2082a1",
+        "code": "WELDER",
+        "name": "Welder"
+      }
+    ],
+    "jobRequestTypes": [
+      {
+        "id": 3,
+        "guid": "3eb151d7-8dae-45e2-92c0-8f572edf588c",
+        "code": "ADDITIONAL_HEADCOUNT",
+        "name": "Additional Headcount"
+      },
+      {
+        "id": 2,
+        "guid": "caff73f9-a01d-489f-9278-323f3a691ebb",
+        "code": "REPLACEMENT",
+        "name": "Employee Replacement"
+      },
+      {
+        "id": 1,
+        "guid": "055cd835-302b-4b97-9eec-b0372e7e1143",
+        "code": "NEW_POSITION",
+        "name": "New Position"
+      },
+      {
+        "id": 5,
+        "guid": "583ccfe6-a8c8-4dd7-acff-bef8bc987a0b",
+        "code": "PROJECT_BASED",
+        "name": "Project-Based Staffing"
+      },
+      {
+        "id": 6,
+        "guid": "395b4040-165a-4abb-9544-9db02badb52d",
+        "code": "SEASONAL",
+        "name": "Seasonal Staffing"
+      },
+      {
+        "id": 4,
+        "guid": "a7807554-136f-4fa8-9399-b873db487aaf",
+        "code": "TEMPORARY",
+        "name": "Temporary Staffing"
+      }
+    ]
+  }
+}

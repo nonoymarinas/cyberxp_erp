@@ -86,7 +86,11 @@
   background-color: var(--color-background-09);
   margin-inline: 0.5rem;
 }
-
+.sidebar__section-label{
+  margin-top: 1rem;
+  padding-left: 1rem;
+  font-weight: 500;
+}
 .sidebar__menu {
   display: flex;
   flex-direction: column;

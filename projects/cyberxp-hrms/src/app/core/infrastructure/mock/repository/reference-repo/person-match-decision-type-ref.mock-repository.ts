@@ -27,7 +27,7 @@ export function findMockPersonMatchDecisionTypeById(
 ): ReferenceItemDto | undefined {
 
   const item = PERSON_MATCH_DECISION_TYPE_MOCK_DATA.find(
-    item => item.publicId === publicId
+    item => item.guid === publicId
   );
 
   return item ? { ...item } : undefined;

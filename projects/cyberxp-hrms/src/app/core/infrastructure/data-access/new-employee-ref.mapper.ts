@@ -34,8 +34,8 @@ export function mapReferenceItem(
 ): ReferenceItem<string> {
 
   return {
-    id: dto.publicId,
-    name: dto.referenceName,
+    id: dto.guid,
+    name: dto.name,
 
     code: dto.code
       ? dto.code.trim().toUpperCase()

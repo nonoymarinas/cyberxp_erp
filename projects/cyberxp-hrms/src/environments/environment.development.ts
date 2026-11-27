@@ -7,7 +7,8 @@ export const environment = {
   },
 
   api: {
-    baseUrl: 'https://api-hrms-employee-dev.azurewebsites.net/api/v1',
+    // baseUrl: 'https://api-hrms-employee-dev.azurewebsites.net/api/v1',
+    baseUrl: 'https://localhost:7293/api/v1',
     apiKey: 'YOUR_API_KEY_HERE',
   },
 } as const;

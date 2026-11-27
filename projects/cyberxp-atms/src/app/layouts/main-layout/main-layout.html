@@ -1,56 +1,612 @@
-<cxp-layout-main [(sidebarOpen)]="sidebarOpen" [(sidebarWidth)]="sidebarWidth">
-  <!-- Header -->
+<cxp-layout-main
+  [(sidebarOpen)]="sidebarOpen"
+  [(sidebarWidth)]="sidebarWidth"
+>
+  <!-- ========================================
+       HEADER
+       ======================================== -->
+
   <div layout-header class="main-layout__header">
-    <cxp-icon-cyberxp-app class="cyberxp-logo" size="xs" fill="filled"></cxp-icon-cyberxp-app>
-    <label class="module-name cxp-title cxp-title-md"
-      >CXP-ATMS <span class="module-name-span"> - Account Management System</span> v.10.1.0</label
-    >
-    <header-apps-icon class="header-apps-icon"></header-apps-icon>
-    <!-- <cxp-icon-app-nav class="icon-app-menu" size="md" fill="filled"></cxp-icon-app-nav> -->
-    <!-- <cxp-icon-user-circle class="icon-user-nav" size="sm"></cxp-icon-user-circle> -->
-    <header-user-icon class="header-apps-icon"></header-user-icon>
+
+    <cxp-icon-app-nav
+      class="cyberxp-logo"
+      size="xs"
+      fill="filled"
+    ></cxp-icon-app-nav>
+
+    <label class="module-name cxp-title cxp-title-md">
+      CXP-ATMS
+      <span class="module-name-span">
+        - Account Management System
+      </span>
+      v.10.1.0
+    </label>
+
+    <header-apps-icon
+      class="header-apps-icon"
+    ></header-apps-icon>
+
+    <header-user-icon
+      class="header-apps-icon"
+    ></header-user-icon>
+
   </div>
 
-  <!-- Sidebar -->
+  <!-- ========================================
+       SIDEBAR
+       ======================================== -->
+
   <aside
     layout-sidebar
     class="main-layout__body__sidebar cxp-sidebar"
     [class.main-layout__body__sidebar--open]="sidebarOpen"
   >
-    <!-- Logo -->
+
+    <!-- COMPANY LOGO -->
+
     <div class="sidebar__header cxp-sidebar__header">
-      <img class="company-logo-img" src="assets/images/icons/spx-logo.png" alt="SPX Logo" />
+      <img
+        class="company-logo-img"
+        src="/assets/images/icons/spx-logo.png"
+        alt="SPX Logo"
+      />
     </div>
 
-    <!-- Navigation -->
-    <nav class="sidebar__menu">
-      <cxp-menu-sidebar-item route="/app/home">
-        <cxp-icon-home-nav start size="xs" fill="outline"></cxp-icon-home-nav>
-        <span label>Home</span>
+    <!-- ======================================
+         NAVIGATION
+         ====================================== -->
+
+    <nav class="sidebar__menu" aria-label="ATMS navigation">
+
+      <!-- ====================================
+           PERSONAL NAVIGATION
+           ==================================== -->
+
+      <!-- Home -->
+
+      <!-- Home -->
+
+<cxp-menu-sidebar-item
+  route="/app/home"
+  [exact]="true"
+>
+  <cxp-icon-home
+    start
+    size="md"
+    fill="outline"
+    [strokeWidth]="1.5"
+  ></cxp-icon-home>
+
+  <span label>Home</span>
+</cxp-menu-sidebar-item>
+
+      <!-- My Applications -->
+
+      <cxp-menu-sidebar-item
+        route="/app/my-applications"
+        [exact]="true"
+      >
+        <cxp-icon-my-applications
+          start
+          size="md"
+          fill="outline"
+          [strokeWidth]="1.5"
+        ></cxp-icon-my-applications>
+
+        <span label>My Applications</span>
       </cxp-menu-sidebar-item>
 
-      <cxp-menu-sidebar-item route="/app/accounts">
-        <cxp-icon-user-nav start size="xs" fill="outline"></cxp-icon-user-nav>
-        <span label>Account</span>
+      <!-- My Account -->
+
+      <cxp-menu-sidebar-item
+        route="/app/my-account"
+        [exact]="true"
+      >
+        <cxp-icon-my-account
+          start
+          size="md"
+          fill="outline"
+          [strokeWidth]="1.5"
+        ></cxp-icon-my-account>
+
+        <span label>My Account</span>
       </cxp-menu-sidebar-item>
+
+      <!-- My Security -->
+
+      <cxp-menu-sidebar-item
+        route="/app/my-security"
+        [exact]="true"
+      >
+        <cxp-icon-my-security
+          start
+          size="md"
+          fill="outline"
+          [strokeWidth]="1.5"
+        ></cxp-icon-my-security>
+
+        <span label>My Security</span>
+      </cxp-menu-sidebar-item>
+
+      <!-- ====================================
+           ADMINISTRATION
+           ==================================== -->
+
+      <div class="sidebar__section-label">
+        Administration
+      </div>
+
+      <!-- ====================================
+           01 - ACCOUNTS
+           ==================================== -->
+
+      <cxp-menu-sidebar-item
+        [group]="true"
+        [expanded]="false"
+        ariaLabel="Accounts"
+      >
+        <cxp-icon-accounts
+          start
+          size="md"
+          fill="outline"
+          [strokeWidth]="1.5"
+        ></cxp-icon-accounts>
+
+        <span label>Accounts</span>
+
+        <!-- User Accounts -->
+
+        <cxp-menu-sidebar-item
+          route="/app/accounts"
+          [exact]="true"
+        >
+          <cxp-icon-user-accounts
+            start
+            size="sm"
+            fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-user-accounts>
+
+          <span label>User Accounts</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- Create Account -->
+
+        <cxp-menu-sidebar-item
+          route="/app/accounts/create"
+          [exact]="true"
+        >
+          <cxp-icon-create-account
+            start
+            size="sm"
+            fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-create-account>
+
+          <span label>Create Account</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- Account History -->
+
+        <cxp-menu-sidebar-item
+          route="/app/accounts/history"
+        >
+          <cxp-icon-account-history
+            start
+            size="sm"
+            fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-account-history>
+
+          <span label>Account History</span>
+        </cxp-menu-sidebar-item>
+
+      </cxp-menu-sidebar-item>
+
+      <!-- ====================================
+           02 - AUTHENTICATION
+           ==================================== -->
+
+      <cxp-menu-sidebar-item
+        [group]="true"
+        [expanded]="false"
+        ariaLabel="Authentication"
+      >
+        <cxp-icon-authentication
+          start
+          size="md"
+          fill="outline"
+          [strokeWidth]="1.5"
+        ></cxp-icon-authentication>
+
+        <span label>Authentication</span>
+
+        <!-- Active Sessions -->
+
+        <cxp-menu-sidebar-item
+          route="/app/authentication/active-sessions"
+        >
+          <cxp-icon-active-sessions
+            start
+            size="sm"
+            fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-active-sessions>
+
+          <span label>Active Sessions</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- Authentication Logs -->
+
+        <cxp-menu-sidebar-item
+          route="/app/authentication/logs"
+        >
+          <cxp-icon-authentication-logs
+            start
+            size="sm"
+            fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-authentication-logs>
+
+          <span label>Authentication Logs</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- MFA Management -->
+
+        <cxp-menu-sidebar-item
+          route="/app/authentication/mfa"
+        >
+          <cxp-icon-mfa-management
+            start
+            size="sm"
+            fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-mfa-management>
+
+          <span label>MFA Management</span>
+        </cxp-menu-sidebar-item>
+
+      </cxp-menu-sidebar-item>
+
+      <!-- ====================================
+           03 - AUTHORIZATION
+           ==================================== -->
+
+      <cxp-menu-sidebar-item
+        [group]="true"
+        [expanded]="false"
+        ariaLabel="Authorization"
+      >
+        <cxp-icon-authorization
+          start
+          size="md"
+          fill="outline"
+          [strokeWidth]="1.5"
+        ></cxp-icon-authorization>
+
+        <span label>Authorization</span>
+
+        <!-- Roles -->
+
+        <cxp-menu-sidebar-item
+          route="/app/authorization/roles"
+        >
+          <cxp-icon-roles
+            start
+            size="sm"
+            fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-roles>
+
+          <span label>Roles</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- Permissions -->
+
+        <cxp-menu-sidebar-item
+          route="/app/authorization/permissions"
+        >
+          <cxp-icon-permissions
+            start
+            size="sm"
+            fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-permissions>
+
+          <span label>Permissions</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- User Roles -->
+
+        <cxp-menu-sidebar-item
+          route="/app/authorization/user-roles"
+        >
+          <cxp-icon-user-roles
+            start
+            size="sm"
+            fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-user-roles>
+
+          <span label>User Roles</span>
+        </cxp-menu-sidebar-item>
+
+      </cxp-menu-sidebar-item>
+
+      <!-- ====================================
+           04 - ACCESS MANAGEMENT
+           ==================================== -->
+
+      <cxp-menu-sidebar-item
+        [group]="true"
+        [expanded]="false"
+        ariaLabel="Access Management"
+      >
+        <cxp-icon-access-management
+          start
+          size="md"
+          fill="outline"
+          [strokeWidth]="1.5"
+        ></cxp-icon-access-management>
+
+        <span label>Access Management</span>
+
+        <!-- Application Access -->
+
+        <cxp-menu-sidebar-item
+          route="/app/access-management/application-access"
+        >
+          <cxp-icon-application-access
+            start
+            size="sm"
+            fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-application-access>
+
+          <span label>Application Access</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- Company Access -->
+
+        <cxp-menu-sidebar-item
+          route="/app/access-management/company-access"
+        >
+          <cxp-icon-company-access
+            start
+            size="sm"
+            fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-company-access>
+
+          <span label>Company Access</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- Effective Access -->
+
+        <cxp-menu-sidebar-item
+          route="/app/access-management/effective-access"
+        >
+          <cxp-icon-effective-access
+            start
+            size="sm"
+            fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-effective-access>
+
+          <span label>Effective Access</span>
+        </cxp-menu-sidebar-item>
+
+      </cxp-menu-sidebar-item>
+
+      <!-- ====================================
+           05 - APPLICATIONS
+           ==================================== -->
+
+      <cxp-menu-sidebar-item
+        [group]="true"
+        [expanded]="false"
+        ariaLabel="Applications"
+      >
+        <cxp-icon-applications
+          start
+          size="md"
+          fill="outline"
+          [strokeWidth]="1.5"
+        ></cxp-icon-applications>
+
+        <span label>Applications</span>
+
+        <!-- Application Registry -->
+
+        <cxp-menu-sidebar-item
+          route="/app/applications/registry"
+        >
+          <cxp-icon-application-registry
+            start
+            size="sm"
+            fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-application-registry>
+
+          <span label>Application Registry</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- Application Modules -->
+
+        <cxp-menu-sidebar-item
+          route="/app/applications/modules"
+        >
+          <cxp-icon-application-modules
+            start
+            size="sm"
+            fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-application-modules>
+
+          <span label>Application Modules</span>
+        </cxp-menu-sidebar-item>
+
+      </cxp-menu-sidebar-item>
+
+      <!-- ====================================
+           06 - AUDIT LOGS
+           ==================================== -->
+
+      <cxp-menu-sidebar-item
+        [group]="true"
+        [expanded]="false"
+        ariaLabel="Audit Logs"
+      >
+        <cxp-icon-audit-logs
+          start
+          size="md"
+          fill="outline"
+          [strokeWidth]="1.5"
+        ></cxp-icon-audit-logs>
+
+        <span label>Audit Logs</span>
+
+        <!-- Administrative Logs -->
+
+        <cxp-menu-sidebar-item
+          route="/app/audit-logs/administrative"
+        >
+          <cxp-icon-administrative-logs
+            start
+            size="sm"
+            fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-administrative-logs>
+
+          <span label>Administrative Logs</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- Security Events -->
+
+        <cxp-menu-sidebar-item
+          route="/app/audit-logs/security-events"
+        >
+          <cxp-icon-security-events
+            start
+            size="sm"
+            fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-security-events>
+
+          <span label>Security Events</span>
+        </cxp-menu-sidebar-item>
+
+      </cxp-menu-sidebar-item>
+
+      <!-- ====================================
+           07 - PLATFORM ADMINISTRATION
+           ==================================== -->
+
+      <cxp-menu-sidebar-item
+        [group]="true"
+        [expanded]="false"
+        ariaLabel="Platform Administration"
+      >
+        <cxp-icon-platform-administration
+          start
+          size="md"
+          fill="outline"
+          [strokeWidth]="1.5"
+        ></cxp-icon-platform-administration>
+
+        <span label>Platform Administration</span>
+
+        <!-- Administrators -->
+
+        <cxp-menu-sidebar-item
+          route="/app/platform-administration/administrators"
+        >
+          <cxp-icon-administrators
+            start
+            size="sm"
+            fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-administrators>
+
+          <span label>Administrators</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- Security Policies -->
+
+        <cxp-menu-sidebar-item
+          route="/app/platform-administration/security-policies"
+        >
+          <cxp-icon-security-policies
+            start
+            size="sm"
+            fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-security-policies>
+
+          <span label>Security Policies</span>
+        </cxp-menu-sidebar-item>
+
+        <!-- Platform Configuration -->
+
+        <cxp-menu-sidebar-item
+          route="/app/platform-administration/configuration"
+        >
+          <cxp-icon-platform-configuration
+            start
+            size="sm"
+            fill="outline"
+            [strokeWidth]="1.5"
+          ></cxp-icon-platform-configuration>
+
+          <span label>Platform Configuration</span>
+        </cxp-menu-sidebar-item>
+
+      </cxp-menu-sidebar-item>
+
     </nav>
 
-    <!-- Bottom Section -->
+    <!-- ======================================
+         SIDEBAR FOOTER
+         ====================================== -->
+
     <div class="sidebar__footer">
+
+      <!-- Settings -->
+
       <cxp-menu-sidebar-item route="/app/settings">
-        <cxp-icon-settings-nav start size="xs" fill="outline"></cxp-icon-settings-nav>
+        <cxp-icon-settings-nav
+          start
+          size="xs"
+          fill="outline"
+        ></cxp-icon-settings-nav>
+
         <span label>Settings</span>
       </cxp-menu-sidebar-item>
 
+      <!-- Logout - Pending IAM Integration -->
+
       <cxp-menu-sidebar-item route="/app/logouts">
-        <cxp-icon-logout-nav start size="xs" fill="outline"></cxp-icon-logout-nav>
+        <cxp-icon-logout-nav
+          start
+          size="xs"
+          fill="outline"
+        ></cxp-icon-logout-nav>
+
         <span label>Logout</span>
       </cxp-menu-sidebar-item>
+
     </div>
+
   </aside>
 
-  <!-- Footer -->
+  <!-- ========================================
+       FOOTER
+       ======================================== -->
+
   <div layout-footer>
-    <label class="main-layout__footer__notes">© 2026 CyberXP ERP. All rights reserved.</label>
+    <label class="main-layout__footer__notes">
+      © 2026 CyberXP ERP. All rights reserved.
+    </label>
   </div>
+
 </cxp-layout-main>

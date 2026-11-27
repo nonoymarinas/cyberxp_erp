@@ -1,4 +1,3 @@
-
 <!-- ========================================
      NEW JOB REQUEST
      ======================================== -->
@@ -34,6 +33,25 @@
        ====================================== -->
 
   <section class="cxp-section job-request-main-body">
+
+    <!-- ====================================
+         Reference Loading
+         ==================================== -->
+
+    @if (referencesLoading()) {
+
+      <div
+        class="job-request-loading"
+        role="status"
+      >
+        Loading job request references...
+      </div>
+
+    }
+
+    <!-- ====================================
+         Job Request Form
+         ==================================== -->
 
     <form
       class="job-request-form"
@@ -73,7 +91,7 @@
               formControlName="departmentId"
               size="sm"
               placeholder="Select Department"
-              [options]="departmentOptions"
+              [options]="departmentOptions()"
               [invalid]="isInvalid('departmentId')"
             ></cxp-input-select>
 
@@ -101,7 +119,7 @@
               formControlName="positionId"
               size="sm"
               placeholder="Select Job Position"
-              [options]="positionOptions"
+              [options]="positionOptions()"
               [invalid]="isInvalid('positionId')"
             ></cxp-input-select>
 
@@ -204,9 +222,15 @@
               formControlName="requestType"
               size="sm"
               placeholder="Select Request Type"
-              [options]="requestTypeOptions"
+              [options]="requestTypeOptions()"
               [invalid]="isInvalid('requestType')"
             ></cxp-input-select>
+
+            @if (isInvalid('requestType')) {
+              <span class="job-request-error">
+                Request type is required.
+              </span>
+            }
 
           </div>
 
@@ -226,9 +250,15 @@
               formControlName="priority"
               size="sm"
               placeholder="Select Priority"
-              [options]="priorityOptions"
+              [options]="priorityOptions()"
               [invalid]="isInvalid('priority')"
             ></cxp-input-select>
+
+            @if (isInvalid('priority')) {
+              <span class="job-request-error">
+                Priority is required.
+              </span>
+            }
 
           </div>
 
@@ -314,7 +344,10 @@
         <cxp-button
           size="sm"
           variant="secondary"
-          [disabled]="isSubmitting()"
+          [disabled]="
+            isSubmitting() ||
+            referencesLoading()
+          "
           (clicked)="reset()"
         >
           Reset
@@ -325,11 +358,17 @@
         <cxp-button
           size="sm"
           variant="secondary"
-          [disabled]="isSubmitting()"
+          [disabled]="
+            isSubmitting() ||
+            referencesLoading() ||
+            !referencesLoaded()
+          "
           (clicked)="submit()"
         >
 
-          @if (isSubmitting()) {
+          @if (referencesLoading()) {
+            Loading References...
+          } @else if (isSubmitting()) {
             Submitting...
           } @else {
             Submit Request

@@ -15,9 +15,9 @@ export const WORK_FLOW_STATUS_MOCK_DATA:
   // ======================================
 
   {
-    publicId: 'a4c8e219-7b35-4f60-9d12-6e8a3b71c504',
+    guid: 'a4c8e219-7b35-4f60-9d12-6e8a3b71c504',
     code: 'CLEAR',
-    referenceName: 'Clear',
+    name: 'Clear',
   },
 
   // ======================================
@@ -25,9 +25,9 @@ export const WORK_FLOW_STATUS_MOCK_DATA:
   // ======================================
 
   {
-    publicId: 'd9f2b613-5c84-4a70-b126-8e3d9c45f207',
+    guid: 'd9f2b613-5c84-4a70-b126-8e3d9c45f207',
     code: 'REVIEW',
-    referenceName: 'Review Required',
+    name: 'Review Required',
   },
 
   // ======================================
@@ -35,9 +35,9 @@ export const WORK_FLOW_STATUS_MOCK_DATA:
   // ======================================
 
   {
-    publicId: 'f3a7c821-9d46-4e50-a832-2b6d1f94c705',
+    guid: 'f3a7c821-9d46-4e50-a832-2b6d1f94c705',
     code: 'HOLD',
-    referenceName: 'On Hold',
+    name: 'On Hold',
   },
 
 ];

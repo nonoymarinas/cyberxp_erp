@@ -269,6 +269,32 @@
           "builder": "@angular/build:unit-test"
         }
       }
+    },
+    "cyberxp-iam": {
+      "projectType": "library",
+      "root": "projects/cyberxp-iam",
+      "sourceRoot": "projects/cyberxp-iam/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/cyberxp-iam/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/cyberxp-iam/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/cyberxp-iam/tsconfig.spec.json"
+          }
+        }
+      }
     }
   }
 }

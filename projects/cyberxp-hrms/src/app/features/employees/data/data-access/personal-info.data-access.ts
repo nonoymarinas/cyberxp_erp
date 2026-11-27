@@ -75,8 +75,8 @@ export class PersonalInfoDataAccess {
 
   private mapReferenceItems(items: ReferenceItemDto[]): ReferenceItem<string>[] {
     return items.map((item) => ({
-      id: item.publicId,
-      name: item.referenceName.toUpperCase(),
+      id: item.guid,
+      name: item.name.toUpperCase(),
       code:null,
       disabled:false
     }));

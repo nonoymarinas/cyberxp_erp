@@ -4,6 +4,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
+      "cyberxp-iam": ["./dist/cyberxp-iam"],
       "cyberxp-styles": ["./dist/cyberxp-styles"],
       "cyberxp-ui": ["./dist/cyberxp-ui"]
     },
@@ -48,6 +49,12 @@
     },
     {
       "path": "./projects/cyberxp-hrms/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/cyberxp-iam/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/cyberxp-iam/tsconfig.spec.json"
     }
   ]
 }
